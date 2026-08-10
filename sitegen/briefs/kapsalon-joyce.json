@@ -1,0 +1,28 @@
+{
+  "slug": "kapsalon-joyce",
+  "business_name": "Kapsalon Joyce",
+  "sector": "kapper",
+  "category": "Kapsalon voor dames, heren & kinderen",
+  "tagline": "Meer dan 25 jaar vakmanschap, met tijd voor elke klant",
+  "address": "Beliestraat 99, 2910 Essen",
+  "phone": "0483 04 04 31",
+  "appointment_note": "Op afspraak — bij voorkeur telefonisch",
+  "hours": [
+    ["Maandag", "8:30 – 15:30"],
+    ["Dinsdag", "8:30 – 15:30"],
+    ["Woensdag", "Gesloten"],
+    ["Donderdag", "8:30 – 17:30"],
+    ["Vrijdag", "8:30 – 15:30"],
+    ["Zaterdag", "8:00 – 15:00"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Meer dan 25 jaar ervaring in het kappersvak",
+    "Knippen en kleuren voor dames, heren en kinderen",
+    "Feestkapsels en opsteekkapsels op maat",
+    "Persoonlijke, gezellige sfeer met tijd voor elke klant"
+  ],
+  "about": "Bij Kapsalon Joyce staat persoonlijke aandacht voorop. Uitbaatster Joyce bouwde in meer dan 25 jaar een ruime ervaring op in knippen, kleuren en feestkapsels, en ontvangt klanten in een gezellige, laagdrempelige sfeer waar iedereen welkom is. Afspraken buiten de gewone uren zijn in overleg mogelijk voor speciale gelegenheden.",
+  "cta_text": "Maak een afspraak",
+  "accent": "#7a8c6b"
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "de-heerlyckheyt",
+  "sector": "restaurant",
+  "business_name": "Restaurant De Heerlyckheyt",
+  "category": "Fine dining · modern-klassieke keuken",
+  "tagline": "Verfijnd tafelen onder negentiende-eeuwse plafonds",
+  "address": "Nieuwstraat 107, B-2910 Essen",
+  "phone": "+32 (0)3 689 02 25",
+  "email": "info@deheerlyckheyt.be",
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "17:30 – 21:00"],
+    ["Woensdag", "17:30 – 21:00"],
+    ["Donderdag", "17:30 – 21:00"],
+    ["Vrijdag", "12:00 – 15:00 en 17:30 – 21:00"],
+    ["Zaterdag", "17:30 – 21:00"],
+    ["Zondag", "12:00 – 15:00 en 17:30 – 21:00"]
+  ],
+  "highlights": [
+    "Vaste menukaart in modern-klassieke stijl",
+    "Seizoensgebonden suggesties, afgestemd op wat de tuin en de markt geven",
+    "Wijnkaart zorgvuldig samengesteld bij elk gerecht",
+    "À la carte tafelen of afhalen, ook mogelijk",
+    "Recepties en feesten op maat, in overleg met de zaak"
+  ],
+  "about": "In een statig negentiende-eeuws pand — ooit een sigarenfabriek — voert De Heerlyckheyt sinds 2014 een eigen, persoonlijke keuken. Hoge plafonds met ornamenten, een gang in marmer en houten lambrisering geven de zaak haar karakter. De kaart is modern-klassiek: vertrouwde technieken, eerlijke producten en een wijnkeuze die telkens is afgestemd op het menu van het moment.",
+  "wine_note": "De wijnkaart wordt per seizoen opnieuw samengesteld, steeds in functie van de gerechten op de kaart.",
+  "events_note": "Voor recepties, feesten en koffietafels denkt de zaak graag mee over een arrangement op maat — een gesprek vooraf is welkom.",
+  "cta_text": "Reserveer uw tafel"
+}

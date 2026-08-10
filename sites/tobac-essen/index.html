@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slagerij-Bakkerij Tobac — Slagerij, bakkerij &amp; traiteur</title>
+<meta name="description" content="Vers vlees, huisbereide salades en dagelijks brood in Essen. Moerkantsebaan 291b, 2910 Essen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wood: #3b271b;
+    --wood-deep: #241812;
+    --meat: #8a2e2e;
+    --meat-deep: #6c2222;
+    --cream: #f6ece0;
+    --marble: #ead9c2;
+    --line: #ddc9ab;
+    --ink-soft: #5c4a3a;
+    --font-display: 'Zilla Slab', serif;
+    --font-body: 'Work Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--wood-deep);
+    line-height: 1.5;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  header.top {
+    padding: 20px 0;
+    background: var(--wood-deep);
+  }
+  header.top .wrap {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+  .top-cta {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: var(--meat);
+    color: var(--cream);
+    padding: 10px 18px;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+
+  .hero {
+    padding: 68px 0 60px;
+    background:
+      linear-gradient(180deg, rgba(59,39,27,0.04) 0%, rgba(59,39,27,0) 40%),
+      var(--marble);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--meat);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+    color: var(--wood-deep);
+  }
+  .tagline {
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    max-width: 44ch;
+    margin-bottom: 22px;
+  }
+  .note {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    background: rgba(138,46,46,0.08);
+    border-left: 3px solid var(--meat);
+    padding: 10px 14px;
+    margin-bottom: 22px;
+    max-width: 44ch;
+  }
+  .rating {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 26px;
+    font-size: 0.92rem;
+  }
+  .stars { color: var(--meat); letter-spacing: 2px; }
+  .rating-text { color: var(--ink-soft); }
+  .hero-cta {
+    display: inline-block;
+    background: var(--meat);
+    color: var(--cream);
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 0.98rem;
+  }
+
+  .stamp {
+    justify-self: end;
+    width: 190px; height: 190px;
+    background: var(--wood-deep);
+    color: var(--cream);
+    border: 2px solid var(--meat);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    transform: rotate(4deg);
+    font-family: var(--font-display);
+    padding: 18px;
+  }
+  .stamp .cleaver { color: var(--meat); margin-bottom: 8px; }
+  .stamp .small { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--marble); font-weight: 600; margin-bottom: 4px; }
+  .stamp .big { font-size: 1.35rem; font-weight: 700; line-height: 1.1; }
+
+  section { padding: 56px 0; }
+  .about .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--wood-deep);
+  }
+  .about p { color: var(--ink-soft); font-size: 1.02rem; }
+  ul.highlights { list-style: none; }
+  ul.highlights li {
+    display: flex; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.98rem;
+  }
+  .mark { color: var(--meat); font-weight: 700; }
+
+  .specialties { background: var(--wood-deep); color: var(--cream); }
+  .specialties h2 { color: var(--cream); }
+  ul.spec-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  ul.spec-list li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 1rem;
+    padding: 12px 14px;
+    background: rgba(246,236,224,0.06);
+    border-left: 4px solid var(--meat);
+  }
+  .cut {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--meat);
+    flex-shrink: 0;
+  }
+
+  .info { background: var(--marble); }
+  .info .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .hours-row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.94rem;
+  }
+  .hours-row.closed span:last-child { color: var(--meat); font-weight: 600; }
+  .contact-block p { margin-bottom: 10px; color: var(--ink-soft); }
+  .contact-block a.map-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-weight: 600;
+    color: var(--meat);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+
+  footer {
+    padding: 28px 0;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 760px) {
+    .hero .wrap, .about .wrap, .info .wrap { grid-template-columns: 1fr; }
+    .stamp { justify-self: start; margin-top: 12px; }
+    ul.spec-list { grid-template-columns: 1fr; }
+  }
+
+  a:focus-visible, .hero-cta:focus-visible { outline: 2px solid var(--meat); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Slagerij-Bakkerij Tobac</div>
+    <a class="top-cta" href="tel:03 677 34 10">Bel de winkel</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Slagerij, bakkerij &amp; traiteur</div>
+      <h1>Vers vlees, huisbereide salades en dagelijks brood in Essen</h1>
+      <p class="tagline">Een vertrouwde naam in Essen waar slagerij en bakkerij samenkomen. De nadruk ligt op vers vlees, vleeswaren en huisbereide salades — aangevuld met dagelijks gebakken brood en gebak, zodat je bij Tobac in één stop terecht kan voor de volledige boodschappenlijst.</p>
+      <p class="note">Ook een tweede winkel in Essen Centrum, Nieuwstraat 108 — tel. 03 235 86 93.</p>
+      
+      <a class="hero-cta" href="#info">Bestel online of kom langs in de winkel</a>
+    </div>
+    <div class="stamp">
+      <span class="cleaver" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="34" height="34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 40 L44 14 C50 10 58 14 58 22 C58 28 54 32 48 34 L14 50 Z" fill="currentColor"/>
+          <rect x="4" y="46" width="20" height="6" rx="2" fill="currentColor"/>
+        </svg>
+      </span>
+      <div class="small">Ambachtelijke</div>
+      <div class="big">Slagerij</div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap">
+    <div>
+      <h2>Waarom Slagerij-Bakkerij Tobac</h2>
+      <p>Een vertrouwde naam in Essen waar slagerij en bakkerij samenkomen. De nadruk ligt op vers vlees, vleeswaren en huisbereide salades — aangevuld met dagelijks gebakken brood en gebak, zodat je bij Tobac in één stop terecht kan voor de volledige boodschappenlijst.</p>
+    </div>
+    <div>
+      <h2>Wat je vindt</h2>
+      <ul class="highlights">
+        <li><span class="mark">▸</span>Ruim assortiment vers vlees en charcuterie</li>
+<li><span class="mark">▸</span>Huisgemaakte salades, dagelijks bereid</li>
+<li><span class="mark">▸</span>Bereide gerechten en barbecueselectie</li>
+<li><span class="mark">▸</span>Schotels en buffetten voor feesten, op bestelling</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="specialties">
+  <div class="wrap">
+    <h2>Ons assortiment</h2>
+    <ul class="spec-list">
+      <li><span class="cut"></span>Rund-, kalfs- en varkensvlees</li>
+<li><span class="cut"></span>Gevogelte</li>
+<li><span class="cut"></span>Charcuterie en vleeswaren</li>
+<li><span class="cut"></span>Huisbereide salades</li>
+<li><span class="cut"></span>Feestschotels en buffetten</li>
+<li><span class="cut"></span>Ook dagelijks vers brood en gebak</li>
+    </ul>
+  </div>
+</section>
+
+<section class="info" id="info">
+  <div class="wrap">
+    <div>
+      <h2>Openingsuren</h2>
+      <div class="hours-row "><span>Maandag</span><span>7:00 – 18:00</span></div>
+<div class="hours-row "><span>Dinsdag</span><span>7:00 – 18:00</span></div>
+<div class="hours-row "><span>Woensdag</span><span>7:00 – 18:00</span></div>
+<div class="hours-row closed"><span>Donderdag</span><span>Gesloten</span></div>
+<div class="hours-row "><span>Vrijdag</span><span>7:00 – 18:00</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>8:00 – 18:00</span></div>
+<div class="hours-row "><span>Zondag</span><span>7:30 – 13:00</span></div>
+    </div>
+    <div class="contact-block">
+      <h2>Bezoek ons</h2>
+      <p>Moerkantsebaan 291b, 2910 Essen</p>
+      <p>03 677 34 10</p>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Moerkantsebaan+291b,+2910+Essen" target="_blank" rel="noopener">Bekijk op kaart →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Prototype gebouwd voor Slagerij-Bakkerij Tobac · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+</footer>
+
+</body>
+</html>

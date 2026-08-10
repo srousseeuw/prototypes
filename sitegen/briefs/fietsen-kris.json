@@ -1,0 +1,36 @@
+{
+  "slug": "fietsen-kris",
+  "business_name": "Fietsen Kris",
+  "sector": "fietsenwinkel",
+  "category": "Fietsenwinkel & herstelatelier",
+  "tagline": "Uw fiets, vakkundig hersteld en verkocht in Essen",
+  "address": "Heikantstraat 125, 2910 Essen",
+  "phone": "+32 3 677 12 14",
+  "email": "info@fietsenkris.be",
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "9:00 – 12:00, 13:30 – 18:00"],
+    ["Woensdag", "9:00 – 12:00, 13:30 – 18:00"],
+    ["Donderdag", "9:00 – 12:00, 13:30 – 18:00"],
+    ["Vrijdag", "9:00 – 12:00, 13:30 – 18:00"],
+    ["Zaterdag", "9:00 – 12:00, 13:30 – 16:00"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Ruim aanbod kwaliteitsfietsen: stadsfietsen en trekking",
+    "Herstellingen door een ervaren vakman",
+    "Persoonlijk advies bij aankoop, geen opgedrongen praatjes",
+    "Buurtwinkel met korte lijnen en snelle service"
+  ],
+  "services": [
+    "Verkoop stadsfietsen",
+    "Verkoop trekkingfietsen",
+    "Onderhoud & herstellingen",
+    "Banden en onderdelen",
+    "Fietsadvies op maat",
+    "Testritten mogelijk"
+  ],
+  "about": "Fietsen Kris is al jaren een vertrouwd adres in Essen voor wie een degelijke fiets zoekt of gewoon snel geholpen wil worden met een herstelling. De winkel focust op kwaliteitsfietsen — van stevige stadsfietsen tot trekkingmodellen voor langere ritten — en op eerlijk, persoonlijk advies aan de toonbank.",
+  "cta_text": "Kom langs in de winkel",
+  "accent": "#c6ff2f"
+}

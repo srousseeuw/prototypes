@@ -1,0 +1,28 @@
+{
+  "slug": "de-velo",
+  "sector": "cafe",
+  "business_name": "De Vélo",
+  "category": "Café, bistro & ontmoetingsplek",
+  "tagline": "Gezellig tafelen op het terras, met zicht op de speeltuin",
+  "address": "Maststraat 41, 2910 Essen",
+  "phone": "+32 3 501 16 24",
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "Gesloten"],
+    ["Woensdag", "11:30 – 22:00"],
+    ["Donderdag", "11:30 – 22:00"],
+    ["Vrijdag", "11:30 – 22:00"],
+    ["Zaterdag", "13:00 – 22:00"],
+    ["Zondag", "11:00 – 22:00"]
+  ],
+  "highlights": [
+    "Terras met vrij zicht op de speeltuin — ideaal voor gezinnen",
+    "Ruime bierkaart naast koffie en huisgemaakte thee",
+    "Van lunch en pannenkoeken tot een volwaardig diner",
+    "Genoemd naar Henri Calmeyn, een vroege fietsliefhebber uit de buurt"
+  ],
+  "about": "De Vélo is een ontmoetingsplaats in Essen waar warmte en gezelligheid vooropstaan. Terwijl de kinderen spelen in de aangrenzende speeltuin, geniet je op het terras of binnen van een koffie, een streekbiertje of een volledige maaltijd — van lunch tot diner.",
+  "cta_text": "Reserveer een tafel",
+  "accent": "#7a8f5c",
+  "signature_word": "Terras & speeltuin"
+}

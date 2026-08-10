@@ -59,7 +59,7 @@ def render(brief: dict) -> str:
     background: var(--navy);
   }}
   header.top .wrap {{
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
   }}
   .brand {{
     font-family: var(--font-display);

@@ -1,0 +1,38 @@
+{
+  "slug": "nxt-gear-essen",
+  "business_name": "NXT Gear Essen",
+  "sector": "fietsenwinkel",
+  "category": "Specialized Brand Store",
+  "tagline": "Racefietsen, mountainbikes en gravel — met het vak in de vingers",
+  "address": "Nieuwstraat 59-61, 2910 Essen",
+  "phone": "+32 3 667 57 74",
+  "email": "info@nxtgear.be",
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "9:00 – 12:30, 13:30 – 18:00"],
+    ["Woensdag", "9:00 – 12:30, 13:30 – 18:00"],
+    ["Donderdag", "9:00 – 12:30, 13:30 – 18:00"],
+    ["Vrijdag", "9:00 – 12:30, 13:30 – 18:00"],
+    ["Zaterdag", "9:00 – 17:00"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Officiële Specialized Brand Store",
+    "Ruim gamma racefietsen, mountainbikes, e-bikes en gravelfietsen",
+    "Bikefitting en professioneel onderhoud",
+    "Jarenlange lokale ervaring, decennia in de fietswereld van Essen"
+  ],
+  "services": [
+    "Verkoop racefietsen",
+    "Verkoop mountainbikes",
+    "Verkoop e-bikes",
+    "Verkoop gravelfietsen",
+    "Bikefitting",
+    "Onderhoud & herstellingen",
+    "Fietsleasing",
+    "Kleding & accessoires"
+  ],
+  "about": "NXT Gear Essen bouwt voort op een lang lokaal verhaal: de zaak was jarenlang bekend als Fietsen Schenk en later als Schenk E-bike Center, en groeide onder nieuwe eigenaars uit tot NXT Gear — vandaag een erkende Specialized Brand Store. Wie hier binnenstapt vindt een uitgebreid gamma race-, mountain-, gravel- en e-bikes, aangevuld met bikefitting en vakkundig onderhoud door een team dat de fietswereld van Essen door en door kent.",
+  "cta_text": "Plan een bezoek aan de winkel",
+  "accent": "#ff5a1f"
+}

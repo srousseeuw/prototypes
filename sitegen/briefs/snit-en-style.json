@@ -1,0 +1,28 @@
+{
+  "slug": "snit-en-style",
+  "business_name": "Snit & Style",
+  "sector": "kapper",
+  "category": "Haarstudio voor dames, heren & kinderen",
+  "tagline": "Al meer dan 15 jaar een vertrouwd adres in Essen",
+  "address": "Watermolenstraat 8, 2910 Essen",
+  "phone": "03 677 03 80",
+  "appointment_note": "Uitsluitend op afspraak — telefonisch te boeken",
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "Enkel op afspraak"],
+    ["Woensdag", "Enkel op afspraak"],
+    ["Donderdag", "Enkel op afspraak"],
+    ["Vrijdag", "Enkel op afspraak"],
+    ["Zaterdag", "Enkel op afspraak"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Kapsels voor dames, heren en kinderen, van klassiek tot modern",
+    "Kleuradvies door een ervaren team",
+    "Verzorgingsproducten en accessoires in de winkel",
+    "Rustige, verzorgde salon met persoonlijke aandacht"
+  ],
+  "about": "Snit & Style is al meer dan vijftien jaar een begrip in Essen. In een rustige, verzorgde omgeving neemt het team de tijd voor elke klant, van een frisse knipbeurt tot een volledige kleurbehandeling. Afspraken worden uitsluitend telefonisch geboekt, zodat er altijd voldoende tijd en aandacht is voor wie langskomt.",
+  "cta_text": "Bel voor een afspraak",
+  "accent": "#9c6b4f"
+}

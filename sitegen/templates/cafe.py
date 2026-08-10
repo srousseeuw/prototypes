@@ -7,11 +7,13 @@ def render(brief: dict) -> str:
     address = esc(brief.get("address", ""))
     phone = esc(brief.get("phone", ""))
     about = esc(brief.get("about", ""))
-    cta = esc(brief.get("cta_text", "Neem contact op"))
+    cta = esc(brief.get("cta_text", "Kom gezellig langs"))
+    accent = esc(brief.get("accent", "#b5793a"))
+    signature = esc(brief.get("signature_word", "Proost"))
     rating = brief.get("rating")
     rating_count = brief.get("rating_count")
     hours_html = build_hours_rows(brief.get("hours", []))
-    highlights_html = build_highlights(brief.get("highlights", []))
+    highlights_html = build_highlights(brief.get("highlights", []), mark="🍺")
     maps_q = _maps_query(address)
 
     rating_block = ""
@@ -29,55 +31,68 @@ def render(brief: dict) -> str:
 <title>{name} — {category}</title>
 <meta name="description" content="{tagline}. {address}.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {{
-    --crust: #2b1c14;
-    --crumb: #fbf3e7;
-    --jam: #b23a2e;
-    --gold: #d9a441;
-    --line: #e7d9c3;
-    --ink-soft: #6b5a48;
-    --font-display: 'Fraunces', serif;
-    --font-body: 'Inter', sans-serif;
+    --oak: #241712;
+    --oak-deep: #17100c;
+    --stout: #3a271c;
+    --foam: #f4ead9;
+    --paper: #efe3cd;
+    --brass: {accent};
+    --brass-bright: #d9a94f;
+    --line: rgba(244,234,217,0.14);
+    --line-dark: rgba(36,23,18,0.14);
+    --ink-soft: #5a4a3c;
+    --font-display: 'Bitter', serif;
+    --font-body: 'Karla', sans-serif;
   }}
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
   body {{
     font-family: var(--font-body);
-    background: var(--crumb);
-    color: var(--crust);
-    line-height: 1.5;
+    background: var(--paper);
+    color: var(--oak);
+    line-height: 1.55;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(36,23,18,0.025) 0 2px, transparent 2px 26px);
   }}
   a {{ color: inherit; }}
   .wrap {{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }}
 
   header.top {{
-    padding: 20px 0;
-    border-bottom: 1px solid var(--line);
+    padding: 18px 0;
+    background: var(--oak);
+    border-bottom: 3px solid var(--brass);
   }}
   header.top .wrap {{
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
   }}
   .brand {{
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 0.01em;
+    color: var(--foam);
   }}
+  .brand span {{ color: var(--brass-bright); }}
   .top-cta {{
     font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 0.9rem;
-    background: var(--crust);
-    color: var(--crumb);
-    padding: 10px 18px;
-    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    background: var(--brass);
+    color: var(--oak-deep);
+    padding: 10px 20px;
+    border-radius: 2px;
     text-decoration: none;
+    letter-spacing: 0.02em;
   }}
 
   .hero {{
-    padding: 72px 0 56px;
-    position: relative;
+    padding: 68px 0 60px;
+    background:
+      radial-gradient(ellipse at 80% 0%, rgba(217,169,79,0.10), transparent 55%),
+      linear-gradient(180deg, var(--oak) 0%, var(--stout) 100%);
+    color: var(--foam);
   }}
   .hero .wrap {{
     display: grid;
@@ -86,62 +101,64 @@ def render(brief: dict) -> str:
     align-items: center;
   }}
   .eyebrow {{
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--jam);
-    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--brass-bright);
+    font-weight: 700;
     margin-bottom: 14px;
   }}
   h1 {{
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-size: clamp(2.3rem, 5vw, 3.4rem);
     font-weight: 700;
-    line-height: 1.05;
+    line-height: 1.08;
     letter-spacing: -0.01em;
     margin-bottom: 18px;
   }}
   .tagline {{
-    font-size: 1.15rem;
-    color: var(--ink-soft);
+    font-size: 1.1rem;
+    color: rgba(244,234,217,0.82);
     max-width: 42ch;
-    margin-bottom: 28px;
+    margin-bottom: 26px;
   }}
   .rating {{
     display: flex; align-items: center; gap: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 26px;
     font-size: 0.92rem;
   }}
-  .stars {{ color: var(--gold); letter-spacing: 2px; }}
-  .rating-text {{ color: var(--ink-soft); }}
+  .stars {{ color: var(--brass-bright); letter-spacing: 2px; }}
+  .rating-text {{ color: rgba(244,234,217,0.7); }}
   .hero-cta {{
     display: inline-block;
-    background: var(--jam);
-    color: var(--crumb);
-    font-weight: 600;
-    padding: 14px 28px;
-    border-radius: 999px;
+    background: var(--brass);
+    color: var(--oak-deep);
+    font-weight: 700;
+    padding: 14px 30px;
+    border-radius: 2px;
     text-decoration: none;
     font-size: 0.98rem;
+    letter-spacing: 0.02em;
   }}
 
-  .stamp {{
+  .tap {{
     justify-self: end;
-    width: 190px; height: 190px;
-    border: 2px solid var(--crust);
+    width: 200px; height: 200px;
     border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--stout), var(--oak-deep) 70%);
+    border: 3px solid var(--brass);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     text-align: center;
-    transform: rotate(-6deg);
     font-family: var(--font-display);
-    padding: 20px;
+    padding: 18px;
+    box-shadow: inset 0 0 0 6px rgba(217,169,79,0.08);
   }}
-  .stamp .small {{ font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--jam); font-weight: 600; margin-bottom: 6px; }}
-  .stamp .big {{ font-size: 1.5rem; font-weight: 700; line-height: 1.1; }}
+  .tap .small {{ font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--brass-bright); font-weight: 700; margin-bottom: 8px; }}
+  .tap .big {{ font-size: 1.5rem; font-weight: 700; line-height: 1.15; color: var(--foam); }}
 
   section {{ padding: 56px 0; }}
-  .about {{ border-top: 1px solid var(--line); }}
+  .about {{ border-top: 1px solid var(--line-dark); }}
   .about .wrap {{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -149,40 +166,40 @@ def render(brief: dict) -> str:
   }}
   h2 {{
     font-family: var(--font-display);
-    font-size: 1.8rem;
-    font-weight: 600;
+    font-size: 1.7rem;
+    font-weight: 700;
     margin-bottom: 16px;
   }}
   .about p {{ color: var(--ink-soft); font-size: 1.02rem; }}
   ul.highlights {{ list-style: none; }}
   ul.highlights li {{
-    display: flex; gap: 10px;
+    display: flex; gap: 12px; align-items: baseline;
     padding: 10px 0;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--line-dark);
     font-size: 0.98rem;
   }}
-  .mark {{ color: var(--jam); font-weight: 700; }}
+  .mark {{ font-weight: 700; }}
 
-  .info {{ background: var(--crust); color: var(--crumb); }}
+  .info {{ background: var(--oak); color: var(--foam); }}
   .info .wrap {{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
   }}
-  .info h2 {{ color: var(--crumb); }}
+  .info h2 {{ color: var(--foam); }}
   .hours-row {{
     display: flex; justify-content: space-between;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(251,243,231,0.15);
+    border-bottom: 1px solid var(--line);
     font-size: 0.94rem;
   }}
-  .hours-row.closed span:last-child {{ color: var(--gold); }}
-  .contact-block p {{ margin-bottom: 10px; color: rgba(251,243,231,0.85); }}
+  .hours-row.closed span:last-child {{ color: var(--brass-bright); }}
+  .contact-block p {{ margin-bottom: 10px; color: rgba(244,234,217,0.82); }}
   .contact-block a.map-link {{
     display: inline-block;
     margin-top: 14px;
-    font-weight: 600;
-    color: var(--gold);
+    font-weight: 700;
+    color: var(--brass-bright);
     text-decoration: none;
     font-size: 0.92rem;
   }}
@@ -192,22 +209,23 @@ def render(brief: dict) -> str:
     text-align: center;
     font-size: 0.82rem;
     color: var(--ink-soft);
+    border-top: 1px solid var(--line-dark);
   }}
 
   @media (max-width: 760px) {{
     .hero .wrap, .about .wrap, .info .wrap {{ grid-template-columns: 1fr; }}
-    .stamp {{ justify-self: start; margin-top: 12px; }}
+    .tap {{ justify-self: start; margin-top: 12px; }}
   }}
 
-  a:focus-visible, .hero-cta:focus-visible {{ outline: 2px solid var(--jam); outline-offset: 3px; }}
+  a:focus-visible, .hero-cta:focus-visible {{ outline: 2px solid var(--brass-bright); outline-offset: 3px; }}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <div class="brand">{name}</div>
-    <a class="top-cta" href="tel:{phone}">Bel de winkel</a>
+    <div class="brand">{name} <span>·</span></div>
+    <a class="top-cta" href="tel:{phone}">Bel het café</a>
   </div>
 </header>
 
@@ -220,9 +238,9 @@ def render(brief: dict) -> str:
       {rating_block}
       <a class="hero-cta" href="#info">{cta}</a>
     </div>
-    <div class="stamp">
-      <div class="small">Vers gebakken</div>
-      <div class="big">Elke dag<br>opnieuw</div>
+    <div class="tap">
+      <div class="small">Op het terras</div>
+      <div class="big">{signature}</div>
     </div>
   </div>
 </section>
@@ -234,7 +252,7 @@ def render(brief: dict) -> str:
       <p>{about}</p>
     </div>
     <div>
-      <h2>Wat je vindt</h2>
+      <h2>Wat je er vindt</h2>
       <ul class="highlights">
         {highlights_html}
       </ul>
@@ -249,7 +267,7 @@ def render(brief: dict) -> str:
       {hours_html}
     </div>
     <div class="contact-block">
-      <h2>Bezoek ons</h2>
+      <h2>Kom langs</h2>
       <p>{address}</p>
       <p>{phone}</p>
       <a class="map-link" href="https://www.google.com/maps/search/?api=1&query={maps_q}" target="_blank" rel="noopener">Bekijk op kaart →</a>

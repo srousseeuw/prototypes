@@ -7,18 +7,22 @@ def render(brief: dict) -> str:
     address = esc(brief.get("address", ""))
     phone = esc(brief.get("phone", ""))
     about = esc(brief.get("about", ""))
-    cta = esc(brief.get("cta_text", "Neem contact op"))
-    rating = brief.get("rating")
-    rating_count = brief.get("rating_count")
+    cta = esc(brief.get("cta_text", "Maak een afspraak"))
+    emergency_note = esc(brief.get("emergency_note", ""))
+    vets = brief.get("team_size_vets")
+    assistants = brief.get("team_size_assistants")
     hours_html = build_hours_rows(brief.get("hours", []))
-    highlights_html = build_highlights(brief.get("highlights", []))
+    highlights_html = build_highlights(brief.get("highlights", []), mark="✓")
     maps_q = _maps_query(address)
 
-    rating_block = ""
-    if rating:
-        rating_block = f'''<div class="rating">
-            <span class="stars">★★★★★</span>
-            <span class="rating-text">{rating} / 5 — {rating_count or ""} beoordelingen</span>
+    team_block = ""
+    if vets or assistants:
+        team_block = f'''<div class="team-badge">
+            <div class="team-num">{vets or ""}</div>
+            <div class="team-label">dierenartsen</div>
+            <div class="team-divider"></div>
+            <div class="team-num">{assistants or ""}</div>
+            <div class="team-label">assistenten</div>
         </div>'''
 
     return f"""<!DOCTYPE html>
@@ -29,24 +33,26 @@ def render(brief: dict) -> str:
 <title>{name} — {category}</title>
 <meta name="description" content="{tagline}. {address}.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {{
-    --crust: #2b1c14;
-    --crumb: #fbf3e7;
-    --jam: #b23a2e;
-    --gold: #d9a441;
-    --line: #e7d9c3;
-    --ink-soft: #6b5a48;
-    --font-display: 'Fraunces', serif;
+    --sage: #4d7268;
+    --sage-deep: #2f4a44;
+    --mist: #eef3f1;
+    --paper: #fbfcfb;
+    --clay: #c98a5e;
+    --line: #dce6e2;
+    --ink: #223330;
+    --ink-soft: #5a6b66;
+    --font-display: 'Source Serif 4', serif;
     --font-body: 'Inter', sans-serif;
   }}
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
   body {{
     font-family: var(--font-body);
-    background: var(--crumb);
-    color: var(--crust);
-    line-height: 1.5;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
   }}
   a {{ color: inherit; }}
   .wrap {{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }}
@@ -61,87 +67,106 @@ def render(brief: dict) -> str:
   .brand {{
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.25rem;
-    letter-spacing: -0.01em;
+    font-size: 1.2rem;
+    color: var(--sage-deep);
   }}
   .top-cta {{
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 0.9rem;
-    background: var(--crust);
-    color: var(--crumb);
+    font-size: 0.88rem;
+    background: var(--sage-deep);
+    color: #fff;
     padding: 10px 18px;
-    border-radius: 999px;
+    border-radius: 6px;
     text-decoration: none;
   }}
 
   .hero {{
-    padding: 72px 0 56px;
-    position: relative;
+    padding: 68px 0 60px;
+    background: var(--mist);
   }}
   .hero .wrap {{
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.15fr 0.85fr;
     gap: 48px;
     align-items: center;
   }}
   .eyebrow {{
     font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--jam);
+    letter-spacing: 0.12em;
+    color: var(--sage);
     font-weight: 600;
     margin-bottom: 14px;
   }}
   h1 {{
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
+    font-size: clamp(2.2rem, 4.6vw, 3.2rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--sage-deep);
     margin-bottom: 18px;
   }}
   .tagline {{
-    font-size: 1.15rem;
+    font-size: 1.08rem;
     color: var(--ink-soft);
-    max-width: 42ch;
+    max-width: 44ch;
+    margin-bottom: 22px;
+  }}
+  .emergency {{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--clay);
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
     margin-bottom: 28px;
   }}
-  .rating {{
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 28px;
-    font-size: 0.92rem;
-  }}
-  .stars {{ color: var(--gold); letter-spacing: 2px; }}
-  .rating-text {{ color: var(--ink-soft); }}
   .hero-cta {{
     display: inline-block;
-    background: var(--jam);
-    color: var(--crumb);
+    background: var(--sage);
+    color: #fff;
     font-weight: 600;
     padding: 14px 28px;
-    border-radius: 999px;
+    border-radius: 6px;
     text-decoration: none;
     font-size: 0.98rem;
   }}
 
-  .stamp {{
+  .team-badge {{
     justify-self: end;
-    width: 190px; height: 190px;
-    border: 2px solid var(--crust);
-    border-radius: 50%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    transform: rotate(-6deg);
-    font-family: var(--font-display);
-    padding: 20px;
+    background: var(--sage-deep);
+    color: #fff;
+    border-radius: 10px;
+    padding: 28px 30px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    max-width: 300px;
   }}
-  .stamp .small {{ font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--jam); font-weight: 600; margin-bottom: 6px; }}
-  .stamp .big {{ font-size: 1.5rem; font-weight: 700; line-height: 1.1; }}
+  .team-num {{
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1;
+  }}
+  .team-label {{
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 4px;
+  }}
+  .team-divider {{
+    width: 1px;
+    align-self: stretch;
+    background: rgba(255,255,255,0.2);
+  }}
 
   section {{ padding: 56px 0; }}
-  .about {{ border-top: 1px solid var(--line); }}
   .about .wrap {{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -149,8 +174,9 @@ def render(brief: dict) -> str:
   }}
   h2 {{
     font-family: var(--font-display);
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 600;
+    color: var(--sage-deep);
     margin-bottom: 16px;
   }}
   .about p {{ color: var(--ink-soft); font-size: 1.02rem; }}
@@ -161,28 +187,28 @@ def render(brief: dict) -> str:
     border-bottom: 1px solid var(--line);
     font-size: 0.98rem;
   }}
-  .mark {{ color: var(--jam); font-weight: 700; }}
+  .mark {{ color: var(--sage); font-weight: 700; }}
 
-  .info {{ background: var(--crust); color: var(--crumb); }}
+  .info {{ background: var(--sage-deep); color: #fff; }}
   .info .wrap {{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
   }}
-  .info h2 {{ color: var(--crumb); }}
+  .info h2 {{ color: #fff; }}
   .hours-row {{
     display: flex; justify-content: space-between;
     padding: 8px 0;
-    border-bottom: 1px solid rgba(251,243,231,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
     font-size: 0.94rem;
   }}
-  .hours-row.closed span:last-child {{ color: var(--gold); }}
-  .contact-block p {{ margin-bottom: 10px; color: rgba(251,243,231,0.85); }}
+  .hours-row.closed span:last-child {{ color: var(--clay); }}
+  .contact-block p {{ margin-bottom: 10px; color: rgba(255,255,255,0.85); }}
   .contact-block a.map-link {{
     display: inline-block;
     margin-top: 14px;
     font-weight: 600;
-    color: var(--gold);
+    color: var(--clay);
     text-decoration: none;
     font-size: 0.92rem;
   }}
@@ -196,10 +222,10 @@ def render(brief: dict) -> str:
 
   @media (max-width: 760px) {{
     .hero .wrap, .about .wrap, .info .wrap {{ grid-template-columns: 1fr; }}
-    .stamp {{ justify-self: start; margin-top: 12px; }}
+    .team-badge {{ justify-self: start; margin-top: 12px; max-width: none; }}
   }}
 
-  a:focus-visible, .hero-cta:focus-visible {{ outline: 2px solid var(--jam); outline-offset: 3px; }}
+  a:focus-visible, .hero-cta:focus-visible {{ outline: 2px solid var(--sage-deep); outline-offset: 3px; }}
 </style>
 </head>
 <body>
@@ -207,7 +233,7 @@ def render(brief: dict) -> str:
 <header class="top">
   <div class="wrap">
     <div class="brand">{name}</div>
-    <a class="top-cta" href="tel:{phone}">Bel de winkel</a>
+    <a class="top-cta" href="tel:{phone}">Bel de praktijk</a>
   </div>
 </header>
 
@@ -217,24 +243,23 @@ def render(brief: dict) -> str:
       <div class="eyebrow">{category}</div>
       <h1>{tagline}</h1>
       <p class="tagline">{about}</p>
-      {rating_block}
-      <a class="hero-cta" href="#info">{cta}</a>
+      <div class="emergency">🕐 {emergency_note}</div>
+      <div>
+        <a class="hero-cta" href="#info">{cta}</a>
+      </div>
     </div>
-    <div class="stamp">
-      <div class="small">Vers gebakken</div>
-      <div class="big">Elke dag<br>opnieuw</div>
-    </div>
+    {team_block}
   </div>
 </section>
 
 <section class="about">
   <div class="wrap">
     <div>
-      <h2>Waarom {name}</h2>
+      <h2>Onze zorg</h2>
       <p>{about}</p>
     </div>
     <div>
-      <h2>Wat je vindt</h2>
+      <h2>Waarom {name}</h2>
       <ul class="highlights">
         {highlights_html}
       </ul>

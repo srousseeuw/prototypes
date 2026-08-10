@@ -1,0 +1,30 @@
+{
+  "slug": "dierenartsenpraktijk-het-hof",
+  "sector": "dierenarts",
+  "business_name": "Dierenartsenpraktijk Het Hof",
+  "category": "Dierenartsenpraktijk",
+  "tagline": "Zorg voor uw huisdier, dag en nacht",
+  "address": "Nieuwstraat 19, 2910 Essen",
+  "phone": "+32 3 667 62 63",
+  "hours": [
+    ["Maandag", "9:00 – 12:30, 14:00 – 18:30"],
+    ["Dinsdag", "9:00 – 12:30, 14:00 – 18:30"],
+    ["Woensdag", "9:00 – 12:30, 14:00 – 18:30"],
+    ["Donderdag", "9:00 – 12:30, 14:00 – 18:30"],
+    ["Vrijdag", "9:00 – 12:30, 14:00 – 18:30"],
+    ["Zaterdag", "9:00 – 12:00"],
+    ["Zondag", "Gesloten — enkel spoedgevallen"]
+  ],
+  "highlights": [
+    "24/7 telefonisch bereikbaar voor spoedgevallen",
+    "Hospitalisatie en intensieve zorg ter plaatse",
+    "Eigen laboratorium voor snelle diagnoses",
+    "Team van 5 dierenartsen en 5 assistenten"
+  ],
+  "team_size_vets": 5,
+  "team_size_assistants": 5,
+  "about": "Een team van vijf dierenartsen en vijf assistenten staat elke dag klaar voor het welzijn van uw huisdier — van een gewone controle tot dringende zorg. Dankzij een eigen laboratorium, hospitalisatie en intensieve zorg ter plaatse kan er snel en grondig gehandeld worden, ook buiten de gewone openingsuren.",
+  "cta_text": "Maak een afspraak",
+  "emergency_note": "Bij een noodgeval buiten de openingsuren is de praktijk 24 uur op 24 telefonisch bereikbaar.",
+  "accent_context": "vet_calm"
+}

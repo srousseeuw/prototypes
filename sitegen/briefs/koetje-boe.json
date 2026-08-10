@@ -1,0 +1,32 @@
+{
+  "slug": "koetje-boe",
+  "sector": "kinderopvang",
+  "business_name": "Kinderdagverblijf Koetje Boe",
+  "category": "Erkend kinderdagverblijf 0-3 jaar",
+  "tagline": "Een warme, veilige plek om te groeien",
+  "address": "Oud Strijdersstraat 16, 2910 Essen",
+  "phone": "03 663 51 29",
+  "since": "2003",
+  "capacity": "28 kinderen per dag, 0 tot 3 jaar",
+  "supervision": "Erkend en onder toezicht van Kind & Gezin",
+  "hours": [
+    ["Maandag", "7:00 – 18:00"],
+    ["Dinsdag", "7:00 – 18:00"],
+    ["Woensdag", "7:00 – 18:00"],
+    ["Donderdag", "7:00 – 18:00"],
+    ["Vrijdag", "7:00 – 18:00"],
+    ["Zaterdag", "Gesloten"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Erkend zelfstandig kinderdagverblijf sinds 2003",
+    "Onder toezicht van Kind & Gezin",
+    "Plaats voor 28 kindjes van 0 tot 3 jaar per dag",
+    "Samenwerking mogelijk met kiné, logopedist of doventolk voor kinderen met specifieke zorgbehoeften",
+    "Ruime buitenruimte om vrij te spelen",
+    "Activiteiten afgestemd op de leeftijd en ontwikkeling van elk kind"
+  ],
+  "about": "Koetje Boe is al meer dan twintig jaar een vertrouwde plek in Essen waar kinderen van 0 tot 3 jaar dagelijks met zorg worden opgevangen. Als erkend kinderdagverblijf onder toezicht van Kind & Gezin bieden we een rustige, veilige omgeving met een tuin om te spelen en activiteiten die aansluiten bij de leeftijd van elk kindje. Waar nodig werken we samen met externe hulpverleners zoals kiné, logopedisten of een doventolk.",
+  "cta_text": "Vraag een rondleiding aan",
+  "accent_context": "childcare_warm"
+}

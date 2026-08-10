@@ -1,0 +1,35 @@
+{
+  "slug": "garage-francken",
+  "sector": "garage",
+  "business_name": "Garage Francken",
+  "category": "Garage & Nissan-dealer",
+  "tagline": "Uw wagen in vertrouwde handen in Essen",
+  "address": "Nieuwmoersesteenweg 123, 2910 Essen",
+  "phone": "+32 3 667 28 83",
+  "hours": [
+    ["Maandag", "9:00 – 12:00, 13:00 – 17:30"],
+    ["Dinsdag", "9:00 – 12:00, 13:00 – 17:30"],
+    ["Woensdag", "9:00 – 12:00, 13:00 – 17:30"],
+    ["Donderdag", "9:00 – 16:30"],
+    ["Vrijdag", "9:00 – 12:00, 13:00 – 17:30"],
+    ["Zaterdag", "Op afspraak"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Erkend Nissan-verdeler met ruim modelgamma",
+    "Tweedehandswagens met garantie",
+    "Onderhoud en herstellingen voor alle merken",
+    "Carrosserieherstellingen en herschilderingen"
+  ],
+  "services": [
+    "Verkoop nieuwe en tweedehandswagens",
+    "Onderhoud en periodieke controle",
+    "Mechanische herstellingen",
+    "Carrosserie- en schadeherstel",
+    "Herstelling steenslag in voorruit",
+    "Lichte bedrijfsvoertuigen: verkoop, leasing en verhuur"
+  ],
+  "about": "Al jaren een vertrouwd adres in Essen voor wie zijn wagen in goede handen wil laten. Als erkend Nissan-verdeler combineren we verkoop van nieuwe en tweedehandswagens met vakkundig onderhoud, herstellingen en carrosseriewerk — voor particulieren en professionals uit Essen en de ruime omgeving.",
+  "cta_text": "Maak een afspraak in de garage",
+  "accent_context": "garage_industrial"
+}
