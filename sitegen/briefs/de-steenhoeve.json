@@ -1,0 +1,36 @@
+{
+  "slug": "de-steenhoeve",
+  "sector": "veehouderij",
+  "business_name": "De Steenhoeve",
+  "category": "Rundveefokkerij",
+  "tagline": "Exclusieve rundveerassen, gefokt met vakmanschap",
+  "address": "Huybergsebaan 259, 2910 Essen",
+  "phone": "+32 486 14 07 66",
+  "email": "info@desteenhoeve.be",
+  "hours": [
+    ["Maandag – vrijdag", "Op afspraak"],
+    ["Zaterdag", "Op afspraak"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Fokkerij van Hereford, Kempisch Roodbont, Wagyu en West-Vlaams Rood",
+    "Slachtvee, fokvee en embryo's",
+    "Persoonlijk advies over dierenwelzijn en voeding",
+    "Gelegen nabij het Grenspark Kalmthoutse Heide"
+  ],
+  "breeds": [
+    "Hereford",
+    "Kempisch Roodbont",
+    "Wagyu",
+    "West-Vlaams Rood"
+  ],
+  "services": [
+    "Fokvee",
+    "Slachtvee",
+    "Embryo's",
+    "Advies dierenwelzijn en voeding"
+  ],
+  "about": "De Steenhoeve, geleid door de familie Van Wezel, is een vleesveefokkerij gespecialiseerd in exclusieve rundveerassen: Hereford, Kempisch Roodbont, Wagyu en West-Vlaams Rood. Naast fok- en slachtvee levert de Steenhoeve ook embryo's en deelt het bedrijf zijn kennis over dierenwelzijn en voeding met andere veehouders. De hoeve ligt op wandelafstand van het Grenspark Kalmthoutse Heide en dankt haar naam aan de voormalige steenbakkerij waarvan de bakstenen dienden voor het woonhuis, gebouwd tussen 1967 en 1969.",
+  "cta_text": "Neem contact op voor advies of vee",
+  "accent_context": "livestock_dark"
+}

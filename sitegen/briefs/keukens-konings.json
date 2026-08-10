@@ -1,0 +1,35 @@
+{
+  "slug": "keukens-konings",
+  "business_name": "Keukens Konings",
+  "sector": "keukenstudio",
+  "category": "Keukenstudio & interieur op maat",
+  "tagline": "Handgemaakte massief eiken keukens, ontworpen rond hoe u leeft",
+  "address": "Rijkmakerlaan 13, 2910 Essen",
+  "phone": "+32 (0)3 677 31 98",
+  "email": "info@keukens-konings.be",
+  "hours": [
+    ["Maandag", "9:00 – 12:00 en 13:00 – 17:00"],
+    ["Dinsdag", "9:00 – 12:00 en 13:00 – 17:00"],
+    ["Woensdag", "9:00 – 12:00 en 13:00 – 17:00"],
+    ["Donderdag", "9:00 – 12:00 en 13:00 – 17:00"],
+    ["Vrijdag", "9:00 – 12:00 en 13:00 – 17:00"],
+    ["Zaterdag", "9:00 – 14:00"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Massief eiken keukens, van rustiek tot strak modern",
+    "Eigen atelier: ontwerp, productie en plaatsing in eigen hand",
+    "Ook badkamer- en kastmeubilair op maat",
+    "Familiebedrijf met jarenlange vakkennis",
+    "Showroom in Essen, bezoek liefst op afspraak"
+  ],
+  "services": [
+    "Massief eiken keukens op maat",
+    "Landelijke en moderne keukenstijlen",
+    "Badkamermeubilair op maat",
+    "Kastenwand en dressing op maat",
+    "Ontwerp, productie en plaatsing in eigen atelier"
+  ],
+  "about": "Keukens Konings ontwerpt en bouwt al jaren handgemaakte keukens in massief eiken, van tijdloos landelijk tot strak hedendaags. Als familiebedrijf houdt men het volledige traject in eigen hand: van eerste schets tot productie in het eigen atelier en plaatsing bij u thuis. Een keuken is meer dan een werkplek — het is het hart van de leefruimte, en dat verdient maatwerk tot in het kleinste detail. Naast keukens realiseert het atelier ook badkamermeubilair en kasten op maat.",
+  "cta_text": "Plan een bezoek aan de showroom"
+}

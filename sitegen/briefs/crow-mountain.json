@@ -1,0 +1,37 @@
+{
+  "slug": "crow-mountain",
+  "business_name": "Crow Mountain Craft Brewery",
+  "sector": "brouwerij",
+  "category": "Ambachtelijke microbrouwerij",
+  "tagline": "Ambachtelijk gebrouwen op de Kraaienberg in Essen",
+  "address": "Rijkmakerlaan 1, 2910 Essen (Essen-Horendonk)",
+  "phone": "+32 (0)474 83 65 66",
+  "email": "info@crowmountain.be",
+  "since": 2013,
+  "team": "Opgericht door Filip Van Loon en Bart Brits, vandaag gebrouwen door onder meer Dick",
+  "hours": [
+    ["Maandag", "Op afspraak"],
+    ["Dinsdag", "Op afspraak"],
+    ["Woensdag", "Op afspraak"],
+    ["Donderdag", "Op afspraak"],
+    ["Vrijdag", "Op afspraak"],
+    ["Zaterdag", "Op afspraak"],
+    ["Zondag", "Op afspraak"]
+  ],
+  "beer_styles": [
+    "Pale Ale",
+    "IPA",
+    "Stout",
+    "Hazy / NEIPA"
+  ],
+  "highlights": [
+    "Een 80 jaar oude schuur op de Kraaienberg omgebouwd tot microbrouwerij",
+    "8 jaar gebrouwen in een klein bierlab voor de verhuis naar de eigen brouwerij",
+    "Eigen brouwerij operationeel sinds september 2021",
+    "Puur gebrouwen, zonder kunstmatige smaak- of kleurstoffen",
+    "Respect voor de Belgische biertraditie"
+  ],
+  "about": "Op de Kraaienberg in Essen-Horendonk kreeg een 80 jaar oude schuur een nieuw leven als microbrouwerij — vandaar de naam Crow Mountain. Opgericht door Filip Van Loon en Bart Brits, die midden 2010 een oude wasmachine ombouwden tot hun eerste brouwinstallatie. Na acht jaar brouwen in een klein bierlab verhuisde het team in september 2021 naar hun eigen brouwerij, waar vandaag onder meer Dick mee brouwt. Ambachtelijke bieren, voornamelijk Pale Ales, IPA's en Stouts, puur en zonder kunstmatige smaak- of kleurstoffen, met respect voor de Belgische biertraditie.",
+  "cta_text": "Neem contact op",
+  "accent_context": "craft_brewery"
+}

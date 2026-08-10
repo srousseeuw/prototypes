@@ -1,0 +1,27 @@
+{
+  "slug": "t-schakeltje",
+  "business_name": "'t Schakeltje",
+  "sector": "kringloopwinkel",
+  "category": "Kringloopwinkel & ontmoetingsplek",
+  "tagline": "Een tweede leven voor spullen, een warm onthaal voor iedereen",
+  "address": "Nieuwstraat 111, 2910 Essen",
+  "phone": "+32 486 06 99 61",
+  "email": "info@tschakeltje.be",
+  "hours": [
+    ["Woensdag", "13:30 – 16:00"],
+    ["Zaterdag", "10:00 – 12:00"]
+  ],
+  "intake_hours": [
+    ["Woensdag", "13:30 – 16:00 en 18:00 – 19:30"],
+    ["Zaterdag", "10:00 – 12:00"]
+  ],
+  "highlights": [
+    "Al 25 jaar een vertrouwd adres in Essen",
+    "Tweedehands kleding, speelgoed, boeken en huishoudartikelen",
+    "Gerund door vrijwilligers van de Welzijnsschakels",
+    "Iedereen is welkom, drempel bewust laag gehouden",
+    "Inbreng van spullen tijdens openingsuren of woensdagavond"
+  ],
+  "about": "'t Schakeltje is al een kwarteeuw een vertrouwd plekje in Essen. Vrijwilligers van de Welzijnsschakels zamelen er tweedehands kleding, speelgoed, boeken en kleine huishoudartikelen in en geven ze een tweede leven aan een eerlijke prijs. Het is meer dan een winkel: het is een plek om elkaar te ontmoeten, een babbeltje te doen en er te zijn voor wie het nodig heeft — zonder oordeel, met een kop koffie erbij. De opbrengst en de werking dragen bij aan de strijd tegen armoede en uitsluiting in de gemeente.",
+  "cta_text": "Kom eens binnenspringen"
+}

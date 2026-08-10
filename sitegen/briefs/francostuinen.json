@@ -1,0 +1,38 @@
+{
+  "slug": "francostuinen",
+  "business_name": "Francostuinen",
+  "sector": "hovenier",
+  "category": "Hovenier — tuinaanleg & tuinonderhoud",
+  "tagline": "Vakmanschap voor uw tuin, van eerste aanleg tot vast onderhoud",
+  "address": "Steenovenstraat 90, 2910 Essen",
+  "phone": "0497 31 98 14",
+  "email": "francostuinen@proximus.be",
+  "since": 2013,
+  "service_area": "Essen en omgeving binnen een straal van ca. 20 km, o.a. Wuustwezel, Kapellen, Brasschaat en Kalmthout",
+  "hours": [
+    ["Maandag", "7:00 – 20:00"],
+    ["Dinsdag", "7:00 – 20:00"],
+    ["Woensdag", "7:00 – 20:00"],
+    ["Donderdag", "7:00 – 20:00"],
+    ["Vrijdag", "7:00 – 20:00"],
+    ["Zaterdag", "7:00 – 20:00"],
+    ["Zondag", "7:00 – 20:00"]
+  ],
+  "services": [
+    "Graszaai en gazonaanleg",
+    "Grenzen en borders aanleggen",
+    "Snoeiwerk van struiken en hagen",
+    "Terrasreiniging",
+    "Volledige tuinaanleg",
+    "Regelmatig tuinonderhoud"
+  ],
+  "highlights": [
+    "Actief in Essen sinds 2013",
+    "Vrijblijvende offerte na locatiebezoek",
+    "Eerlijk en correct advies, geen verrassingen achteraf",
+    "Van kleine onderhoudsbeurt tot volledige tuinaanleg"
+  ],
+  "about": "Francostuinen is een hoveniersbedrijf uit Essen dat sinds 2013 tuinen aanlegt en onderhoudt in de regio. Van gras zaaien en borders plaatsen tot struiken snoeien en terrassen reinigen: elke opdracht wordt met vakmanschap en persoonlijke aandacht aangepakt. Na een bezoek ter plaatse volgt steeds een vrijblijvende, eerlijke offerte.",
+  "cta_text": "Vraag een offerte aan",
+  "accent_context": "garden_service"
+}

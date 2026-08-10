@@ -1,0 +1,36 @@
+{
+  "slug": "vrijloophoeve",
+  "sector": "hoevewinkel",
+  "business_name": "De Vrijloophoeve",
+  "category": "Hoevewinkel & zorgboerderij",
+  "tagline": "Recht van bij de boer, elke dag vers",
+  "address": "Horendonk 358, 2910 Essen",
+  "phone": "+32 486 63 50 80",
+  "hours": [
+    ["Maandag", "7:00 – 22:00"],
+    ["Dinsdag", "7:00 – 22:00"],
+    ["Woensdag", "7:00 – 22:00"],
+    ["Donderdag", "7:00 – 22:00"],
+    ["Vrijdag", "7:00 – 22:00"],
+    ["Zaterdag", "7:00 – 22:00"],
+    ["Zondag", "7:00 – 22:00"]
+  ],
+  "highlights": [
+    "Zelfbedieningswinkel, dag in dag uit open",
+    "Lokale en biologische seizoensgroenten",
+    "Eigen zuivel, GMO-vrij van de koeien op de hoeve",
+    "Scharreleieren, kaas, aardappelen, ijs, bier en wijn"
+  ],
+  "products": [
+    "Seizoensgroenten, lokaal en biologisch",
+    "Scharreleieren",
+    "Eigen zuivelproducten, GMO-vrij",
+    "Kaas",
+    "Aardappelen",
+    "Ambachtelijk ijs",
+    "Streekbier en wijn"
+  ],
+  "about": "Op de Vrijloophoeve in Essen kun je dag en nacht — van 's ochtends vroeg tot 's avonds laat — zelf je mandje vullen met wat het seizoen te bieden heeft. De koeien lopen er vrij rond in een ruime stal zonder afzonderlijke boxen, en hun melk wordt op de hoeve zelf verwerkt tot GMO-vrije zuivel. Daarnaast is de Vrijloophoeve ook een zorgboerderij: een plek waar mensen die het wat moeilijker hebben, mee de handen uit de mouwen steken.",
+  "cta_text": "Kom zelf je mandje vullen",
+  "accent_context": "farm_earthy"
+}

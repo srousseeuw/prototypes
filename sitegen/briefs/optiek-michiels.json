@@ -1,0 +1,25 @@
+{
+  "slug": "optiek-michiels",
+  "business_name": "Optiek Michiels",
+  "sector": "opticien",
+  "category": "Optiek & hoorcentrum",
+  "tagline": "Scherp zien en goed horen, met raad van vakmensen",
+  "address": "Kerkstraat 88, 2910 Essen",
+  "phone": "03 667 54 88",
+  "hours": [
+    ["Dinsdag", "9:00 – 18:00"],
+    ["Woensdag", "9:00 – 18:00"],
+    ["Donderdag", "9:00 – 18:00"],
+    ["Vrijdag", "9:00 – 18:00"],
+    ["Zaterdag", "9:00 – 17:00"]
+  ],
+  "highlights": [
+    "Brillen op maat, van klassiek tot modern",
+    "Zonnebrillen voor elke gelegenheid",
+    "Contactlenzen en persoonlijk lenzenadvies",
+    "Hoortoestellen en gehoortesten"
+  ],
+  "about": "Optiek Michiels in Essen helpt klanten al jaren aan de juiste bril, zonnebril of contactlenzen — en breidde uit met een hoorcentrum voor wie zijn gehoor wil laten testen of een hoortoestel zoekt. Persoonlijk advies en oog voor detail staan daarbij steeds voorop.",
+  "cta_text": "Maak een afspraak voor een oogmeting",
+  "hours_note": "Maandag en zondag gesloten"
+}

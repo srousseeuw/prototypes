@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juwelier Aerden — Juwelier &amp; uurwerkspecialist sinds 1955</title>
+<meta name="description" content="Familiejuwelier in Essen, al drie generaties. Nieuwstraat 44, 2910 Essen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600&family=Cormorant+SC:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0c0b09;
+    --black-soft: #17140f;
+    --ivory: #f6f2ea;
+    --ivory-dim: rgba(246,242,234,0.66);
+    --gold: #c8a35a;
+    --gold-pale: #e6cd9a;
+    --hairline: rgba(200,163,90,0.28);
+    --font-display: 'Cormorant SC', serif;
+    --font-serif: 'Cormorant', serif;
+    --font-body: 'Jost', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    background: var(--black);
+    color: var(--ivory);
+    line-height: 1.65;
+    letter-spacing: 0.01em;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 28px; }
+
+  .rule {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 0 auto;
+  }
+
+  header.top {
+    padding: 30px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  header.top .wrap {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+  }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-pale);
+  }
+  .top-cta {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold);
+    color: var(--gold-pale);
+    padding: 11px 22px;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .top-cta:hover { background: var(--gold); color: var(--black); }
+
+  .hero {
+    padding: 120px 0 100px;
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(200,163,90,0.10), transparent 62%),
+      var(--black);
+  }
+  .medallion {
+    width: 92px; height: 92px;
+    margin: 0 auto 40px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .medallion::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--hairline);
+    border-radius: 50%;
+  }
+  .medallion .est {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--gold-pale);
+    letter-spacing: 0.04em;
+  }
+  .eyebrow {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+    margin-bottom: 26px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2.3rem, 5vw, 3.6rem);
+    letter-spacing: 0.02em;
+    line-height: 1.22;
+    max-width: 20ch;
+    margin: 0 auto 28px;
+    color: var(--ivory);
+  }
+  .hero .lede {
+    font-family: var(--font-serif);
+    font-size: 1.18rem;
+    font-style: italic;
+    color: var(--ivory-dim);
+    max-width: 48ch;
+    margin: 0 auto 40px;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-pale);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    padding: 16px 36px;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .hero-cta:hover { background: var(--gold); color: var(--black); }
+
+  section { padding: 76px 0; }
+
+  .about-section {
+    border-top: 1px solid var(--hairline);
+    background: var(--black-soft);
+    text-align: center;
+  }
+  .about-section .rule { margin-bottom: 30px; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-pale);
+    margin-bottom: 24px;
+  }
+  .about-section p {
+    font-family: var(--font-serif);
+    font-size: 1.22rem;
+    color: var(--ivory-dim);
+    max-width: 62ch;
+    margin: 0 auto;
+  }
+
+  .offer { border-top: 1px solid var(--hairline); }
+  .offer .wrap { text-align: center; }
+  .offer h2 { margin-bottom: 44px; }
+  ul.highlights {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 40px;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  ul.highlights li {
+    display: flex; gap: 14px; align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.98rem;
+    color: var(--ivory-dim);
+  }
+  .mark { color: var(--gold); font-size: 0.7rem; }
+
+  .info {
+    background: var(--black-soft);
+    border-top: 1px solid var(--hairline);
+  }
+  .info .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  .info h2 { text-align: left; }
+  .hours-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.92rem;
+    color: var(--ivory-dim);
+  }
+  .hours-row.closed span:last-child { color: var(--gold); font-style: italic; }
+  .contact-block p { margin-bottom: 10px; color: var(--ivory-dim); }
+  .appt-note {
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--gold-pale);
+    margin-bottom: 18px !important;
+  }
+  .contact-block a.phone-link {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--gold-pale);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .contact-block a.map-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.86rem;
+    text-transform: uppercase;
+  }
+
+  footer {
+    padding: 32px 0;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--ivory-dim);
+  }
+
+  @media (max-width: 720px) {
+    .info .wrap { grid-template-columns: 1fr; }
+    ul.highlights { grid-template-columns: 1fr; }
+  }
+
+  a:focus-visible, .hero-cta:focus-visible, .top-cta:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Juwelier Aerden</div>
+    <a class="top-cta" href="tel:+3236674925">Contacteer ons</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="medallion"><span class="est">1955</span></div>
+    <div class="eyebrow">Juwelier &amp; uurwerkspecialist sinds 1955</div>
+    <h1>Familiejuwelier in Essen, al drie generaties</h1>
+    <p class="lede">Sinds 1955 is Juwelier Aerden een vertrouwd adres in Essen voor wie op zoek is naar tijdloze juwelen en kwaliteitsvolle uurwerken. Drie generaties vakmanschap en persoonlijk advies, gerund door Kristine en Evelyn Aerden, die klanten nog steeds met dezelfde zorg ontvangen als hun grootouders dat deden.</p>
+    <a class="hero-cta" href="#info">Kom langs voor persoonlijk advies</a>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>Ons verhaal</h2>
+    <p>Sinds 1955 is Juwelier Aerden een vertrouwd adres in Essen voor wie op zoek is naar tijdloze juwelen en kwaliteitsvolle uurwerken. Drie generaties vakmanschap en persoonlijk advies, gerund door Kristine en Evelyn Aerden, die klanten nog steeds met dezelfde zorg ontvangen als hun grootouders dat deden.</p>
+  </div>
+</section>
+
+<section class="offer">
+  <div class="wrap">
+    <h2>Wat we bieden</h2>
+    <ul class="highlights">
+      <li><span class="mark">◆</span>Verlovings- en trouwringen op maat</li>
+<li><span class="mark">◆</span>Herstellingen van juwelen en uurwerken</li>
+<li><span class="mark">◆</span>Persoonlijk en deskundig advies</li>
+<li><span class="mark">◆</span>Ruime collectie juwelen en uurwerken</li>
+    </ul>
+  </div>
+</section>
+
+<section class="info" id="info">
+  <div class="wrap">
+    <div>
+      <h2>Openingsuren</h2>
+      <div class="hours-row "><span>Dinsdag</span><span>9:30 – 12:30 en 13:30 – 18:00</span></div>
+<div class="hours-row "><span>Woensdag</span><span>9:30 – 12:30 en 13:30 – 18:00</span></div>
+<div class="hours-row "><span>Donderdag</span><span>9:30 – 12:30 en 13:30 – 18:00</span></div>
+<div class="hours-row "><span>Vrijdag</span><span>9:30 – 12:30 en 13:30 – 18:00</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>9:30 – 17:00</span></div>
+<div class="hours-row closed"><span>Zondag</span><span>Gesloten</span></div>
+<div class="hours-row closed"><span>Maandag</span><span>Gesloten</span></div>
+    </div>
+    <div class="contact-block">
+      <h2>Bezoek de winkel</h2>
+      <p class="appt-note">Bezoek de winkel, geen afspraak nodig</p>
+      <a class="phone-link" href="tel:+3236674925">+32 3 667 49 25</a>
+      <p>Nieuwstraat 44, 2910 Essen</p>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Nieuwstraat+44,+2910+Essen" target="_blank" rel="noopener">Bekijk op kaart →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Prototype gebouwd voor Juwelier Aerden · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+</footer>
+
+</body>
+</html>

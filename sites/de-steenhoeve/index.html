@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De Steenhoeve — Rundveefokkerij</title>
+<meta name="description" content="Exclusieve rundveerassen, gefokt met vakmanschap. Huybergsebaan 259, 2910 Essen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hide: #241a12;
+    --hide-deep: #17110b;
+    --saddle: #6b4327;
+    --oak: #a97a4a;
+    --ember: #b5652f;
+    --cream: #f1e9dc;
+    --paper: #ece2d0;
+    --line: #3a2c1e;
+    --ink-soft: #5c4d3c;
+    --font-display: 'Bitter', serif;
+    --font-body: 'Source Sans 3', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--hide);
+    line-height: 1.55;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  header.top {
+    padding: 20px 0;
+    background: var(--hide-deep);
+    border-bottom: 3px solid var(--ember);
+  }
+  header.top .wrap {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--cream);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+  .top-cta {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.86rem;
+    background: var(--ember);
+    color: var(--cream);
+    padding: 10px 20px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .hero {
+    padding: 76px 0 60px;
+    background: var(--hide-deep);
+    color: var(--cream);
+  }
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .eyebrow {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--oak);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 4.4vw, 3.1rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .tagline {
+    font-size: 1.08rem;
+    color: rgba(241,233,220,0.8);
+    max-width: 46ch;
+    margin-bottom: 30px;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: var(--ember);
+    color: var(--cream);
+    font-weight: 700;
+    padding: 14px 30px;
+    text-decoration: none;
+    font-size: 0.96rem;
+    letter-spacing: 0.02em;
+  }
+
+  .breeds-panel {
+    border: 1px solid rgba(169,122,74,0.4);
+    padding: 26px;
+  }
+  .breeds-panel .panel-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--oak);
+    margin-bottom: 16px;
+  }
+  ul.breeds { list-style: none; }
+  li.breed {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(169,122,74,0.25);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+  }
+  li.breed:last-child { border-bottom: none; }
+  .brand-mark {
+    width: 10px; height: 10px;
+    background: var(--ember);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  section { padding: 58px 0; }
+  .about { border-bottom: 1px solid var(--line); }
+  .about .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--saddle);
+  }
+  .about p { color: var(--ink-soft); font-size: 1.02rem; }
+  ul.highlights { list-style: none; }
+  ul.highlights li {
+    display: flex; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.98rem;
+  }
+  .mark { color: var(--ember); font-weight: 700; }
+
+  .services { background: var(--paper); border-bottom: 1px solid var(--line); }
+  ul.service-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  ul.service-list li {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    padding: 14px 16px;
+    font-weight: 600;
+    font-size: 0.96rem;
+  }
+
+  .info { background: var(--hide-deep); color: var(--cream); }
+  .info .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .info h2 { color: var(--oak); }
+  .hours-row {
+    display: flex; justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(241,233,220,0.15);
+    font-size: 0.94rem;
+  }
+  .hours-row.closed span:last-child { color: var(--oak); }
+  .contact-block p { margin-bottom: 10px; color: rgba(241,233,220,0.85); }
+  .contact-block a { text-decoration: underline; }
+  .contact-block a.map-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-weight: 700;
+    color: var(--oak);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+
+  footer {
+    padding: 26px 0;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 760px) {
+    .hero .wrap, .about .wrap, .info .wrap { grid-template-columns: 1fr; }
+    ul.service-list { grid-template-columns: 1fr; }
+  }
+
+  a:focus-visible, .hero-cta:focus-visible { outline: 2px solid var(--oak); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">De Steenhoeve</div>
+    <a class="top-cta" href="tel:+32 486 14 07 66">Bel voor advies</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Rundveefokkerij</div>
+      <h1>Exclusieve rundveerassen, gefokt met vakmanschap</h1>
+      <p class="tagline">De Steenhoeve, geleid door de familie Van Wezel, is een vleesveefokkerij gespecialiseerd in exclusieve rundveerassen: Hereford, Kempisch Roodbont, Wagyu en West-Vlaams Rood. Naast fok- en slachtvee levert de Steenhoeve ook embryo's en deelt het bedrijf zijn kennis over dierenwelzijn en voeding met andere veehouders. De hoeve ligt op wandelafstand van het Grenspark Kalmthoutse Heide en dankt haar naam aan de voormalige steenbakkerij waarvan de bakstenen dienden voor het woonhuis, gebouwd tussen 1967 en 1969.</p>
+      <a class="hero-cta" href="#info">Neem contact op voor advies of vee</a>
+    </div>
+    <div class="breeds-panel">
+      <div class="panel-title">Onze rassen</div>
+      <ul class="breeds">
+        <li class="breed"><span class="brand-mark" aria-hidden="true"></span>Hereford</li>
+<li class="breed"><span class="brand-mark" aria-hidden="true"></span>Kempisch Roodbont</li>
+<li class="breed"><span class="brand-mark" aria-hidden="true"></span>Wagyu</li>
+<li class="breed"><span class="brand-mark" aria-hidden="true"></span>West-Vlaams Rood</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap">
+    <div>
+      <h2>Over de Steenhoeve</h2>
+      <p>De Steenhoeve, geleid door de familie Van Wezel, is een vleesveefokkerij gespecialiseerd in exclusieve rundveerassen: Hereford, Kempisch Roodbont, Wagyu en West-Vlaams Rood. Naast fok- en slachtvee levert de Steenhoeve ook embryo's en deelt het bedrijf zijn kennis over dierenwelzijn en voeding met andere veehouders. De hoeve ligt op wandelafstand van het Grenspark Kalmthoutse Heide en dankt haar naam aan de voormalige steenbakkerij waarvan de bakstenen dienden voor het woonhuis, gebouwd tussen 1967 en 1969.</p>
+    </div>
+    <div>
+      <h2>Waarom klanten voor ons kiezen</h2>
+      <ul class="highlights">
+        <li><span class="mark">◆</span>Fokkerij van Hereford, Kempisch Roodbont, Wagyu en West-Vlaams Rood</li>
+<li><span class="mark">◆</span>Slachtvee, fokvee en embryo's</li>
+<li><span class="mark">◆</span>Persoonlijk advies over dierenwelzijn en voeding</li>
+<li><span class="mark">◆</span>Gelegen nabij het Grenspark Kalmthoutse Heide</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="wrap">
+    <h2>Diensten</h2>
+    <ul class="service-list">
+      <li>Fokvee</li>
+<li>Slachtvee</li>
+<li>Embryo's</li>
+<li>Advies dierenwelzijn en voeding</li>
+    </ul>
+  </div>
+</section>
+
+<section class="info" id="info">
+  <div class="wrap">
+    <div>
+      <h2>Bereikbaarheid</h2>
+      <div class="hours-row "><span>Maandag – vrijdag</span><span>Op afspraak</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>Op afspraak</span></div>
+<div class="hours-row closed"><span>Zondag</span><span>Gesloten</span></div>
+    </div>
+    <div class="contact-block">
+      <h2>Contact</h2>
+      <p>Huybergsebaan 259, 2910 Essen</p>
+      <p><a href="tel:+32 486 14 07 66">+32 486 14 07 66</a></p>
+      <p><a href="mailto:info@desteenhoeve.be">info@desteenhoeve.be</a></p>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Huybergsebaan+259,+2910+Essen" target="_blank" rel="noopener">Bekijk op kaart →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Prototype gebouwd voor De Steenhoeve · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+</footer>
+
+</body>
+</html>

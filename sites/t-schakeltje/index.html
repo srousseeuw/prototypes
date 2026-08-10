@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>'t Schakeltje — Kringloopwinkel &amp; ontmoetingsplek</title>
+<meta name="description" content="Een tweede leven voor spullen, een warm onthaal voor iedereen. Nieuwstraat 111, 2910 Essen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --oker: #d9a52b;
+    --oker-deep: #b5841a;
+    --mosterd: #c98f1f;
+    --groen: #3f7d5c;
+    --groen-deep: #2f5f45;
+    --blauw: #3a6ea5;
+    --cream: #fdf6e8;
+    --paper: #fffaf0;
+    --ink: #3a2f1f;
+    --ink-soft: #6b5f4a;
+    --line: #ecdcb8;
+    --font-display: 'Fredoka', sans-serif;
+    --font-body: 'Nunito', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 0 24px; }
+
+  header.top {
+    padding: 20px 0;
+    background: var(--cream);
+    border-bottom: 4px dashed var(--oker);
+  }
+  header.top .wrap {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--groen-deep);
+  }
+  .brand .dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--oker);
+    box-shadow: 4px 0 0 var(--blauw);
+  }
+  header.top nav a {
+    text-decoration: none;
+    color: var(--ink);
+    font-weight: 600;
+    padding: 10px 18px;
+    background: var(--groen);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.92rem;
+  }
+
+  .hero {
+    padding: 64px 0 56px;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(58,110,165,0.10), transparent 55%),
+      radial-gradient(circle at 10% 80%, rgba(63,125,92,0.12), transparent 50%),
+      var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .eyebrow {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--groen-deep);
+    background: rgba(63,125,92,0.12);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
+    color: var(--groen-deep);
+    max-width: 15ch;
+    margin-bottom: 16px;
+  }
+  .hero .tagline {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin-bottom: 28px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 13px 26px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.98rem;
+    transition: transform 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--oker); color: #3a2500; }
+  .btn-secondary { background: #fff; color: var(--groen-deep); border: 2px solid var(--groen); }
+
+  .badges {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-top: 44px;
+  }
+  .badge {
+    background: #fff;
+    border: 2px solid var(--line);
+    border-radius: 16px;
+    padding: 16px 14px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .b-from { font-weight: 600; color: var(--ink-soft); font-size: 0.9rem; text-decoration: line-through; text-decoration-color: rgba(58,110,165,0.4); }
+  .b-arrow { color: var(--oker-deep); font-size: 1.3rem; }
+  .b-to { font-family: var(--font-display); font-weight: 600; color: var(--groen-deep); }
+
+  section { padding: 56px 0; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.7rem;
+    color: var(--groen-deep);
+    margin-bottom: 22px;
+  }
+
+  .about-section { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .about-section p { max-width: 62ch; font-size: 1.05rem; color: var(--ink-soft); }
+
+  .highlights-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 8px; }
+  .highlight {
+    background: var(--cream);
+    border-left: 5px solid var(--oker);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
+  @media (max-width: 760px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: #fff;
+    border: 2px solid var(--line);
+    border-radius: 18px;
+    padding: 26px;
+  }
+  .panel h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--groen-deep);
+    margin-bottom: 14px;
+  }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-weight: 600;
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row.closed span:last-child { color: var(--ink-soft); font-weight: 500; }
+  .note {
+    margin-top: 14px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  .contact-block { margin-top: 18px; }
+  .contact-block a {
+    display: block;
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--blauw);
+    margin-bottom: 6px;
+  }
+  .contact-block .addr { color: var(--ink); font-weight: 600; margin-bottom: 6px; }
+
+  .map-wrap { margin-top: 16px; border-radius: 14px; overflow: hidden; border: 2px solid var(--line); }
+  .map-wrap iframe { width: 100%; height: 220px; border: 0; display: block; }
+
+  .cta-band {
+    background: var(--groen-deep);
+    color: #fff;
+    text-align: center;
+    padding: 56px 24px;
+    border-radius: 24px;
+    margin: 0 24px 56px;
+  }
+  .cta-band h2 { color: #fff; }
+  .cta-band p { color: rgba(255,255,255,0.85); max-width: 50ch; margin: 0 auto 24px; }
+  .cta-band .btn-primary { background: var(--oker); color: #2a1c00; }
+
+  footer {
+    padding: 32px 0 48px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+  }
+  footer .foot-brand { font-family: var(--font-display); color: var(--groen-deep); font-weight: 600; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>'t Schakeltje</div>
+    <nav><a href="#contact">Contact &amp; uren</a></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Welzijnsschakels Essen — vrijwilligerswerking</span>
+    <h1>Een tweede leven voor spullen, een warm onthaal voor iedereen</h1>
+    <p class="tagline">'t Schakeltje geeft tweedehands spullen al 25 jaar een nieuw thuis in Essen — gerund door vrijwilligers, open voor iedereen.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="tel:+32486069961">Bel +32 486 06 99 61</a>
+      <a class="btn btn-secondary" href="#contact">Openingsuren</a>
+    </div>
+    <div class="badges">
+      <div class="badge"><span class="b-from">Trui</span><span class="b-arrow">↷</span><span class="b-to">Warme dagen</span></div>
+<div class="badge"><span class="b-from">Boek</span><span class="b-arrow">↷</span><span class="b-to">Nieuw verhaal</span></div>
+<div class="badge"><span class="b-from">Speelgoed</span><span class="b-arrow">↷</span><span class="b-to">Nieuw avontuur</span></div>
+<div class="badge"><span class="b-from">Servies</span><span class="b-arrow">↷</span><span class="b-to">Volgende maaltijd</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="wrap">
+    <h2>Over 't Schakeltje</h2>
+    <p>'t Schakeltje is al een kwarteeuw een vertrouwd plekje in Essen. Vrijwilligers van de Welzijnsschakels zamelen er tweedehands kleding, speelgoed, boeken en kleine huishoudartikelen in en geven ze een tweede leven aan een eerlijke prijs. Het is meer dan een winkel: het is een plek om elkaar te ontmoeten, een babbeltje te doen en er te zijn voor wie het nodig heeft — zonder oordeel, met een kop koffie erbij. De opbrengst en de werking dragen bij aan de strijd tegen armoede en uitsluiting in de gemeente.</p>
+    <ul class="highlights-list">
+      <li class="highlight">Al 25 jaar een vertrouwd adres in Essen</li>
+<li class="highlight">Tweedehands kleding, speelgoed, boeken en huishoudartikelen</li>
+<li class="highlight">Gerund door vrijwilligers van de Welzijnsschakels</li>
+<li class="highlight">Iedereen is welkom, drempel bewust laag gehouden</li>
+<li class="highlight">Inbreng van spullen tijdens openingsuren of woensdagavond</li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap grid-2">
+    <div class="panel">
+      <h3>Openingsuren winkel</h3>
+      <div class="hours-row "><span>Woensdag</span><span>13:30 – 16:00</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>10:00 – 12:00</span></div>
+      <div class="note">Inbreng van spullen kan tijdens deze uren, en extra op woensdagavond.</div>
+      <h3 style="margin-top:22px;">Inbreng van spullen</h3>
+      <div class="hours-row "><span>Woensdag</span><span>13:30 – 16:00 en 18:00 – 19:30</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>10:00 – 12:00</span></div>
+      <div class="contact-block">
+        <div class="addr">📍 Nieuwstraat 111, 2910 Essen</div>
+        <a href="tel:+32486069961">📞 +32 486 06 99 61</a>
+        <a href="mailto:info@tschakeltje.be">✉️ info@tschakeltje.be</a>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Vind ons</h3>
+      <div class="map-wrap">
+        <iframe loading="lazy" src="https://www.google.com/maps?q=Nieuwstraat+111,+2910+Essen&output=embed"></iframe>
+      </div>
+      <div class="note">Iedereen is welkom — geen oordeel, gewoon een babbel en een eerlijke prijs.</div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <h2>Kom eens binnenspringen</h2>
+  <p>Of breng zelf spullen binnen die nog een tweede leven verdienen — elk stuk maakt het verschil voor iemand anders.</p>
+  <a class="btn btn-primary" href="mailto:info@tschakeltje.be">Contacteer ons</a>
+</div>
+
+<footer>
+  <div class="foot-brand">'t Schakeltje</div>
+  <div>Nieuwstraat 111, 2910 Essen · +32 486 06 99 61</div>
+</footer>
+
+</body>
+</html>
