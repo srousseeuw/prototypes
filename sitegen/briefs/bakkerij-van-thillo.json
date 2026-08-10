@@ -1,0 +1,28 @@
+{
+  "slug": "bakkerij-van-thillo",
+  "business_name": "Bakkerij Van Thillo",
+  "category": "Artisanale bakkerij & patisserie",
+  "tagline": "Vers gebakken in Essen, elke ochtend opnieuw",
+  "address": "Nieuwstraat 56, 2910 Essen",
+  "phone": "+32 3 677 06 37",
+  "rating": 4.5,
+  "rating_count": 252,
+  "hours": [
+    ["Maandag", "6:30 – 18:00"],
+    ["Dinsdag", "6:30 – 18:00"],
+    ["Woensdag", "Gesloten"],
+    ["Donderdag", "6:30 – 18:00"],
+    ["Vrijdag", "6:30 – 18:00"],
+    ["Zaterdag", "6:30 – 17:00"],
+    ["Zondag", "6:30 – 13:00"]
+  ],
+  "highlights": [
+    "Ambachtelijk brood, dagelijks vers uit de oven",
+    "Ruime keuze aan gebak, koffiekoeken en pralines",
+    "Getrouwheidssysteem voor vaste klanten",
+    "Ook te bestellen voor afhaling"
+  ],
+  "about": "Al jaren een vaste waarde in Essen voor wie houdt van echt ambachtelijk brood en gebak. Van krokante stokbroden tot verfijnde taarten voor speciale gelegenheden — alles wordt dagelijks vers bereid.",
+  "cta_text": "Kom proeven in de winkel",
+  "accent_context": "bakery_warm"
+}
