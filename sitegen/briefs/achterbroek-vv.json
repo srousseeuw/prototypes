@@ -1,0 +1,31 @@
+{
+  "slug": "achterbroek-vv",
+  "sector": "sportclub",
+  "business_name": "K. Achterbroek V.V.",
+  "category": "Voetbalclub",
+  "tagline": "Dé voetbalclub van Achterbroek, voor jong en oud",
+  "address": "Goossensstraatje 5, 2920 Kalmthout",
+  "phone": "03/666 87 28",
+  "email": "contact@kavv.club",
+  "stamnummer": "5176",
+  "highlights": [
+    "Eerste ploeg + ruime jeugdwerking van U6 tot U21",
+    "Ook dames- en veteranenwerking (WU11, WU13, VeVeA)",
+    "Gezellige kantine, hart van de club na elke wedstrijd",
+    "Jaarlijkse vaste waarden: jeugdtornooi, restaurantdag en dinerdagen"
+  ],
+  "teams": [
+    "Heren 1",
+    "Jeugd U6 t/m U21",
+    "Dames WU11 & WU13",
+    "Veteranen VeVeA"
+  ],
+  "agenda": [
+    ["29/08", "Jeugdtornooi Cel Van Den Buijs"],
+    ["19/09", "Diner@KAVV"],
+    ["08/11", "25ste Restaurantdag"],
+    ["05/12", "Diner@KAVV vs Zandvliet"]
+  ],
+  "about": "Koninklijk Achterbroek V.V. is al jaren een vaste waarde in Achterbroek (Kalmthout) — een familiale club waar voetbal en gezelligheid hand in hand gaan. Van de allerkleinsten in de jeugdwerking tot de eerste ploeg op zaterdagavond: iedereen is welkom, op het veld en aan de toog van de kantine.",
+  "cta_text": "Word lid van de club"
+}
