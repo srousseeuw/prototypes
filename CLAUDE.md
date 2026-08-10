@@ -36,9 +36,7 @@ Wanneer gevraagd wordt "maak een prototype voor [bedrijfsnaam] in Essen":
    ```
    python3 sitegen/generate.py sitegen/briefs/<slug>.json
    ```
-   Dit schrijft naar `sites/<slug>/index.html`. Verplaats/kopieer die output
-   naar de `sites/` map in deze repo als het generator-script in een aparte
-   werkmap draaide.
+   Dit schrijft direct naar `sites/<slug>/index.html` in deze repo.
 
 4. **Overzichtspagina bijwerken**
    - Voeg een `<li><a href="/<slug>/">Bedrijfsnaam →</a></li>` toe aan

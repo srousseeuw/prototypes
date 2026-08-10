@@ -2,7 +2,7 @@
 """
 Site generator voor prototype.ocior.be
 Gebruik: python3 generate.py briefs/<bedrijf>.json
-Output:  output/<slug>/index.html  (klaar om te pushen naar GitHub/Cloudflare Pages)
+Output:  ../sites/<slug>/index.html  (klaar om te pushen naar GitHub/Cloudflare Pages)
 """
 import json
 import sys
@@ -300,7 +300,7 @@ def main():
     brief_path = Path(sys.argv[1])
     brief = json.loads(brief_path.read_text(encoding="utf-8"))
 
-    out_dir = ROOT / "output" / brief["slug"]
+    out_dir = ROOT.parent / "sites" / brief["slug"]
     out_dir.mkdir(parents=True, exist_ok=True)
     html = render(brief)
     (out_dir / "index.html").write_text(html, encoding="utf-8")
