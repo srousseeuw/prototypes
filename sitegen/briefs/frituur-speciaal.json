@@ -4,9 +4,18 @@
   "sector": "frituur",
   "category": "Frituur",
   "tagline": "Al meer dan veertig jaar de vertrouwde frituur van Essen",
-  "address": "Kapelstraat 26, 2910 Essen",
+  "address": "Kapelstraat 2, 2910 Essen",
   "phone": "+32 3 677 06 88",
-  "hours": [],
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "Gesloten"],
+    ["Woensdag", "16:00 – 22:00"],
+    ["Donderdag", "16:00 – 22:00"],
+    ["Vrijdag", "11:30 – 22:00"],
+    ["Zaterdag", "11:30 – 22:00"],
+    ["Zondag", "11:30 – 22:00"]
+  ],
+  "online_order_teaser": "Online bestellen kan hier binnenkort — kom voorlopig nog langs of bel voor afhaling.",
   "highlights": [
     "Verse Belgische frieten, gebakken in 100% rundvet",
     "Vaste waarde in Essen sinds 1980",

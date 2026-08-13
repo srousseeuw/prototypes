@@ -1,0 +1,28 @@
+{
+  "slug": "o-sole-mio",
+  "sector": "pizzeria",
+  "business_name": "O' Sole Mio",
+  "category": "Italiaans restaurant & pizzeria",
+  "tagline": "Italiaanse klassiekers in het hart van Essen",
+  "address": "Molenstraat 49, 2910 Essen",
+  "phone": "03 677 26 66",
+  "hours": [
+    ["Maandag", "Gesloten (behalve feestdagen)"],
+    ["Dinsdag", "16:00 – 22:00"],
+    ["Woensdag", "16:00 – 22:00"],
+    ["Donderdag", "16:00 – 22:00"],
+    ["Vrijdag", "16:00 – 22:00"],
+    ["Zaterdag", "16:00 – 22:00"],
+    ["Zondag", "16:00 – 22:00"]
+  ],
+  "highlights": [
+    "Woensdag pizzadag: alle pizza's aan €6",
+    "Donderdag pastadag: alle pasta's aan €8",
+    "Ruime kaart met vegetarische opties",
+    "Eten ter plaatse, terras of afhalen",
+    "Ideaal voor een familiediner zonder poespas"
+  ],
+  "about": "O' Sole Mio brengt al jaren de Italiaanse keuken naar Essen: ovenverse pizza's, huisgemaakte pasta's en klassieke gerechten in een gemoedelijke sfeer. Met de wekelijkse pizza- en pastadag is het een vaste stek voor wie eenvoudig en betaalbaar Italiaans wil eten, zonder in te boeten op smaak.",
+  "menu_note": "Vaste kaart aangevuld met wekelijkse dagsuggesties — woensdag pizzadag, donderdag pastadag.",
+  "cta_text": "Bekijk de kaart"
+}

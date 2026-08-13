@@ -107,6 +107,28 @@
     text-decoration: none;
     font-size: 1rem;
   }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 10px; }
+  .hero-cta-outline {
+    background: transparent;
+    color: var(--grease);
+    border: 2px solid var(--grease);
+    padding: 12px 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .soon-badge {
+    background: var(--fry);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .online-order-note { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 26px; }
 
   .cone {
     justify-self: end;
@@ -239,7 +261,11 @@
       <h1>Verse frieten en snacks in Essen, ook makkelijk online bestellen</h1>
       <p class="tagline">Frituur 't Chaleke aan de Stationsstraat in Essen is de buurtfrituur waar je snel en makkelijk terechtkan voor verse frieten en snacks. Bestellen kan vooraf online, zodat je het gewoon kan komen ophalen — ideaal voor een vlotte avond zonder wachten.</p>
       
-      <a class="hero-cta" href="#info">Bestel online en haal af</a>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#info">Bestel online en haal af</a>
+        
+      </div>
+      
     </div>
     <div class="cone">
       <div class="label">Vers gebakken</div>

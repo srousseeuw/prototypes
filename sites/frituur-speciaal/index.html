@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Frituur Speciaal — Frituur</title>
-<meta name="description" content="Al meer dan veertig jaar de vertrouwde frituur van Essen. Kapelstraat 26, 2910 Essen.">
+<meta name="description" content="Al meer dan veertig jaar de vertrouwde frituur van Essen. Kapelstraat 2, 2910 Essen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -107,6 +107,28 @@
     text-decoration: none;
     font-size: 1rem;
   }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 10px; }
+  .hero-cta-outline {
+    background: transparent;
+    color: var(--grease);
+    border: 2px solid var(--grease);
+    padding: 12px 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .soon-badge {
+    background: var(--fry);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .online-order-note { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 26px; }
 
   .cone {
     justify-self: end;
@@ -239,7 +261,13 @@
       <h1>Al meer dan veertig jaar de vertrouwde frituur van Essen</h1>
       <p class="tagline">Frituur Speciaal begon in 1980 als een verkoopwagentje en groeide uit tot een vaste waarde in Essen. Klanten komen al generaties lang terug voor de verse frieten, gebakken in 100% rundvet, en de vriendelijke, persoonlijke bediening waar de zaak al jaren om bekendstaat.</p>
       
-      <a class="hero-cta" href="#info">Kom langs voor een frisse portie</a>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#info">Kom langs voor een frisse portie</a>
+        <a class="hero-cta hero-cta-outline" href="#info">
+        <span class="soon-badge">Binnenkort</span> Bestel online
+      </a>
+      </div>
+      <p class="online-order-note">Online bestellen kan hier binnenkort — kom voorlopig nog langs of bel voor afhaling.</p>
     </div>
     <div class="cone">
       <div class="label">Vers gebakken</div>
@@ -275,12 +303,18 @@
   <div class="wrap">
     <div>
       <h2>Openingsuren</h2>
-      <p class="hours-note">Bel even voor de actuele uren.</p>
+      <div class="hours-row closed"><span>Maandag</span><span>Gesloten</span></div>
+<div class="hours-row closed"><span>Dinsdag</span><span>Gesloten</span></div>
+<div class="hours-row "><span>Woensdag</span><span>16:00 – 22:00</span></div>
+<div class="hours-row "><span>Donderdag</span><span>16:00 – 22:00</span></div>
+<div class="hours-row "><span>Vrijdag</span><span>11:30 – 22:00</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>11:30 – 22:00</span></div>
+<div class="hours-row "><span>Zondag</span><span>11:30 – 22:00</span></div>
     </div>
     <div class="contact-block">
       <h2>Kom langs</h2>
-      <p>Kapelstraat 26, 2910 Essen</p><p>+32 3 677 06 88</p>
-      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kapelstraat+26,+2910+Essen" target="_blank" rel="noopener">Bekijk op kaart →</a>
+      <p>Kapelstraat 2, 2910 Essen</p><p>+32 3 677 06 88</p>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kapelstraat+2,+2910+Essen" target="_blank" rel="noopener">Bekijk op kaart →</a>
     </div>
   </div>
 </section>

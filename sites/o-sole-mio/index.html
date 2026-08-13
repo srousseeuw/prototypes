@@ -1,37 +1,14 @@
-from .common import esc, build_hours_rows, build_highlights, maps_query as _maps_query
-
-def render(brief: dict) -> str:
-    name = esc(brief["business_name"])
-    category = esc(brief.get("category", ""))
-    tagline = esc(brief.get("tagline", ""))
-    address = esc(brief.get("address", ""))
-    phone = esc(brief.get("phone", ""))
-    about = esc(brief.get("about", ""))
-    menu_note = esc(brief.get("menu_note", ""))
-    cta = esc(brief.get("cta_text", "Bekijk de kaart"))
-    hours_html = build_hours_rows(brief.get("hours", []), closed_class="hours-row")
-    highlights_html = build_highlights(brief.get("highlights", []), mark="●")
-    maps_q = _maps_query(address)
-    phone_href = phone.replace(" ", "")
-
-    today_open, today_close = "17:00", "22:00"
-    for _, timerange in brief.get("hours", []):
-        if "esloten" not in timerange and "–" in timerange:
-            start, end = [p.strip() for p in timerange.split("–", 1)]
-            today_open, today_close = start, end
-            break
-
-    return f"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{name} — {category}</title>
-<meta name="description" content="{tagline}. {address}.">
+<title>O' Sole Mio — Italiaans restaurant &amp; pizzeria</title>
+<meta name="description" content="Italiaanse klassiekers in het hart van Essen. Molenstraat 49, 2910 Essen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {{
+  :root {
     --teal: #123b3a;
     --teal-deep: #0b2726;
     --saffron: #eaa42e;
@@ -42,32 +19,32 @@ def render(brief: dict) -> str:
     --line: #d9cfb8;
     --font-display: 'Fjalla One', sans-serif;
     --font-body: 'Work Sans', sans-serif;
-  }}
-  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-  body {{
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
     font-family: var(--font-body);
     background: var(--paper);
     color: var(--ink);
     line-height: 1.55;
-  }}
-  a {{ color: inherit; }}
-  .wrap {{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }}
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-  header.top {{
+  header.top {
     padding: 18px 0;
     background: var(--teal);
-  }}
-  header.top .wrap {{
+  }
+  header.top .wrap {
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-  }}
-  .brand {{
+  }
+  .brand {
     font-family: var(--font-display);
     font-size: 1.4rem;
     letter-spacing: 0.02em;
     color: var(--paper);
     text-transform: uppercase;
-  }}
-  .top-cta {{
+  }
+  .top-cta {
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 0.86rem;
@@ -76,24 +53,24 @@ def render(brief: dict) -> str:
     padding: 10px 20px;
     border-radius: 6px;
     text-decoration: none;
-  }}
-  .top-cta:hover {{ background: var(--saffron-deep); }}
+  }
+  .top-cta:hover { background: var(--saffron-deep); }
 
-  .hero {{
+  .hero {
     padding: 64px 0 52px;
     background: var(--teal);
     color: var(--paper);
     position: relative;
     overflow: hidden;
-  }}
-  .hero .wrap {{
+  }
+  .hero .wrap {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     gap: 40px;
     align-items: center;
     position: relative;
-  }}
-  .eyebrow {{
+  }
+  .eyebrow {
     display: inline-block;
     font-family: var(--font-body);
     font-weight: 700;
@@ -105,22 +82,22 @@ def render(brief: dict) -> str:
     padding: 6px 14px;
     border-radius: 999px;
     margin-bottom: 18px;
-  }}
-  h1 {{
+  }
+  h1 {
     font-family: var(--font-display);
     font-size: clamp(2.1rem, 4.6vw, 3.1rem);
     text-transform: uppercase;
     line-height: 1.1;
     letter-spacing: 0.01em;
     margin-bottom: 16px;
-  }}
-  .tagline {{
+  }
+  .tagline {
     font-size: 1.08rem;
     color: rgba(251,246,236,0.82);
     max-width: 40ch;
     margin-bottom: 28px;
-  }}
-  .hero-cta {{
+  }
+  .hero-cta {
     display: inline-block;
     background: var(--saffron);
     color: var(--teal-deep);
@@ -129,10 +106,10 @@ def render(brief: dict) -> str:
     border-radius: 8px;
     text-decoration: none;
     font-size: 0.96rem;
-  }}
-  .hero-cta:hover {{ background: var(--saffron-deep); }}
+  }
+  .hero-cta:hover { background: var(--saffron-deep); }
 
-  .ticket {{
+  .ticket {
     justify-self: end;
     background: var(--paper);
     color: var(--ink);
@@ -142,18 +119,18 @@ def render(brief: dict) -> str:
     transform: rotate(3deg);
     box-shadow: 0 14px 30px rgba(0,0,0,0.28);
     position: relative;
-  }}
-  .ticket::before, .ticket::after {{
+  }
+  .ticket::before, .ticket::after {
     content: "";
     position: absolute;
     width: 20px; height: 20px;
     background: var(--teal);
     border-radius: 50%;
     top: 50%; transform: translateY(-50%);
-  }}
-  .ticket::before {{ left: -10px; }}
-  .ticket::after {{ right: -10px; }}
-  .ticket .stub-label {{
+  }
+  .ticket::before { left: -10px; }
+  .ticket::after { right: -10px; }
+  .ticket .stub-label {
     font-family: var(--font-display);
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -162,32 +139,32 @@ def render(brief: dict) -> str:
     margin-bottom: 8px;
     border-bottom: 1px dashed var(--line);
     padding-bottom: 8px;
-  }}
-  .ticket .stub-big {{
+  }
+  .ticket .stub-big {
     font-family: var(--font-display);
     font-size: 1.15rem;
     text-transform: uppercase;
     line-height: 1.25;
-  }}
+  }
 
-  section {{ padding: 56px 0; }}
+  section { padding: 56px 0; }
 
-  .offer {{ border-top: 1px solid var(--line); }}
-  .offer .wrap {{
+  .offer { border-top: 1px solid var(--line); }
+  .offer .wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
-  }}
-  h2 {{
+  }
+  h2 {
     font-family: var(--font-display);
     font-size: 1.6rem;
     text-transform: uppercase;
     letter-spacing: 0.01em;
     color: var(--teal);
     margin-bottom: 18px;
-  }}
-  .offer p {{ color: var(--ink-soft); font-size: 1.02rem; margin-bottom: 14px; }}
-  .menu-note {{
+  }
+  .offer p { color: var(--ink-soft); font-size: 1.02rem; margin-bottom: 14px; }
+  .menu-note {
     display: inline-block;
     font-weight: 600;
     font-size: 0.9rem;
@@ -195,75 +172,75 @@ def render(brief: dict) -> str:
     background: rgba(234,164,46,0.14);
     padding: 8px 14px;
     border-radius: 6px;
-  }}
-  ul.highlights {{ list-style: none; }}
-  ul.highlights li {{
+  }
+  ul.highlights { list-style: none; }
+  ul.highlights li {
     display: flex; gap: 12px;
     padding: 11px 0;
     border-bottom: 1px solid var(--line);
     font-size: 0.98rem;
-  }}
-  .mark {{ color: var(--saffron-deep); font-weight: 700; }}
+  }
+  .mark { color: var(--saffron-deep); font-weight: 700; }
 
-  .info {{ background: var(--teal-deep); color: var(--paper); }}
-  .info .wrap {{
+  .info { background: var(--teal-deep); color: var(--paper); }
+  .info .wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
-  }}
-  .info h2 {{ color: var(--saffron); }}
-  .hours-row {{
+  }
+  .info h2 { color: var(--saffron); }
+  .hours-row {
     display: flex; justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px solid rgba(251,246,236,0.14);
     font-size: 0.94rem;
-  }}
-  .hours-row.closed span:last-child {{ color: var(--saffron); }}
-  .contact-block p {{ margin-bottom: 10px; color: rgba(251,246,236,0.85); }}
-  .contact-block a.map-link {{
+  }
+  .hours-row.closed span:last-child { color: var(--saffron); }
+  .contact-block p { margin-bottom: 10px; color: rgba(251,246,236,0.85); }
+  .contact-block a.map-link {
     display: inline-block;
     margin-top: 14px;
     font-weight: 700;
     color: var(--saffron);
     text-decoration: none;
     font-size: 0.92rem;
-  }}
+  }
 
-  footer {{
+  footer {
     padding: 26px 0;
     text-align: center;
     font-size: 0.82rem;
     color: var(--ink-soft);
-  }}
+  }
 
-  @media (max-width: 760px) {{
-    .hero .wrap, .offer .wrap, .info .wrap {{ grid-template-columns: 1fr; }}
-    .ticket {{ justify-self: start; transform: rotate(-1deg); margin-top: 8px; }}
-  }}
+  @media (max-width: 760px) {
+    .hero .wrap, .offer .wrap, .info .wrap { grid-template-columns: 1fr; }
+    .ticket { justify-self: start; transform: rotate(-1deg); margin-top: 8px; }
+  }
 
-  a:focus-visible, .hero-cta:focus-visible {{ outline: 2px solid var(--saffron); outline-offset: 3px; }}
+  a:focus-visible, .hero-cta:focus-visible { outline: 2px solid var(--saffron); outline-offset: 3px; }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <div class="brand">{name}</div>
-    <a class="top-cta" href="tel:{phone_href}">Bel &amp; bestel</a>
+    <div class="brand">O' Sole Mio</div>
+    <a class="top-cta" href="tel:036772666">Bel &amp; bestel</a>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="eyebrow">{category}</span>
-      <h1>{tagline}</h1>
-      <p class="tagline">{about}</p>
-      <a class="hero-cta" href="#info">{cta}</a>
+      <span class="eyebrow">Italiaans restaurant &amp; pizzeria</span>
+      <h1>Italiaanse klassiekers in het hart van Essen</h1>
+      <p class="tagline">O' Sole Mio brengt al jaren de Italiaanse keuken naar Essen: ovenverse pizza's, huisgemaakte pasta's en klassieke gerechten in een gemoedelijke sfeer. Met de wekelijkse pizza- en pastadag is het een vaste stek voor wie eenvoudig en betaalbaar Italiaans wil eten, zonder in te boeten op smaak.</p>
+      <a class="hero-cta" href="#info">Bekijk de kaart</a>
     </div>
     <div class="ticket">
       <div class="stub-label">Vandaag open</div>
-      <div class="stub-big">{esc(today_open)}<br>tot {esc(today_close)}</div>
+      <div class="stub-big">16:00<br>tot 22:00</div>
     </div>
   </div>
 </section>
@@ -272,13 +249,17 @@ def render(brief: dict) -> str:
   <div class="wrap">
     <div>
       <h2>Wat er op tafel komt</h2>
-      <p>{about}</p>
-      <span class="menu-note">{menu_note}</span>
+      <p>O' Sole Mio brengt al jaren de Italiaanse keuken naar Essen: ovenverse pizza's, huisgemaakte pasta's en klassieke gerechten in een gemoedelijke sfeer. Met de wekelijkse pizza- en pastadag is het een vaste stek voor wie eenvoudig en betaalbaar Italiaans wil eten, zonder in te boeten op smaak.</p>
+      <span class="menu-note">Vaste kaart aangevuld met wekelijkse dagsuggesties — woensdag pizzadag, donderdag pastadag.</span>
     </div>
     <div>
       <h2>Uitgelicht</h2>
       <ul class="highlights">
-        {highlights_html}
+        <li><span class="mark">●</span>Woensdag pizzadag: alle pizza's aan €6</li>
+<li><span class="mark">●</span>Donderdag pastadag: alle pasta's aan €8</li>
+<li><span class="mark">●</span>Ruime kaart met vegetarische opties</li>
+<li><span class="mark">●</span>Eten ter plaatse, terras of afhalen</li>
+<li><span class="mark">●</span>Ideaal voor een familiediner zonder poespas</li>
       </ul>
     </div>
   </div>
@@ -288,21 +269,26 @@ def render(brief: dict) -> str:
   <div class="wrap">
     <div>
       <h2>Openingsuren</h2>
-      {hours_html}
+      <div class="hours-row closed"><span>Maandag</span><span>Gesloten (behalve feestdagen)</span></div>
+<div class="hours-row "><span>Dinsdag</span><span>16:00 – 22:00</span></div>
+<div class="hours-row "><span>Woensdag</span><span>16:00 – 22:00</span></div>
+<div class="hours-row "><span>Donderdag</span><span>16:00 – 22:00</span></div>
+<div class="hours-row "><span>Vrijdag</span><span>16:00 – 22:00</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>16:00 – 22:00</span></div>
+<div class="hours-row "><span>Zondag</span><span>16:00 – 22:00</span></div>
     </div>
     <div class="contact-block">
       <h2>Afhalen of leveren</h2>
-      <p>{address}</p>
-      <p>{phone}</p>
-      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query={maps_q}" target="_blank" rel="noopener">Bekijk op kaart →</a>
+      <p>Molenstraat 49, 2910 Essen</p>
+      <p>03 677 26 66</p>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Molenstraat+49,+2910+Essen" target="_blank" rel="noopener">Bekijk op kaart →</a>
     </div>
   </div>
 </section>
 
 <footer>
-  Prototype gebouwd voor {name} · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+  Prototype gebouwd voor O' Sole Mio · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
 </footer>
 
 </body>
 </html>
-"""

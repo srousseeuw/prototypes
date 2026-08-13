@@ -44,6 +44,13 @@ def render(brief: dict) -> str:
 
     top_cta = f'<a class="top-cta" href="tel:{phone}">Bel de frituur</a>' if phone else ""
 
+    online_order_note = esc(brief.get("online_order_teaser", ""))
+    online_order_block = ""
+    if online_order_note:
+        online_order_block = f'''<a class="hero-cta hero-cta-outline" href="#info">
+        <span class="soon-badge">Binnenkort</span> Bestel online
+      </a>'''
+
     return f"""<!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -153,6 +160,28 @@ def render(brief: dict) -> str:
     text-decoration: none;
     font-size: 1rem;
   }}
+  .hero-actions {{ display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 10px; }}
+  .hero-cta-outline {{
+    background: transparent;
+    color: var(--grease);
+    border: 2px solid var(--grease);
+    padding: 12px 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }}
+  .soon-badge {{
+    background: var(--fry);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }}
+  .online-order-note {{ font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 26px; }}
 
   .cone {{
     justify-self: end;
@@ -285,7 +314,11 @@ def render(brief: dict) -> str:
       <h1>{tagline}</h1>
       <p class="tagline">{about}</p>
       {rating_block}
-      <a class="hero-cta" href="#info">{cta}</a>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#info">{cta}</a>
+        {online_order_block}
+      </div>
+      {f'<p class="online-order-note">{online_order_note}</p>' if online_order_note else ""}
     </div>
     <div class="cone">
       <div class="label">Vers gebakken</div>
