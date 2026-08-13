@@ -75,10 +75,21 @@ def outreach_of(brief):
     return status, STATUS_LABEL[status], " · ".join(bits)
 
 def load_briefs():
-    briefs = []
+    """Laadt de briefs waarvoor ook echt een site gegenereerd is.
+
+    Een brief kan al bestaan terwijl het sjabloon nog in de maak is; die
+    overslaan voorkomt een dode link op het overzicht.
+    """
+    briefs, zonder_site = [], []
+    sites = ROOT.parent / "sites"
     for path in sorted((ROOT / "briefs").glob("*.json")):
         brief = json.loads(path.read_text(encoding="utf-8"))
-        briefs.append(brief)
+        if (sites / brief["slug"] / "index.html").exists():
+            briefs.append(brief)
+        else:
+            zonder_site.append(brief["slug"])
+    for slug in zonder_site:
+        print(f"  overgeslagen (nog geen sites/{slug}/index.html): {slug}")
     return briefs
 
 def render(briefs) -> str:
