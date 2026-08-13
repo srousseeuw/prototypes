@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vooruit Essen — Samen Essen, Samen Vooruit</title>
+<meta name="description" content="Vooruit Essen: onze mensen, ons nieuws en waar we elke dag aan werken. Samen Essen, samen Vooruit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E4032E;
+    --red-dark: #b3021f;
+    --ink: #141414;
+    --paper: #ffffff;
+    --paper-warm: #faf8f6;
+    --line: #e8e4df;
+    --muted: #6d6a66;
+    --font-display: 'Archivo Black', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--paper); color: var(--ink); line-height: 1.55; -webkit-text-size-adjust: 100%; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- NAV ---------- */
+  header.top {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+  }
+  header.top .wrap { display: flex; justify-content: space-between; align-items: center; height: 64px; gap: 12px; }
+  .brand { font-family: var(--font-display); font-size: 1.02rem; text-transform: uppercase; letter-spacing: -0.01em; white-space: nowrap; }
+  .brand span { color: var(--red); }
+  nav.main { display: flex; gap: 22px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+  nav.main a { text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+  nav.main a:hover { border-bottom-color: var(--red); }
+  .join-btn {
+    background: var(--red); color: #fff; padding: 10px 20px; border-radius: 4px;
+    text-decoration: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
+  }
+  .join-btn:hover { background: var(--red-dark); }
+
+  /* hamburger */
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle span { display: block; width: 24px; height: 3px; background: var(--ink); margin: 5px 0; border-radius: 2px; transition: transform 0.2s ease, opacity 0.2s ease; }
+  #nav-check { display: none; }
+  .mobile-menu { display: none; }
+
+  /* ---------- HERO ---------- */
+  .hero { background: var(--ink); color: #fff; padding: 96px 0 80px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; right: -140px; top: -140px; width: 480px; height: 480px;
+    border: 60px solid var(--red); border-radius: 50%; opacity: 0.12;
+  }
+  .hero::after {
+    content: ""; position: absolute; left: -80px; bottom: -180px; width: 320px; height: 320px;
+    background: var(--red); border-radius: 50%; opacity: 0.08;
+  }
+  .hero .wrap { position: relative; }
+  .hero .eyebrow { color: var(--red); font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.78rem; margin-bottom: 20px; }
+  h1 {
+    font-family: var(--font-display); font-size: clamp(2.4rem, 6.5vw, 4.8rem);
+    line-height: 0.98; text-transform: uppercase; margin-bottom: 10px;
+  }
+  h1 .accent { color: var(--red); }
+  .hero .slogan {
+    font-family: var(--font-display); text-transform: uppercase; color: rgba(255,255,255,0.55);
+    font-size: clamp(0.95rem, 2.2vw, 1.35rem); letter-spacing: 0.06em; margin-bottom: 26px;
+  }
+  .hero p.lead { max-width: 54ch; font-size: 1.1rem; color: rgba(255,255,255,0.85); margin-bottom: 14px; }
+  .hero p.lead strong { color: #fff; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+  .btn-primary { background: var(--red); color: #fff; padding: 15px 28px; border-radius: 4px; font-weight: 800; text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .btn-primary:hover { background: var(--red-dark); }
+  .btn-ghost { border: 2px solid rgba(255,255,255,0.35); color: #fff; padding: 13px 28px; border-radius: 4px; font-weight: 800; text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .btn-ghost:hover { border-color: #fff; }
+
+  /* ---------- FOTOSTROOK (Turnhout-stijl) ---------- */
+  .photo-strip { padding: 0; background: var(--ink); }
+  .strip-track {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+  }
+  .strip-track .ph {
+    aspect-ratio: 4 / 3; overflow: hidden; position: relative;
+  }
+  .strip-track img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
+  .strip-track .ph:hover img { transform: scale(1.05); }
+
+  /* ---------- GENERIC ---------- */
+  section { padding: 76px 0; }
+  .redbar { width: 72px; height: 6px; background: var(--red); margin-bottom: 20px; }
+  h2 { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 10px; }
+  .section-sub { color: var(--muted); margin-bottom: 40px; max-width: 62ch; font-size: 1rem; }
+
+  /* ---------- VERSCHIL ---------- */
+  .verschil { background: var(--paper-warm); }
+  .verschil .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .verschil .big-statement {
+    font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+    line-height: 1.15;
+  }
+  .verschil .big-statement em { font-style: normal; color: var(--red); }
+  .verschil-points { display: flex; flex-direction: column; gap: 18px; }
+  .vp { display: flex; gap: 16px; align-items: flex-start; }
+  .vp .num { font-family: var(--font-display); color: var(--red); font-size: 1.3rem; line-height: 1.2; min-width: 34px; }
+  .vp .txt strong { display: block; margin-bottom: 2px; }
+  .vp .txt span { color: var(--muted); font-size: 0.95rem; }
+
+  /* ---------- THEMA'S ---------- */
+  .themas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .thema-card {
+    border: 1px solid var(--line); border-top: 5px solid var(--red); border-radius: 6px;
+    padding: 24px; background: #fff;
+  }
+  .thema-card h3 { font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 10px; }
+  .thema-card p { color: var(--muted); font-size: 0.95rem; }
+
+  /* ---------- NIEUWS ---------- */
+  .nieuws { background: var(--paper-warm); }
+  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .news-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+    text-decoration: none; color: var(--ink); display: flex; flex-direction: column;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .news-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.07); }
+  .news-card .thumb { aspect-ratio: 16 / 10; overflow: hidden; background: var(--line); }
+  .news-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .news-card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .news-card .tag { color: var(--red); font-weight: 800; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .news-card h3 { font-size: 0.98rem; font-weight: 700; line-height: 1.35; }
+  .news-card .date { color: var(--muted); font-size: 0.8rem; margin-top: auto; padding-top: 8px; }
+  .news-more { margin-top: 34px; }
+  .btn-dark { border: 2px solid var(--ink); color: var(--ink); padding: 13px 28px; border-radius: 4px; font-weight: 800; text-decoration: none; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.04em; display: inline-block; }
+  .btn-dark:hover { background: var(--ink); color: #fff; }
+
+  /* ---------- TEAM ---------- */
+  .team { background: var(--ink); color: #fff; }
+  .team h2 { color: #fff; }
+  .team .section-sub { color: rgba(255,255,255,0.62); }
+  .team-group-label {
+    font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem;
+    color: var(--red); margin: 36px 0 18px;
+  }
+  .team-group-label:first-of-type { margin-top: 0; }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .team-grid.two { grid-template-columns: repeat(2, 1fr); max-width: 640px; }
+  .team-card { border-top: 3px solid var(--red); padding-top: 14px; }
+  .team-card .name { font-weight: 800; font-size: 1.02rem; margin-bottom: 6px; }
+  .team-card .role { color: rgba(255,255,255,0.66); font-size: 0.87rem; line-height: 1.45; }
+
+  /* ---------- CTA ---------- */
+  .cta-band { background: var(--red); color: #fff; text-align: center; padding: 70px 0; }
+  .cta-band h2 { color: #fff; }
+  .cta-band p { max-width: 52ch; margin: 0 auto 28px; color: rgba(255,255,255,0.94); font-size: 1.02rem; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-white { background: #fff; color: var(--red); padding: 14px 30px; border-radius: 4px; font-weight: 800; text-decoration: none; display: inline-block; text-transform: uppercase; font-size: 0.88rem; letter-spacing: 0.04em; }
+  .btn-outline-white { border: 2px solid rgba(255,255,255,0.6); color: #fff; padding: 12px 30px; border-radius: 4px; font-weight: 800; text-decoration: none; display: inline-block; text-transform: uppercase; font-size: 0.88rem; letter-spacing: 0.04em; }
+  .btn-outline-white:hover { border-color: #fff; }
+
+  /* ---------- FOOTER ---------- */
+  footer { padding: 56px 0 36px; background: var(--paper-warm); border-top: 1px solid var(--line); }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .foot-brand-line { font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem; margin-bottom: 12px; }
+  .foot-brand-line span { color: var(--red); }
+  .foot-note { color: var(--muted); font-size: 0.88rem; max-width: 40ch; }
+  footer h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; color: var(--muted); }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul a { text-decoration: none; font-size: 0.92rem; font-weight: 600; }
+  footer ul a:hover { color: var(--red); }
+  .foot-bottom { border-top: 1px solid var(--line); padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 0.82rem; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 940px) {
+    .news-grid, .themas-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .verschil .wrap { grid-template-columns: 1fr; gap: 36px; }
+    .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+    .strip-track { grid-template-columns: repeat(3, 1fr); }
+    .strip-track .ph:nth-child(n+4) { display: none; }
+  }
+  @media (max-width: 680px) {
+    nav.main, .join-btn.desktop { display: none; }
+    .nav-toggle { display: block; }
+    #nav-check:checked ~ .mobile-menu { display: block; }
+    .mobile-menu {
+      position: absolute; top: 64px; left: 0; right: 0;
+      background: var(--paper); border-bottom: 1px solid var(--line);
+      padding: 8px 24px 20px;
+    }
+    .mobile-menu a {
+      display: block; padding: 14px 0; text-decoration: none;
+      font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--line);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .join-mobile { color: var(--red); }
+    #nav-check:checked ~ .wrap .nav-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    #nav-check:checked ~ .wrap .nav-toggle span:nth-child(2) { opacity: 0; }
+    #nav-check:checked ~ .wrap .nav-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    section { padding: 56px 0; }
+    .hero { padding: 72px 0 60px; }
+    .hero p.lead { font-size: 1.02rem; }
+    .hero-actions .btn-primary, .hero-actions .btn-ghost { width: 100%; text-align: center; }
+    .news-grid, .themas-grid, .team-grid, .team-grid.two { grid-template-columns: 1fr; }
+    .strip-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .strip-track .ph { flex: 0 0 72%; scroll-snap-align: start; display: block !important; }
+    .cta-actions .btn-white, .cta-actions .btn-outline-white { width: 100%; }
+    .foot-bottom { flex-direction: column; }
+  }
+  a:focus-visible, .nav-toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <div class="wrap">
+    <div class="brand">Vooruit <span>Essen</span></div>
+    <nav class="main" aria-label="Hoofdnavigatie">
+      <a href="#nieuws">Nieuws</a>
+      <a href="#themas">Waar we aan werken</a>
+      <a href="#mensen">Team</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="join-btn desktop" href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid</a>
+    <label for="nav-check" class="nav-toggle" role="button" aria-label="Menu openen" tabindex="0">
+      <span></span><span></span><span></span>
+    </label>
+  </div>
+  <div class="mobile-menu">
+    <a href="#nieuws" onclick="document.getElementById('nav-check').checked=false">Nieuws</a>
+    <a href="#themas" onclick="document.getElementById('nav-check').checked=false">Waar we aan werken</a>
+    <a href="#mensen" onclick="document.getElementById('nav-check').checked=false">Team</a>
+    <a href="#contact" onclick="document.getElementById('nav-check').checked=false">Contact</a>
+    <a class="join-mobile" href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Vooruit — Provincie Antwerpen</div>
+    <h1>Samen Essen,<br><span class="accent">samen Vooruit.</span></h1>
+    <div class="slogan">Onze gemeente, onze mensen.</div>
+    <p class="lead">Wij houden van onze gemeente. Dat voelen we op elke markt, in elke straat, bij elk gesprek. Essen beweegt — en met <strong>twee schepenen en een sterke fractie</strong> werken wij elke dag mee aan het bestuur.</p>
+    <p class="lead">Niet met grote woorden, wel met concrete resultaten: van een automatische zorgtoelage voor kinderen tot veiligere straten en een gemeente die voorbereid is op hitte en droogte. <strong>Want voor ons telt élke Essenaar.</strong></p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#nieuws">Lees ons nieuws</a>
+      <a class="btn-ghost" href="#mensen">Ontdek ons team</a>
+    </div>
+  </div>
+</section>
+
+<div class="photo-strip" aria-label="Fotostrook van onze werking">
+  <div class="strip-track">
+    <div class="ph"><img src="img/zorgtoelage.jpg" alt="Emma Lambregts en Arno Aerden bij de bekendmaking van de zorgtoelage" loading="eager"></div>
+    <div class="ph"><img src="img/gerinkel.jpg" alt="Gerinkel naar de Winkel — duurzaam naar de winkel in Essen" loading="lazy"></div>
+    <div class="ph"><img src="img/fietsers.jpg" alt="Fietsers in Essen — het nieuwe mobiliteitsplan" loading="lazy"></div>
+    <div class="ph"><img src="img/zwaluwtil.jpg" alt="Zwaluwtil in Essen — werken aan biodiversiteit" loading="lazy"></div>
+    <div class="ph"><img src="img/boekstart.jpg" alt="Boekstartdag in de bibliotheek van Essen" loading="lazy"></div>
+  </div>
+</div>
+
+<section class="verschil">
+  <div class="wrap">
+    <div>
+      <div class="redbar"></div>
+      <div class="big-statement">Wij maken het verschil. <em>Elke dag opnieuw.</em></div>
+    </div>
+    <div class="verschil-points">
+      <div class="vp">
+        <div class="num">01</div>
+        <div class="txt"><strong>We luisteren</strong><span>In de gemeenteraad, het bijzonder comité en op straat: we vertrekken van wat er bij mensen leeft.</span></div>
+      </div>
+      <div class="vp">
+        <div class="num">02</div>
+        <div class="txt"><strong>We besturen mee</strong><span>Met schepenambten voor wonen, jeugd, sociaal beleid, klimaat en cultuur nemen we verantwoordelijkheid op.</span></div>
+      </div>
+      <div class="vp">
+        <div class="num">03</div>
+        <div class="txt"><strong>We boeken resultaat</strong><span>Geen beloftes maar realisaties — en daarover leggen we open verantwoording af in ons nieuws.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="themas">
+  <div class="wrap">
+    <div class="redbar"></div>
+    <h2>Waar we aan werken</h2>
+    <p class="section-sub">De rode draad door ons werk in de gemeenteraad en het schepencollege, zoals je die ook terugvindt in onze nieuwsberichten.</p>
+    <div class="themas-grid">
+      <div class="thema-card">
+        <h3>Zorg &amp; gelijke kansen</h3>
+        <p>Elk kind en elk gezin telt. De automatische toekenning van de zorgtoelage zorgt ervoor dat steun terechtkomt bij wie er recht op heeft — zonder papierwinkel.</p>
+      </div>
+      <div class="thema-card">
+        <h3>Klimaat &amp; groen</h3>
+        <p>Van een scherp hitteplan tot meer biodiversiteit met zwaluwtillen en WilderTnis: Essen voorbereiden op droogte en hitte is geen luxe meer, maar noodzaak.</p>
+      </div>
+      <div class="thema-card">
+        <h3>Veilig onderweg</h3>
+        <p>Een mobiliteitsplan dat werkt voor fietsers én voetgangers, met extra aandacht voor wie zich te voet verplaatst — jong en oud.</p>
+      </div>
+      <div class="thema-card">
+        <h3>Duurzaam lokaal</h3>
+        <p>Initiatieven zoals Gerinkel naar de Winkel tonen dat duizenden kleine, duurzame keuzes samen een groot verschil maken voor onze gemeente.</p>
+      </div>
+      <div class="thema-card">
+        <h3>Digitale inclusie</h3>
+        <p>Ook de buitengebieden verdienen snel internet. We dringen aan op duidelijkheid over de uitrol van glasvezel voor élke Essenaar.</p>
+      </div>
+      <div class="thema-card">
+        <h3>Jeugd &amp; cultuur</h3>
+        <p>Van Boekstartdag in de bib tot een sterk cultuuraanbod: opgroeien in Essen moet kansen bieden, van het eerste prentenboek tot het eerste podium.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nieuws" id="nieuws">
+  <div class="wrap">
+    <div class="redbar"></div>
+    <h2>Ons laatste nieuws</h2>
+    <p class="section-sub">Wat onze ploeg de afgelopen maanden realiseerde en op de agenda zette — elk artikel lees je integraal op de nieuwspagina van Vooruit.</p>
+    <div class="news-grid">
+
+      <a class="news-card" href="https://nieuws.vooruit.org/gerinkel_naar_de_winkel_13_000_duurzame_ritjes_maken_samen_een_groot_verschil" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/gerinkel.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Duurzaamheid</span>
+          <h3>Gerinkel naar de Winkel: 13.000 duurzame ritjes maken samen een groot verschil</h3>
+          <span class="date">13.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/droogte_is_geen_uitzondering_meer_het_is_onze_nieuwe_realiteit" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/droogte.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Klimaat</span>
+          <h3>Droogte is geen uitzondering meer. Het is onze nieuwe realiteit</h3>
+          <span class="date">02.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/automatische_zorgtoelage_bereikt_bijna_drie_keer_meer_kinderen_en_jongeren_in_essen" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/zorgtoelage.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Sociaal</span>
+          <h3>Automatische zorgtoelage bereikt bijna drie keer meer kinderen en jongeren in Essen</h3>
+          <span class="date">27.07.2026 — Emma Lambregts</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/meer_aandacht_voor_voetgangers" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/voetgangers.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Mobiliteit</span>
+          <h3>Meer aandacht voor voetgangers</h3>
+          <span class="date">02.07.2026 — Ronald Goormachtig</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/graag_duidelijkheid_over_glasvezel_in_essense_buitengebieden" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/glasvezel.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Digitalisering</span>
+          <h3>Graag duidelijkheid over glasvezel in Essense buitengebieden</h3>
+          <span class="date">02.07.2026 — Jeroen Verleysen</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/vooruit_raadslid_leen_jaspers_houdt_hittebeleid_scherp" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/hitte.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Zorg &amp; klimaat</span>
+          <h3>Vooruit-raadslid Leen Jaspers houdt hittebeleid scherp</h3>
+          <span class="date">02.07.2026 — Leen Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/vooruit_steunt_mobiliteitsplan_nu_moet_het_echte_werk_beginnen" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/fietsers.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Mobiliteit</span>
+          <h3>Vooruit steunt mobiliteitsplan: "Nu moet het echte werk beginnen"</h3>
+          <span class="date">30.06.2026 — Emma Lambregts</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/zwaluwtillen_en_wildertnis_en_potpolder" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/zwaluwtil.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Biodiversiteit</span>
+          <h3>Zwaluwtillen en WilderTnis en potpolder</h3>
+          <span class="date">28.05.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/_boekstartdag_in_de_bib_zet_jonge_gezinnen_op_weg_naar_leesplezier" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/boekstart.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Jeugd &amp; cultuur</span>
+          <h3>Boekstartdag in de bib zet jonge gezinnen op weg naar leesplezier</h3>
+          <span class="date">23.05.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+    </div>
+    <div class="news-more">
+      <a class="btn-dark" href="https://nieuws.vooruit.org/tags/essen" target="_blank" rel="noopener">Bekijk alle artikels →</a>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="mensen">
+  <div class="wrap">
+    <div class="redbar"></div>
+    <h2>De gezichten van Essen</h2>
+    <p class="section-sub">Onze ploeg in het schepencollege, de gemeenteraad en het bijzonder comité voor de sociale dienst.</p>
+
+    <div class="team-group-label">Schepencollege</div>
+    <div class="team-grid two">
+      <div class="team-card"><div class="name">Arno Aerden</div><div class="role">Schepen van ruimtelijke ordening en wonen, jeugd en kinderopvang, sociaal beleid, gelijke kansen en juridische aangelegenheden</div></div>
+      <div class="team-card"><div class="name">Helmut Jaspers</div><div class="role">Schepen van leefmilieu, groenbeleid, klimaat, duurzaamheid en dierenwelzijn; schepen van cultuur en internationale samenwerking</div></div>
+    </div>
+
+    <div class="team-group-label">Gemeenteraad</div>
+    <div class="team-grid">
+      <div class="team-card"><div class="name">Emma Lambregts</div><div class="role">Fractieleider gemeenteraad</div></div>
+      <div class="team-card"><div class="name">Ronald Goormachtig</div><div class="role">Gemeenteraadslid</div></div>
+      <div class="team-card"><div class="name">Jeroen Verleysen</div><div class="role">Gemeenteraadslid</div></div>
+      <div class="team-card"><div class="name">Leen Jaspers</div><div class="role">Gemeenteraadslid</div></div>
+    </div>
+
+    <div class="team-group-label">Bijzonder Comité Sociale Dienst</div>
+    <div class="team-grid two">
+      <div class="team-card"><div class="name">François Veraart</div><div class="role">Lid bijzonder comité sociale dienst</div></div>
+      <div class="team-card"><div class="name">Diane Van Ginderen</div><div class="role">Lid bijzonder comité sociale dienst</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="contact">
+  <div class="wrap">
+    <h2>Doe mee met Vooruit Essen</h2>
+    <p>Volg ons op sociale media, kom eens langs op een activiteit, of word lid en bouw mee aan een gemeente waar iedereen op kan rekenen.</p>
+    <div class="cta-actions">
+      <a class="btn-white" href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid</a>
+      <a class="btn-outline-white" href="https://www.facebook.com/essensesocialisten" target="_blank" rel="noopener">Facebook</a>
+      <a class="btn-outline-white" href="https://www.instagram.com/vooruit.essen/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand-line">Samen Essen, <span>samen Vooruit.</span></div>
+        <p class="foot-note">De lokale afdeling van Vooruit in Essen (provincie Antwerpen). Onderdeel van de landelijke beweging Vooruit, Keizerslaan 13, 1000 Brussel.</p>
+      </div>
+      <div>
+        <h4>Op deze pagina</h4>
+        <ul>
+          <li><a href="#nieuws">Nieuws</a></li>
+          <li><a href="#themas">Waar we aan werken</a></li>
+          <li><a href="#mensen">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Vooruit landelijk</h4>
+        <ul>
+          <li><a href="https://www.vooruit.org/missie" target="_blank" rel="noopener">Mission statement</a></li>
+          <li><a href="https://www.vooruit.org/standpunten" target="_blank" rel="noopener">Standpunten</a></li>
+          <li><a href="https://nieuws.vooruit.org/dicht-bij-jou" target="_blank" rel="noopener">Lokale afdelingen</a></li>
+          <li><a href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Vooruit Essen</span>
+      <span><a href="https://www.vooruit.org/privacyverklaring" target="_blank" rel="noopener" style="text-decoration:none;">Privacyverklaring</a> · <a href="https://www.vooruit.org/gebruiksvoorwaarden" target="_blank" rel="noopener" style="text-decoration:none;">Gebruiksvoorwaarden</a></span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
