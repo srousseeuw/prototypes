@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uurrooster 2026 – 2027 &mdash; Dansstudio Pivolté</title>
+<meta name="description" content="Het volledige lesrooster, filterbaar op dag, locatie, stijl en leeftijd.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600;1,9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1220;
+  --ink-2:#4a3b50;
+  --ink-soft:#6f6076;
+  --red:#CE181C;
+  --red-deep:#a3121a;
+  --red-tint:rgba(206,24,28,0.09);
+  --blush:#FCEBE7;
+  --blush-2:#F7D8D0;
+  --paper:#FFFCFB;
+  --card:#ffffff;
+  --line:rgba(27,18,32,0.13);
+  --line-soft:rgba(27,18,32,0.07);
+  --ok:#1d7a4c;
+  --radius:20px;
+  --shadow:0 18px 44px rgba(27,18,32,0.10);
+  --font-display:'Fraunces',Georgia,'Times New Roman',serif;
+  --font-body:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.wrap{width:min(1120px,calc(100% - 36px));margin-inline:auto}
+.wrap-narrow{width:min(760px,calc(100% - 36px));margin-inline:auto}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--red);color:#fff;padding:10px 16px;z-index:99}
+.skip:focus{left:8px;top:8px}
+
+/* ---------- kop ---------- */
+.site-head{
+  position:sticky;top:0;z-index:60;
+  background:rgba(255,252,251,0.93);
+  backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+.site-head .wrap{display:flex;align-items:center;gap:12px;min-height:70px}
+.logo{display:block;text-decoration:none;margin-right:auto;line-height:1}
+.logo .word{
+  font-family:var(--font-display);font-style:italic;font-weight:700;
+  font-size:1.72rem;color:var(--red);letter-spacing:-0.01em;
+}
+.logo .sub{
+  display:block;font-size:0.58rem;font-weight:700;letter-spacing:0.34em;
+  text-transform:uppercase;color:var(--ink-soft);margin-top:4px;
+}
+nav.main{display:flex;align-items:center;gap:2px}
+nav.main a{
+  text-decoration:none;font-weight:600;font-size:0.94rem;color:var(--ink-2);
+  padding:10px 13px;border-radius:999px;
+}
+nav.main a:hover{background:var(--blush);color:var(--ink)}
+nav.main a[aria-current]{color:var(--red)}
+.btn-signup{
+  background:var(--red);color:#fff;text-decoration:none;font-weight:700;
+  font-size:0.93rem;padding:12px 20px;border-radius:999px;white-space:nowrap;
+}
+.btn-signup:hover{background:var(--red-deep)}
+.nav-toggle{
+  display:none;border:1px solid var(--line);background:transparent;
+  width:46px;height:46px;border-radius:14px;align-items:center;justify-content:center;cursor:pointer;
+}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--ink);position:relative}
+.nav-toggle span::before,.nav-toggle span::after{
+  content:"";position:absolute;left:0;width:20px;height:2px;background:var(--ink);
+}
+.nav-toggle span::before{top:-6px}
+.nav-toggle span::after{top:6px}
+@media(max-width:940px){
+  nav.main{
+    display:none;position:absolute;left:0;right:0;top:100%;
+    flex-direction:column;align-items:stretch;gap:2px;
+    background:var(--paper);border-bottom:1px solid var(--line);
+    padding:10px 18px 18px;box-shadow:var(--shadow);
+  }
+  nav.main.open{display:flex}
+  nav.main a{padding:15px 12px;font-size:1.05rem;border-radius:12px}
+  .nav-toggle{display:inline-flex}
+  .site-head .wrap{position:relative}
+}
+@media(max-width:420px){
+  .btn-signup{padding:11px 14px;font-size:0.86rem}
+  .logo .word{font-size:1.45rem}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:70px 0 60px;overflow:hidden}
+.hero .wrap{position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:44px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:0.74rem;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;
+  color:var(--red);background:var(--red-tint);padding:8px 15px;border-radius:999px;
+}
+h1{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(2.5rem,7vw,4.3rem);line-height:1.02;letter-spacing:-0.02em;
+  margin:20px 0 18px;
+}
+h1 em{font-style:italic;color:var(--red)}
+.lede{font-size:clamp(1.02rem,2.4vw,1.16rem);color:var(--ink-2);max-width:46ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  text-decoration:none;font-weight:700;font-size:1rem;
+  padding:15px 27px;border-radius:999px;border:2px solid transparent;cursor:pointer;
+  min-height:52px;
+}
+.btn-primary{background:var(--red);color:#fff}
+.btn-primary:hover{background:var(--red-deep)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:var(--blush);border-color:var(--blush-2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+.ribbon{position:absolute;inset:0;z-index:1;pointer-events:none}
+.ribbon svg{position:absolute;right:-16%;top:-26%;width:min(680px,76vw);height:auto;opacity:.95}
+@media(max-width:940px){.ribbon svg{right:-34%;top:auto;bottom:-8%;opacity:.28;width:150vw}}
+
+.stats{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+  background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:24px;box-shadow:var(--shadow);
+}
+.stat .num{font-family:var(--font-display);font-weight:700;font-size:2.3rem;line-height:1;color:var(--red)}
+.stat .lbl{font-size:0.84rem;color:var(--ink-soft);margin-top:5px;font-weight:600}
+
+/* ---------- marquee ---------- */
+.marquee{background:var(--ink);color:var(--paper);overflow:hidden;padding:15px 0}
+.marquee-track{display:flex;width:max-content;animation:pv-slide 38s linear infinite}
+.marquee-track span{
+  font-family:var(--font-display);font-style:italic;font-weight:600;
+  font-size:1.15rem;padding:0 22px;white-space:nowrap;opacity:.92;
+}
+.marquee-track span::after{content:"·";margin-left:22px;color:var(--red);font-style:normal}
+@keyframes pv-slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+
+/* ---------- secties ---------- */
+section{padding:66px 0}
+.section-head{max-width:58ch;margin-bottom:34px}
+.kicker{
+  font-size:0.73rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--red);margin-bottom:12px;
+}
+h2{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.1;letter-spacing:-0.015em;
+}
+h2 em{font-style:italic;color:var(--red)}
+h3{font-family:var(--font-display);font-weight:600;font-size:1.22rem;line-height:1.25}
+.section-head p{color:var(--ink-2);margin-top:14px}
+.tint{background:var(--blush)}
+.dark{background:var(--ink);color:var(--paper)}
+.dark h2,.dark h3{color:#fff}
+.dark .kicker{color:var(--blush-2)}
+.dark p{color:rgba(255,252,251,0.78)}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+ul.highlights{list-style:none}
+ul.highlights li{
+  display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line-soft);
+  font-size:0.99rem;
+}
+ul.highlights li:last-child{border-bottom:0}
+.mark{color:var(--red);font-weight:800}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cards.two{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:26px 24px;
+}
+.card .tag{
+  display:inline-block;font-size:0.74rem;font-weight:700;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--red);background:var(--red-tint);
+  padding:5px 11px;border-radius:999px;margin-bottom:13px;
+}
+.card p{color:var(--ink-2);font-size:0.96rem;margin-top:10px}
+.dark .card{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.14)}
+.dark .card .tag{color:var(--blush-2);background:rgba(255,255,255,0.10)}
+.dark .card p{color:rgba(255,252,251,0.76)}
+
+.pill-list{display:flex;flex-wrap:wrap;gap:9px;list-style:none}
+.pill-list li{
+  background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:9px 16px;font-size:0.92rem;font-weight:600;
+}
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;list-style:none}
+.people li{
+  background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:15px 17px;
+}
+.people .nm{font-weight:700}
+.people .rl{font-size:0.85rem;color:var(--ink-soft);margin-top:3px}
+
+.loc-list{list-style:none;display:grid;gap:12px}
+.loc-list li{
+  background:var(--card);border:1px solid var(--line-soft);border-radius:14px;
+  padding:16px 18px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;
+}
+.loc-list .nm{font-weight:700}
+.loc-list .ad{font-size:0.9rem;color:var(--ink-soft)}
+.loc-list a{font-weight:700;color:var(--red);text-decoration:none;font-size:0.88rem;white-space:nowrap}
+
+details.faq{
+  background:var(--card);border:1px solid var(--line-soft);border-radius:14px;
+  padding:4px 18px;margin-bottom:10px;
+}
+details.faq summary{
+  cursor:pointer;font-weight:700;padding:15px 0;list-style:none;
+  display:flex;justify-content:space-between;gap:14px;align-items:center;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";color:var(--red);font-size:1.4rem;line-height:1}
+details.faq[open] summary::after{content:"–"}
+details.faq p{padding:0 0 16px;color:var(--ink-2)}
+
+.cta-band{background:var(--red);color:#fff;border-radius:var(--radius);padding:44px 40px;text-align:center}
+.cta-band h2{color:#fff}
+.cta-band p{color:rgba(255,255,255,0.86);margin:14px auto 26px;max-width:52ch}
+.cta-band .btn-primary{background:#fff;color:var(--red)}
+.cta-band .btn-primary:hover{background:var(--blush)}
+
+.note{
+  background:var(--blush);border-left:4px solid var(--red);border-radius:0 12px 12px 0;
+  padding:15px 18px;font-size:0.93rem;color:var(--ink-2);
+}
+
+/* ---------- uurrooster ---------- */
+.filters{
+  background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;box-shadow:var(--shadow);
+}
+.filters .f{display:flex;flex-direction:column;gap:6px}
+.filters label{font-size:0.79rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-soft)}
+.filters select,.filters input{
+  font:inherit;font-size:1rem;padding:12px 13px;min-height:50px;
+  border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);
+  width:100%;
+}
+.filter-meta{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin:22px 0 14px}
+.filter-meta .count{font-weight:700}
+.linkish{background:none;border:0;color:var(--red);font-weight:700;cursor:pointer;text-decoration:underline;padding:8px 2px}
+
+.daygroup{margin-bottom:34px}
+.daygroup h3{
+  font-size:1.5rem;padding-bottom:10px;border-bottom:2px solid var(--ink);margin-bottom:6px;
+}
+.lesrow{
+  display:grid;grid-template-columns:112px 1fr auto;gap:16px;align-items:center;
+  padding:15px 4px;border-bottom:1px solid var(--line-soft);
+}
+.lesrow .tm{font-weight:700;font-variant-numeric:tabular-nums;font-size:0.95rem}
+.lesrow .st{font-weight:700}
+.lesrow .meta{font-size:0.87rem;color:var(--ink-soft);margin-top:2px}
+.badge{
+  display:inline-block;font-size:0.7rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;
+  padding:4px 9px;border-radius:999px;background:var(--red-tint);color:var(--red);margin-left:8px;
+}
+.badge.lvl{background:rgba(27,18,32,0.07);color:var(--ink-2)}
+.lesrow .loc{font-size:0.87rem;color:var(--ink-soft);text-align:right}
+.empty{padding:28px;text-align:center;color:var(--ink-soft);background:var(--card);border-radius:14px;border:1px dashed var(--line)}
+
+/* ---------- prijzen ---------- */
+.pricetable{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);overflow:hidden}
+.pricetable .row{
+  display:flex;justify-content:space-between;gap:18px;padding:15px 22px;
+  border-bottom:1px solid var(--line-soft);font-size:0.98rem;
+}
+.pricetable .row:last-child{border-bottom:0}
+.pricetable .row .amt{font-weight:700;white-space:nowrap}
+.pricetable h3{padding:20px 22px 6px}
+
+/* ---------- inschrijfflow ---------- */
+.wiz-head{padding:30px 0 6px}
+.wiz-head h1{font-size:clamp(2rem,5.5vw,2.9rem);margin:12px 0 10px}
+.protobar{
+  background:var(--ink);color:var(--paper);font-size:0.87rem;
+  padding:11px 0;text-align:center;
+}
+.protobar strong{color:var(--blush-2)}
+.steps{display:flex;gap:8px;margin:26px 0 8px;list-style:none}
+.steps li{flex:1;min-width:0}
+.steps .bar{height:6px;border-radius:99px;background:var(--line);display:block}
+.steps li.done .bar,.steps li.current .bar{background:var(--red)}
+.steps .nm{
+  display:block;font-size:0.76rem;font-weight:700;margin-top:8px;color:var(--ink-soft);
+  text-transform:uppercase;letter-spacing:0.06em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.steps li.current .nm{color:var(--red)}
+.stepcount{font-size:0.86rem;font-weight:700;color:var(--ink-soft);letter-spacing:0.04em}
+
+.step{display:none;padding:26px 0 130px}
+.step.active{display:block}
+.step h2{font-size:clamp(1.55rem,4vw,2.1rem);margin-bottom:8px}
+.step .sub{color:var(--ink-2);margin-bottom:26px;max-width:56ch}
+
+fieldset{border:0}
+legend{font-weight:700;margin-bottom:12px}
+.field{margin-bottom:20px}
+.field label,.field .lab{display:block;font-weight:700;font-size:0.95rem;margin-bottom:7px}
+.field .hint{font-size:0.86rem;color:var(--ink-soft);margin:-3px 0 8px}
+.field input[type=text],.field input[type=email],.field input[type=tel],.field input[type=date],.field textarea,.field select{
+  width:100%;font:inherit;font-size:1rem;padding:14px 15px;min-height:54px;
+  border:1.5px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);
+}
+.field textarea{min-height:110px;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--red);outline:none;box-shadow:0 0 0 3px var(--red-tint)}
+.field.has-error input,.field.has-error textarea,.field.has-error select{border-color:var(--red);background:#fff6f6}
+.err{display:none;color:var(--red-deep);font-size:0.88rem;font-weight:600;margin-top:7px}
+.field.has-error .err{display:block}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+
+.choice{display:grid;gap:10px}
+.choice input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.choice label{
+  display:flex;align-items:center;gap:13px;cursor:pointer;
+  border:1.5px solid var(--line);border-radius:16px;padding:16px 18px;background:var(--card);
+  font-weight:600;min-height:58px;
+}
+.choice input:checked+label{border-color:var(--red);background:var(--red-tint)}
+.choice input:focus-visible+label{outline:3px solid var(--red);outline-offset:2px}
+.choice .dot{
+  width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:none;position:relative;background:#fff;
+}
+.choice input:checked+label .dot{border-color:var(--red)}
+.choice input:checked+label .dot::after{
+  content:"";position:absolute;inset:4px;border-radius:50%;background:var(--red);
+}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.chip{
+  border:1.5px solid var(--line);background:var(--card);border-radius:999px;
+  padding:10px 16px;font-size:0.9rem;font-weight:700;cursor:pointer;min-height:44px;
+}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.les-day{font-family:var(--font-display);font-weight:700;font-size:1.25rem;margin:26px 0 10px}
+.les-pick{
+  display:flex;gap:14px;align-items:flex-start;width:100%;text-align:left;
+  border:1.5px solid var(--line);background:var(--card);border-radius:16px;
+  padding:15px 16px;margin-bottom:10px;cursor:pointer;min-height:64px;
+}
+.les-pick:hover{border-color:var(--blush-2);background:#fffafa}
+.les-pick[aria-pressed=true]{border-color:var(--red);background:var(--red-tint)}
+.les-pick .box{
+  width:26px;height:26px;border-radius:9px;border:2px solid var(--line);flex:none;
+  display:flex;align-items:center;justify-content:center;background:#fff;margin-top:2px;
+}
+.les-pick[aria-pressed=true] .box{background:var(--red);border-color:var(--red)}
+.les-pick .box svg{width:15px;height:15px;opacity:0}
+.les-pick[aria-pressed=true] .box svg{opacity:1}
+.les-pick .txt{display:block;flex:1;min-width:0}
+.les-pick .t1{display:block;font-weight:700}
+.les-pick .t2{display:block;font-size:0.88rem;color:var(--ink-soft);margin-top:3px}
+
+.warn{
+  background:#fff6ed;border:1px solid #f0c9a0;border-radius:14px;padding:13px 16px;
+  font-size:0.9rem;color:#7a4a12;margin-bottom:14px;
+}
+.summary{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
+.summary .head{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:15px 20px;background:var(--blush);font-weight:700;
+}
+.summary .head button{background:none;border:0;color:var(--red);font-weight:700;cursor:pointer;text-decoration:underline;font-size:0.88rem;padding:6px}
+.summary .row{display:flex;justify-content:space-between;gap:16px;padding:13px 20px;border-bottom:1px solid var(--line-soft);font-size:0.95rem}
+.summary .row:last-child{border-bottom:0}
+.summary .row .k{color:var(--ink-soft)}
+.summary .row.total{font-weight:800;font-size:1.05rem;background:#fff}
+.check{display:flex;gap:13px;align-items:flex-start;margin-bottom:16px;cursor:pointer}
+.check input{width:26px;height:26px;flex:none;margin-top:2px;accent-color:var(--red)}
+.check span{font-size:0.95rem}
+
+.wiz-bar{
+  position:sticky;bottom:0;z-index:30;
+  background:rgba(255,252,251,0.95);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+  padding:12px 0 calc(12px + env(safe-area-inset-bottom));
+  margin-top:-120px;
+}
+.wiz-bar .wrap-narrow{display:flex;align-items:center;gap:12px}
+.wiz-bar .info{flex:1;font-size:0.86rem;color:var(--ink-soft);font-weight:600;min-width:0}
+.wiz-bar .btn{padding:14px 24px;font-size:0.98rem}
+.formerr{display:none;background:#fff6f6;border:1px solid #f2c2c2;color:var(--red-deep);border-radius:12px;padding:12px 15px;font-weight:600;font-size:0.92rem;margin-bottom:18px}
+.formerr.show{display:block}
+.done-mark{
+  width:76px;height:76px;border-radius:50%;background:var(--red);color:#fff;
+  display:flex;align-items:center;justify-content:center;margin-bottom:22px;
+}
+
+/* ---------- footer ---------- */
+footer.site{background:var(--ink);color:var(--paper);padding:56px 0 30px;margin-top:10px}
+footer.site .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px}
+footer.site h4{font-family:var(--font-display);font-weight:600;font-size:1.1rem;margin-bottom:14px}
+footer.site p,footer.site li{color:rgba(255,252,251,0.74);font-size:0.94rem}
+footer.site ul{list-style:none;display:grid;gap:8px}
+footer.site a{color:rgba(255,252,251,0.86);text-decoration:none}
+footer.site a:hover{color:#fff;text-decoration:underline}
+footer.site .socials{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+footer.site .socials a{
+  border:1px solid rgba(255,255,255,0.22);border-radius:999px;padding:8px 15px;font-size:0.87rem;font-weight:600;
+}
+footer.site .fine{
+  margin-top:38px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.16);
+  font-size:0.83rem;color:rgba(255,252,251,0.58);display:flex;gap:14px;justify-content:space-between;flex-wrap:wrap;
+}
+
+@media(max-width:940px){
+  .hero-grid,.two-col,footer.site .cols{grid-template-columns:1fr}
+  .cards,.cards.two{grid-template-columns:1fr 1fr}
+  .people{grid-template-columns:1fr 1fr}
+  .filters{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  section{padding:48px 0}
+  .hero{padding:44px 0 40px}
+  .cards,.cards.two,.people{grid-template-columns:1fr}
+  .filters{grid-template-columns:1fr}
+  .grid-2{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr;padding:20px}
+  .lesrow{grid-template-columns:82px 1fr;gap:10px}
+  .lesrow .loc{grid-column:1 / -1;text-align:left;margin-top:-6px}
+  .cta-band{padding:34px 22px}
+  .steps .nm{display:none}
+  .hero-actions .btn{flex:1 1 100%}
+  .wiz-bar .btn{padding:14px 18px;font-size:0.93rem}
+  .wiz-bar .info{flex-basis:100%;order:-1;margin-bottom:2px}
+  .wiz-bar .wrap-narrow{flex-wrap:wrap}
+}
+</style>
+
+</head>
+<body>
+<a class="skip" href="#main">Naar de inhoud</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="/pivolte/">
+      <span class="word">Pivolt&eacute;</span>
+      <span class="sub">Dansstudio</span>
+    </a>
+    <nav class="main" id="mainnav" aria-label="Hoofdnavigatie">
+      <a href="/pivolte/">Home</a>
+      <a href="/pivolte/dansaanbod/">Dansaanbod</a>
+      <a href="/pivolte/uurrooster/" aria-current="page">Uurrooster</a>
+      <a href="/pivolte/lesprijzen/">Lesprijzen</a>
+      <a href="/pivolte/#contact">Contact</a>
+    </nav>
+    <a class="btn-signup" href="/pivolte/inschrijven/">Inschrijven</a>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mainnav"><span></span></button>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" style="padding-bottom:30px">
+  <div class="ribbon" aria-hidden="true"><svg viewBox="0 0 620 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M40 430C130 300 60 190 200 120c140-70 210 40 300-20 60-40 70-90 60-110" stroke="#F7D8D0" stroke-width="58" stroke-linecap="round"/>
+  <path d="M90 470C180 340 110 230 250 160c140-70 210 40 300-20 60-40 70-90 60-110" stroke="#CE181C" stroke-width="12" stroke-linecap="round" opacity=".85"/>
+  <path d="M140 500C230 370 160 260 300 190c140-70 210 40 300-20" stroke="#1B1220" stroke-width="3" stroke-linecap="round" opacity=".35"/>
+  <circle cx="558" cy="86" r="13" fill="#CE181C"/>
+</svg></div>
+  <div class="wrap">
+    <span class="eyebrow">Uurrooster 2026 – 2027</span>
+    <h1>Wanneer danst <em>jij</em>?</h1>
+    <p class="lede">65 lessen per week, verspreid over vijf zalen. Filter op dag, locatie, stijl of leeftijd &mdash; of vul gewoon je leeftijd in en zie wat overblijft.</p>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div class="filters">
+      <div class="f">
+        <label for="f-day">Dag</label>
+        <select id="f-day"><option value="">Alle dagen</option>
+        <option value="Maandag">Maandag</option>
+        <option value="Dinsdag">Dinsdag</option>
+        <option value="Woensdag">Woensdag</option>
+        <option value="Donderdag">Donderdag</option>
+        <option value="Vrijdag">Vrijdag</option>
+        <option value="Zaterdag">Zaterdag</option>
+        </select>
+      </div>
+      <div class="f">
+        <label for="f-loc">Locatie</label>
+        <select id="f-loc"><option value="">Alle locaties</option>
+        <option value="Atheneum">Atheneum</option>
+        <option value="Dansstudio Pivolté">Dansstudio Pivolté</option>
+        <option value="Expressiezaal">Expressiezaal</option>
+        <option value="G.I.B.">G.I.B.</option>
+        <option value="Mater Dei">Mater Dei</option>
+        <option value="Ruiterhal">Ruiterhal</option>
+        <option value="Sint-Cordula">Sint-Cordula</option>
+        </select>
+      </div>
+      <div class="f">
+        <label for="f-style">Dansstijl</label>
+        <select id="f-style"><option value="">Alle stijlen</option>
+        <option value="Demo hiphop">Demo hiphop</option>
+        <option value="Demo klassiek">Demo klassiek</option>
+        <option value="Demo modern jazz">Demo modern jazz</option>
+        <option value="Floorwork">Floorwork</option>
+        <option value="Hiphop">Hiphop</option>
+        <option value="Jazzdans">Jazzdans</option>
+        <option value="Kinderdans">Kinderdans</option>
+        <option value="Klassiek ballet">Klassiek ballet</option>
+        <option value="Kleuterdans">Kleuterdans</option>
+        <option value="Modern">Modern</option>
+        <option value="Musical">Musical</option>
+        <option value="Pointes">Pointes</option>
+        <option value="Showjazz">Showjazz</option>
+        </select>
+      </div>
+      <div class="f">
+        <label for="f-age">Leeftijd</label>
+        <input id="f-age" type="number" inputmode="numeric" min="3" max="99" placeholder="bv. 8">
+      </div>
+    </div>
+
+    <div class="filter-meta">
+      <span class="count" id="f-count" role="status" aria-live="polite"></span>
+      <button class="linkish" type="button" id="f-reset">Filters wissen</button>
+    </div>
+
+    <div class="empty" id="f-empty" hidden>Geen les gevonden met deze combinatie. Probeer een andere dag of locatie, of bel ons &mdash; er is vaak meer mogelijk dan het rooster toont.</div>
+
+    <div class="daygroup"><h3>Maandag</h3><div class="lesrow" data-day="Maandag" data-loc="Dansstudio Pivolté" data-style="Klassiek ballet" data-min="6" data-max="9"><div class="tm">16u30 – 17u30</div><div><div class="st">Klassiek ballet</div><div class="meta">6 - 9 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Maandag" data-loc="Expressiezaal" data-style="Jazzdans" data-min="9" data-max="12"><div class="tm">16u30 – 17u30</div><div><div class="st">Jazzdans</div><div class="meta">9 - 12 jaar</div></div><div class="loc">Expressiezaal<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Maandag" data-loc="Dansstudio Pivolté" data-style="Musical" data-min="8" data-max="12"><div class="tm">17u30 – 18u30</div><div><div class="st">Musical</div><div class="meta">8 - 12 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Maandag" data-loc="Dansstudio Pivolté" data-style="Pointes" data-min="12" data-max="99"><div class="tm">18u30 – 19u30</div><div><div class="st">Pointes</div><div class="meta">+12 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Maandag" data-loc="Dansstudio Pivolté" data-style="Klassiek ballet" data-min="13" data-max="99"><div class="tm">19u30 – 20u30</div><div><div class="st">Klassiek ballet<span class="badge lvl">ervaring</span></div><div class="meta">+13 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Maandag" data-loc="Dansstudio Pivolté" data-style="Showjazz" data-min="15" data-max="99"><div class="tm">20u30 – 21u30</div><div><div class="st">Showjazz<span class="badge lvl">gevorderden</span></div><div class="meta">+15 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div></div><div class="daygroup"><h3>Dinsdag</h3><div class="lesrow" data-day="Dinsdag" data-loc="Dansstudio Pivolté" data-style="Jazzdans" data-min="6" data-max="9"><div class="tm">16u30 – 17u30</div><div><div class="st">Jazzdans</div><div class="meta">6 - 9 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Dinsdag" data-loc="Mater Dei" data-style="Jazzdans" data-min="9" data-max="12"><div class="tm">17u00 – 18u00</div><div><div class="st">Jazzdans</div><div class="meta">9 - 12 jaar</div></div><div class="loc">Mater Dei<br>Ploegsebaan 76, Brasschaat</div></div>
+      <div class="lesrow" data-day="Dinsdag" data-loc="Dansstudio Pivolté" data-style="Jazzdans" data-min="6" data-max="9"><div class="tm">17u30 – 18u30</div><div><div class="st">Jazzdans</div><div class="meta">6 - 9 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Dinsdag" data-loc="G.I.B." data-style="Hiphop" data-min="12" data-max="99"><div class="tm">18u00 – 19u00</div><div><div class="st">Hiphop</div><div class="meta">+12 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Dinsdag" data-loc="Mater Dei" data-style="Hiphop" data-min="9" data-max="12"><div class="tm">18u00 – 19u00</div><div><div class="st">Hiphop</div><div class="meta">9 - 12 jaar</div></div><div class="loc">Mater Dei<br>Ploegsebaan 76, Brasschaat</div></div>
+      <div class="lesrow" data-day="Dinsdag" data-loc="Dansstudio Pivolté" data-style="Modern" data-min="9" data-max="13"><div class="tm">18u30 – 19u30</div><div><div class="st">Modern</div><div class="meta">9 - 13 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Dinsdag" data-loc="G.I.B." data-style="Demo hiphop" data-min="12" data-max="15"><div class="tm">19u00 – 20u30</div><div><div class="st">Demo hiphop<span class="badge">auditie</span></div><div class="meta">12 - 15 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Dinsdag" data-loc="Mater Dei" data-style="Musical" data-min="12" data-max="99"><div class="tm">19u00 – 20u00</div><div><div class="st">Musical</div><div class="meta">+12 jaar</div></div><div class="loc">Mater Dei<br>Ploegsebaan 76, Brasschaat</div></div>
+      <div class="lesrow" data-day="Dinsdag" data-loc="Dansstudio Pivolté" data-style="Demo modern jazz" data-min="15" data-max="99"><div class="tm">19u30 – 21u30</div><div><div class="st">Demo modern jazz<span class="badge">auditie</span></div><div class="meta">+15 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div></div><div class="daygroup"><h3>Woensdag</h3><div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Kleuterdans" data-min="3" data-max="4"><div class="tm">13u00 – 13u45</div><div><div class="st">Kleuterdans</div><div class="meta">3 - 4 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Sint-Cordula" data-style="Kinderdans" data-min="4" data-max="7"><div class="tm">13u00 – 14u00</div><div><div class="st">Kinderdans</div><div class="meta">4 - 7 jaar</div></div><div class="loc">Sint-Cordula<br>Vordensteinstraat 32a, Schoten</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Kleuterdans" data-min="3" data-max="4"><div class="tm">13u45 – 14u30</div><div><div class="st">Kleuterdans</div><div class="meta">3 - 4 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Sint-Cordula" data-style="Jazzdans" data-min="9" data-max="12"><div class="tm">14u00 – 15u00</div><div><div class="st">Jazzdans</div><div class="meta">9 - 12 jaar</div></div><div class="loc">Sint-Cordula<br>Vordensteinstraat 32a, Schoten</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Kinderdans" data-min="4" data-max="7"><div class="tm">14u30 – 15u30</div><div><div class="st">Kinderdans</div><div class="meta">4 - 7 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="G.I.B." data-style="Kinderdans" data-min="4" data-max="7"><div class="tm">15u00 – 16u00</div><div><div class="st">Kinderdans</div><div class="meta">4 - 7 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Sint-Cordula" data-style="Jazzdans" data-min="6" data-max="9"><div class="tm">15u00 – 16u00</div><div><div class="st">Jazzdans</div><div class="meta">6 - 9 jaar</div></div><div class="loc">Sint-Cordula<br>Vordensteinstraat 32a, Schoten</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Kinderdans" data-min="4" data-max="7"><div class="tm">15u30 – 16u30</div><div><div class="st">Kinderdans</div><div class="meta">4 - 7 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Sint-Cordula" data-style="Klassiek ballet" data-min="6" data-max="9"><div class="tm">16u00 – 17u00</div><div><div class="st">Klassiek ballet</div><div class="meta">6 - 9 jaar</div></div><div class="loc">Sint-Cordula<br>Vordensteinstraat 32a, Schoten</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Kinderdans" data-min="4" data-max="7"><div class="tm">16u30 – 17u30</div><div><div class="st">Kinderdans</div><div class="meta">4 - 7 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Klassiek ballet" data-min="9" data-max="12"><div class="tm">17u30 – 18u30</div><div><div class="st">Klassiek ballet</div><div class="meta">9 - 12 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Pointes" data-min="10" data-max="12"><div class="tm">18u30 – 19u30</div><div><div class="st">Pointes</div><div class="meta">10 - 12 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="G.I.B." data-style="Hiphop" data-min="9" data-max="12"><div class="tm">19u00 – 20u00</div><div><div class="st">Hiphop</div><div class="meta">9 - 12 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Demo modern jazz" data-min="12" data-max="15"><div class="tm">19u30 – 21u00</div><div><div class="st">Demo modern jazz<span class="badge">auditie</span></div><div class="meta">12 - 15 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="G.I.B." data-style="Hiphop" data-min="12" data-max="99"><div class="tm">20u00 – 21u00</div><div><div class="st">Hiphop</div><div class="meta">+12 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="Dansstudio Pivolté" data-style="Floorwork" data-min="12" data-max="99"><div class="tm">21u00 – 22u00</div><div><div class="st">Floorwork</div><div class="meta">+12 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Woensdag" data-loc="G.I.B." data-style="Jazzdans" data-min="18" data-max="99"><div class="tm">21u00 – 22u00</div><div><div class="st">Jazzdans</div><div class="meta">volwassenen</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div></div><div class="daygroup"><h3>Donderdag</h3><div class="lesrow" data-day="Donderdag" data-loc="Dansstudio Pivolté" data-style="Klassiek ballet" data-min="18" data-max="99"><div class="tm">17u30 – 18u30</div><div><div class="st">Klassiek ballet</div><div class="meta">volwassenen</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Donderdag" data-loc="Dansstudio Pivolté" data-style="Hiphop" data-min="13" data-max="99"><div class="tm">18u30 – 19u30</div><div><div class="st">Hiphop<span class="badge lvl">gevorderden</span></div><div class="meta">+13 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Donderdag" data-loc="Sint-Cordula" data-style="Jazzdans" data-min="12" data-max="99"><div class="tm">19u00 – 20u00</div><div><div class="st">Jazzdans</div><div class="meta">+12 jaar</div></div><div class="loc">Sint-Cordula<br>Vordensteinstraat 32a, Schoten</div></div>
+      <div class="lesrow" data-day="Donderdag" data-loc="Dansstudio Pivolté" data-style="Jazzdans" data-min="13" data-max="99"><div class="tm">19u30 – 20u30</div><div><div class="st">Jazzdans<span class="badge lvl">gevorderden</span></div><div class="meta">+13 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Donderdag" data-loc="Sint-Cordula" data-style="Modern" data-min="12" data-max="99"><div class="tm">20u00 – 21u00</div><div><div class="st">Modern</div><div class="meta">+12 jaar</div></div><div class="loc">Sint-Cordula<br>Vordensteinstraat 32a, Schoten</div></div>
+      <div class="lesrow" data-day="Donderdag" data-loc="Dansstudio Pivolté" data-style="Modern" data-min="14" data-max="99"><div class="tm">20u30 – 21u30</div><div><div class="st">Modern<span class="badge lvl">gevorderden</span></div><div class="meta">+14 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div></div><div class="daygroup"><h3>Vrijdag</h3><div class="lesrow" data-day="Vrijdag" data-loc="Dansstudio Pivolté" data-style="Jazzdans" data-min="6" data-max="9"><div class="tm">17u00 – 18u00</div><div><div class="st">Jazzdans</div><div class="meta">6 - 9 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Vrijdag" data-loc="G.I.B." data-style="Modern" data-min="9" data-max="13"><div class="tm">17u15 – 18u15</div><div><div class="st">Modern</div><div class="meta">9 - 13 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Vrijdag" data-loc="Dansstudio Pivolté" data-style="Demo modern jazz" data-min="6" data-max="12"><div class="tm">18u00 – 19u45</div><div><div class="st">Demo modern jazz<span class="badge">auditie</span></div><div class="meta">– 12 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Vrijdag" data-loc="Sint-Cordula" data-style="Hiphop" data-min="9" data-max="12"><div class="tm">18u00 – 19u00</div><div><div class="st">Hiphop</div><div class="meta">9 - 12 jaar</div></div><div class="loc">Sint-Cordula<br>Vordensteinstraat 32a, Schoten</div></div>
+      <div class="lesrow" data-day="Vrijdag" data-loc="G.I.B." data-style="Modern" data-min="14" data-max="99"><div class="tm">18u15 – 19u15</div><div><div class="st">Modern<span class="badge lvl">gevorderden</span></div><div class="meta">+14 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Vrijdag" data-loc="Sint-Cordula" data-style="Hiphop" data-min="12" data-max="99"><div class="tm">19u00 – 20u00</div><div><div class="st">Hiphop</div><div class="meta">+12 jaar</div></div><div class="loc">Sint-Cordula<br>Vordensteinstraat 32a, Schoten</div></div>
+      <div class="lesrow" data-day="Vrijdag" data-loc="G.I.B." data-style="Modern" data-min="12" data-max="99"><div class="tm">19u15 – 20u15</div><div><div class="st">Modern</div><div class="meta">+12 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Vrijdag" data-loc="Dansstudio Pivolté" data-style="Demo modern jazz" data-min="15" data-max="18"><div class="tm">19u45 – 22u00</div><div><div class="st">Demo modern jazz<span class="badge">auditie</span></div><div class="meta">15 - 18 jaar</div></div><div class="loc">Dansstudio Pivolté<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Vrijdag" data-loc="G.I.B." data-style="Demo modern jazz" data-min="18" data-max="99"><div class="tm">20u15 – 22u15</div><div><div class="st">Demo modern jazz<span class="badge">auditie</span></div><div class="meta">+18 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div></div><div class="daygroup"><h3>Zaterdag</h3><div class="lesrow" data-day="Zaterdag" data-loc="Mater Dei" data-style="Kleuterdans" data-min="3" data-max="4"><div class="tm">09u00 – 09u45</div><div><div class="st">Kleuterdans</div><div class="meta">3 - 4 jaar</div></div><div class="loc">Mater Dei<br>Ploegsebaan 76, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="G.I.B." data-style="Demo klassiek" data-min="13" data-max="99"><div class="tm">09u15 – 10u30</div><div><div class="st">Demo klassiek<span class="badge">auditie</span></div><div class="meta">+13 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Ruiterhal" data-style="Klassiek ballet" data-min="6" data-max="9"><div class="tm">09u30 – 10u30</div><div><div class="st">Klassiek ballet</div><div class="meta">6 - 9 jaar</div></div><div class="loc">Ruiterhal<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Mater Dei" data-style="Kinderdans" data-min="4" data-max="7"><div class="tm">09u45 – 10u45</div><div><div class="st">Kinderdans</div><div class="meta">4 - 7 jaar</div></div><div class="loc">Mater Dei<br>Ploegsebaan 76, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Atheneum" data-style="Hiphop" data-min="9" data-max="12"><div class="tm">10u00 – 11u00</div><div><div class="st">Hiphop</div><div class="meta">9 - 12 jaar</div></div><div class="loc">Atheneum<br>Van Hemelrijcklei 29, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="G.I.B." data-style="Pointes" data-min="14" data-max="99"><div class="tm">10u30 – 11u30</div><div><div class="st">Pointes<span class="badge lvl">gevorderden</span></div><div class="meta">+14 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Ruiterhal" data-style="Klassiek ballet" data-min="9" data-max="12"><div class="tm">10u30 – 11u30</div><div><div class="st">Klassiek ballet</div><div class="meta">9 - 12 jaar</div></div><div class="loc">Ruiterhal<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Mater Dei" data-style="Jazzdans" data-min="6" data-max="9"><div class="tm">10u45 – 11u45</div><div><div class="st">Jazzdans</div><div class="meta">6 - 9 jaar</div></div><div class="loc">Mater Dei<br>Ploegsebaan 76, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Atheneum" data-style="Demo hiphop" data-min="6" data-max="12"><div class="tm">11u00 – 12u30</div><div><div class="st">Demo hiphop<span class="badge">auditie</span></div><div class="meta">– 12 jaar</div></div><div class="loc">Atheneum<br>Van Hemelrijcklei 29, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="G.I.B." data-style="Klassiek ballet" data-min="12" data-max="99"><div class="tm">11u30 – 12u30</div><div><div class="st">Klassiek ballet</div><div class="meta">+12 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Ruiterhal" data-style="Klassiek ballet" data-min="14" data-max="99"><div class="tm">11u30 – 12u30</div><div><div class="st">Klassiek ballet<span class="badge lvl">gevorderden</span></div><div class="meta">+14 jaar</div></div><div class="loc">Ruiterhal<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Mater Dei" data-style="Kinderdans" data-min="4" data-max="7"><div class="tm">11u45 – 12u45</div><div><div class="st">Kinderdans</div><div class="meta">4 - 7 jaar</div></div><div class="loc">Mater Dei<br>Ploegsebaan 76, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Atheneum" data-style="Hiphop" data-min="13" data-max="99"><div class="tm">12u30 – 13u30</div><div><div class="st">Hiphop<span class="badge lvl">gevorderden</span></div><div class="meta">+13 jaar</div></div><div class="loc">Atheneum<br>Van Hemelrijcklei 29, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="G.I.B." data-style="Jazzdans" data-min="12" data-max="99"><div class="tm">12u30 – 13u30</div><div><div class="st">Jazzdans</div><div class="meta">+12 jaar</div></div><div class="loc">G.I.B.<br>Door Verstraetelei 50, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Ruiterhal" data-style="Modern" data-min="17" data-max="99"><div class="tm">12u30 – 13u30</div><div><div class="st">Modern<span class="badge lvl">gevorderden</span></div><div class="meta">+17 jaar</div></div><div class="loc">Ruiterhal<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Atheneum" data-style="Demo hiphop" data-min="15" data-max="99"><div class="tm">13u30 – 15u00</div><div><div class="st">Demo hiphop<span class="badge">auditie</span></div><div class="meta">+15 jaar</div></div><div class="loc">Atheneum<br>Van Hemelrijcklei 29, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Ruiterhal" data-style="Modern" data-min="13" data-max="99"><div class="tm">13u30 – 14u30</div><div><div class="st">Modern<span class="badge lvl">ervaring</span></div><div class="meta">+13 jaar</div></div><div class="loc">Ruiterhal<br>Azalealaan 6, Brasschaat</div></div>
+      <div class="lesrow" data-day="Zaterdag" data-loc="Ruiterhal" data-style="Demo modern jazz" data-min="12" data-max="15"><div class="tm">14u30 – 17u00</div><div><div class="st">Demo modern jazz<span class="badge">auditie</span></div><div class="meta">12 - 15 jaar</div></div><div class="loc">Ruiterhal<br>Azalealaan 6, Brasschaat</div></div></div>
+
+    <div class="note" style="margin-top:26px">
+      Privélessen gaan door op afspraak. Roosters kunnen tijdens het seizoen wijzigen &mdash; de school bevestigt je definitieve lesuur bij de inschrijving.
+    </div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <div class="two-col">
+      <div>
+        <p class="kicker">Locaties</p>
+        <h2>Waar de lessen <em>doorgaan</em></h2>
+        <ul class="loc-list" style="margin-top:20px">
+        <li><span><span class="nm">Dansstudio Pivolté</span><br><span class="ad">Azalealaan 6, 2930 Brasschaat</span></span><a href="https://www.google.com/maps/search/?api=1&query=Azalealaan+6,+2930+Brasschaat" target="_blank" rel="noopener">Op kaart &rarr;</a></li>
+        <li><span><span class="nm">G.I.B.</span><br><span class="ad">Door Verstraetelei 50, 2930 Brasschaat</span></span><a href="https://www.google.com/maps/search/?api=1&query=Door+Verstraetelei+50,+2930+Brasschaat" target="_blank" rel="noopener">Op kaart &rarr;</a></li>
+        <li><span><span class="nm">Mater Dei</span><br><span class="ad">Ploegsebaan 76, 2930 Brasschaat</span></span><a href="https://www.google.com/maps/search/?api=1&query=Ploegsebaan+76,+2930+Brasschaat" target="_blank" rel="noopener">Op kaart &rarr;</a></li>
+        <li><span><span class="nm">Atheneum</span><br><span class="ad">Van Hemelrijcklei 29, 2930 Brasschaat</span></span><a href="https://www.google.com/maps/search/?api=1&query=Van+Hemelrijcklei+29,+2930+Brasschaat" target="_blank" rel="noopener">Op kaart &rarr;</a></li>
+        <li><span><span class="nm">Sint-Cordula</span><br><span class="ad">Vordensteinstraat 32a, 2900 Schoten</span></span><a href="https://www.google.com/maps/search/?api=1&query=Vordensteinstraat+32a,+2900+Schoten" target="_blank" rel="noopener">Op kaart &rarr;</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="cta-band">
+          <h2>Les gevonden?</h2>
+          <p>Schrijf je in en kies je lessen in één doorlopend formulier.</p>
+          <a class="btn btn-primary" href="/pivolte/inschrijven/">Naar de inschrijving</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site" id="contact">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Dansstudio Pivolté</h4>
+        <p>Bredabaan 859, 2930 Brasschaat<br><span style="opacity:.7">Maatschappelijke zetel — de lessen gaan door op de danslocaties hieronder.</span></p>
+        <p style="margin-top:14px">
+          <a href="tel:+32491294830">+32 491 29 48 30</a><br>
+          <a href="mailto:pivolte@pivolte.be">pivolte@pivolte.be</a>
+        </p>
+        <div class="socials">
+        <a href="https://www.facebook.com/dansschool.pivolte/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/pivolte/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@pivolte" target="_blank" rel="noopener">TikTok</a>
+        </div>
+      </div>
+      <div>
+        <h4>Danslocaties</h4>
+        <ul>
+          <li>Dansstudio Pivolté &middot; Azalealaan 6, 2930 Brasschaat</li>
+          <li>G.I.B. &middot; Door Verstraetelei 50, 2930 Brasschaat</li>
+          <li>Mater Dei &middot; Ploegsebaan 76, 2930 Brasschaat</li>
+          <li>Atheneum &middot; Van Hemelrijcklei 29, 2930 Brasschaat</li>
+          <li>Sint-Cordula &middot; Vordensteinstraat 32a, 2900 Schoten</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Snel naar</h4>
+        <ul>
+          <li><a href="/pivolte/dansaanbod/">Dansaanbod</a></li>
+          <li><a href="/pivolte/uurrooster/">Uurrooster</a></li>
+          <li><a href="/pivolte/lesprijzen/">Lesprijzen</a></li>
+          <li><a href="/pivolte/inschrijven/">Inschrijven</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine">
+      <span>BE 0453.399.675</span>
+      <span>Prototype gebouwd voor Dansstudio Pivolté &middot; <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var t=document.querySelector('.nav-toggle'), n=document.getElementById('mainnav');
+  if(!t||!n) return;
+  t.addEventListener('click',function(){
+    var open=n.classList.toggle('open');
+    t.setAttribute('aria-expanded', open?'true':'false');
+  });
+})();
+
+(function(){
+  var rows=[].slice.call(document.querySelectorAll('.lesrow'));
+  var groups=[].slice.call(document.querySelectorAll('.daygroup'));
+  var fDay=document.getElementById('f-day'), fLoc=document.getElementById('f-loc'),
+      fStyle=document.getElementById('f-style'), fAge=document.getElementById('f-age'),
+      out=document.getElementById('f-count'), empty=document.getElementById('f-empty'),
+      reset=document.getElementById('f-reset');
+  if(!rows.length) return;
+  function apply(){
+    var d=fDay.value, l=fLoc.value, s=fStyle.value, a=parseInt(fAge.value,10);
+    var shown=0;
+    rows.forEach(function(r){
+      var ok=true;
+      if(d && r.dataset.day!==d) ok=false;
+      if(l && r.dataset.loc!==l) ok=false;
+      if(s && r.dataset.style!==s) ok=false;
+      if(!isNaN(a) && (a<parseInt(r.dataset.min,10)||a>parseInt(r.dataset.max,10))) ok=false;
+      r.hidden=!ok;
+      if(ok) shown++;
+    });
+    groups.forEach(function(g){
+      g.hidden = !g.querySelector('.lesrow:not([hidden])');
+    });
+    out.textContent = shown===1 ? '1 les gevonden' : shown+' lessen gevonden';
+    empty.hidden = shown>0;
+  }
+  [fDay,fLoc,fStyle,fAge].forEach(function(el){
+    el.addEventListener('change',apply); el.addEventListener('input',apply);
+  });
+  reset.addEventListener('click',function(){
+    fDay.value=''; fLoc.value=''; fStyle.value=''; fAge.value=''; apply();
+  });
+  apply();
+})();
+</script>
+</body>
+</html>
