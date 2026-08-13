@@ -46,6 +46,75 @@
   "cta_text": "Kom langs op het Heuvelplein",
   "accent": "#b8543f",
   "signature_word": "Podium & pint",
+  "agenda_lead": "Het podium staat er niet voor niets: met enige regelmaat wordt er live gespeeld en samen gejamd.",
+  "agenda_verified": false,
+  "agenda_events": [
+    {
+      "date": "29/08",
+      "time": "21:00",
+      "title": "Openkaart jamsessie",
+      "kind": "Jam",
+      "desc": "Breng je instrument mee en schuif aan — iedereen mag mee spelen."
+    },
+    {
+      "date": "12/09",
+      "time": "21:00",
+      "title": "Live: coverband",
+      "kind": "Live muziek",
+      "desc": "Rock- en bluesklassiekers op het podium in de hoek."
+    },
+    {
+      "date": "27/09",
+      "time": "20:00",
+      "title": "Kaartavond",
+      "kind": "Kaarten",
+      "desc": "Wekelijkse kaarters welkom, inschrijven aan de toog."
+    },
+    {
+      "date": "10/10",
+      "time": "21:00",
+      "title": "Akoestische avond",
+      "kind": "Live muziek",
+      "desc": "Rustiger werk, met de open haard aan."
+    },
+    {
+      "date": "25/10",
+      "time": "20:30",
+      "title": "Caféquiz",
+      "kind": "Quiz",
+      "desc": "Ploegjes van maximaal vier, inschrijven vooraf."
+    }
+  ],
+  "room_booking": {
+    "intro": "De zaal achter het café leent zich voor een verjaardag, koffietafel, vergadering of personeelsfeest. Laat weten wat je van plan bent, dan bekijken we samen wat er kan.",
+    "capacity_note": "De juiste capaciteit en tarieven vullen we samen met het café in — die staan nog niet vast in dit prototype.",
+    "occasions": [
+      "Verjaardag",
+      "Koffietafel",
+      "Personeelsfeest",
+      "Vergadering",
+      "Repetitie of optreden"
+    ],
+    "extras": [
+      {
+        "name": "Hapjes of broodjes",
+        "desc": "In overleg met het café te regelen"
+      },
+      {
+        "name": "Drankarrangement",
+        "desc": "Vast bedrag per persoon in plaats van per consumptie"
+      },
+      {
+        "name": "Gebruik van het podium",
+        "desc": "Voor een optreden of een speech"
+      },
+      {
+        "name": "Beamer of scherm",
+        "desc": "Voor een presentatie of fotoreportage"
+      }
+    ],
+    "response_note": "In de echte versie komt deze aanvraag rechtstreeks bij het café terecht, en krijg je binnen een paar dagen antwoord."
+  },
   "outreach": {
     "status": "gepland"
   }

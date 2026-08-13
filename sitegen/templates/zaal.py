@@ -1,0 +1,386 @@
+"""
+Herbruikbare zaalaanvraagpagina voor cafés en zalen.
+
+Een sjabloon roept render(brief, theme) aan. In tegenstelling tot de
+afspraakpagina (booking.py) is dit géén directe bevestiging: een zaal wordt
+altijd in overleg vastgelegd. De pagina verstuurt dus een *aanvraag* en zegt
+dat ook eerlijk.
+
+Uit de brief:
+
+  "room_booking": {
+    "intro": "...",
+    "capacity_note": "...",
+    "occasions": ["Verjaardag", "Koffietafel", ...],
+    "extras": [{"name": "Hapjesschotel", "desc": "..."}],
+    "response_note": "We laten binnen twee dagen iets weten."
+  }
+"""
+from .common import esc
+
+DEFAULT_THEME = {
+    "bg": "#241712",
+    "bg_deep": "#17100c",
+    "accent": "#b5793a",
+    "accent_bright": "#d9a94f",
+    "paper": "#efe3cd",
+    "ink": "#241712",
+    "font_display": "'Bitter', serif",
+    "font_body": "'Karla', sans-serif",
+    "fonts_href": "https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap",
+}
+
+def render(brief: dict, theme: dict = None) -> str:
+    t = {**DEFAULT_THEME, **(theme or {})}
+    cfg = brief.get("room_booking") or {}
+    name = esc(brief["business_name"])
+    slug = esc(brief["slug"])
+    phone = esc(brief.get("phone", ""))
+    address = esc(brief.get("address", ""))
+    phone_href = phone.replace(" ", "").replace("/", "")
+
+    intro = esc(cfg.get("intro", "Vraag de zaal aan voor je feest of bijeenkomst."))
+    capacity_note = esc(cfg.get("capacity_note", ""))
+    response_note = esc(cfg.get("response_note", "We nemen contact op om alles af te spreken."))
+    occasions = cfg.get("occasions", [])
+    extras = cfg.get("extras", [])
+
+    occasion_html = "\n".join(
+        f'          <button class="chip" type="button" data-val="{esc(o)}">{esc(o)}</button>'
+        for o in occasions
+    )
+
+    extras_html = ""
+    if extras:
+        rijen = "\n".join(
+            f"""            <label class="check">
+              <input type="checkbox" value="{esc(x.get('name', ''))}">
+              <span>
+                <span class="check-name">{esc(x.get('name', ''))}</span>
+                {f'<span class="check-desc">{esc(x.get("desc", ""))}</span>' if x.get("desc") else ""}
+              </span>
+            </label>"""
+            for x in extras
+        )
+        extras_html = f"""      <div class="field">
+        <label class="lbl">Interesse in (optioneel)</label>
+        <div class="checks">
+{rijen}
+        </div>
+      </div>"""
+
+    capacity_html = f'<p class="cap">{capacity_note}</p>' if capacity_note else ""
+    phone_block = (
+        f'<p class="alt">Liever even bellen? <a href="tel:{phone_href}">{phone}</a></p>'
+        if phone else ""
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zaal reserveren — {name}</title>
+<meta name="description" content="Vraag de zaal van {name} aan voor je feest of bijeenkomst.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="{t['fonts_href']}" rel="stylesheet">
+<style>
+  :root {{
+    --bg: {t['bg']};
+    --bg-deep: {t['bg_deep']};
+    --accent: {t['accent']};
+    --accent-bright: {t.get('accent_bright', t['accent'])};
+    --paper: {t['paper']};
+    --ink: {t['ink']};
+    --ink-soft: #5a4a3c;
+    --line: rgba(36,23,18,0.16);
+    --font-display: {t['font_display']};
+    --font-body: {t['font_body']};
+  }}
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    background-image: repeating-linear-gradient(90deg, rgba(36,23,18,0.025) 0 2px, transparent 2px 26px);
+  }}
+  a {{ color: inherit; }}
+  .wrap {{ max-width: 680px; margin: 0 auto; padding: 0 20px; }}
+
+  header.top {{ background: var(--bg); color: var(--paper); padding: 16px 0; border-bottom: 3px solid var(--accent); }}
+  header.top .wrap {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
+  .brand {{ font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; }}
+  .back {{ font-size: 0.88rem; color: rgba(239,227,205,0.8); text-decoration: none; }}
+  .back:hover {{ color: var(--paper); }}
+
+  .hero {{ padding: 34px 0 10px; }}
+  .hero h1 {{ font-family: var(--font-display); font-size: clamp(1.9rem, 5vw, 2.5rem); font-weight: 800; margin-bottom: 10px; }}
+  .hero p {{ color: var(--ink-soft); }}
+  .cap {{
+    margin-top: 16px;
+    background: rgba(36,23,18,0.05);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    border-radius: 4px;
+  }}
+
+  form {{ padding: 26px 0 60px; }}
+  .field {{ margin-bottom: 22px; }}
+  .lbl, label.lbl {{ display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; }}
+  .sub {{ font-weight: 400; color: var(--ink-soft); font-size: 0.88rem; }}
+
+  .chips {{ display: flex; flex-wrap: wrap; gap: 8px; }}
+  .chip {{
+    font-family: inherit; font-size: 0.94rem;
+    background: #fff; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 11px 18px; min-height: 46px;
+    cursor: pointer;
+  }}
+  .chip:hover {{ border-color: var(--accent); }}
+  .chip.is-on {{ background: var(--bg); border-color: var(--bg); color: var(--paper); }}
+
+  input[type=text], input[type=tel], input[type=email], input[type=date], input[type=number], textarea {{
+    width: 100%;
+    font-family: inherit; font-size: 1rem;
+    padding: 13px 14px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: #fff; color: var(--ink);
+    min-height: 50px;
+  }}
+  textarea {{ min-height: 96px; resize: vertical; }}
+  input:focus, textarea:focus {{ outline: 2px solid var(--accent); outline-offset: 1px; }}
+  .row {{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }}
+
+  .checks {{ display: grid; gap: 8px; }}
+  .check {{
+    display: flex; gap: 12px; align-items: flex-start;
+    background: #fff; border: 1px solid var(--line); border-radius: 8px;
+    padding: 13px 15px; cursor: pointer; min-height: 52px;
+  }}
+  .check:hover {{ border-color: var(--accent); }}
+  .check input {{ width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; accent-color: var(--accent); }}
+  .check-name {{ display: block; font-weight: 600; }}
+  .check-desc {{ display: block; color: var(--ink-soft); font-size: 0.87rem; }}
+
+  .error {{ font-size: 0.86rem; color: #a4291f; margin-top: 6px; }}
+  .error[hidden] {{ display: none; }}
+
+  .send {{
+    width: 100%;
+    font-family: inherit; font-size: 1rem; font-weight: 700;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 8px;
+    padding: 16px; min-height: 54px; cursor: pointer;
+  }}
+  .send:hover {{ filter: brightness(1.08); }}
+  .alt {{ text-align: center; font-size: 0.9rem; color: var(--ink-soft); margin-top: 14px; }}
+  .alt a {{ font-weight: 700; color: var(--accent); }}
+
+  .done {{ text-align: center; padding: 46px 0 70px; }}
+  .done[hidden] {{ display: none; }}
+  .done .tick {{
+    width: 62px; height: 62px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.9rem; margin: 0 auto 18px;
+  }}
+  .done h2 {{ font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 12px; }}
+  .done p {{ color: var(--ink-soft); margin-bottom: 10px; }}
+  .recap {{
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px; margin: 18px 0; text-align: left;
+  }}
+  .recap-row {{ display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: 0.94rem; }}
+  .recap-row + .recap-row {{ border-top: 1px solid var(--line); }}
+  .recap-label {{ color: var(--ink-soft); }}
+  .recap-val {{ font-weight: 600; text-align: right; }}
+
+  footer {{ border-top: 1px solid var(--line); padding: 22px 0 40px; font-size: 0.84rem; color: var(--ink-soft); text-align: center; }}
+
+  @media (max-width: 520px) {{ .row {{ grid-template-columns: 1fr; }} }}
+  a:focus-visible, button:focus-visible, input:focus-visible {{ outline: 2px solid var(--accent); outline-offset: 2px; }}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">{name}</div>
+    <a class="back" href="/{slug}/">&larr; Terug naar de site</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero" id="kop">
+    <h1>Zaal reserveren</h1>
+    <p>{intro}</p>
+    {capacity_html}
+  </section>
+
+  <form id="form" novalidate>
+    <div class="field">
+      <label class="lbl">Wat vier je?</label>
+      <div class="chips" id="gelegenheden">
+{occasion_html}
+      </div>
+      <input type="text" id="anders" placeholder="Of typ het zelf" style="margin-top:10px">
+      <p class="error" id="fout-gelegenheid" hidden>Laat even weten waarvoor je de zaal wil.</p>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label class="lbl" for="datum">Wanneer</label>
+        <input type="date" id="datum">
+        <p class="error" id="fout-datum" hidden>Kies een datum in de toekomst.</p>
+      </div>
+      <div class="field">
+        <label class="lbl" for="aantal">Aantal personen</label>
+        <input type="number" id="aantal" min="1" max="300" inputmode="numeric" placeholder="bv. 30">
+        <p class="error" id="fout-aantal" hidden>Vul een aantal in.</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="lbl" for="dagdeel">Welk moment <span class="sub">(bij benadering)</span></label>
+      <div class="chips" id="dagdelen">
+        <button class="chip" type="button" data-val="Voormiddag">Voormiddag</button>
+        <button class="chip" type="button" data-val="Namiddag">Namiddag</button>
+        <button class="chip" type="button" data-val="Avond">Avond</button>
+        <button class="chip" type="button" data-val="Hele dag">Hele dag</button>
+      </div>
+    </div>
+
+{extras_html}
+
+    <div class="field">
+      <label class="lbl" for="naam">Je naam</label>
+      <input type="text" id="naam" autocomplete="name">
+      <p class="error" id="fout-naam" hidden>Vul je naam in.</p>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label class="lbl" for="tel">Telefoon</label>
+        <input type="tel" id="tel" autocomplete="tel" inputmode="tel">
+        <p class="error" id="fout-tel" hidden>Vul een geldig nummer in.</p>
+      </div>
+      <div class="field">
+        <label class="lbl" for="mail">E-mail <span class="sub">(optioneel)</span></label>
+        <input type="email" id="mail" autocomplete="email">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="lbl" for="opm">Iets dat we moeten weten? <span class="sub">(optioneel)</span></label>
+      <textarea id="opm" placeholder="Bijvoorbeeld: we brengen zelf een dj mee"></textarea>
+    </div>
+
+    <button class="send" type="submit">Aanvraag versturen</button>
+    {phone_block}
+  </form>
+
+  <section class="done" id="klaar" hidden>
+    <div class="tick">&check;</div>
+    <h2>Aanvraag doorgegeven</h2>
+    <div class="recap" id="recap"></div>
+    <p>{response_note}</p>
+    <p>Dit is een prototype, dus er wordt nog niets verstuurd.</p>
+  </section>
+</div>
+
+<footer>
+  Prototype gebouwd voor {name} &middot; <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+</footer>
+
+<script>
+  const staat = {{ gelegenheid: '', dagdeel: '' }};
+
+  function chipGroep(id, sleutel) {{
+    const box = document.getElementById(id);
+    if (!box) return;
+    box.addEventListener('click', (e) => {{
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      const alGekozen = chip.classList.contains('is-on');
+      box.querySelectorAll('.chip').forEach((c) => c.classList.remove('is-on'));
+      if (alGekozen) {{
+        staat[sleutel] = '';
+      }} else {{
+        chip.classList.add('is-on');
+        staat[sleutel] = chip.dataset.val;
+        if (id === 'gelegenheden') document.getElementById('anders').value = '';
+      }}
+    }});
+  }}
+  chipGroep('gelegenheden', 'gelegenheid');
+  chipGroep('dagdelen', 'dagdeel');
+
+  // Zelf typen wist de gekozen chip, zodat er maar één antwoord overblijft.
+  document.getElementById('anders').addEventListener('input', (e) => {{
+    if (e.target.value.trim()) {{
+      document.querySelectorAll('#gelegenheden .chip').forEach((c) => c.classList.remove('is-on'));
+      staat.gelegenheid = '';
+    }}
+  }});
+
+  function rij(label, waarde) {{
+    return '<div class="recap-row"><span class="recap-label">' + label +
+           '</span><span class="recap-val">' + waarde + '</span></div>';
+  }}
+
+  function toonFout(id, fout) {{
+    document.getElementById(id).hidden = !fout;
+    return fout;
+  }}
+
+  document.getElementById('form').addEventListener('submit', (e) => {{
+    e.preventDefault();
+    const anders = document.getElementById('anders').value.trim();
+    const gelegenheid = staat.gelegenheid || anders;
+    const datum = document.getElementById('datum').value;
+    const aantal = document.getElementById('aantal').value;
+    const naam = document.getElementById('naam').value.trim();
+    const tel = document.getElementById('tel').value;
+    const cijfers = tel.replace(/\\D/g, '');
+
+    const vandaag = new Date();
+    vandaag.setHours(0, 0, 0, 0);
+    const datumFout = !datum || new Date(datum) < vandaag;
+
+    let fout = false;
+    fout = toonFout('fout-gelegenheid', !gelegenheid) || fout;
+    fout = toonFout('fout-datum', datumFout) || fout;
+    fout = toonFout('fout-aantal', !aantal || Number(aantal) < 1) || fout;
+    fout = toonFout('fout-naam', naam.length < 2) || fout;
+    fout = toonFout('fout-tel', cijfers.length < 8) || fout;
+    if (fout) {{
+      document.querySelector('.error:not([hidden])').scrollIntoView({{ block: 'center', behavior: 'smooth' }});
+      return;
+    }}
+
+    const gekozenExtras = [...document.querySelectorAll('.check input:checked')].map((c) => c.value);
+    const d = new Date(datum);
+    const datumTekst = d.toLocaleDateString('nl-BE', {{ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }});
+
+    let h = rij('Gelegenheid', gelegenheid);
+    h += rij('Datum', datumTekst);
+    if (staat.dagdeel) h += rij('Moment', staat.dagdeel);
+    h += rij('Aantal personen', aantal);
+    if (gekozenExtras.length) h += rij('Interesse in', gekozenExtras.join(', '));
+    h += rij('Naam', naam);
+    document.getElementById('recap').innerHTML = h;
+
+    document.getElementById('form').hidden = true;
+    document.getElementById('kop').hidden = true;
+    document.getElementById('klaar').hidden = false;
+    window.scrollTo({{ top: 0, behavior: 'smooth' }});
+  }});
+</script>
+
+</body>
+</html>
+"""

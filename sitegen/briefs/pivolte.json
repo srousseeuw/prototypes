@@ -1,0 +1,1134 @@
+{
+  "slug": "pivolte",
+  "sector": "dansschool",
+  "business_name": "Dansstudio Pivolté",
+  "category": "Dansschool in Brasschaat & Schoten",
+  "tagline": "Laat je passie dansen",
+  "source_url": "https://www.pivolte.be/",
+  "address": "Bredabaan 859, 2930 Brasschaat",
+  "address_note": "Maatschappelijke zetel — de lessen gaan door op de danslocaties hieronder.",
+  "phone": "+32 491 29 48 30",
+  "email": "pivolte@pivolte.be",
+  "vat": "BE 0453.399.675",
+  "season": "2026 – 2027",
+  "price_season": "2025 – 2026",
+  "years_active": 33,
+  "about": "Pivolté geeft al meer dan dertig jaar dansles in Brasschaat en Schoten. Van kleuters die voor het eerst op muziek bewegen tot dansers die zich klaarstomen voor een auditie: iedereen krijgt les in een beperkte groep, van docenten die zelf dansopleiding volgden. De school werd verkozen tot “coolste sportclub” en zet even hard in op techniek als op dansplezier.",
+  "about_short": "Dansles van kleuter tot volwassene, op vijf locaties in Brasschaat en Schoten. Kleine groepen, opgeleide docenten, en een demo-afdeling die op het hoogste Belgische niveau danst.",
+  "socials": {
+    "facebook": "https://www.facebook.com/dansschool.pivolte/",
+    "instagram": "https://www.instagram.com/pivolte/",
+    "tiktok": "https://www.tiktok.com/@pivolte"
+  },
+  "stats": [
+    {
+      "value": "33",
+      "label": "jaar dansschool"
+    },
+    {
+      "value": "9",
+      "label": "dansstijlen"
+    },
+    {
+      "value": "5",
+      "label": "locaties"
+    },
+    {
+      "value": "65",
+      "label": "lessen per week"
+    }
+  ],
+  "highlights": [
+    "Dansles vanaf 3 jaar, tot en met lessen voor volwassenen",
+    "Beperkte groepen, zodat elke danser opvolging krijgt",
+    "Docenten met een pedagogische dansopleiding",
+    "Demoteams die optreden en op wedstrijd gaan",
+    "Gratis proeflessen in juni en september",
+    "Vijf locaties in Brasschaat en Schoten"
+  ],
+  "styles": [
+    {
+      "name": "Kleuterdans",
+      "ages": "3 – 4 jaar",
+      "desc": "Spelenderwijs bewegen op muziek. Ritme, lichaamsbesef en fantasie, met veel ruimte om zelf te ontdekken."
+    },
+    {
+      "name": "Kinderdans",
+      "ages": "4 – 7 jaar",
+      "desc": "Een speelse kennismaking met verschillende muziek- en bewegingsstijlen die motoriek en creativiteit aanscherpt."
+    },
+    {
+      "name": "Klassiek ballet",
+      "ages": "vanaf 6 jaar",
+      "desc": "De technische basis onder zowat elke dansvorm: houding, plaatsing, controle en souplesse, opgebouwd aan de barre."
+    },
+    {
+      "name": "Jazzdans",
+      "ages": "vanaf 6 jaar",
+      "desc": "Modern jazz, showdance, hiphop en funk door elkaar. Draaien, sprongen en verplaatsingen, met veel expressie."
+    },
+    {
+      "name": "Musical",
+      "ages": "vanaf 8 jaar",
+      "desc": "Zang en choreografie in één les: een nummer instuderen en het meteen ook dansen."
+    },
+    {
+      "name": "Hiphop",
+      "ages": "vanaf 9 jaar",
+      "desc": "Streetdance uitgewerkt tot techniek, met asymmetrische arm- en beenpatronen, ritme en coördinatie."
+    },
+    {
+      "name": "Modern",
+      "ages": "vanaf 9 jaar",
+      "desc": "Techniek, maar even hard gevoel, expressie en improvisatie. Ademhaling en ontspanning horen erbij."
+    },
+    {
+      "name": "Pointes",
+      "ages": "vanaf 10 jaar",
+      "desc": "Ballet op spitzen, na minstens een jaar klassieke basis. Alles draait om lichtheid en elevatie."
+    },
+    {
+      "name": "Floorwork",
+      "ages": "vanaf 12 jaar",
+      "desc": "Moderne techniek dicht bij de vloer: glijden, rollen, handstanden en tricks."
+    }
+  ],
+  "demo": {
+    "intro": "In de demogroepen dansen leden op semi-professioneel niveau, met een trainingsschema dat naast school of studie past. Je komt erin via auditie of selectie; per seizoen zijn er minstens twee infomomenten voor dansers en ouders.",
+    "groups": [
+      {
+        "name": "Demo modern jazz",
+        "ages": "–12 / 12–15 / 15–18 / +18 jaar",
+        "desc": "Klassiek, hedendaags en jazz door elkaar, in vier leeftijdsgroepen."
+      },
+      {
+        "name": "Demo hiphop",
+        "ages": "–12 / 12–15 / +15 jaar",
+        "desc": "Streetdance, house, locking en waacking."
+      },
+      {
+        "name": "Demo klassiek",
+        "ages": "vanaf 13 jaar",
+        "desc": "Klassieke techniek in de diepte uitgewerkt."
+      }
+    ],
+    "note": "Demodansers treden op, gaan op wedstrijd en stromen geregeld door naar een professionele dansopleiding."
+  },
+  "locations": [
+    {
+      "name": "Dansstudio Pivolté",
+      "address": "Azalealaan 6, 2930 Brasschaat",
+      "note": "Hoofdlocatie — ook de Ruiterhal en de Expressiezaal"
+    },
+    {
+      "name": "G.I.B.",
+      "address": "Door Verstraetelei 50, 2930 Brasschaat",
+      "note": ""
+    },
+    {
+      "name": "Mater Dei",
+      "address": "Ploegsebaan 76, 2930 Brasschaat",
+      "note": ""
+    },
+    {
+      "name": "Atheneum",
+      "address": "Van Hemelrijcklei 29, 2930 Brasschaat",
+      "note": ""
+    },
+    {
+      "name": "Sint-Cordula",
+      "address": "Vordensteinstraat 32a, 2900 Schoten",
+      "note": ""
+    }
+  ],
+  "schedule": [
+    {
+      "day": "Maandag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "16u30 – 17u30",
+      "style": "Klassiek ballet",
+      "ages": "6 - 9 jaar",
+      "min": 6,
+      "max": 9,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Maandag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "17u30 – 18u30",
+      "style": "Musical",
+      "ages": "8 - 12 jaar",
+      "min": 8,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Maandag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "18u30 – 19u30",
+      "style": "Pointes",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Maandag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "19u30 – 20u30",
+      "style": "Klassiek ballet ervaring",
+      "ages": "+13 jaar",
+      "min": 13,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Maandag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "20u30 – 21u30",
+      "style": "Showjazz gevorderden",
+      "ages": "+15 jaar",
+      "min": 15,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Maandag",
+      "loc": "Expressiezaal",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "16u30 – 17u30",
+      "style": "Jazzdans",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "16u30 – 17u30",
+      "style": "Jazzdans",
+      "ages": "6 - 9 jaar",
+      "min": 6,
+      "max": 9,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "17u30 – 18u30",
+      "style": "Jazzdans",
+      "ages": "6 - 9 jaar",
+      "min": 6,
+      "max": 9,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "18u30 – 19u30",
+      "style": "Modern",
+      "ages": "9 - 13 jaar",
+      "min": 9,
+      "max": 13,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "19u30 – 21u30",
+      "style": "Demo modern jazz",
+      "ages": "+15 jaar",
+      "min": 15,
+      "max": 99,
+      "demo": true,
+      "price": 390
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "18u00 – 19u00",
+      "style": "Hiphop",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "19u00 – 20u30",
+      "style": "Demo hiphop",
+      "ages": "12 - 15 jaar",
+      "min": 12,
+      "max": 15,
+      "demo": true,
+      "price": 195
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "Mater Dei",
+      "addr": "Ploegsebaan 76, Brasschaat",
+      "time": "17u00 – 18u00",
+      "style": "Jazzdans",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "Mater Dei",
+      "addr": "Ploegsebaan 76, Brasschaat",
+      "time": "18u00 – 19u00",
+      "style": "Hiphop",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Dinsdag",
+      "loc": "Mater Dei",
+      "addr": "Ploegsebaan 76, Brasschaat",
+      "time": "19u00 – 20u00",
+      "style": "Musical",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Sint-Cordula",
+      "addr": "Vordensteinstraat 32a, Schoten",
+      "time": "13u00 – 14u00",
+      "style": "Kinderdans",
+      "ages": "4 - 7 jaar",
+      "min": 4,
+      "max": 7,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Sint-Cordula",
+      "addr": "Vordensteinstraat 32a, Schoten",
+      "time": "14u00 – 15u00",
+      "style": "Jazzdans",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Sint-Cordula",
+      "addr": "Vordensteinstraat 32a, Schoten",
+      "time": "15u00 – 16u00",
+      "style": "Jazzdans",
+      "ages": "6 - 9 jaar",
+      "min": 6,
+      "max": 9,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Sint-Cordula",
+      "addr": "Vordensteinstraat 32a, Schoten",
+      "time": "16u00 – 17u00",
+      "style": "Klassiek ballet",
+      "ages": "6 - 9 jaar",
+      "min": 6,
+      "max": 9,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "13u00 – 13u45",
+      "style": "Kleuterdans",
+      "ages": "3 - 4 jaar",
+      "min": 3,
+      "max": 4,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "13u45 – 14u30",
+      "style": "Kleuterdans",
+      "ages": "3 - 4 jaar",
+      "min": 3,
+      "max": 4,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "14u30 – 15u30",
+      "style": "Kinderdans",
+      "ages": "4 - 7 jaar",
+      "min": 4,
+      "max": 7,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "15u30 – 16u30",
+      "style": "Kinderdans",
+      "ages": "4 - 7 jaar",
+      "min": 4,
+      "max": 7,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "16u30 – 17u30",
+      "style": "Kinderdans",
+      "ages": "4 - 7 jaar",
+      "min": 4,
+      "max": 7,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "17u30 – 18u30",
+      "style": "Klassiek ballet",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "18u30 – 19u30",
+      "style": "Pointes",
+      "ages": "10 - 12 jaar",
+      "min": 10,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "19u30 – 21u00",
+      "style": "Demo modern jazz",
+      "ages": "12 - 15 jaar",
+      "min": 12,
+      "max": 15,
+      "demo": true,
+      "price": 390
+    },
+    {
+      "day": "Woensdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "21u00 – 22u00",
+      "style": "Floorwork",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "15u00 – 16u00",
+      "style": "Kinderdans",
+      "ages": "4 - 7 jaar",
+      "min": 4,
+      "max": 7,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "19u00 – 20u00",
+      "style": "Hiphop",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "20u00 – 21u00",
+      "style": "Hiphop",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Woensdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "21u00 – 22u00",
+      "style": "Jazzdans",
+      "ages": "volwassenen",
+      "min": 18,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Donderdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "17u30 – 18u30",
+      "style": "Klassiek ballet",
+      "ages": "volwassenen",
+      "min": 18,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Donderdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "18u30 – 19u30",
+      "style": "Hiphop gevorderden",
+      "ages": "+13 jaar",
+      "min": 13,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Donderdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "19u30 – 20u30",
+      "style": "Jazzdans gevorderden",
+      "ages": "+13 jaar",
+      "min": 13,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Donderdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "20u30 – 21u30",
+      "style": "Modern gevorderden",
+      "ages": "+14 jaar",
+      "min": 14,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Donderdag",
+      "loc": "Sint-Cordula",
+      "addr": "Vordensteinstraat 32a, Schoten",
+      "time": "19u00 – 20u00",
+      "style": "Jazzdans",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Donderdag",
+      "loc": "Sint-Cordula",
+      "addr": "Vordensteinstraat 32a, Schoten",
+      "time": "20u00 – 21u00",
+      "style": "Modern",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "Sint-Cordula",
+      "addr": "Vordensteinstraat 32a, Schoten",
+      "time": "18u00 – 19u00",
+      "style": "Hiphop",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "Sint-Cordula",
+      "addr": "Vordensteinstraat 32a, Schoten",
+      "time": "19u00 – 20u00",
+      "style": "Hiphop",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "17u00 – 18u00",
+      "style": "Jazzdans",
+      "ages": "6 - 9 jaar",
+      "min": 6,
+      "max": 9,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "18u00 – 19u45",
+      "style": "Demo modern jazz",
+      "ages": "– 12 jaar",
+      "min": 6,
+      "max": 12,
+      "demo": true,
+      "price": 195
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "Dansstudio Pivolté",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "19u45 – 22u00",
+      "style": "Demo modern jazz",
+      "ages": "15 - 18 jaar",
+      "min": 15,
+      "max": 18,
+      "demo": true,
+      "price": 390
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "17u15 – 18u15",
+      "style": "Modern",
+      "ages": "9 - 13 jaar",
+      "min": 9,
+      "max": 13,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "18u15 – 19u15",
+      "style": "Modern gevorderden",
+      "ages": "+14 jaar",
+      "min": 14,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "19u15 – 20u15",
+      "style": "Modern",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Vrijdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "20u15 – 22u15",
+      "style": "Demo modern jazz",
+      "ages": "+18 jaar",
+      "min": 18,
+      "max": 99,
+      "demo": true,
+      "price": 390
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Ruiterhal",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "09u30 – 10u30",
+      "style": "Klassiek ballet",
+      "ages": "6 - 9 jaar",
+      "min": 6,
+      "max": 9,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Ruiterhal",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "10u30 – 11u30",
+      "style": "Klassiek ballet",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Ruiterhal",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "11u30 – 12u30",
+      "style": "Klassiek gevorderden",
+      "ages": "+14 jaar",
+      "min": 14,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Ruiterhal",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "12u30 – 13u30",
+      "style": "Modern gevorderden",
+      "ages": "+17 jaar",
+      "min": 17,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Ruiterhal",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "13u30 – 14u30",
+      "style": "Modern ervaring",
+      "ages": "+13 jaar",
+      "min": 13,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Ruiterhal",
+      "addr": "Azalealaan 6, Brasschaat",
+      "time": "14u30 – 17u00",
+      "style": "Demo modern jazz",
+      "ages": "12 - 15 jaar",
+      "min": 12,
+      "max": 15,
+      "demo": true,
+      "price": 390
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Mater Dei",
+      "addr": "Ploegsebaan 76, Brasschaat",
+      "time": "09u00 – 09u45",
+      "style": "Kleuterdans",
+      "ages": "3 - 4 jaar",
+      "min": 3,
+      "max": 4,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Mater Dei",
+      "addr": "Ploegsebaan 76, Brasschaat",
+      "time": "09u45 – 10u45",
+      "style": "Kinderdans",
+      "ages": "4 - 7 jaar",
+      "min": 4,
+      "max": 7,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Mater Dei",
+      "addr": "Ploegsebaan 76, Brasschaat",
+      "time": "10u45 – 11u45",
+      "style": "Jazzdans",
+      "ages": "6 - 9 jaar",
+      "min": 6,
+      "max": 9,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Mater Dei",
+      "addr": "Ploegsebaan 76, Brasschaat",
+      "time": "11u45 – 12u45",
+      "style": "Kinderdans",
+      "ages": "4 - 7 jaar",
+      "min": 4,
+      "max": 7,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "09u15 – 10u30",
+      "style": "Demo klassiek",
+      "ages": "+13 jaar",
+      "min": 13,
+      "max": 99,
+      "demo": true,
+      "price": 195
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "10u30 – 11u30",
+      "style": "Pointes gevorderden",
+      "ages": "+14 jaar",
+      "min": 14,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "11u30 – 12u30",
+      "style": "Klassiek ballet",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "G.I.B.",
+      "addr": "Door Verstraetelei 50, Brasschaat",
+      "time": "12u30 – 13u30",
+      "style": "Jazzdans",
+      "ages": "+12 jaar",
+      "min": 12,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Atheneum",
+      "addr": "Van Hemelrijcklei 29, Brasschaat",
+      "time": "10u00 – 11u00",
+      "style": "Hiphop",
+      "ages": "9 - 12 jaar",
+      "min": 9,
+      "max": 12,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Atheneum",
+      "addr": "Van Hemelrijcklei 29, Brasschaat",
+      "time": "11u00 – 12u30",
+      "style": "Demo hiphop",
+      "ages": "– 12 jaar",
+      "min": 6,
+      "max": 12,
+      "demo": true,
+      "price": 195
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Atheneum",
+      "addr": "Van Hemelrijcklei 29, Brasschaat",
+      "time": "12u30 – 13u30",
+      "style": "Hiphop gevorderden",
+      "ages": "+13 jaar",
+      "min": 13,
+      "max": 99,
+      "demo": false,
+      "price": null
+    },
+    {
+      "day": "Zaterdag",
+      "loc": "Atheneum",
+      "addr": "Van Hemelrijcklei 29, Brasschaat",
+      "time": "13u30 – 15u00",
+      "style": "Demo hiphop",
+      "ages": "+15 jaar",
+      "min": 15,
+      "max": 99,
+      "demo": true,
+      "price": 195
+    }
+  ],
+  "prices": {
+    "season_note": "Tarieven zoals gepubliceerd voor het seizoen 2025 – 2026. Vraag de school het tarief voor het lopende seizoen.",
+    "lessons": [
+      {
+        "label": "1ste les per week",
+        "price": "195 euro / jaar"
+      },
+      {
+        "label": "2de les per week",
+        "price": "185 euro / jaar"
+      },
+      {
+        "label": "3de les per week",
+        "price": "175 euro / jaar"
+      },
+      {
+        "label": "4de les per week",
+        "price": "165 euro / jaar"
+      }
+    ],
+    "demo": [
+      {
+        "label": "Demo jazz –12 jaar, demo hiphop of demo klassiek",
+        "price": "195 euro / jaar"
+      },
+      {
+        "label": "Demo jazz 12–15 jaar (4 uur) of +15 jaar (4,5 uur)",
+        "price": "390 euro / jaar"
+      },
+      {
+        "label": "Privéles",
+        "price": "50 euro / les"
+      }
+    ],
+    "extras": [
+      {
+        "label": "Dansdag — lid",
+        "price": "20 euro / dag"
+      },
+      {
+        "label": "Dansdag — geen lid",
+        "price": "24 euro / dag"
+      },
+      {
+        "label": "Dansdag 3–4 jaar en 4–7 jaar",
+        "price": "12 euro / dag"
+      },
+      {
+        "label": "Dansavond +12 jaar",
+        "price": "7,5 euro / les"
+      },
+      {
+        "label": "Workshop +12 jaar",
+        "price": "18 euro"
+      }
+    ]
+  },
+  "teachers": [
+    {
+      "name": "Ester van der Laan",
+      "role": "Directie & artistieke leiding · klassiek ballet, jazzdans"
+    },
+    {
+      "name": "Ruben Van Parys",
+      "role": "Artistieke ondersteuning · hiphop"
+    },
+    {
+      "name": "Werner Leysen",
+      "role": "Oprichter"
+    },
+    {
+      "name": "Aurélie Thomas",
+      "role": "Kinderdans"
+    },
+    {
+      "name": "Birgit Neuhard",
+      "role": "Kleuterdans"
+    },
+    {
+      "name": "Brenda Casteels",
+      "role": "Kinderdans"
+    },
+    {
+      "name": "Laura De Smedt",
+      "role": "Kleuterdans, kinderdans, jazzdans"
+    },
+    {
+      "name": "Tessa Geelen",
+      "role": "Modern jazz"
+    },
+    {
+      "name": "Ianthe Vanagtmael",
+      "role": "Jazzdans, modern, modern jazz"
+    },
+    {
+      "name": "Jitske Moyaert",
+      "role": "Jazzdans, klassiek ballet, modern jazz, floorwork, hiphop"
+    },
+    {
+      "name": "Elise Ghys",
+      "role": "Modern, modern jazz"
+    },
+    {
+      "name": "Kaat Lauwers",
+      "role": "Modern, jazzdans"
+    },
+    {
+      "name": "Fien Haes",
+      "role": "Jazzdans"
+    },
+    {
+      "name": "Maxime Mertens",
+      "role": "Modern, jazzdans, hiphop"
+    },
+    {
+      "name": "Manon Hinnekens",
+      "role": "Klassiek ballet, pointes, musical, jazzdans, hiphop"
+    },
+    {
+      "name": "Dora Leko",
+      "role": "Klassiek ballet, pointes, jazzdans"
+    },
+    {
+      "name": "Charlotte Ide",
+      "role": "Klassiek ballet"
+    },
+    {
+      "name": "Sandy van den Boogaert",
+      "role": "Klassiek ballet, pointes"
+    },
+    {
+      "name": "Kenneth Cardeynaels",
+      "role": "Hiphop"
+    },
+    {
+      "name": "Robbe van den Bremt",
+      "role": "Hiphop"
+    }
+  ],
+  "extra_offer": [
+    {
+      "name": "Dansdagen",
+      "who": "3–4, 4–7, 6–9 en 9–12 jaar",
+      "desc": "Vakantiedagen vol dans, sport en spel, met een toonmoment voor ouders op het einde."
+    },
+    {
+      "name": "Dansavonden",
+      "who": "vanaf 12 jaar",
+      "desc": "Zomertrainingen om er in september meteen weer in te vliegen."
+    },
+    {
+      "name": "Workshops",
+      "who": "vanaf 12 jaar",
+      "desc": "Losse sessies rond één stijl of één gastdocent."
+    },
+    {
+      "name": "Privéles & coaching",
+      "who": "alle niveaus",
+      "desc": "Eén op één werken aan techniek, een auditie of een eigen choreografie. Op afspraak."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Kan ik eerst eens proberen?",
+      "a": "Ja. In juni en september kan je gratis proeflessen volgen. Je komt gewoon langs op het uur van de les en verwittigt de docent ter plaatse."
+    },
+    {
+      "q": "Vanaf welke leeftijd kan mijn kind starten?",
+      "a": "Vanaf 3 jaar, in de kleuterdans. Vanaf 4 jaar kan je kind terecht in de kinderdans."
+    },
+    {
+      "q": "Wanneer openen de inschrijvingen?",
+      "a": "Voor elk nieuw seizoen krijgen de huidige leden ongeveer een week voorsprong; daarna gaan de inschrijvingen open voor nieuwe dansers."
+    },
+    {
+      "q": "Moet ik meteen alles betalen?",
+      "a": "Je schrijft eerst in. De school bevestigt je plaats en bezorgt daarna de betaalgegevens."
+    },
+    {
+      "q": "Wat als een les volzet is?",
+      "a": "Dan kan je op de wachtlijst. Je wordt verwittigd zodra er een plaats vrijkomt."
+    },
+    {
+      "q": "Bij wie kan ik terecht als er iets misloopt?",
+      "a": "Voor praktische vragen bij de school zelf. Voor alles rond grensoverschrijdend gedrag is er een aanspreekpunt integriteit (API): Liesbeth Jorissen."
+    }
+  ],
+  "news": [
+    {
+      "title": "Kledijverkoop",
+      "when": "augustus – september",
+      "desc": "Danskledij en schoenen passen en bestellen voor het nieuwe seizoen."
+    },
+    {
+      "title": "Foto's shows 2026",
+      "when": "online",
+      "desc": "De beelden van de shows van vorig seizoen staan klaar."
+    },
+    {
+      "title": "Zomeraanbod",
+      "when": "juli – augustus",
+      "desc": "Dansdagen voor de jongsten en dansavonden voor +12."
+    }
+  ],
+  "registration_note": "Dit is een prototype. Er wordt niets verzonden en er worden geen gegevens bewaard.",
+  "outreach": {
+    "status": "gepland"
+  }
+}

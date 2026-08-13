@@ -1,4 +1,57 @@
 from .common import esc, build_hours_rows, build_highlights, maps_query as _maps_query
+from . import zaal as _zaal
+
+_MAANDEN = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"]
+
+def _theme(brief):
+    accent = brief.get("accent", "#b5793a")
+    return {
+        "bg": "#241712",
+        "bg_deep": "#17100c",
+        "accent": accent,
+        "accent_bright": "#d9a94f",
+        "paper": "#efe3cd",
+        "ink": "#241712",
+        "font_display": "'Bitter', serif",
+        "font_body": "'Karla', sans-serif",
+        "fonts_href": "https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap",
+    }
+
+def render_extra_pages(brief: dict) -> dict:
+    if not brief.get("room_booking"):
+        return {}
+    return {"zaal/index.html": _zaal.render(brief, _theme(brief))}
+
+def _build_events(events):
+    """Bouwt de agendaregels. Datum verwacht 'DD/MM' of 'DD/MM/JJJJ'."""
+    rijen = []
+    for ev in events:
+        datum = str(ev.get("date", ""))
+        dag, maand = "", ""
+        delen = datum.split("/")
+        if len(delen) >= 2 and delen[0].isdigit() and delen[1].isdigit():
+            dag = str(int(delen[0]))
+            m = int(delen[1])
+            maand = _MAANDEN[m - 1] if 1 <= m <= 12 else ""
+        tijd = esc(ev.get("time", ""))
+        tijd_html = f'<span class="ev-time">{tijd}</span>' if tijd else ""
+        desc = esc(ev.get("desc", ""))
+        desc_html = f'<span class="ev-desc">{desc}</span>' if desc else ""
+        soort = esc(ev.get("kind", ""))
+        soort_html = f'<span class="ev-kind">{soort}</span>' if soort else "<span></span>"
+        rijen.append(f"""        <li>
+          <span class="ev-date">
+            <span class="ev-day">{esc(dag)}</span>
+            <span class="ev-month">{esc(maand)}</span>
+            {tijd_html}
+          </span>
+          <span>
+            <span class="ev-title">{esc(ev.get('title', ''))}</span>
+            {desc_html}
+          </span>
+          {soort_html}
+        </li>""")
+    return "\n".join(rijen)
 
 def render(brief: dict) -> str:
     name = esc(brief["business_name"])
@@ -26,6 +79,30 @@ def render(brief: dict) -> str:
             <span class="stars">★★★★★</span>
             <span class="rating-text">{rating} / 5 — {rating_count or ""} beoordelingen</span>
         </div>'''
+
+    # Agenda en zaalverhuur zijn optioneel: alleen tonen als de brief ze bevat.
+    agenda_section = ""
+    events = brief.get("agenda_events", [])
+    if events:
+        agenda_note = ""
+        if not brief.get("agenda_verified", True):
+            agenda_note = ('<p class="agenda-note">Voorbeeldagenda — hier komen de echte data en namen '
+                           'zodra het café ze doorgeeft.</p>')
+        agenda_lead = esc(brief.get("agenda_lead", "Wat er de komende weken op het programma staat."))
+        agenda_section = f"""<section class="agenda" id="agenda">
+  <div class="wrap">
+    <h2>Op het programma</h2>
+    <p class="lead">{agenda_lead}</p>
+    {agenda_note}
+    <ul class="events">
+{_build_events(events)}
+    </ul>
+  </div>
+</section>"""
+
+    zaal_link = ""
+    if brief.get("room_booking"):
+        zaal_link = f'<a class="hero-cta ghost" href="/{esc(brief["slug"])}/zaal/">Zaal reserveren</a>'
 
     return f"""<!DOCTYPE html>
 <html lang="nl">
@@ -144,6 +221,14 @@ def render(brief: dict) -> str:
     font-size: 0.98rem;
     letter-spacing: 0.02em;
   }}
+  .hero-actions {{ display: flex; flex-wrap: wrap; gap: 12px; }}
+  .hero-cta.ghost {{
+    background: transparent;
+    color: var(--foam);
+    border: 2px solid rgba(244,234,217,0.45);
+    padding: 12px 26px;
+  }}
+  .hero-cta.ghost:hover {{ border-color: var(--foam); background: rgba(244,234,217,0.1); }}
 
   .tap {{
     justify-self: end;
@@ -184,6 +269,50 @@ def render(brief: dict) -> str:
   }}
   .mark {{ font-weight: 700; }}
 
+  /* Agenda — alleen zichtbaar als de brief evenementen bevat. */
+  .agenda {{ background: var(--stout); color: var(--foam); }}
+  .agenda h2 {{ color: var(--foam); margin-bottom: 6px; }}
+  .agenda .lead {{ color: rgba(244,234,217,0.7); font-size: 0.95rem; margin-bottom: 26px; }}
+  .agenda-note {{
+    font-size: 0.84rem;
+    color: var(--brass-bright);
+    border-left: 3px solid var(--brass-bright);
+    padding-left: 12px;
+    margin-bottom: 24px;
+  }}
+  ul.events {{ list-style: none; display: grid; gap: 10px; }}
+  ul.events li {{
+    display: grid;
+    grid-template-columns: 74px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    background: rgba(244,234,217,0.05);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }}
+  .ev-date {{
+    text-align: center;
+    font-family: var(--font-display);
+    line-height: 1.05;
+  }}
+  .ev-day {{ display: block; font-size: 1.6rem; font-weight: 800; color: var(--brass-bright); }}
+  .ev-month {{ display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(244,234,217,0.7); }}
+  .ev-title {{ display: block; font-weight: 700; font-size: 1.02rem; }}
+  .ev-desc {{ display: block; color: rgba(244,234,217,0.72); font-size: 0.9rem; margin-top: 2px; }}
+  .ev-kind {{
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--oak);
+    background: var(--brass-bright);
+    border-radius: 999px;
+    padding: 4px 12px;
+    white-space: nowrap;
+  }}
+  .ev-time {{ display: block; font-size: 0.82rem; color: rgba(244,234,217,0.6); margin-top: 5px; text-align: center; }}
+
   .info {{ background: var(--oak); color: var(--foam); }}
   .info .wrap {{
     display: grid;
@@ -219,6 +348,8 @@ def render(brief: dict) -> str:
   @media (max-width: 760px) {{
     .hero .wrap, .about .wrap, .info .wrap {{ grid-template-columns: 1fr; }}
     .tap {{ justify-self: start; margin-top: 12px; }}
+    ul.events li {{ grid-template-columns: 58px 1fr; row-gap: 8px; }}
+    .ev-kind {{ grid-column: 2; justify-self: start; }}
   }}
 
   a:focus-visible, .hero-cta:focus-visible {{ outline: 2px solid var(--brass-bright); outline-offset: 3px; }}
@@ -240,7 +371,10 @@ def render(brief: dict) -> str:
       <h1>{tagline}</h1>
       <p class="tagline">{about}</p>
       {rating_block}
-      <a class="hero-cta" href="#info">{cta}</a>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#info">{cta}</a>
+        {zaal_link}
+      </div>
     </div>
     <div class="tap">
       <div class="small">Op het terras</div>
@@ -263,6 +397,8 @@ def render(brief: dict) -> str:
     </div>
   </div>
 </section>
+
+{agenda_section}
 
 <section class="info" id="info">
   <div class="wrap">

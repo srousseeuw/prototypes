@@ -115,6 +115,14 @@
     font-size: 0.98rem;
     letter-spacing: 0.02em;
   }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-cta.ghost {
+    background: transparent;
+    color: var(--foam);
+    border: 2px solid rgba(244,234,217,0.45);
+    padding: 12px 26px;
+  }
+  .hero-cta.ghost:hover { border-color: var(--foam); background: rgba(244,234,217,0.1); }
 
   .tap {
     justify-self: end;
@@ -155,6 +163,50 @@
   }
   .mark { font-weight: 700; }
 
+  /* Agenda — alleen zichtbaar als de brief evenementen bevat. */
+  .agenda { background: var(--stout); color: var(--foam); }
+  .agenda h2 { color: var(--foam); margin-bottom: 6px; }
+  .agenda .lead { color: rgba(244,234,217,0.7); font-size: 0.95rem; margin-bottom: 26px; }
+  .agenda-note {
+    font-size: 0.84rem;
+    color: var(--brass-bright);
+    border-left: 3px solid var(--brass-bright);
+    padding-left: 12px;
+    margin-bottom: 24px;
+  }
+  ul.events { list-style: none; display: grid; gap: 10px; }
+  ul.events li {
+    display: grid;
+    grid-template-columns: 74px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    background: rgba(244,234,217,0.05);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .ev-date {
+    text-align: center;
+    font-family: var(--font-display);
+    line-height: 1.05;
+  }
+  .ev-day { display: block; font-size: 1.6rem; font-weight: 800; color: var(--brass-bright); }
+  .ev-month { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(244,234,217,0.7); }
+  .ev-title { font-weight: 700; font-size: 1.02rem; }
+  .ev-desc { color: rgba(244,234,217,0.72); font-size: 0.9rem; }
+  .ev-kind {
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--oak);
+    background: var(--brass-bright);
+    border-radius: 999px;
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+  .ev-time { display: block; font-size: 0.82rem; color: rgba(244,234,217,0.6); margin-top: 5px; text-align: center; }
+
   .info { background: var(--oak); color: var(--foam); }
   .info .wrap {
     display: grid;
@@ -190,6 +242,8 @@
   @media (max-width: 760px) {
     .hero .wrap, .about .wrap, .info .wrap { grid-template-columns: 1fr; }
     .tap { justify-self: start; margin-top: 12px; }
+    ul.events li { grid-template-columns: 58px 1fr; row-gap: 8px; }
+    .ev-kind { grid-column: 2; justify-self: start; }
   }
 
   a:focus-visible, .hero-cta:focus-visible { outline: 2px solid var(--brass-bright); outline-offset: 3px; }
@@ -211,7 +265,10 @@
       <h1>Een streepje thuis, vlak bij de grens</h1>
       <p class="tagline">Café Bostella is al decennialang een vertrouwd adres in Essen-Hoek. De open, warme sfeer van een echt volkscafé staat hier centraal: een plek waar stamgasten van beide kanten van de grens elkaar treffen voor een goed gesprek en een lekker pintje op het terras.</p>
       
-      <a class="hero-cta" href="#info">Kom een pintje drinken</a>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#info">Kom een pintje drinken</a>
+        
+      </div>
     </div>
     <div class="tap">
       <div class="small">Op het terras</div>
@@ -237,6 +294,8 @@
     </div>
   </div>
 </section>
+
+
 
 <section class="info" id="info">
   <div class="wrap">
