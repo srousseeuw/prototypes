@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online bestellen — Pitta Verne</title>
+<meta name="description" content="Bestel online bij Pitta Verne. Kies je gerechten en haal ze af.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #123b3a;
+    --bg-deep: #0b2726;
+    --accent: #eaa42e;
+    --paper: #faf6ee;
+    --ink: #14171c;
+    --ink-soft: #5f6570;
+    --line: rgba(20,23,28,0.12);
+    --font-display: 'Fjalla One', sans-serif;
+    --font-body: 'Work Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  header.top { background: var(--bg); color: #fff; padding: 16px 0; }
+  header.top .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .back { font-size: 0.88rem; color: rgba(255,255,255,0.8); text-decoration: none; }
+  .back:hover { color: #fff; }
+  .brand { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 0.02em; text-transform: uppercase; }
+
+  .hero { background: var(--bg-deep); color: #fff; padding: 34px 0 30px; }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem); text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 8px; }
+  .hero p { color: rgba(255,255,255,0.75); font-size: 0.98rem; }
+
+  .notice {
+    background: #fff5d6;
+    border-left: 4px solid var(--accent);
+    color: #4a3a12;
+    font-size: 0.9rem;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 24px 0 0;
+  }
+  .deals { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .deal {
+    background: var(--accent);
+    color: var(--bg-deep);
+    font-weight: 600;
+    font-size: 0.84rem;
+    padding: 7px 14px;
+    border-radius: 999px;
+  }
+
+  .catnav {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    margin-top: 26px;
+    overflow-x: auto;
+  }
+  .catnav .wrap { display: flex; gap: 6px; padding-top: 10px; padding-bottom: 10px; }
+  .catnav a {
+    white-space: nowrap;
+    font-size: 0.86rem; font-weight: 600;
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 999px;
+    color: var(--ink-soft);
+  }
+  .catnav a:hover { background: rgba(20,23,28,0.06); color: var(--ink); }
+
+  .layout { display: grid; grid-template-columns: 1fr 330px; gap: 40px; align-items: start; padding: 30px 0 80px; }
+
+  .cat { margin-bottom: 34px; scroll-margin-top: 70px; }
+  .cat h2 { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 6px; }
+  .cat-note { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 12px; }
+  ul.items { list-style: none; }
+  .item {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .item-text { display: flex; flex-direction: column; gap: 2px; }
+  .item-name { font-weight: 600; }
+  .item-desc { color: var(--ink-soft); font-size: 0.88rem; }
+  .item-buy { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .item-price { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .add {
+    width: 34px; height: 34px;
+    border: 1px solid var(--bg);
+    background: var(--bg);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 1.25rem; line-height: 1;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.12s ease;
+  }
+  .add:hover { background: var(--bg-deep); transform: scale(1.08); }
+
+  .cart {
+    position: sticky; top: 76px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .cart h2 { font-family: var(--font-display); font-size: 1.25rem; text-transform: uppercase; margin-bottom: 14px; }
+  .cart-empty { color: var(--ink-soft); font-size: 0.9rem; }
+  ul.cart-lines { list-style: none; margin-bottom: 14px; }
+  .cart-line { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+  .qty { display: flex; align-items: center; gap: 7px; }
+  .qty button {
+    width: 24px; height: 24px;
+    border: 1px solid var(--line); background: #fff;
+    border-radius: 50%; cursor: pointer; line-height: 1;
+    color: var(--ink);
+  }
+  .qty button:hover { background: rgba(20,23,28,0.06); }
+  .qty span { min-width: 1.2em; text-align: center; font-variant-numeric: tabular-nums; }
+  .line-name { flex: 1; }
+  .line-price { font-variant-numeric: tabular-nums; }
+  .total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; padding: 12px 0 16px; }
+  .pickup { margin-bottom: 14px; }
+  .pickup label { display: block; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 5px; }
+  .pickup select {
+    width: 100%; padding: 9px 12px;
+    border: 1px solid var(--line); border-radius: 8px;
+    font-family: inherit; font-size: 0.92rem; background: #fff; color: var(--ink);
+  }
+  .checkout {
+    width: 100%;
+    background: var(--accent); color: var(--bg-deep);
+    font-family: var(--font-body); font-weight: 700; font-size: 0.98rem;
+    border: none; border-radius: 8px;
+    padding: 14px; cursor: pointer;
+  }
+  .checkout:hover { filter: brightness(1.06); }
+  .checkout:disabled { opacity: 0.45; cursor: not-allowed; }
+  .cart-foot { font-size: 0.8rem; color: var(--ink-soft); margin-top: 12px; text-align: center; }
+
+  dialog {
+    border: none; border-radius: 12px; padding: 28px;
+    max-width: 420px; width: calc(100% - 40px);
+    color: var(--ink);
+  }
+  dialog::backdrop { background: rgba(11,39,38,0.55); }
+  dialog h3 { font-family: var(--font-display); font-size: 1.4rem; text-transform: uppercase; margin-bottom: 10px; }
+  dialog p { color: var(--ink-soft); font-size: 0.94rem; margin-bottom: 8px; }
+  dialog .call { display: inline-block; margin-top: 14px; font-weight: 600; color: var(--bg); }
+  dialog button {
+    margin-top: 18px; width: 100%;
+    background: var(--bg); color: #fff;
+    border: none; border-radius: 8px; padding: 12px;
+    font-family: inherit; font-weight: 600; cursor: pointer;
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; font-size: 0.84rem; color: var(--ink-soft); text-align: center; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .cart { position: static; }
+  }
+  a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Pitta Verne</div>
+    <a class="back" href="/pitta-verne/">&larr; Terug naar de site</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Online bestellen</h1>
+    <p>Stel je bestelling samen en haal ze af in de Kapelstraat 1.</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+
+</div>
+
+<nav class="catnav">
+  <div class="wrap">
+      <a href="#cat-0">Pizza's met kaas</a>
+      <a href="#cat-1">Pizza's met vlees</a>
+      <a href="#cat-2">Pizza's met groenten</a>
+      <a href="#cat-3">Pizza's met vis</a>
+      <a href="#cat-4">Voorgerechten</a>
+      <a href="#cat-5">Soepen</a>
+      <a href="#cat-6">Shoarmaschotels</a>
+      <a href="#cat-7">Visschotels</a>
+      <a href="#cat-8">Sjasliek &amp; kebab</a>
+      <a href="#cat-9">Kipschotels</a>
+      <a href="#cat-10">Mix schotels</a>
+      <a href="#cat-11">Menu mix</a>
+      <a href="#cat-12">Broodjes</a>
+      <a href="#cat-13">Pasta</a>
+      <a href="#cat-14">Lasagne</a>
+      <a href="#cat-15">Kindermenu</a>
+      <a href="#cat-16">Extra's</a>
+      <a href="#cat-17">Sauzen</a>
+      <a href="#cat-18">Dranken</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="layout">
+    <div>
+    <section class="cat" id="cat-0">
+      <h2>Pizza's met kaas</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza margherita</span>
+            <span class="item-desc">Tomaat en kaas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;10,00</span>
+            <button class="add" type="button"
+              data-id="0-0" data-name="Pizza margherita" data-price="10.00"
+              aria-label="Pizza margherita toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza gorgonzola</span>
+            <span class="item-desc">Tomaat, kaas en gorgonzola.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="0-1" data-name="Pizza gorgonzola" data-price="14.00"
+              aria-label="Pizza gorgonzola toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza mozzarella</span>
+            <span class="item-desc">Tomaat, kaas en mozzarella.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="0-2" data-name="Pizza mozzarella" data-price="14.00"
+              aria-label="Pizza mozzarella toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza quattro formaggi</span>
+            <span class="item-desc">Tomaat en 4 soorten kaas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="0-3" data-name="Pizza quattro formaggi" data-price="14.00"
+              aria-label="Pizza quattro formaggi toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-1">
+      <h2>Pizza's met vlees</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza di mama</span>
+            <span class="item-desc">Tomaat, kaas, ham, salami.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-0" data-name="Pizza di mama" data-price="15.00"
+              aria-label="Pizza di mama toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza prosciutto</span>
+            <span class="item-desc">Tomaat, kaas en ham.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="1-1" data-name="Pizza prosciutto" data-price="13.00"
+              aria-label="Pizza prosciutto toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza prosciutto funghi</span>
+            <span class="item-desc">Tomaat, kaas en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,50</span>
+            <button class="add" type="button"
+              data-id="1-2" data-name="Pizza prosciutto funghi" data-price="13.50"
+              aria-label="Pizza prosciutto funghi toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza salami</span>
+            <span class="item-desc">Tomaat, kaas en salami.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="1-3" data-name="Pizza salami" data-price="13.00"
+              aria-label="Pizza salami toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza bolognese</span>
+            <span class="item-desc">Tomaat, kaas en bolognesesaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="1-4" data-name="Pizza bolognese" data-price="14.00"
+              aria-label="Pizza bolognese toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza capricciosa</span>
+            <span class="item-desc">Tomaat, kaas, ham, salami, champignons, paprika en olijven.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-5" data-name="Pizza capricciosa" data-price="15.00"
+              aria-label="Pizza capricciosa toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza quattro stagioni</span>
+            <span class="item-desc">Tomaat, kaas, ham, salami, champignons en paprika.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-6" data-name="Pizza quattro stagioni" data-price="15.00"
+              aria-label="Pizza quattro stagioni toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza Hawaii</span>
+            <span class="item-desc">Tomaat, kaas, ham en ananas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,50</span>
+            <button class="add" type="button"
+              data-id="1-7" data-name="Pizza Hawaii" data-price="13.50"
+              aria-label="Pizza Hawaii toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza calzone</span>
+            <span class="item-desc">Dubbelgevouwen pizza met ham en groenten.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,50</span>
+            <button class="add" type="button"
+              data-id="1-8" data-name="Pizza calzone" data-price="13.50"
+              aria-label="Pizza calzone toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza Italia</span>
+            <span class="item-desc">Tomaat, kaas, ham, salami en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="1-9" data-name="Pizza Italia" data-price="14.00"
+              aria-label="Pizza Italia toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza rustica</span>
+            <span class="item-desc">Tomaat, kaas, spek en ei.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="1-10" data-name="Pizza rustica" data-price="14.00"
+              aria-label="Pizza rustica toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza mafioso</span>
+            <span class="item-desc">Tomaat, kaas, spek, champignons en paprika.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="1-11" data-name="Pizza mafioso" data-price="14.00"
+              aria-label="Pizza mafioso toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza pikant</span>
+            <span class="item-desc">Tomaat, kaas, salami, uien en Spaanse peper.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,50</span>
+            <button class="add" type="button"
+              data-id="1-12" data-name="Pizza pikant" data-price="13.50"
+              aria-label="Pizza pikant toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza shoarma</span>
+            <span class="item-desc">Tomaat, kaas, shoarmavlees, uien en knoflook.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-13" data-name="Pizza shoarma" data-price="15.00"
+              aria-label="Pizza shoarma toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza pollo</span>
+            <span class="item-desc">Tomaat, kaas, kip, uien, Spaanse peper en knoflook.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-14" data-name="Pizza pollo" data-price="15.00"
+              aria-label="Pizza pollo toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza tropical</span>
+            <span class="item-desc">Tomaat, kaas, shoarmavlees en ananas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-15" data-name="Pizza tropical" data-price="15.00"
+              aria-label="Pizza tropical toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza anglo</span>
+            <span class="item-desc">Tomaat, kaas, kip en ananas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-16" data-name="Pizza anglo" data-price="15.00"
+              aria-label="Pizza anglo toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza farao</span>
+            <span class="item-desc">Tomaat, kaas en mix shoarma kip.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-17" data-name="Pizza farao" data-price="15.00"
+              aria-label="Pizza farao toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza calzone shoarma</span>
+            <span class="item-desc">Tomaat, kaas, shoarmavlees, uien en knoflook.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-18" data-name="Pizza calzone shoarma" data-price="15.00"
+              aria-label="Pizza calzone shoarma toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza calzone kip</span>
+            <span class="item-desc">Tomaat, kaas, kip, uien en knoflook.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-19" data-name="Pizza calzone kip" data-price="15.00"
+              aria-label="Pizza calzone kip toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza kapsalon</span>
+            <span class="item-desc">Shoarma of döner of kip, friet en salade.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="1-20" data-name="Pizza kapsalon" data-price="16.00"
+              aria-label="Pizza kapsalon toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza doner</span>
+            <span class="item-desc">Tomaat, kaas, döner en ui.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-21" data-name="Pizza doner" data-price="15.00"
+              aria-label="Pizza doner toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza barbecue kip</span>
+            <span class="item-desc">Tomaat, kaas, kip en barbecuesaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="1-22" data-name="Pizza barbecue kip" data-price="15.00"
+              aria-label="Pizza barbecue kip toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-2">
+      <h2>Pizza's met groenten</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza cipollo</span>
+            <span class="item-desc">Tomaat, kaas en ui.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;10,50</span>
+            <button class="add" type="button"
+              data-id="2-0" data-name="Pizza cipollo" data-price="10.50"
+              aria-label="Pizza cipollo toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza funghi</span>
+            <span class="item-desc">Tomaat, kaas en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="2-1" data-name="Pizza funghi" data-price="13.00"
+              aria-label="Pizza funghi toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza peperoni</span>
+            <span class="item-desc">Tomaat, kaas, paprika en pikant salami.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="2-2" data-name="Pizza peperoni" data-price="13.00"
+              aria-label="Pizza peperoni toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza ananas</span>
+            <span class="item-desc">Tomaat, kaas en ananas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="2-3" data-name="Pizza ananas" data-price="13.00"
+              aria-label="Pizza ananas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza romana</span>
+            <span class="item-desc">Tomaat, kaas, artisjokken en olijven.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="2-4" data-name="Pizza romana" data-price="13.00"
+              aria-label="Pizza romana toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza Milano</span>
+            <span class="item-desc">Tomaat, kaas, champignons, artisjokken, uien, paprika en knoflook.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="2-5" data-name="Pizza Milano" data-price="15.00"
+              aria-label="Pizza Milano toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-3">
+      <h2>Pizza's met vis</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza Siciliana</span>
+            <span class="item-desc">Tomaat, kaas, ansjovis, olijven, kappertjes.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="3-0" data-name="Pizza Siciliana" data-price="14.00"
+              aria-label="Pizza Siciliana toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza tonno</span>
+            <span class="item-desc">Tomaat, kaas, tonijn en ui.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="3-1" data-name="Pizza tonno" data-price="13.00"
+              aria-label="Pizza tonno toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza napoletana</span>
+            <span class="item-desc">Tomaat, kaas, ansjovis en kappertjes.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="3-2" data-name="Pizza napoletana" data-price="13.00"
+              aria-label="Pizza napoletana toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza Venezia</span>
+            <span class="item-desc">Tomaat, kaas, tonijn, artisjokken, kappertjes en knoflook.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="3-3" data-name="Pizza Venezia" data-price="14.00"
+              aria-label="Pizza Venezia toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza frutti di mare</span>
+            <span class="item-desc">Tomaat, kaas, tonijn, garnalen, mosselen, ansjovis, knoflook en kappertjes.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="3-4" data-name="Pizza frutti di mare" data-price="16.00"
+              aria-label="Pizza frutti di mare toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza scampi</span>
+            <span class="item-desc">Scampi, paprika en uien.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="3-5" data-name="Pizza scampi" data-price="16.00"
+              aria-label="Pizza scampi toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza rucola</span>
+            <span class="item-desc">Tomaat, kaas, parmezaanse kaas, kerstomaten, rucola.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="3-6" data-name="Pizza rucola" data-price="14.00"
+              aria-label="Pizza rucola toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza spinazie</span>
+            <span class="item-desc">Tomaat, kaas en spinazie.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="3-7" data-name="Pizza spinazie" data-price="13.00"
+              aria-label="Pizza spinazie toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pizza salamoni</span>
+            <span class="item-desc">Zalm en look.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="3-8" data-name="Pizza salamoni" data-price="15.00"
+              aria-label="Pizza salamoni toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-4">
+      <h2>Voorgerechten</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Garnalencocktail</span>
+            <span class="item-desc">Garnalen, ijsbergsla, tomaten en cocktailsaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="4-0" data-name="Garnalencocktail" data-price="8.00"
+              aria-label="Garnalencocktail toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Griekse salade</span>
+            <span class="item-desc">IJsbergsla, tomaten, fetakaas, uien en olijven.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;6,00</span>
+            <button class="add" type="button"
+              data-id="4-1" data-name="Griekse salade" data-price="6.00"
+              aria-label="Griekse salade toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Gemengde salade</span>
+            <span class="item-desc">IJsbergsla, tomaten, komkommer, augurk, paprika en uien.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;6,00</span>
+            <button class="add" type="button"
+              data-id="4-2" data-name="Gemengde salade" data-price="6.00"
+              aria-label="Gemengde salade toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Funghi trifolati</span>
+            <span class="item-desc">Gebakken champignons met speciale kruidenboter.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;7,00</span>
+            <button class="add" type="button"
+              data-id="4-3" data-name="Funghi trifolati" data-price="7.00"
+              aria-label="Funghi trifolati toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Stokbrood met kruidenboter</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;5,00</span>
+            <button class="add" type="button"
+              data-id="4-4" data-name="Stokbrood met kruidenboter" data-price="5.00"
+              aria-label="Stokbrood met kruidenboter toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Stokbrood met kaas</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;6,00</span>
+            <button class="add" type="button"
+              data-id="4-5" data-name="Stokbrood met kaas" data-price="6.00"
+              aria-label="Stokbrood met kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kaaskroket</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;7,00</span>
+            <button class="add" type="button"
+              data-id="4-6" data-name="Kaaskroket" data-price="7.00"
+              aria-label="Kaaskroket toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Garnaalkroket</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="4-7" data-name="Garnaalkroket" data-price="8.00"
+              aria-label="Garnaalkroket toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Mix garnaal- en kaaskroket</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;7,50</span>
+            <button class="add" type="button"
+              data-id="4-8" data-name="Mix garnaal- en kaaskroket" data-price="7.50"
+              aria-label="Mix garnaal- en kaaskroket toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Mozzarellasalade</span>
+            <span class="item-desc">Verse tomaat, mozzarella en verse basilicum.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="4-9" data-name="Mozzarellasalade" data-price="8.00"
+              aria-label="Mozzarellasalade toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Tonijnsalade</span>
+            <span class="item-desc">IJsbergsla, tomaten, komkommer, ui en tonijn.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="4-10" data-name="Tonijnsalade" data-price="8.00"
+              aria-label="Tonijnsalade toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Mini loempia's (6 stuks)</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;7,00</span>
+            <button class="add" type="button"
+              data-id="4-11" data-name="Mini loempia's (6 stuks)" data-price="7.00"
+              aria-label="Mini loempia's (6 stuks) toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Calamares</span>
+            <span class="item-desc">Met cocktailsaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="4-12" data-name="Calamares" data-price="8.00"
+              aria-label="Calamares toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-5">
+      <h2>Soepen</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Tomatensoep</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;7,00</span>
+            <button class="add" type="button"
+              data-id="5-0" data-name="Tomatensoep" data-price="7.00"
+              aria-label="Tomatensoep toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Groentensoep</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;7,00</span>
+            <button class="add" type="button"
+              data-id="5-1" data-name="Groentensoep" data-price="7.00"
+              aria-label="Groentensoep toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Uiensoep</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;7,00</span>
+            <button class="add" type="button"
+              data-id="5-2" data-name="Uiensoep" data-price="7.00"
+              aria-label="Uiensoep toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-6">
+      <h2>Shoarmaschotels</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Schotel hamburger</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="6-0" data-name="Schotel hamburger" data-price="14.00"
+              aria-label="Schotel hamburger toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Döner</span>
+            <span class="item-desc">Reepjes.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="6-1" data-name="Döner" data-price="16.00"
+              aria-label="Döner toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Döner met kaas</span>
+            <span class="item-desc">Jonge kaas of feta.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-2" data-name="Döner met kaas" data-price="17.00"
+              aria-label="Döner met kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Döner fantasy</span>
+            <span class="item-desc">Paprika, ui en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-3" data-name="Döner fantasy" data-price="17.00"
+              aria-label="Döner fantasy toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kapsalon klein</span>
+            <span class="item-desc">Döner, kip of shoarma.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;12,00</span>
+            <button class="add" type="button"
+              data-id="6-4" data-name="Kapsalon klein" data-price="12.00"
+              aria-label="Kapsalon klein toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kapsalon groot</span>
+            <span class="item-desc">Döner, kip of shoarma.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="6-5" data-name="Kapsalon groot" data-price="15.00"
+              aria-label="Kapsalon groot toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Falafel</span>
+            <span class="item-desc">Vegetarisch.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="6-6" data-name="Falafel" data-price="16.00"
+              aria-label="Falafel toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Merguez</span>
+            <span class="item-desc">Pittige worstjes.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="6-7" data-name="Merguez" data-price="16.00"
+              aria-label="Merguez toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="6-8" data-name="Shoarma" data-price="16.00"
+              aria-label="Shoarma toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma Hawaï</span>
+            <span class="item-desc">Ananas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,50</span>
+            <button class="add" type="button"
+              data-id="6-9" data-name="Shoarma Hawaï" data-price="16.50"
+              aria-label="Shoarma Hawaï toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma Hawaï kaas</span>
+            <span class="item-desc">Ananas en jonge kaas of feta.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-10" data-name="Shoarma Hawaï kaas" data-price="17.00"
+              aria-label="Shoarma Hawaï kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma kaas</span>
+            <span class="item-desc">Jonge kaas of feta.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,50</span>
+            <button class="add" type="button"
+              data-id="6-11" data-name="Shoarma kaas" data-price="16.50"
+              aria-label="Shoarma kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma met champignons</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-12" data-name="Shoarma met champignons" data-price="17.00"
+              aria-label="Shoarma met champignons toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma fantasy</span>
+            <span class="item-desc">Paprika, uien en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-13" data-name="Shoarma fantasy" data-price="17.00"
+              aria-label="Shoarma fantasy toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma Mexicaans</span>
+            <span class="item-desc">Maïs, uien en paprika.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-14" data-name="Shoarma Mexicaans" data-price="17.00"
+              aria-label="Shoarma Mexicaans toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma Egyptisch</span>
+            <span class="item-desc">Uien en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-15" data-name="Shoarma Egyptisch" data-price="17.00"
+              aria-label="Shoarma Egyptisch toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma farao</span>
+            <span class="item-desc">Shoarmavlees en stukjes kipfilet.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-16" data-name="Shoarma farao" data-price="17.00"
+              aria-label="Shoarma farao toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma taba</span>
+            <span class="item-desc">Spek en uien.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-17" data-name="Shoarma taba" data-price="17.00"
+              aria-label="Shoarma taba toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Tagine uit de oven shoarma</span>
+            <span class="item-desc">Shoarmavlees, groenten, tomatensaus, verse knoflook en kaas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-18" data-name="Tagine uit de oven shoarma" data-price="17.00"
+              aria-label="Tagine uit de oven shoarma toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Tagine uit de oven merguez</span>
+            <span class="item-desc">Merguez, groenten, tomatensaus, verse knoflook en kaas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-19" data-name="Tagine uit de oven merguez" data-price="17.00"
+              aria-label="Tagine uit de oven merguez toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Tagine uit de oven kip</span>
+            <span class="item-desc">Kip, groenten, tomatensaus, verse knoflook en kaas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-20" data-name="Tagine uit de oven kip" data-price="17.00"
+              aria-label="Tagine uit de oven kip toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Schotel van de chef</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="6-21" data-name="Schotel van de chef" data-price="17.00"
+              aria-label="Schotel van de chef toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-7">
+      <h2>Visschotels</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Zalm</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;24,00</span>
+            <button class="add" type="button"
+              data-id="7-0" data-name="Zalm" data-price="24.00"
+              aria-label="Zalm toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Gamba's van de grill</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;24,00</span>
+            <button class="add" type="button"
+              data-id="7-1" data-name="Gamba's van de grill" data-price="24.00"
+              aria-label="Gamba's van de grill toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Scampi's met roomsaus</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;24,00</span>
+            <button class="add" type="button"
+              data-id="7-2" data-name="Scampi's met roomsaus" data-price="24.00"
+              aria-label="Scampi's met roomsaus toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Mix schotel zalm en gamba's</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;24,00</span>
+            <button class="add" type="button"
+              data-id="7-3" data-name="Mix schotel zalm en gamba's" data-price="24.00"
+              aria-label="Mix schotel zalm en gamba's toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Mix schotel 6 calamares en 3 gamba's</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;24,00</span>
+            <button class="add" type="button"
+              data-id="7-4" data-name="Mix schotel 6 calamares en 3 gamba's" data-price="24.00"
+              aria-label="Mix schotel 6 calamares en 3 gamba's toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Calamares 12 stuks</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="7-5" data-name="Calamares 12 stuks" data-price="15.00"
+              aria-label="Calamares 12 stuks toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-8">
+      <h2>Sjasliek &amp; kebab</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Sjasliek</span>
+            <span class="item-desc">Stukjes varkenshaasje aan het spit met paprika en uien.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="8-0" data-name="Sjasliek" data-price="16.00"
+              aria-label="Sjasliek toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Saté</span>
+            <span class="item-desc">Kipsaté.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="8-1" data-name="Saté" data-price="16.00"
+              aria-label="Saté toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kebab</span>
+            <span class="item-desc">Egyptisch gekruide hamburger.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="8-2" data-name="Kebab" data-price="16.00"
+              aria-label="Kebab toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Spare-ribs</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="8-3" data-name="Spare-ribs" data-price="18.00"
+              aria-label="Spare-ribs toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Spare-ribs pikant</span>
+            <span class="item-desc">Speciale hete saus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;19,00</span>
+            <button class="add" type="button"
+              data-id="8-4" data-name="Spare-ribs pikant" data-price="19.00"
+              aria-label="Spare-ribs pikant toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Lamskotelet</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;22,00</span>
+            <button class="add" type="button"
+              data-id="8-5" data-name="Lamskotelet" data-price="22.00"
+              aria-label="Lamskotelet toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-9">
+      <h2>Kipschotels</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip</span>
+            <span class="item-desc">Kipfilet in stukjes.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="9-0" data-name="Kip" data-price="16.00"
+              aria-label="Kip toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip Hawaï</span>
+            <span class="item-desc">Ananas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,50</span>
+            <button class="add" type="button"
+              data-id="9-1" data-name="Kip Hawaï" data-price="16.50"
+              aria-label="Kip Hawaï toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip Hawaï kaas</span>
+            <span class="item-desc">Ananas en jonge kaas of feta.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="9-2" data-name="Kip Hawaï kaas" data-price="17.00"
+              aria-label="Kip Hawaï kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip kaas</span>
+            <span class="item-desc">Jonge kaas of feta.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,50</span>
+            <button class="add" type="button"
+              data-id="9-3" data-name="Kip kaas" data-price="16.50"
+              aria-label="Kip kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip champignons</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="9-4" data-name="Kip champignons" data-price="17.00"
+              aria-label="Kip champignons toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip fantasy</span>
+            <span class="item-desc">Paprika, uien en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="9-5" data-name="Kip fantasy" data-price="17.00"
+              aria-label="Kip fantasy toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip Mexicaans</span>
+            <span class="item-desc">Maïs, uien en paprika.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="9-6" data-name="Kip Mexicaans" data-price="17.00"
+              aria-label="Kip Mexicaans toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip Egyptisch</span>
+            <span class="item-desc">Uien en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="9-7" data-name="Kip Egyptisch" data-price="17.00"
+              aria-label="Kip Egyptisch toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip taba</span>
+            <span class="item-desc">Spek en uien.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="9-8" data-name="Kip taba" data-price="17.00"
+              aria-label="Kip taba toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Hot chicken</span>
+            <span class="item-desc">Groenten en pikante saus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="9-9" data-name="Hot chicken" data-price="17.00"
+              aria-label="Hot chicken toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-10">
+      <h2>Mix schotels</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Aswan</span>
+            <span class="item-desc">Shoarmavlees en döner.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="10-0" data-name="Aswan" data-price="18.00"
+              aria-label="Aswan toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Karnak</span>
+            <span class="item-desc">Shoarmavlees en merguez.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="10-1" data-name="Karnak" data-price="18.00"
+              aria-label="Karnak toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Ramses</span>
+            <span class="item-desc">Shoarmavlees en sjasliek.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="10-2" data-name="Ramses" data-price="18.00"
+              aria-label="Ramses toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Cairo</span>
+            <span class="item-desc">Shoarmavlees en saté.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="10-3" data-name="Cairo" data-price="18.00"
+              aria-label="Cairo toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Amon</span>
+            <span class="item-desc">Shoarmavlees en kebab.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="10-4" data-name="Amon" data-price="18.00"
+              aria-label="Amon toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Toet Anch Amon</span>
+            <span class="item-desc">Shoarma en hot chicken.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="10-5" data-name="Toet Anch Amon" data-price="18.00"
+              aria-label="Toet Anch Amon toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Abu Simbel</span>
+            <span class="item-desc">Shoarma en spare-ribs.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="10-6" data-name="Abu Simbel" data-price="18.00"
+              aria-label="Abu Simbel toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Luxor</span>
+            <span class="item-desc">Shoarma en lamskotelet.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;18,00</span>
+            <button class="add" type="button"
+              data-id="10-7" data-name="Luxor" data-price="18.00"
+              aria-label="Luxor toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Verne</span>
+            <span class="item-desc">Döner, kip, sjasliek of hamburger.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;22,00</span>
+            <button class="add" type="button"
+              data-id="10-8" data-name="Verne" data-price="22.00"
+              aria-label="Verne toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pyramide</span>
+            <span class="item-desc">Shoarmavlees, kipfilet en sjasliek.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;22,00</span>
+            <button class="add" type="button"
+              data-id="10-9" data-name="Pyramide" data-price="22.00"
+              aria-label="Pyramide toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Nefertiti</span>
+            <span class="item-desc">Shoarmavlees, kipfilet en hamburger.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;22,00</span>
+            <button class="add" type="button"
+              data-id="10-10" data-name="Nefertiti" data-price="22.00"
+              aria-label="Nefertiti toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-11">
+      <h2>Menu mix</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Menu mix</span>
+            <span class="item-desc">Minimum 2 personen. 5 soorten vlees: shoarma, kipfilet, sjasliek, lamskotelet en saté.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;42,00</span>
+            <button class="add" type="button"
+              data-id="11-0" data-name="Menu mix" data-price="42.00"
+              aria-label="Menu mix toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-12">
+      <h2>Broodjes</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje falafel</span>
+            <span class="item-desc">Vegetarisch.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;10,00</span>
+            <button class="add" type="button"
+              data-id="12-0" data-name="Broodje falafel" data-price="10.00"
+              aria-label="Broodje falafel toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje shoarma</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;10,00</span>
+            <button class="add" type="button"
+              data-id="12-1" data-name="Broodje shoarma" data-price="10.00"
+              aria-label="Broodje shoarma toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje shoarma fantasy</span>
+            <span class="item-desc">Paprika, uien en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;11,00</span>
+            <button class="add" type="button"
+              data-id="12-2" data-name="Broodje shoarma fantasy" data-price="11.00"
+              aria-label="Broodje shoarma fantasy toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje shoarma Hawaï</span>
+            <span class="item-desc">Ananas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;11,00</span>
+            <button class="add" type="button"
+              data-id="12-3" data-name="Broodje shoarma Hawaï" data-price="11.00"
+              aria-label="Broodje shoarma Hawaï toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje shoarma Hawaï kaas</span>
+            <span class="item-desc">Ananas en jonge kaas of feta.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;11,50</span>
+            <button class="add" type="button"
+              data-id="12-4" data-name="Broodje shoarma Hawaï kaas" data-price="11.50"
+              aria-label="Broodje shoarma Hawaï kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje shoarma kaas</span>
+            <span class="item-desc">Jonge kaas of feta.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;11,00</span>
+            <button class="add" type="button"
+              data-id="12-5" data-name="Broodje shoarma kaas" data-price="11.00"
+              aria-label="Broodje shoarma kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje kip</span>
+            <span class="item-desc">Kipfilet in stukjes.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;10,00</span>
+            <button class="add" type="button"
+              data-id="12-6" data-name="Broodje kip" data-price="10.00"
+              aria-label="Broodje kip toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje kip fantasy</span>
+            <span class="item-desc">Paprika, uien en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;11,00</span>
+            <button class="add" type="button"
+              data-id="12-7" data-name="Broodje kip fantasy" data-price="11.00"
+              aria-label="Broodje kip fantasy toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje kip Hawaï</span>
+            <span class="item-desc">Ananas.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;11,00</span>
+            <button class="add" type="button"
+              data-id="12-8" data-name="Broodje kip Hawaï" data-price="11.00"
+              aria-label="Broodje kip Hawaï toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje hot chicken</span>
+            <span class="item-desc">Groenten en pikante saus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;11,00</span>
+            <button class="add" type="button"
+              data-id="12-9" data-name="Broodje hot chicken" data-price="11.00"
+              aria-label="Broodje hot chicken toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje gesmolten kaas</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;3,00</span>
+            <button class="add" type="button"
+              data-id="12-10" data-name="Broodje gesmolten kaas" data-price="3.00"
+              aria-label="Broodje gesmolten kaas toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje gezond</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;4,00</span>
+            <button class="add" type="button"
+              data-id="12-11" data-name="Broodje gezond" data-price="4.00"
+              aria-label="Broodje gezond toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje döner</span>
+            <span class="item-desc">Reepjes.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;9,00</span>
+            <button class="add" type="button"
+              data-id="12-12" data-name="Broodje döner" data-price="9.00"
+              aria-label="Broodje döner toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-13">
+      <h2>Pasta</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta pollo</span>
+            <span class="item-desc">Met kip en roomsaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="13-0" data-name="Pasta pollo" data-price="15.00"
+              aria-label="Pasta pollo toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta vegetarisch</span>
+            <span class="item-desc">Paprika, ui en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="13-1" data-name="Pasta vegetarisch" data-price="15.00"
+              aria-label="Pasta vegetarisch toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta napoletana</span>
+            <span class="item-desc">Tomatensaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;13,00</span>
+            <button class="add" type="button"
+              data-id="13-2" data-name="Pasta napoletana" data-price="13.00"
+              aria-label="Pasta napoletana toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta bolognese</span>
+            <span class="item-desc">Gehaktsaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="13-3" data-name="Pasta bolognese" data-price="15.00"
+              aria-label="Pasta bolognese toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta carbonara</span>
+            <span class="item-desc">Roomsaus, ei en spek.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="13-4" data-name="Pasta carbonara" data-price="15.00"
+              aria-label="Pasta carbonara toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta frutti di mare</span>
+            <span class="item-desc">Zeevruchten in witte wijn en tomatensaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="13-5" data-name="Pasta frutti di mare" data-price="16.00"
+              aria-label="Pasta frutti di mare toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Macaroni al forno</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="13-6" data-name="Macaroni al forno" data-price="16.00"
+              aria-label="Macaroni al forno toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta salamoni</span>
+            <span class="item-desc">Verse zalm.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="13-7" data-name="Pasta salamoni" data-price="16.00"
+              aria-label="Pasta salamoni toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta prosciutto funghi</span>
+            <span class="item-desc">Ham en champignons.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="13-8" data-name="Pasta prosciutto funghi" data-price="15.00"
+              aria-label="Pasta prosciutto funghi toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta scampi</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="13-9" data-name="Pasta scampi" data-price="16.00"
+              aria-label="Pasta scampi toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta quattro formaggi</span>
+            <span class="item-desc">Vier kazen.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;15,00</span>
+            <button class="add" type="button"
+              data-id="13-10" data-name="Pasta quattro formaggi" data-price="15.00"
+              aria-label="Pasta quattro formaggi toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta all'arrabbiata</span>
+            <span class="item-desc">Pikant, met tomatensaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="13-11" data-name="Pasta all'arrabbiata" data-price="14.00"
+              aria-label="Pasta all'arrabbiata toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pasta aglio olio</span>
+            <span class="item-desc">Met olijfolie, knoflook, Spaanse peper en peterselie.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;14,00</span>
+            <button class="add" type="button"
+              data-id="13-12" data-name="Pasta aglio olio" data-price="14.00"
+              aria-label="Pasta aglio olio toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-14">
+      <h2>Lasagne</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Lasagne bolognese</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="14-0" data-name="Lasagne bolognese" data-price="17.00"
+              aria-label="Lasagne bolognese toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Lasagne vegetariana</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;16,00</span>
+            <button class="add" type="button"
+              data-id="14-1" data-name="Lasagne vegetariana" data-price="16.00"
+              aria-label="Lasagne vegetariana toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Lasagne a la salamoni</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;17,00</span>
+            <button class="add" type="button"
+              data-id="14-2" data-name="Lasagne a la salamoni" data-price="17.00"
+              aria-label="Lasagne a la salamoni toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-15">
+      <h2>Kindermenu</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kip menu</span>
+            <span class="item-desc">Stukjes kip met frietjes en salade.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="15-0" data-name="Kip menu" data-price="8.00"
+              aria-label="Kip menu toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Shoarma menu</span>
+            <span class="item-desc">Shoarmavlees met frietjes en salade.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="15-1" data-name="Shoarma menu" data-price="8.00"
+              aria-label="Shoarma menu toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Hamburger menu</span>
+            <span class="item-desc">Hamburger met frietjes en salade.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="15-2" data-name="Hamburger menu" data-price="8.00"
+              aria-label="Hamburger menu toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Frikandel</span>
+            <span class="item-desc">Frikandel met frietjes en salade.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="15-3" data-name="Frikandel" data-price="8.00"
+              aria-label="Frikandel toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Spaghetti menu</span>
+            <span class="item-desc">Spaghetti met bolognesesaus.</span>
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="15-4" data-name="Spaghetti menu" data-price="8.00"
+              aria-label="Spaghetti menu toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Kipnuggets (4 stuks)</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;8,00</span>
+            <button class="add" type="button"
+              data-id="15-5" data-name="Kipnuggets (4 stuks)" data-price="8.00"
+              aria-label="Kipnuggets (4 stuks) toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-16">
+      <h2>Extra's</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Vlees</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;2,00</span>
+            <button class="add" type="button"
+              data-id="16-0" data-name="Vlees" data-price="2.00"
+              aria-label="Vlees toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Friet</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;4,00</span>
+            <button class="add" type="button"
+              data-id="16-1" data-name="Friet" data-price="4.00"
+              aria-label="Friet toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Aardappelen</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;4,50</span>
+            <button class="add" type="button"
+              data-id="16-2" data-name="Aardappelen" data-price="4.50"
+              aria-label="Aardappelen toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Broodje</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="16-3" data-name="Broodje" data-price="1.00"
+              aria-label="Broodje toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Salade</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="16-4" data-name="Salade" data-price="1.00"
+              aria-label="Salade toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Rijst</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;3,50</span>
+            <button class="add" type="button"
+              data-id="16-5" data-name="Rijst" data-price="3.50"
+              aria-label="Rijst toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-17">
+      <h2>Sauzen</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Cocktail</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-0" data-name="Cocktail" data-price="1.00"
+              aria-label="Cocktail toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Ketchup</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-1" data-name="Ketchup" data-price="1.00"
+              aria-label="Ketchup toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Looksaus</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-2" data-name="Looksaus" data-price="1.00"
+              aria-label="Looksaus toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Mayonaise</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-3" data-name="Mayonaise" data-price="1.00"
+              aria-label="Mayonaise toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Gele curry</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-4" data-name="Gele curry" data-price="1.00"
+              aria-label="Gele curry toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Groentesaus</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-5" data-name="Groentesaus" data-price="1.00"
+              aria-label="Groentesaus toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Sambal</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-6" data-name="Sambal" data-price="1.00"
+              aria-label="Sambal toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Samourai</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-7" data-name="Samourai" data-price="1.00"
+              aria-label="Samourai toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Zoetzure saus</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;1,00</span>
+            <button class="add" type="button"
+              data-id="17-8" data-name="Zoetzure saus" data-price="1.00"
+              aria-label="Zoetzure saus toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    <section class="cat" id="cat-18">
+      <h2>Dranken</h2>
+      
+      <ul class="items">
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Coca-Cola (33 cl)</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;2,70</span>
+            <button class="add" type="button"
+              data-id="18-0" data-name="Coca-Cola (33 cl)" data-price="2.70"
+              aria-label="Coca-Cola (33 cl) toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Coca-Cola Zero (33 cl)</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;2,70</span>
+            <button class="add" type="button"
+              data-id="18-1" data-name="Coca-Cola Zero (33 cl)" data-price="2.70"
+              aria-label="Coca-Cola Zero (33 cl) toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Fanta (33 cl)</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;2,70</span>
+            <button class="add" type="button"
+              data-id="18-2" data-name="Fanta (33 cl)" data-price="2.70"
+              aria-label="Fanta (33 cl) toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Ice-tea (33 cl)</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;2,70</span>
+            <button class="add" type="button"
+              data-id="18-3" data-name="Ice-tea (33 cl)" data-price="2.70"
+              aria-label="Ice-tea (33 cl) toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Mangosap</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;4,00</span>
+            <button class="add" type="button"
+              data-id="18-4" data-name="Mangosap" data-price="4.00"
+              aria-label="Mangosap toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Guavasap</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;4,00</span>
+            <button class="add" type="button"
+              data-id="18-5" data-name="Guavasap" data-price="4.00"
+              aria-label="Guavasap toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Pils (35,5 cl)</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;2,70</span>
+            <button class="add" type="button"
+              data-id="18-6" data-name="Pils (35,5 cl)" data-price="2.70"
+              aria-label="Pils (35,5 cl) toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Red Bull (25 cl)</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;3,00</span>
+            <button class="add" type="button"
+              data-id="18-7" data-name="Red Bull (25 cl)" data-price="3.00"
+              aria-label="Red Bull (25 cl) toevoegen">+</button>
+          </div>
+        </li>
+        <li class="item">
+          <div class="item-text">
+            <span class="item-name">Egyptische thee</span>
+            
+          </div>
+          <div class="item-buy">
+            <span class="item-price">&euro;&nbsp;3,50</span>
+            <button class="add" type="button"
+              data-id="18-8" data-name="Egyptische thee" data-price="3.50"
+              aria-label="Egyptische thee toevoegen">+</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+    </div>
+
+    <aside class="cart">
+      <h2>Je bestelling</h2>
+      <p class="cart-empty" id="cart-empty">Nog niets gekozen.</p>
+      <ul class="cart-lines" id="cart-lines"></ul>
+      <div class="total"><span>Totaal</span><span id="cart-total">&euro;&nbsp;0,00</span></div>
+      <div class="pickup">
+        <label for="slot">Afhalen om</label>
+        <select id="slot">
+          <option>Zo snel mogelijk</option>
+          <option>17:30</option>
+          <option>18:00</option>
+          <option>18:30</option>
+          <option>19:00</option>
+          <option>19:30</option>
+          <option>20:00</option>
+          <option>20:30</option>
+        </select>
+      </div>
+      <button class="checkout" id="checkout" disabled>Bestelling doorgeven</button>
+      <p class="cart-foot">Betalen doe je bij afhaling.</p>
+    </aside>
+  </div>
+</div>
+
+<dialog id="confirm">
+  <h3>Zo werkt het straks</h3>
+  <p>In de echte versie vertrekt je bestelling hier rechtstreeks naar de keuken, met een
+     bevestiging per mail of sms.</p>
+  <p>Dit is een prototype, dus er wordt nog niets verstuurd.</p>
+  <a class="call" href="tel:036772777">Bel 03 677 27 77 om nu te bestellen</a>
+  <button id="close-confirm" type="button">Sluiten</button>
+</dialog>
+
+<footer>
+  Prototype gebouwd voor Pitta Verne &middot; <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+</footer>
+
+<script>
+  const cart = new Map();
+  const linesEl = document.getElementById('cart-lines');
+  const emptyEl = document.getElementById('cart-empty');
+  const totalEl = document.getElementById('cart-total');
+  const checkoutEl = document.getElementById('checkout');
+
+  const money = (n) => '\u20ac\u00a0' + n.toFixed(2).replace('.', ',');
+
+  function change(id, name, price, delta) {
+    const line = cart.get(id) || { name, price, qty: 0 };
+    line.qty += delta;
+    if (line.qty <= 0) cart.delete(id); else cart.set(id, line);
+    draw();
+  }
+
+  function draw() {
+    linesEl.innerHTML = '';
+    let total = 0;
+    for (const [id, line] of cart) {
+      total += line.price * line.qty;
+      const li = document.createElement('li');
+      li.className = 'cart-line';
+      const qty = document.createElement('div');
+      qty.className = 'qty';
+      const minus = document.createElement('button');
+      minus.type = 'button';
+      minus.textContent = '\u2212';
+      minus.setAttribute('aria-label', 'Eén minder ' + line.name);
+      minus.onclick = () => change(id, line.name, line.price, -1);
+      const count = document.createElement('span');
+      count.textContent = line.qty;
+      const plus = document.createElement('button');
+      plus.type = 'button';
+      plus.textContent = '+';
+      plus.setAttribute('aria-label', 'Eén meer ' + line.name);
+      plus.onclick = () => change(id, line.name, line.price, 1);
+      qty.append(minus, count, plus);
+      const nameEl = document.createElement('span');
+      nameEl.className = 'line-name';
+      nameEl.textContent = line.name;
+      const priceEl = document.createElement('span');
+      priceEl.className = 'line-price';
+      priceEl.textContent = money(line.price * line.qty);
+      li.append(qty, nameEl, priceEl);
+      linesEl.appendChild(li);
+    }
+    const has = cart.size > 0;
+    emptyEl.style.display = has ? 'none' : 'block';
+    totalEl.textContent = money(total);
+    checkoutEl.disabled = !has;
+  }
+
+  document.querySelectorAll('.add').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      change(btn.dataset.id, btn.dataset.name, parseFloat(btn.dataset.price), 1);
+    });
+  });
+
+  const dialog = document.getElementById('confirm');
+  checkoutEl.addEventListener('click', () => dialog.showModal());
+  document.getElementById('close-confirm').addEventListener('click', () => dialog.close());
+</script>
+
+</body>
+</html>

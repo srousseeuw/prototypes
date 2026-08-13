@@ -6,7 +6,7 @@
   "tagline": "Al meer dan 15 jaar een vertrouwd adres in Essen",
   "address": "Watermolenstraat 8, 2910 Essen",
   "phone": "03 677 03 80",
-  "appointment_note": "Uitsluitend op afspraak — telefonisch te boeken",
+  "appointment_note": "Uitsluitend op afspraak — online of telefonisch",
   "hours": [
     [
       "Maandag",
@@ -46,6 +46,90 @@
   "about": "Snit & Style is al meer dan vijftien jaar een begrip in Essen. In een rustige, verzorgde omgeving neemt het team de tijd voor elke klant, van een frisse knipbeurt tot een volledige kleurbehandeling. Afspraken worden uitsluitend telefonisch geboekt, zodat er altijd voldoende tijd en aandacht is voor wie langskomt.",
   "cta_text": "Bel voor een afspraak",
   "accent": "#9c6b4f",
+  "booking_services": [
+    {
+      "category": "Knippen",
+      "items": [
+        {
+          "name": "Dames knippen",
+          "desc": "Wassen, knippen en drogen",
+          "duration": 45,
+          "price": 32
+        },
+        {
+          "name": "Dames knippen + föhnen",
+          "desc": "Inclusief model föhnen",
+          "duration": 60,
+          "price": 42
+        },
+        {
+          "name": "Heren knippen",
+          "desc": "Wassen en knippen",
+          "duration": 30,
+          "price": 24
+        },
+        {
+          "name": "Kinderen (tot 12 jaar)",
+          "desc": "",
+          "duration": 30,
+          "price": 18
+        },
+        {
+          "name": "Pony bijknippen",
+          "desc": "Snel tussendoor",
+          "duration": 15,
+          "price": 8
+        }
+      ]
+    },
+    {
+      "category": "Kleuren",
+      "items": [
+        {
+          "name": "Uitgroei bijwerken",
+          "desc": "Aanzet kleuren",
+          "duration": 75,
+          "price": 48
+        },
+        {
+          "name": "Volledige kleuring",
+          "desc": "Kleur over de hele lengte",
+          "duration": 105,
+          "price": 68
+        },
+        {
+          "name": "Highlights / balayage",
+          "desc": "Inclusief toner",
+          "duration": 150,
+          "price": 95
+        }
+      ]
+    },
+    {
+      "category": "Verzorging & styling",
+      "items": [
+        {
+          "name": "Föhnen / stylen",
+          "desc": "Zonder knipbeurt",
+          "duration": 30,
+          "price": 22
+        },
+        {
+          "name": "Intensieve haarkuur",
+          "desc": "Bij te combineren met elke behandeling",
+          "duration": 20,
+          "price": 15
+        },
+        {
+          "name": "Opsteekkapsel",
+          "desc": "Voor feest of trouw — graag vooraf overleggen",
+          "duration": 60,
+          "price": 55
+        }
+      ]
+    }
+  ],
+  "booking_prices_verified": false,
   "outreach": {
     "status": "gepland"
   }

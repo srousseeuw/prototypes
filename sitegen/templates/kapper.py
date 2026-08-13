@@ -1,4 +1,21 @@
 from .common import esc, build_hours_rows, build_highlights, maps_query as _maps_query
+from . import booking as _booking
+
+def render_extra_pages(brief: dict) -> dict:
+    if not brief.get("booking_services"):
+        return {}
+    accent = brief.get("accent", "#9c6b4f")
+    theme = {
+        "bg": "#2a2724",
+        "bg_deep": "#1c1a18",
+        "accent": accent,
+        "paper": "#faf8f5",
+        "ink": "#1c1a18",
+        "font_display": "'Cormorant Garamond', serif",
+        "font_body": "'Manrope', sans-serif",
+        "fonts_href": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap",
+    }
+    return {"afspraak/index.html": _booking.render(brief, theme)}
 
 def _initial(name: str) -> str:
     for ch in name:
@@ -21,6 +38,22 @@ def render(brief: dict) -> str:
     highlights_html = build_highlights(brief.get("highlights", []), mark="✂")
     maps_q = _maps_query(address)
     monogram = esc(_initial(brief["business_name"]))
+
+    # Met behandelingen in de brief wordt online boeken de hoofdactie.
+    boekbaar = bool(brief.get("booking_services"))
+    boek_href = f'/{esc(brief["slug"])}/afspraak/'
+    if boekbaar:
+        top_cta = f'<a class="top-cta" href="{boek_href}">Afspraak maken</a>'
+        hero_ctas = (
+            f'<a class="hero-cta" href="{boek_href}">Boek online</a>\n'
+            f'        <a class="hero-cta ghost" href="tel:{phone_href}">Of bel ons</a>'
+        )
+    else:
+        top_cta = f'<a class="top-cta" href="tel:{phone_href}">Bel voor afspraak</a>'
+        hero_ctas = (
+            f'<a class="hero-cta" href="tel:{phone_href}">{cta}</a>\n'
+            f'        <a class="hero-cta ghost" href="#info">Openingsuren &amp; adres</a>'
+        )
 
     return f"""<!DOCTYPE html>
 <html lang="nl">
@@ -265,7 +298,7 @@ def render(brief: dict) -> str:
 <header class="top">
   <div class="wrap">
     <div class="brand"><span class="mono">{monogram}</span>{name}</div>
-    <a class="top-cta" href="tel:{phone_href}">Bel voor afspraak</a>
+    {top_cta}
   </div>
 </header>
 
@@ -277,8 +310,7 @@ def render(brief: dict) -> str:
       <p class="tagline">{about}</p>
       <div class="appointment-note">{appointment_note}</div>
       <div class="hero-actions">
-        <a class="hero-cta" href="tel:{phone_href}">{cta}</a>
-        <a class="hero-cta ghost" href="#info">Openingsuren &amp; adres</a>
+        {hero_ctas}
       </div>
     </div>
     <div class="signature">

@@ -6,7 +6,7 @@
   "tagline": "Meer dan 25 jaar vakmanschap, met tijd voor elke klant",
   "address": "Beliestraat 99, 2910 Essen",
   "phone": "0483 04 04 31",
-  "appointment_note": "Op afspraak — bij voorkeur telefonisch",
+  "appointment_note": "Op afspraak — online of telefonisch",
   "hours": [
     [
       "Maandag",
@@ -46,6 +46,90 @@
   "about": "Bij Kapsalon Joyce staat persoonlijke aandacht voorop. Uitbaatster Joyce bouwde in meer dan 25 jaar een ruime ervaring op in knippen, kleuren en feestkapsels, en ontvangt klanten in een gezellige, laagdrempelige sfeer waar iedereen welkom is. Afspraken buiten de gewone uren zijn in overleg mogelijk voor speciale gelegenheden.",
   "cta_text": "Maak een afspraak",
   "accent": "#7a8c6b",
+  "booking_services": [
+    {
+      "category": "Knippen",
+      "items": [
+        {
+          "name": "Dames knippen",
+          "desc": "Wassen, knippen en drogen",
+          "duration": 45,
+          "price": 32
+        },
+        {
+          "name": "Dames knippen + föhnen",
+          "desc": "Inclusief model föhnen",
+          "duration": 60,
+          "price": 42
+        },
+        {
+          "name": "Heren knippen",
+          "desc": "Wassen en knippen",
+          "duration": 30,
+          "price": 24
+        },
+        {
+          "name": "Kinderen (tot 12 jaar)",
+          "desc": "",
+          "duration": 30,
+          "price": 18
+        },
+        {
+          "name": "Pony bijknippen",
+          "desc": "Snel tussendoor",
+          "duration": 15,
+          "price": 8
+        }
+      ]
+    },
+    {
+      "category": "Kleuren",
+      "items": [
+        {
+          "name": "Uitgroei bijwerken",
+          "desc": "Aanzet kleuren",
+          "duration": 75,
+          "price": 48
+        },
+        {
+          "name": "Volledige kleuring",
+          "desc": "Kleur over de hele lengte",
+          "duration": 105,
+          "price": 68
+        },
+        {
+          "name": "Highlights / balayage",
+          "desc": "Inclusief toner",
+          "duration": 150,
+          "price": 95
+        }
+      ]
+    },
+    {
+      "category": "Verzorging & styling",
+      "items": [
+        {
+          "name": "Föhnen / stylen",
+          "desc": "Zonder knipbeurt",
+          "duration": 30,
+          "price": 22
+        },
+        {
+          "name": "Intensieve haarkuur",
+          "desc": "Bij te combineren met elke behandeling",
+          "duration": 20,
+          "price": 15
+        },
+        {
+          "name": "Opsteekkapsel",
+          "desc": "Voor feest of trouw — graag vooraf overleggen",
+          "duration": 60,
+          "price": 55
+        }
+      ]
+    }
+  ],
+  "booking_prices_verified": false,
   "outreach": {
     "status": "gepland"
   }

@@ -4,7 +4,7 @@
   "business_name": "Pitta Verne",
   "category": "Pizza, pasta & mediterrane grill",
   "tagline": "Ovenverse pizza, pasta en grill, elke avond klaar",
-  "address": "Kapelstraat 1/2, 2910 Essen",
+  "address": "Kapelstraat 1, 2910 Essen",
   "phone": "03 677 27 77",
   "hours": [
     [
@@ -44,8 +44,971 @@
     "Eten ter plaatse, afhalen of laten leveren"
   ],
   "about": "Pitta Verne is een vaste waarde in Essen voor wie zin heeft in pizza uit de oven, verse pasta of een stevige grillschotel. De kaart is breed: naast een lange reeks pizza's staan er shawarma, kebab, kip- en visgerechten, sandwiches en combinatieschotels zoals de kapsalon op de kaart. Ideaal voor een snelle hap, een familiediner of een avond zonder afwas.",
-  "menu_note": "Meer dan 150 gerechten en dranken op de kaart — voor elk moment van de dag iets anders.",
+  "menu_note": "Ruim 170 gerechten op de kaart — pizza, pasta, shoarma, schotels, broodjes en kindermenu.",
   "cta_text": "Bekijk de kaart",
+  "order_menu": [
+    {
+      "category": "Pizza's met kaas",
+      "items": [
+        {
+          "name": "Pizza margherita",
+          "desc": "Tomaat en kaas.",
+          "price": 10
+        },
+        {
+          "name": "Pizza gorgonzola",
+          "desc": "Tomaat, kaas en gorgonzola.",
+          "price": 14
+        },
+        {
+          "name": "Pizza mozzarella",
+          "desc": "Tomaat, kaas en mozzarella.",
+          "price": 14
+        },
+        {
+          "name": "Pizza quattro formaggi",
+          "desc": "Tomaat en 4 soorten kaas.",
+          "price": 14
+        }
+      ]
+    },
+    {
+      "category": "Pizza's met vlees",
+      "items": [
+        {
+          "name": "Pizza di mama",
+          "desc": "Tomaat, kaas, ham, salami.",
+          "price": 15
+        },
+        {
+          "name": "Pizza prosciutto",
+          "desc": "Tomaat, kaas en ham.",
+          "price": 13
+        },
+        {
+          "name": "Pizza prosciutto funghi",
+          "desc": "Tomaat, kaas en champignons.",
+          "price": 13.5
+        },
+        {
+          "name": "Pizza salami",
+          "desc": "Tomaat, kaas en salami.",
+          "price": 13
+        },
+        {
+          "name": "Pizza bolognese",
+          "desc": "Tomaat, kaas en bolognesesaus.",
+          "price": 14
+        },
+        {
+          "name": "Pizza capricciosa",
+          "desc": "Tomaat, kaas, ham, salami, champignons, paprika en olijven.",
+          "price": 15
+        },
+        {
+          "name": "Pizza quattro stagioni",
+          "desc": "Tomaat, kaas, ham, salami, champignons en paprika.",
+          "price": 15
+        },
+        {
+          "name": "Pizza Hawaii",
+          "desc": "Tomaat, kaas, ham en ananas.",
+          "price": 13.5
+        },
+        {
+          "name": "Pizza calzone",
+          "desc": "Dubbelgevouwen pizza met ham en groenten.",
+          "price": 13.5
+        },
+        {
+          "name": "Pizza Italia",
+          "desc": "Tomaat, kaas, ham, salami en champignons.",
+          "price": 14
+        },
+        {
+          "name": "Pizza rustica",
+          "desc": "Tomaat, kaas, spek en ei.",
+          "price": 14
+        },
+        {
+          "name": "Pizza mafioso",
+          "desc": "Tomaat, kaas, spek, champignons en paprika.",
+          "price": 14
+        },
+        {
+          "name": "Pizza pikant",
+          "desc": "Tomaat, kaas, salami, uien en Spaanse peper.",
+          "price": 13.5
+        },
+        {
+          "name": "Pizza shoarma",
+          "desc": "Tomaat, kaas, shoarmavlees, uien en knoflook.",
+          "price": 15
+        },
+        {
+          "name": "Pizza pollo",
+          "desc": "Tomaat, kaas, kip, uien, Spaanse peper en knoflook.",
+          "price": 15
+        },
+        {
+          "name": "Pizza tropical",
+          "desc": "Tomaat, kaas, shoarmavlees en ananas.",
+          "price": 15
+        },
+        {
+          "name": "Pizza anglo",
+          "desc": "Tomaat, kaas, kip en ananas.",
+          "price": 15
+        },
+        {
+          "name": "Pizza farao",
+          "desc": "Tomaat, kaas en mix shoarma kip.",
+          "price": 15
+        },
+        {
+          "name": "Pizza calzone shoarma",
+          "desc": "Tomaat, kaas, shoarmavlees, uien en knoflook.",
+          "price": 15
+        },
+        {
+          "name": "Pizza calzone kip",
+          "desc": "Tomaat, kaas, kip, uien en knoflook.",
+          "price": 15
+        },
+        {
+          "name": "Pizza kapsalon",
+          "desc": "Shoarma of döner of kip, friet en salade.",
+          "price": 16
+        },
+        {
+          "name": "Pizza doner",
+          "desc": "Tomaat, kaas, döner en ui.",
+          "price": 15
+        },
+        {
+          "name": "Pizza barbecue kip",
+          "desc": "Tomaat, kaas, kip en barbecuesaus.",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "category": "Pizza's met groenten",
+      "items": [
+        {
+          "name": "Pizza cipollo",
+          "desc": "Tomaat, kaas en ui.",
+          "price": 10.5
+        },
+        {
+          "name": "Pizza funghi",
+          "desc": "Tomaat, kaas en champignons.",
+          "price": 13
+        },
+        {
+          "name": "Pizza peperoni",
+          "desc": "Tomaat, kaas, paprika en pikant salami.",
+          "price": 13
+        },
+        {
+          "name": "Pizza ananas",
+          "desc": "Tomaat, kaas en ananas.",
+          "price": 13
+        },
+        {
+          "name": "Pizza romana",
+          "desc": "Tomaat, kaas, artisjokken en olijven.",
+          "price": 13
+        },
+        {
+          "name": "Pizza Milano",
+          "desc": "Tomaat, kaas, champignons, artisjokken, uien, paprika en knoflook.",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "category": "Pizza's met vis",
+      "items": [
+        {
+          "name": "Pizza Siciliana",
+          "desc": "Tomaat, kaas, ansjovis, olijven, kappertjes.",
+          "price": 14
+        },
+        {
+          "name": "Pizza tonno",
+          "desc": "Tomaat, kaas, tonijn en ui.",
+          "price": 13
+        },
+        {
+          "name": "Pizza napoletana",
+          "desc": "Tomaat, kaas, ansjovis en kappertjes.",
+          "price": 13
+        },
+        {
+          "name": "Pizza Venezia",
+          "desc": "Tomaat, kaas, tonijn, artisjokken, kappertjes en knoflook.",
+          "price": 14
+        },
+        {
+          "name": "Pizza frutti di mare",
+          "desc": "Tomaat, kaas, tonijn, garnalen, mosselen, ansjovis, knoflook en kappertjes.",
+          "price": 16
+        },
+        {
+          "name": "Pizza scampi",
+          "desc": "Scampi, paprika en uien.",
+          "price": 16
+        },
+        {
+          "name": "Pizza rucola",
+          "desc": "Tomaat, kaas, parmezaanse kaas, kerstomaten, rucola.",
+          "price": 14
+        },
+        {
+          "name": "Pizza spinazie",
+          "desc": "Tomaat, kaas en spinazie.",
+          "price": 13
+        },
+        {
+          "name": "Pizza salamoni",
+          "desc": "Zalm en look.",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "category": "Voorgerechten",
+      "items": [
+        {
+          "name": "Garnalencocktail",
+          "desc": "Garnalen, ijsbergsla, tomaten en cocktailsaus.",
+          "price": 8
+        },
+        {
+          "name": "Griekse salade",
+          "desc": "IJsbergsla, tomaten, fetakaas, uien en olijven.",
+          "price": 6
+        },
+        {
+          "name": "Gemengde salade",
+          "desc": "IJsbergsla, tomaten, komkommer, augurk, paprika en uien.",
+          "price": 6
+        },
+        {
+          "name": "Funghi trifolati",
+          "desc": "Gebakken champignons met speciale kruidenboter.",
+          "price": 7
+        },
+        {
+          "name": "Stokbrood met kruidenboter",
+          "desc": "",
+          "price": 5
+        },
+        {
+          "name": "Stokbrood met kaas",
+          "desc": "",
+          "price": 6
+        },
+        {
+          "name": "Kaaskroket",
+          "desc": "",
+          "price": 7
+        },
+        {
+          "name": "Garnaalkroket",
+          "desc": "",
+          "price": 8
+        },
+        {
+          "name": "Mix garnaal- en kaaskroket",
+          "desc": "",
+          "price": 7.5
+        },
+        {
+          "name": "Mozzarellasalade",
+          "desc": "Verse tomaat, mozzarella en verse basilicum.",
+          "price": 8
+        },
+        {
+          "name": "Tonijnsalade",
+          "desc": "IJsbergsla, tomaten, komkommer, ui en tonijn.",
+          "price": 8
+        },
+        {
+          "name": "Mini loempia's (6 stuks)",
+          "desc": "",
+          "price": 7
+        },
+        {
+          "name": "Calamares",
+          "desc": "Met cocktailsaus.",
+          "price": 8
+        }
+      ]
+    },
+    {
+      "category": "Soepen",
+      "items": [
+        {
+          "name": "Tomatensoep",
+          "desc": "",
+          "price": 7
+        },
+        {
+          "name": "Groentensoep",
+          "desc": "",
+          "price": 7
+        },
+        {
+          "name": "Uiensoep",
+          "desc": "",
+          "price": 7
+        }
+      ]
+    },
+    {
+      "category": "Shoarmaschotels",
+      "items": [
+        {
+          "name": "Schotel hamburger",
+          "desc": "",
+          "price": 14
+        },
+        {
+          "name": "Döner",
+          "desc": "Reepjes.",
+          "price": 16
+        },
+        {
+          "name": "Döner met kaas",
+          "desc": "Jonge kaas of feta.",
+          "price": 17
+        },
+        {
+          "name": "Döner fantasy",
+          "desc": "Paprika, ui en champignons.",
+          "price": 17
+        },
+        {
+          "name": "Kapsalon klein",
+          "desc": "Döner, kip of shoarma.",
+          "price": 12
+        },
+        {
+          "name": "Kapsalon groot",
+          "desc": "Döner, kip of shoarma.",
+          "price": 15
+        },
+        {
+          "name": "Falafel",
+          "desc": "Vegetarisch.",
+          "price": 16
+        },
+        {
+          "name": "Merguez",
+          "desc": "Pittige worstjes.",
+          "price": 16
+        },
+        {
+          "name": "Shoarma",
+          "desc": "",
+          "price": 16
+        },
+        {
+          "name": "Shoarma Hawaï",
+          "desc": "Ananas.",
+          "price": 16.5
+        },
+        {
+          "name": "Shoarma Hawaï kaas",
+          "desc": "Ananas en jonge kaas of feta.",
+          "price": 17
+        },
+        {
+          "name": "Shoarma kaas",
+          "desc": "Jonge kaas of feta.",
+          "price": 16.5
+        },
+        {
+          "name": "Shoarma met champignons",
+          "desc": "",
+          "price": 17
+        },
+        {
+          "name": "Shoarma fantasy",
+          "desc": "Paprika, uien en champignons.",
+          "price": 17
+        },
+        {
+          "name": "Shoarma Mexicaans",
+          "desc": "Maïs, uien en paprika.",
+          "price": 17
+        },
+        {
+          "name": "Shoarma Egyptisch",
+          "desc": "Uien en champignons.",
+          "price": 17
+        },
+        {
+          "name": "Shoarma farao",
+          "desc": "Shoarmavlees en stukjes kipfilet.",
+          "price": 17
+        },
+        {
+          "name": "Shoarma taba",
+          "desc": "Spek en uien.",
+          "price": 17
+        },
+        {
+          "name": "Tagine uit de oven shoarma",
+          "desc": "Shoarmavlees, groenten, tomatensaus, verse knoflook en kaas.",
+          "price": 17
+        },
+        {
+          "name": "Tagine uit de oven merguez",
+          "desc": "Merguez, groenten, tomatensaus, verse knoflook en kaas.",
+          "price": 17
+        },
+        {
+          "name": "Tagine uit de oven kip",
+          "desc": "Kip, groenten, tomatensaus, verse knoflook en kaas.",
+          "price": 17
+        },
+        {
+          "name": "Schotel van de chef",
+          "desc": "",
+          "price": 17
+        }
+      ]
+    },
+    {
+      "category": "Visschotels",
+      "items": [
+        {
+          "name": "Zalm",
+          "desc": "",
+          "price": 24
+        },
+        {
+          "name": "Gamba's van de grill",
+          "desc": "",
+          "price": 24
+        },
+        {
+          "name": "Scampi's met roomsaus",
+          "desc": "",
+          "price": 24
+        },
+        {
+          "name": "Mix schotel zalm en gamba's",
+          "desc": "",
+          "price": 24
+        },
+        {
+          "name": "Mix schotel 6 calamares en 3 gamba's",
+          "desc": "",
+          "price": 24
+        },
+        {
+          "name": "Calamares 12 stuks",
+          "desc": "",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "category": "Sjasliek & kebab",
+      "items": [
+        {
+          "name": "Sjasliek",
+          "desc": "Stukjes varkenshaasje aan het spit met paprika en uien.",
+          "price": 16
+        },
+        {
+          "name": "Saté",
+          "desc": "Kipsaté.",
+          "price": 16
+        },
+        {
+          "name": "Kebab",
+          "desc": "Egyptisch gekruide hamburger.",
+          "price": 16
+        },
+        {
+          "name": "Spare-ribs",
+          "desc": "",
+          "price": 18
+        },
+        {
+          "name": "Spare-ribs pikant",
+          "desc": "Speciale hete saus.",
+          "price": 19
+        },
+        {
+          "name": "Lamskotelet",
+          "desc": "",
+          "price": 22
+        }
+      ]
+    },
+    {
+      "category": "Kipschotels",
+      "items": [
+        {
+          "name": "Kip",
+          "desc": "Kipfilet in stukjes.",
+          "price": 16
+        },
+        {
+          "name": "Kip Hawaï",
+          "desc": "Ananas.",
+          "price": 16.5
+        },
+        {
+          "name": "Kip Hawaï kaas",
+          "desc": "Ananas en jonge kaas of feta.",
+          "price": 17
+        },
+        {
+          "name": "Kip kaas",
+          "desc": "Jonge kaas of feta.",
+          "price": 16.5
+        },
+        {
+          "name": "Kip champignons",
+          "desc": "",
+          "price": 17
+        },
+        {
+          "name": "Kip fantasy",
+          "desc": "Paprika, uien en champignons.",
+          "price": 17
+        },
+        {
+          "name": "Kip Mexicaans",
+          "desc": "Maïs, uien en paprika.",
+          "price": 17
+        },
+        {
+          "name": "Kip Egyptisch",
+          "desc": "Uien en champignons.",
+          "price": 17
+        },
+        {
+          "name": "Kip taba",
+          "desc": "Spek en uien.",
+          "price": 17
+        },
+        {
+          "name": "Hot chicken",
+          "desc": "Groenten en pikante saus.",
+          "price": 17
+        }
+      ]
+    },
+    {
+      "category": "Mix schotels",
+      "items": [
+        {
+          "name": "Aswan",
+          "desc": "Shoarmavlees en döner.",
+          "price": 18
+        },
+        {
+          "name": "Karnak",
+          "desc": "Shoarmavlees en merguez.",
+          "price": 18
+        },
+        {
+          "name": "Ramses",
+          "desc": "Shoarmavlees en sjasliek.",
+          "price": 18
+        },
+        {
+          "name": "Cairo",
+          "desc": "Shoarmavlees en saté.",
+          "price": 18
+        },
+        {
+          "name": "Amon",
+          "desc": "Shoarmavlees en kebab.",
+          "price": 18
+        },
+        {
+          "name": "Toet Anch Amon",
+          "desc": "Shoarma en hot chicken.",
+          "price": 18
+        },
+        {
+          "name": "Abu Simbel",
+          "desc": "Shoarma en spare-ribs.",
+          "price": 18
+        },
+        {
+          "name": "Luxor",
+          "desc": "Shoarma en lamskotelet.",
+          "price": 18
+        },
+        {
+          "name": "Verne",
+          "desc": "Döner, kip, sjasliek of hamburger.",
+          "price": 22
+        },
+        {
+          "name": "Pyramide",
+          "desc": "Shoarmavlees, kipfilet en sjasliek.",
+          "price": 22
+        },
+        {
+          "name": "Nefertiti",
+          "desc": "Shoarmavlees, kipfilet en hamburger.",
+          "price": 22
+        }
+      ]
+    },
+    {
+      "category": "Menu mix",
+      "items": [
+        {
+          "name": "Menu mix",
+          "desc": "Minimum 2 personen. 5 soorten vlees: shoarma, kipfilet, sjasliek, lamskotelet en saté.",
+          "price": 42
+        }
+      ]
+    },
+    {
+      "category": "Broodjes",
+      "items": [
+        {
+          "name": "Broodje falafel",
+          "desc": "Vegetarisch.",
+          "price": 10
+        },
+        {
+          "name": "Broodje shoarma",
+          "desc": "",
+          "price": 10
+        },
+        {
+          "name": "Broodje shoarma fantasy",
+          "desc": "Paprika, uien en champignons.",
+          "price": 11
+        },
+        {
+          "name": "Broodje shoarma Hawaï",
+          "desc": "Ananas.",
+          "price": 11
+        },
+        {
+          "name": "Broodje shoarma Hawaï kaas",
+          "desc": "Ananas en jonge kaas of feta.",
+          "price": 11.5
+        },
+        {
+          "name": "Broodje shoarma kaas",
+          "desc": "Jonge kaas of feta.",
+          "price": 11
+        },
+        {
+          "name": "Broodje kip",
+          "desc": "Kipfilet in stukjes.",
+          "price": 10
+        },
+        {
+          "name": "Broodje kip fantasy",
+          "desc": "Paprika, uien en champignons.",
+          "price": 11
+        },
+        {
+          "name": "Broodje kip Hawaï",
+          "desc": "Ananas.",
+          "price": 11
+        },
+        {
+          "name": "Broodje hot chicken",
+          "desc": "Groenten en pikante saus.",
+          "price": 11
+        },
+        {
+          "name": "Broodje gesmolten kaas",
+          "desc": "",
+          "price": 3
+        },
+        {
+          "name": "Broodje gezond",
+          "desc": "",
+          "price": 4
+        },
+        {
+          "name": "Broodje döner",
+          "desc": "Reepjes.",
+          "price": 9
+        }
+      ]
+    },
+    {
+      "category": "Pasta",
+      "items": [
+        {
+          "name": "Pasta pollo",
+          "desc": "Met kip en roomsaus.",
+          "price": 15
+        },
+        {
+          "name": "Pasta vegetarisch",
+          "desc": "Paprika, ui en champignons.",
+          "price": 15
+        },
+        {
+          "name": "Pasta napoletana",
+          "desc": "Tomatensaus.",
+          "price": 13
+        },
+        {
+          "name": "Pasta bolognese",
+          "desc": "Gehaktsaus.",
+          "price": 15
+        },
+        {
+          "name": "Pasta carbonara",
+          "desc": "Roomsaus, ei en spek.",
+          "price": 15
+        },
+        {
+          "name": "Pasta frutti di mare",
+          "desc": "Zeevruchten in witte wijn en tomatensaus.",
+          "price": 16
+        },
+        {
+          "name": "Macaroni al forno",
+          "desc": "",
+          "price": 16
+        },
+        {
+          "name": "Pasta salamoni",
+          "desc": "Verse zalm.",
+          "price": 16
+        },
+        {
+          "name": "Pasta prosciutto funghi",
+          "desc": "Ham en champignons.",
+          "price": 15
+        },
+        {
+          "name": "Pasta scampi",
+          "desc": "",
+          "price": 16
+        },
+        {
+          "name": "Pasta quattro formaggi",
+          "desc": "Vier kazen.",
+          "price": 15
+        },
+        {
+          "name": "Pasta all'arrabbiata",
+          "desc": "Pikant, met tomatensaus.",
+          "price": 14
+        },
+        {
+          "name": "Pasta aglio olio",
+          "desc": "Met olijfolie, knoflook, Spaanse peper en peterselie.",
+          "price": 14
+        }
+      ]
+    },
+    {
+      "category": "Lasagne",
+      "items": [
+        {
+          "name": "Lasagne bolognese",
+          "desc": "",
+          "price": 17
+        },
+        {
+          "name": "Lasagne vegetariana",
+          "desc": "",
+          "price": 16
+        },
+        {
+          "name": "Lasagne a la salamoni",
+          "desc": "",
+          "price": 17
+        }
+      ]
+    },
+    {
+      "category": "Kindermenu",
+      "items": [
+        {
+          "name": "Kip menu",
+          "desc": "Stukjes kip met frietjes en salade.",
+          "price": 8
+        },
+        {
+          "name": "Shoarma menu",
+          "desc": "Shoarmavlees met frietjes en salade.",
+          "price": 8
+        },
+        {
+          "name": "Hamburger menu",
+          "desc": "Hamburger met frietjes en salade.",
+          "price": 8
+        },
+        {
+          "name": "Frikandel",
+          "desc": "Frikandel met frietjes en salade.",
+          "price": 8
+        },
+        {
+          "name": "Spaghetti menu",
+          "desc": "Spaghetti met bolognesesaus.",
+          "price": 8
+        },
+        {
+          "name": "Kipnuggets (4 stuks)",
+          "desc": "",
+          "price": 8
+        }
+      ]
+    },
+    {
+      "category": "Extra's",
+      "items": [
+        {
+          "name": "Vlees",
+          "desc": "",
+          "price": 2
+        },
+        {
+          "name": "Friet",
+          "desc": "",
+          "price": 4
+        },
+        {
+          "name": "Aardappelen",
+          "desc": "",
+          "price": 4.5
+        },
+        {
+          "name": "Broodje",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Salade",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Rijst",
+          "desc": "",
+          "price": 3.5
+        }
+      ]
+    },
+    {
+      "category": "Sauzen",
+      "items": [
+        {
+          "name": "Cocktail",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Ketchup",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Looksaus",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Mayonaise",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Gele curry",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Groentesaus",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Sambal",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Samourai",
+          "desc": "",
+          "price": 1
+        },
+        {
+          "name": "Zoetzure saus",
+          "desc": "",
+          "price": 1
+        }
+      ]
+    },
+    {
+      "category": "Dranken",
+      "items": [
+        {
+          "name": "Coca-Cola (33 cl)",
+          "desc": "",
+          "price": 2.7
+        },
+        {
+          "name": "Coca-Cola Zero (33 cl)",
+          "desc": "",
+          "price": 2.7
+        },
+        {
+          "name": "Fanta (33 cl)",
+          "desc": "",
+          "price": 2.7
+        },
+        {
+          "name": "Ice-tea (33 cl)",
+          "desc": "",
+          "price": 2.7
+        },
+        {
+          "name": "Mangosap",
+          "desc": "",
+          "price": 4
+        },
+        {
+          "name": "Guavasap",
+          "desc": "",
+          "price": 4
+        },
+        {
+          "name": "Pils (35,5 cl)",
+          "desc": "",
+          "price": 2.7
+        },
+        {
+          "name": "Red Bull (25 cl)",
+          "desc": "",
+          "price": 3
+        },
+        {
+          "name": "Egyptische thee",
+          "desc": "",
+          "price": 3.5
+        }
+      ]
+    }
+  ],
+  "menu_prices_verified": true,
   "outreach": {
     "status": "gepland"
   }
