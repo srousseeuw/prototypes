@@ -7,13 +7,34 @@
   "address": "Nieuwstraat 44, 2910 Essen",
   "phone": "+32 3 667 49 25",
   "hours": [
-    ["Dinsdag", "9:30 – 12:30 en 13:30 – 18:00"],
-    ["Woensdag", "9:30 – 12:30 en 13:30 – 18:00"],
-    ["Donderdag", "9:30 – 12:30 en 13:30 – 18:00"],
-    ["Vrijdag", "9:30 – 12:30 en 13:30 – 18:00"],
-    ["Zaterdag", "9:30 – 17:00"],
-    ["Zondag", "Gesloten"],
-    ["Maandag", "Gesloten"]
+    [
+      "Dinsdag",
+      "9:30 – 12:30 en 13:30 – 18:00"
+    ],
+    [
+      "Woensdag",
+      "9:30 – 12:30 en 13:30 – 18:00"
+    ],
+    [
+      "Donderdag",
+      "9:30 – 12:30 en 13:30 – 18:00"
+    ],
+    [
+      "Vrijdag",
+      "9:30 – 12:30 en 13:30 – 18:00"
+    ],
+    [
+      "Zaterdag",
+      "9:30 – 17:00"
+    ],
+    [
+      "Zondag",
+      "Gesloten"
+    ],
+    [
+      "Maandag",
+      "Gesloten"
+    ]
   ],
   "highlights": [
     "Verlovings- en trouwringen op maat",
@@ -23,5 +44,8 @@
   ],
   "about": "Sinds 1955 is Juwelier Aerden een vertrouwd adres in Essen voor wie op zoek is naar tijdloze juwelen en kwaliteitsvolle uurwerken. Drie generaties vakmanschap en persoonlijk advies, gerund door Kristine en Evelyn Aerden, die klanten nog steeds met dezelfde zorg ontvangen als hun grootouders dat deden.",
   "cta_text": "Kom langs voor persoonlijk advies",
-  "appointment_note": "Bezoek de winkel, geen afspraak nodig"
+  "appointment_note": "Bezoek de winkel, geen afspraak nodig",
+  "outreach": {
+    "status": "gepland"
+  }
 }

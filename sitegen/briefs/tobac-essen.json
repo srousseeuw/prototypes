@@ -8,13 +8,34 @@
   "phone": "03 677 34 10",
   "note": "Ook een tweede winkel in Essen Centrum, Nieuwstraat 108 — tel. 03 235 86 93.",
   "hours": [
-    ["Maandag", "7:00 – 18:00"],
-    ["Dinsdag", "7:00 – 18:00"],
-    ["Woensdag", "7:00 – 18:00"],
-    ["Donderdag", "Gesloten"],
-    ["Vrijdag", "7:00 – 18:00"],
-    ["Zaterdag", "8:00 – 18:00"],
-    ["Zondag", "7:30 – 13:00"]
+    [
+      "Maandag",
+      "7:00 – 18:00"
+    ],
+    [
+      "Dinsdag",
+      "7:00 – 18:00"
+    ],
+    [
+      "Woensdag",
+      "7:00 – 18:00"
+    ],
+    [
+      "Donderdag",
+      "Gesloten"
+    ],
+    [
+      "Vrijdag",
+      "7:00 – 18:00"
+    ],
+    [
+      "Zaterdag",
+      "8:00 – 18:00"
+    ],
+    [
+      "Zondag",
+      "7:30 – 13:00"
+    ]
   ],
   "highlights": [
     "Ruim assortiment vers vlees en charcuterie",
@@ -31,5 +52,8 @@
     "Ook dagelijks vers brood en gebak"
   ],
   "about": "Een vertrouwde naam in Essen waar slagerij en bakkerij samenkomen. De nadruk ligt op vers vlees, vleeswaren en huisbereide salades — aangevuld met dagelijks gebakken brood en gebak, zodat je bij Tobac in één stop terecht kan voor de volledige boodschappenlijst.",
-  "cta_text": "Bestel online of kom langs in de winkel"
+  "cta_text": "Bestel online of kom langs in de winkel",
+  "outreach": {
+    "status": "gepland"
+  }
 }

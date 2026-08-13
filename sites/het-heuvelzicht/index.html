@@ -1,85 +1,56 @@
-from .common import esc, build_hours_rows, build_highlights, maps_query as _maps_query
-
-def render(brief: dict) -> str:
-    name = esc(brief["business_name"])
-    category = esc(brief.get("category", ""))
-    tagline = esc(brief.get("tagline", ""))
-    address = esc(brief.get("address", ""))
-    phone = esc(brief.get("phone", ""))
-    about = esc(brief.get("about", ""))
-    cta = esc(brief.get("cta_text", "Kom gezellig langs"))
-    accent = esc(brief.get("accent", "#b5793a"))
-    signature = esc(brief.get("signature_word", "Proost"))
-    rating = brief.get("rating")
-    rating_count = brief.get("rating_count")
-    hours_html = build_hours_rows(brief.get("hours", []))
-    highlights_html = build_highlights(brief.get("highlights", []), mark="🍺")
-    maps_q = _maps_query(address)
-
-    # Zonder telefoonnummer geen dode tel:-knop en geen lege regel tonen.
-    top_cta = f'<a class="top-cta" href="tel:{phone}">Bel het café</a>' if phone else ""
-    phone_line = f'<p>{phone}</p>' if phone else ""
-
-    rating_block = ""
-    if rating:
-        rating_block = f'''<div class="rating">
-            <span class="stars">★★★★★</span>
-            <span class="rating-text">{rating} / 5 — {rating_count or ""} beoordelingen</span>
-        </div>'''
-
-    return f"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{name} — {category}</title>
-<meta name="description" content="{tagline}. {address}.">
+<title>Café 't Heuvelzicht — Bruin café met podium</title>
+<meta name="description" content="Een pint, een babbel en live muziek op het Heuvelplein. Heuvelplein 9, 2910 Essen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {{
+  :root {
     --oak: #241712;
     --oak-deep: #17100c;
     --stout: #3a271c;
     --foam: #f4ead9;
     --paper: #efe3cd;
-    --brass: {accent};
+    --brass: #b8543f;
     --brass-bright: #d9a94f;
     --line: rgba(244,234,217,0.14);
     --line-dark: rgba(36,23,18,0.14);
     --ink-soft: #5a4a3c;
     --font-display: 'Bitter', serif;
     --font-body: 'Karla', sans-serif;
-  }}
-  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-  body {{
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
     font-family: var(--font-body);
     background: var(--paper);
     color: var(--oak);
     line-height: 1.55;
     background-image:
       repeating-linear-gradient(90deg, rgba(36,23,18,0.025) 0 2px, transparent 2px 26px);
-  }}
-  a {{ color: inherit; }}
-  .wrap {{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }}
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-  header.top {{
+  header.top {
     padding: 18px 0;
     background: var(--oak);
     border-bottom: 3px solid var(--brass);
-  }}
-  header.top .wrap {{
+  }
+  header.top .wrap {
     display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-  }}
-  .brand {{
+  }
+  .brand {
     font-family: var(--font-display);
     font-weight: 800;
     font-size: 1.3rem;
     letter-spacing: 0.01em;
     color: var(--foam);
-  }}
-  .brand span {{ color: var(--brass-bright); }}
-  .top-cta {{
+  }
+  .brand span { color: var(--brass-bright); }
+  .top-cta {
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 0.88rem;
@@ -89,51 +60,51 @@ def render(brief: dict) -> str:
     border-radius: 2px;
     text-decoration: none;
     letter-spacing: 0.02em;
-  }}
+  }
 
-  .hero {{
+  .hero {
     padding: 68px 0 60px;
     background:
       radial-gradient(ellipse at 80% 0%, rgba(217,169,79,0.10), transparent 55%),
       linear-gradient(180deg, var(--oak) 0%, var(--stout) 100%);
     color: var(--foam);
-  }}
-  .hero .wrap {{
+  }
+  .hero .wrap {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 48px;
     align-items: center;
-  }}
-  .eyebrow {{
+  }
+  .eyebrow {
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.16em;
     color: var(--brass-bright);
     font-weight: 700;
     margin-bottom: 14px;
-  }}
-  h1 {{
+  }
+  h1 {
     font-family: var(--font-display);
     font-size: clamp(2.3rem, 5vw, 3.4rem);
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: -0.01em;
     margin-bottom: 18px;
-  }}
-  .tagline {{
+  }
+  .tagline {
     font-size: 1.1rem;
     color: rgba(244,234,217,0.82);
     max-width: 42ch;
     margin-bottom: 26px;
-  }}
-  .rating {{
+  }
+  .rating {
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 26px;
     font-size: 0.92rem;
-  }}
-  .stars {{ color: var(--brass-bright); letter-spacing: 2px; }}
-  .rating-text {{ color: rgba(244,234,217,0.7); }}
-  .hero-cta {{
+  }
+  .stars { color: var(--brass-bright); letter-spacing: 2px; }
+  .rating-text { color: rgba(244,234,217,0.7); }
+  .hero-cta {
     display: inline-block;
     background: var(--brass);
     color: var(--oak-deep);
@@ -143,9 +114,9 @@ def render(brief: dict) -> str:
     text-decoration: none;
     font-size: 0.98rem;
     letter-spacing: 0.02em;
-  }}
+  }
 
-  .tap {{
+  .tap {
     justify-self: end;
     width: 200px; height: 200px;
     border-radius: 50%;
@@ -157,94 +128,94 @@ def render(brief: dict) -> str:
     font-family: var(--font-display);
     padding: 18px;
     box-shadow: inset 0 0 0 6px rgba(217,169,79,0.08);
-  }}
-  .tap .small {{ font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--brass-bright); font-weight: 700; margin-bottom: 8px; }}
-  .tap .big {{ font-size: 1.5rem; font-weight: 700; line-height: 1.15; color: var(--foam); }}
+  }
+  .tap .small { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--brass-bright); font-weight: 700; margin-bottom: 8px; }
+  .tap .big { font-size: 1.5rem; font-weight: 700; line-height: 1.15; color: var(--foam); }
 
-  section {{ padding: 56px 0; }}
-  .about {{ border-top: 1px solid var(--line-dark); }}
-  .about .wrap {{
+  section { padding: 56px 0; }
+  .about { border-top: 1px solid var(--line-dark); }
+  .about .wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
-  }}
-  h2 {{
+  }
+  h2 {
     font-family: var(--font-display);
     font-size: 1.7rem;
     font-weight: 700;
     margin-bottom: 16px;
-  }}
-  .about p {{ color: var(--ink-soft); font-size: 1.02rem; }}
-  ul.highlights {{ list-style: none; }}
-  ul.highlights li {{
+  }
+  .about p { color: var(--ink-soft); font-size: 1.02rem; }
+  ul.highlights { list-style: none; }
+  ul.highlights li {
     display: flex; gap: 12px; align-items: baseline;
     padding: 10px 0;
     border-bottom: 1px solid var(--line-dark);
     font-size: 0.98rem;
-  }}
-  .mark {{ font-weight: 700; }}
+  }
+  .mark { font-weight: 700; }
 
-  .info {{ background: var(--oak); color: var(--foam); }}
-  .info .wrap {{
+  .info { background: var(--oak); color: var(--foam); }
+  .info .wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
-  }}
-  .info h2 {{ color: var(--foam); }}
-  .hours-row {{
+  }
+  .info h2 { color: var(--foam); }
+  .hours-row {
     display: flex; justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px solid var(--line);
     font-size: 0.94rem;
-  }}
-  .hours-row.closed span:last-child {{ color: var(--brass-bright); }}
-  .contact-block p {{ margin-bottom: 10px; color: rgba(244,234,217,0.82); }}
-  .contact-block a.map-link {{
+  }
+  .hours-row.closed span:last-child { color: var(--brass-bright); }
+  .contact-block p { margin-bottom: 10px; color: rgba(244,234,217,0.82); }
+  .contact-block a.map-link {
     display: inline-block;
     margin-top: 14px;
     font-weight: 700;
     color: var(--brass-bright);
     text-decoration: none;
     font-size: 0.92rem;
-  }}
+  }
 
-  footer {{
+  footer {
     padding: 28px 0;
     text-align: center;
     font-size: 0.82rem;
     color: var(--ink-soft);
     border-top: 1px solid var(--line-dark);
-  }}
+  }
 
-  @media (max-width: 760px) {{
-    .hero .wrap, .about .wrap, .info .wrap {{ grid-template-columns: 1fr; }}
-    .tap {{ justify-self: start; margin-top: 12px; }}
-  }}
+  @media (max-width: 760px) {
+    .hero .wrap, .about .wrap, .info .wrap { grid-template-columns: 1fr; }
+    .tap { justify-self: start; margin-top: 12px; }
+  }
 
-  a:focus-visible, .hero-cta:focus-visible {{ outline: 2px solid var(--brass-bright); outline-offset: 3px; }}
+  a:focus-visible, .hero-cta:focus-visible { outline: 2px solid var(--brass-bright); outline-offset: 3px; }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <div class="brand">{name} <span>·</span></div>
-    {top_cta}
+    <div class="brand">Café 't Heuvelzicht <span>·</span></div>
+    
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
     <div>
-      <div class="eyebrow">{category}</div>
-      <h1>{tagline}</h1>
-      <p class="tagline">{about}</p>
-      {rating_block}
-      <a class="hero-cta" href="#info">{cta}</a>
+      <div class="eyebrow">Bruin café met podium</div>
+      <h1>Een pint, een babbel en live muziek op het Heuvelplein</h1>
+      <p class="tagline">Café 't Heuvelzicht hoort al generaties bij het Heuvelplein in Essen. Het interieur bleef grotendeels zoals het was, met de karakteristieke boogramen en een open haard die in de winter brandt. In een hoek staat een podium: met enige regelmaat wordt er live gespeeld en samen gejamd, en op het terras schuiven stamgasten en passanten gewoon bij elkaar aan.</p>
+      
+      <a class="hero-cta" href="#info">Kom langs op het Heuvelplein</a>
     </div>
     <div class="tap">
       <div class="small">Op het terras</div>
-      <div class="big">{signature}</div>
+      <div class="big">Podium &amp; pint</div>
     </div>
   </div>
 </section>
@@ -252,13 +223,17 @@ def render(brief: dict) -> str:
 <section class="about">
   <div class="wrap">
     <div>
-      <h2>Waarom {name}</h2>
-      <p>{about}</p>
+      <h2>Waarom Café 't Heuvelzicht</h2>
+      <p>Café 't Heuvelzicht hoort al generaties bij het Heuvelplein in Essen. Het interieur bleef grotendeels zoals het was, met de karakteristieke boogramen en een open haard die in de winter brandt. In een hoek staat een podium: met enige regelmaat wordt er live gespeeld en samen gejamd, en op het terras schuiven stamgasten en passanten gewoon bij elkaar aan.</p>
     </div>
     <div>
       <h2>Wat je er vindt</h2>
       <ul class="highlights">
-        {highlights_html}
+        <li><span class="mark">🍺</span>Authentiek bruin café aan het Heuvelplein, al generaties dezelfde naam</li>
+<li><span class="mark">🍺</span>Podium in de hoek: maandelijks live muziek en jamsessies</li>
+<li><span class="mark">🍺</span>Open haard binnen, terras vooraan zodra de zon het toelaat</li>
+<li><span class="mark">🍺</span>Karakteristieke boogramen, overgehouden aan de verbouwing van 1982</li>
+<li><span class="mark">🍺</span>Honden welkom, rolstoeltoegankelijke ingang en parkeergelegenheid vlakbij</li>
       </ul>
     </div>
   </div>
@@ -268,21 +243,26 @@ def render(brief: dict) -> str:
   <div class="wrap">
     <div>
       <h2>Openingsuren</h2>
-      {hours_html}
+      <div class="hours-row closed"><span>Maandag</span><span>Gesloten</span></div>
+<div class="hours-row closed"><span>Dinsdag</span><span>Gesloten</span></div>
+<div class="hours-row "><span>Woensdag</span><span>14:00 – 23:00</span></div>
+<div class="hours-row "><span>Donderdag</span><span>14:00 – 23:00</span></div>
+<div class="hours-row "><span>Vrijdag</span><span>12:00 – 23:00</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>12:00 – 23:00</span></div>
+<div class="hours-row "><span>Zondag</span><span>12:00 – 21:00</span></div>
     </div>
     <div class="contact-block">
       <h2>Kom langs</h2>
-      <p>{address}</p>
-      {phone_line}
-      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query={maps_q}" target="_blank" rel="noopener">Bekijk op kaart →</a>
+      <p>Heuvelplein 9, 2910 Essen</p>
+      
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Heuvelplein+9,+2910+Essen" target="_blank" rel="noopener">Bekijk op kaart →</a>
     </div>
   </div>
 </section>
 
 <footer>
-  Prototype gebouwd voor {name} · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+  Prototype gebouwd voor Café 't Heuvelzicht · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
 </footer>
 
 </body>
 </html>
-"""

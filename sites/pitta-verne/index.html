@@ -108,6 +108,14 @@
     font-size: 0.96rem;
   }
   .hero-cta:hover { background: var(--saffron-deep); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-cta-ghost {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 12px 28px;
+  }
+  .hero-cta-ghost:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
 
   .ticket {
     justify-self: end;
@@ -236,7 +244,10 @@
       <span class="eyebrow">Pizza, pasta &amp; mediterrane grill</span>
       <h1>Ovenverse pizza, pasta en grill, elke avond klaar</h1>
       <p class="tagline">Pitta Verne is een vaste waarde in Essen voor wie zin heeft in pizza uit de oven, verse pasta of een stevige grillschotel. De kaart is breed: naast een lange reeks pizza's staan er shawarma, kebab, kip- en visgerechten, sandwiches en combinatieschotels zoals de kapsalon op de kaart. Ideaal voor een snelle hap, een familiediner of een avond zonder afwas.</p>
-      <a class="hero-cta" href="#info">Bekijk de kaart</a>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#info">Bekijk de kaart</a>
+        
+      </div>
     </div>
     <div class="ticket">
       <div class="stub-label">Vandaag open</div>

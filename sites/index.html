@@ -4,46 +4,449 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prototypes — ocior.be</title>
+<meta name="description" content="Site-prototypes voor lokale ondernemers in en rond Essen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-  body { font-family: -apple-system, Inter, sans-serif; background: #f7f4ee; color: #1f1a14; max-width: 720px; margin: 80px auto; padding: 0 24px; }
-  h1 { font-size: 1.6rem; margin-bottom: 8px; }
-  p.sub { color: #6b5a48; margin-bottom: 32px; }
-  ul { list-style: none; padding: 0; }
-  li { border-bottom: 1px solid #e7d9c3; padding: 16px 0; }
-  a { color: #b23a2e; text-decoration: none; font-weight: 600; font-size: 1.05rem; }
-  a:hover { text-decoration: underline; }
+  :root {
+    --ink: #14171c;
+    --ink-soft: #5b6472;
+    --paper: #ffffff;
+    --panel: #f5f6f8;
+    --line: #e2e5ea;
+    --accent: #2f5fd0;
+    --font-body: 'Inter', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+
+  header.top {
+    padding: 72px 0 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .sub {
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 60ch;
+  }
+  .count {
+    display: inline-block;
+    margin-top: 22px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 14px;
+  }
+
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 26px 0 4px;
+  }
+  .filter {
+    font-family: var(--font-body);
+    font-size: 0.86rem; font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 15px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+  .filter:hover { border-color: var(--ink-soft); color: var(--ink); }
+  .filter.is-active {
+    background: var(--ink); border-color: var(--ink); color: #fff;
+  }
+  .filter-n { font-family: var(--font-mono); font-size: 0.76rem; opacity: 0.65; margin-left: 3px; }
+
+  main { padding: 20px 0 72px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    background: var(--paper);
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    background: var(--panel);
+    transform: translateY(-1px);
+  }
+  .card.is-hidden { display: none; }
+  .card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; margin-bottom: 6px;
+  }
+  .card-sector {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid;
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+  .badge-nieuw { color: #6b7280; border-color: #6b728033; background: #6b728014; }
+  .badge-gepland { color: #b45309; border-color: #b4530933; background: #b4530914; }
+  .badge-gecontacteerd { color: #2f5fd0; border-color: #2f5fd033; background: #2f5fd014; }
+  .badge-gereageerd { color: #7c3aed; border-color: #7c3aed33; background: #7c3aed14; }
+  .badge-klant { color: #15803d; border-color: #15803d33; background: #15803d14; }
+  .badge-geen-interesse { color: #9ca3af; border-color: #9ca3af33; background: #9ca3af14; }
+  .card-name { font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; }
+  .card-cat { color: var(--ink-soft); font-size: 0.86rem; }
+  .card-detail {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .empty { color: var(--ink-soft); font-size: 0.94rem; padding: 30px 0; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 0 56px;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+  }
+  footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+  footer a:hover { text-decoration: underline; }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
-  <h1>Prototypes</h1>
-  <p class="sub">Automatisch gegenereerde site-prototypes voor lokale ondernemers rond Essen.</p>
-  <ul>
-    <li><a href="/achterbroek-vv/">K. Achterbroek V.V. →</a></li>
-    <li><a href="/tobac-essen/">Slagerij-Bakkerij Tobac →</a></li>
-    <li><a href="/de-heerlyckheyt/">Restaurant De Heerlyckheyt →</a></li>
-    <li><a href="/pitta-verne/">Pitta Verne →</a></li>
-    <li><a href="/o-sole-mio/">O' Sole Mio →</a></li>
-    <li><a href="/de-velo/">De Vélo →</a></li>
-    <li><a href="/cafe-bostella/">Café Bostella →</a></li>
-    <li><a href="/frituur-speciaal/">Frituur Speciaal →</a></li>
-    <li><a href="/frituur-t-chaleke/">Frituur 't Chaleke →</a></li>
-    <li><a href="/snit-en-style/">Snit & Style →</a></li>
-    <li><a href="/kapsalon-joyce/">Kapsalon Joyce →</a></li>
-    <li><a href="/fietsen-kris/">Fietsen Kris →</a></li>
-    <li><a href="/nxt-gear-essen/">NXT Gear Essen →</a></li>
-    <li><a href="/dierenartsenpraktijk-het-hof/">Dierenartsenpraktijk Het Hof →</a></li>
-    <li><a href="/garage-francken/">Garage Francken →</a></li>
-    <li><a href="/tuincenter-den-donk/">Tuincenter Den Donk →</a></li>
-    <li><a href="/bloemen-matheusen/">Bloemen Matheusen →</a></li>
-    <li><a href="/koetje-boe/">Kinderdagverblijf Koetje Boe →</a></li>
-    <li><a href="/juwelier-aerden/">Juwelier Aerden →</a></li>
-    <li><a href="/optiek-michiels/">Optiek Michiels →</a></li>
-    <li><a href="/vrijloophoeve/">De Vrijloophoeve →</a></li>
-    <li><a href="/de-steenhoeve/">De Steenhoeve →</a></li>
-    <li><a href="/francostuinen/">Francostuinen →</a></li>
-    <li><a href="/crow-mountain/">Crow Mountain Craft Brewery →</a></li>
-    <li><a href="/t-schakeltje/">'t Schakeltje →</a></li>
-    <li><a href="/keukens-konings/">Keukens Konings →</a></li>
-  </ul>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">ocior.be</div>
+    <h1>Prototypes</h1>
+    <p class="sub">Site-prototypes voor lokale ondernemers in en rond Essen. Elke sector krijgt een eigen vormgeving — geen sjabloon dat overal hetzelfde oogt.</p>
+    <span class="count">27 prototypes · 21 sectoren</span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="filters" id="filters">
+      <button class="filter is-active" type="button" data-filter="alles">Alles <span class="filter-n">27</span></button>
+      <button class="filter" type="button" data-filter="nieuw">Nog niet benaderd <span class="filter-n">19</span></button>
+      <button class="filter" type="button" data-filter="gepland">Klaar om te mailen <span class="filter-n">8</span></button>
+    </div>
+    <div class="grid" id="grid">
+      <a class="card" href="/t-schakeltje/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Kringloop</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">'t Schakeltje</span>
+        <span class="card-cat">Kringloopwinkel &amp; ontmoetingsplek</span>
+        
+      </a>
+      <a class="card" href="/bloemen-matheusen/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Bloemen</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Bloemen Matheusen</span>
+        <span class="card-cat">Bloemsierkunst &amp; plantenwinkel</span>
+        
+      </a>
+      <a class="card" href="/het-heuvelzicht/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Café</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Café 't Heuvelzicht</span>
+        <span class="card-cat">Bruin café met podium</span>
+        
+      </a>
+      <a class="card" href="/cafe-bostella/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Café</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Café Bostella</span>
+        <span class="card-cat">Bruin café met terras</span>
+        
+      </a>
+      <a class="card" href="/crow-mountain/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Brouwerij</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Crow Mountain Craft Brewery</span>
+        <span class="card-cat">Ambachtelijke microbrouwerij</span>
+        
+      </a>
+      <a class="card" href="/de-steenhoeve/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Veeteelt</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">De Steenhoeve</span>
+        <span class="card-cat">Rundveefokkerij</span>
+        
+      </a>
+      <a class="card" href="/vrijloophoeve/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Hoeve &amp; streekproducten</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">De Vrijloophoeve</span>
+        <span class="card-cat">Hoevewinkel &amp; zorgboerderij</span>
+        
+      </a>
+      <a class="card" href="/de-velo/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Café</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">De Vélo</span>
+        <span class="card-cat">Café, bistro &amp; ontmoetingsplek</span>
+        
+      </a>
+      <a class="card" href="/dierenartsenpraktijk-het-hof/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Dierenzorg</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Dierenartsenpraktijk Het Hof</span>
+        <span class="card-cat">Dierenartsenpraktijk</span>
+        
+      </a>
+      <a class="card" href="/fietsen-kris/" data-status="gepland">
+        <span class="card-top">
+          <span class="card-sector">Fietsen</span>
+          <span class="badge badge-gepland">Klaar om te mailen</span>
+        </span>
+        <span class="card-name">Fietsen Kris</span>
+        <span class="card-cat">Fietsenwinkel &amp; herstelatelier</span>
+        
+      </a>
+      <a class="card" href="/francostuinen/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Tuinaanleg</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Francostuinen</span>
+        <span class="card-cat">Hovenier — tuinaanleg &amp; tuinonderhoud</span>
+        
+      </a>
+      <a class="card" href="/frituur-t-chaleke/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Frituur</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Frituur 't Chaleke</span>
+        <span class="card-cat">Frituur</span>
+        
+      </a>
+      <a class="card" href="/frituur-speciaal/" data-status="gepland">
+        <span class="card-top">
+          <span class="card-sector">Frituur</span>
+          <span class="badge badge-gepland">Klaar om te mailen</span>
+        </span>
+        <span class="card-name">Frituur Speciaal</span>
+        <span class="card-cat">Frituur</span>
+        
+      </a>
+      <a class="card" href="/garage-francken/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Garage</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Garage Francken</span>
+        <span class="card-cat">Garage &amp; Nissan-dealer</span>
+        
+      </a>
+      <a class="card" href="/juwelier-aerden/" data-status="gepland">
+        <span class="card-top">
+          <span class="card-sector">Juwelier</span>
+          <span class="badge badge-gepland">Klaar om te mailen</span>
+        </span>
+        <span class="card-name">Juwelier Aerden</span>
+        <span class="card-cat">Juwelier &amp; uurwerkspecialist sinds 1955</span>
+        
+      </a>
+      <a class="card" href="/achterbroek-vv/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Sport &amp; vereniging</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">K. Achterbroek V.V.</span>
+        <span class="card-cat">Voetbalclub</span>
+        
+      </a>
+      <a class="card" href="/kapsalon-joyce/" data-status="gepland">
+        <span class="card-top">
+          <span class="card-sector">Kapsalon</span>
+          <span class="badge badge-gepland">Klaar om te mailen</span>
+        </span>
+        <span class="card-name">Kapsalon Joyce</span>
+        <span class="card-cat">Kapsalon voor dames, heren &amp; kinderen</span>
+        
+      </a>
+      <a class="card" href="/keukens-konings/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Interieur &amp; keukens</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Keukens Konings</span>
+        <span class="card-cat">Keukenstudio &amp; interieur op maat</span>
+        
+      </a>
+      <a class="card" href="/koetje-boe/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Kinderopvang</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Kinderdagverblijf Koetje Boe</span>
+        <span class="card-cat">Erkend kinderdagverblijf 0-3 jaar</span>
+        
+      </a>
+      <a class="card" href="/nxt-gear-essen/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Fietsen</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">NXT Gear Essen</span>
+        <span class="card-cat">Specialized Brand Store</span>
+        
+      </a>
+      <a class="card" href="/o-sole-mio/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Pizzeria &amp; Italiaans</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">O' Sole Mio</span>
+        <span class="card-cat">Italiaans restaurant &amp; pizzeria</span>
+        
+      </a>
+      <a class="card" href="/optiek-michiels/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Optiek</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Optiek Michiels</span>
+        <span class="card-cat">Optiek &amp; hoorcentrum</span>
+        
+      </a>
+      <a class="card" href="/pitta-verne/" data-status="gepland">
+        <span class="card-top">
+          <span class="card-sector">Pizzeria &amp; Italiaans</span>
+          <span class="badge badge-gepland">Klaar om te mailen</span>
+        </span>
+        <span class="card-name">Pitta Verne</span>
+        <span class="card-cat">Pizza, pasta &amp; mediterrane grill</span>
+        
+      </a>
+      <a class="card" href="/de-heerlyckheyt/" data-status="gepland">
+        <span class="card-top">
+          <span class="card-sector">Restaurant</span>
+          <span class="badge badge-gepland">Klaar om te mailen</span>
+        </span>
+        <span class="card-name">Restaurant De Heerlyckheyt</span>
+        <span class="card-cat">Fine dining · modern-klassieke keuken</span>
+        
+      </a>
+      <a class="card" href="/tobac-essen/" data-status="gepland">
+        <span class="card-top">
+          <span class="card-sector">Slagerij</span>
+          <span class="badge badge-gepland">Klaar om te mailen</span>
+        </span>
+        <span class="card-name">Slagerij-Bakkerij Tobac</span>
+        <span class="card-cat">Slagerij, bakkerij &amp; traiteur</span>
+        
+      </a>
+      <a class="card" href="/snit-en-style/" data-status="gepland">
+        <span class="card-top">
+          <span class="card-sector">Kapsalon</span>
+          <span class="badge badge-gepland">Klaar om te mailen</span>
+        </span>
+        <span class="card-name">Snit &amp; Style</span>
+        <span class="card-cat">Haarstudio voor dames, heren &amp; kinderen</span>
+        
+      </a>
+      <a class="card" href="/tuincenter-den-donk/" data-status="nieuw">
+        <span class="card-top">
+          <span class="card-sector">Tuincentrum</span>
+          <span class="badge badge-nieuw">Nog niet benaderd</span>
+        </span>
+        <span class="card-name">Tuincenter Den Donk</span>
+        <span class="card-cat">Tuincentrum &amp; bloemisterij</span>
+        
+      </a>
+    </div>
+    <p class="empty" id="empty" hidden>Niets in deze status.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Gemaakt door <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+  </div>
+</footer>
+
+<script>
+  const knoppen = document.querySelectorAll('.filter');
+  const kaarten = document.querySelectorAll('.card');
+  const leeg = document.getElementById('empty');
+
+  knoppen.forEach((knop) => {
+    knop.addEventListener('click', () => {
+      const filter = knop.dataset.filter;
+      knoppen.forEach((k) => k.classList.toggle('is-active', k === knop));
+      let zichtbaar = 0;
+      kaarten.forEach((kaart) => {
+        const toon = filter === 'alles' || kaart.dataset.status === filter;
+        kaart.classList.toggle('is-hidden', !toon);
+        if (toon) zichtbaar++;
+      });
+      leeg.hidden = zichtbaar > 0;
+    });
+  });
+</script>
+
 </body>
 </html>

@@ -7,13 +7,34 @@
   "address": "Kapelstraat 1/2, 2910 Essen",
   "phone": "03 677 27 77",
   "hours": [
-    ["Maandag", "17:00 – 22:00"],
-    ["Dinsdag", "17:00 – 22:00"],
-    ["Woensdag", "17:00 – 22:00"],
-    ["Donderdag", "17:00 – 22:00"],
-    ["Vrijdag", "17:00 – 22:00"],
-    ["Zaterdag", "17:00 – 22:00"],
-    ["Zondag", "17:00 – 22:00"]
+    [
+      "Maandag",
+      "17:00 – 22:00"
+    ],
+    [
+      "Dinsdag",
+      "17:00 – 22:00"
+    ],
+    [
+      "Woensdag",
+      "17:00 – 22:00"
+    ],
+    [
+      "Donderdag",
+      "17:00 – 22:00"
+    ],
+    [
+      "Vrijdag",
+      "17:00 – 22:00"
+    ],
+    [
+      "Zaterdag",
+      "17:00 – 22:00"
+    ],
+    [
+      "Zondag",
+      "17:00 – 22:00"
+    ]
   ],
   "highlights": [
     "Ruime pizzakaart: van klassiekers tot pittige varianten met chorizo en Spaanse peper",
@@ -24,5 +45,8 @@
   ],
   "about": "Pitta Verne is een vaste waarde in Essen voor wie zin heeft in pizza uit de oven, verse pasta of een stevige grillschotel. De kaart is breed: naast een lange reeks pizza's staan er shawarma, kebab, kip- en visgerechten, sandwiches en combinatieschotels zoals de kapsalon op de kaart. Ideaal voor een snelle hap, een familiediner of een avond zonder afwas.",
   "menu_note": "Meer dan 150 gerechten en dranken op de kaart — voor elk moment van de dag iets anders.",
-  "cta_text": "Bekijk de kaart"
+  "cta_text": "Bekijk de kaart",
+  "outreach": {
+    "status": "gepland"
+  }
 }

@@ -108,6 +108,14 @@
     font-size: 0.96rem;
   }
   .hero-cta:hover { background: var(--saffron-deep); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-cta-ghost {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 12px 28px;
+  }
+  .hero-cta-ghost:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
 
   .ticket {
     justify-self: end;
@@ -226,7 +234,7 @@
 <header class="top">
   <div class="wrap">
     <div class="brand">O' Sole Mio</div>
-    <a class="top-cta" href="tel:036772666">Bel &amp; bestel</a>
+    <a class="top-cta" href="/o-sole-mio/bestellen/">Bestel online</a>
   </div>
 </header>
 
@@ -236,7 +244,10 @@
       <span class="eyebrow">Italiaans restaurant &amp; pizzeria</span>
       <h1>Italiaanse klassiekers in het hart van Essen</h1>
       <p class="tagline">O' Sole Mio brengt al jaren de Italiaanse keuken naar Essen: ovenverse pizza's, huisgemaakte pasta's en klassieke gerechten in een gemoedelijke sfeer. Met de wekelijkse pizza- en pastadag is het een vaste stek voor wie eenvoudig en betaalbaar Italiaans wil eten, zonder in te boeten op smaak.</p>
-      <a class="hero-cta" href="#info">Bekijk de kaart</a>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#info">Bekijk de kaart</a>
+        <a class="hero-cta hero-cta-ghost" href="/o-sole-mio/bestellen/">Bestel online</a>
+      </div>
     </div>
     <div class="ticket">
       <div class="stub-label">Vandaag open</div>
@@ -250,13 +261,13 @@
     <div>
       <h2>Wat er op tafel komt</h2>
       <p>O' Sole Mio brengt al jaren de Italiaanse keuken naar Essen: ovenverse pizza's, huisgemaakte pasta's en klassieke gerechten in een gemoedelijke sfeer. Met de wekelijkse pizza- en pastadag is het een vaste stek voor wie eenvoudig en betaalbaar Italiaans wil eten, zonder in te boeten op smaak.</p>
-      <span class="menu-note">Vaste kaart aangevuld met wekelijkse dagsuggesties — woensdag pizzadag, donderdag pastadag.</span>
+      <span class="menu-note">Vaste kaart aangevuld met wekelijkse dagacties — dinsdag en donderdag pizzadag, woensdag pastadag.</span>
     </div>
     <div>
       <h2>Uitgelicht</h2>
       <ul class="highlights">
-        <li><span class="mark">●</span>Woensdag pizzadag: alle pizza's aan €6</li>
-<li><span class="mark">●</span>Donderdag pastadag: alle pasta's aan €8</li>
+        <li><span class="mark">●</span>Dinsdag &amp; donderdag pizzadag: alle pizza's aan €6,50 — ook aan tafel</li>
+<li><span class="mark">●</span>Woensdag pastadag: alle pasta's aan €9,00 — ook aan tafel</li>
 <li><span class="mark">●</span>Ruime kaart met vegetarische opties</li>
 <li><span class="mark">●</span>Eten ter plaatse, terras of afhalen</li>
 <li><span class="mark">●</span>Ideaal voor een familiediner zonder poespas</li>

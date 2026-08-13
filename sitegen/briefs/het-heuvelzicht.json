@@ -1,0 +1,28 @@
+{
+  "slug": "het-heuvelzicht",
+  "sector": "cafe",
+  "business_name": "Café 't Heuvelzicht",
+  "category": "Bruin café met podium",
+  "tagline": "Een pint, een babbel en live muziek op het Heuvelplein",
+  "address": "Heuvelplein 9, 2910 Essen",
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "Gesloten"],
+    ["Woensdag", "14:00 – 23:00"],
+    ["Donderdag", "14:00 – 23:00"],
+    ["Vrijdag", "12:00 – 23:00"],
+    ["Zaterdag", "12:00 – 23:00"],
+    ["Zondag", "12:00 – 21:00"]
+  ],
+  "highlights": [
+    "Authentiek bruin café aan het Heuvelplein, al generaties dezelfde naam",
+    "Podium in de hoek: maandelijks live muziek en jamsessies",
+    "Open haard binnen, terras vooraan zodra de zon het toelaat",
+    "Karakteristieke boogramen, overgehouden aan de verbouwing van 1982",
+    "Honden welkom, rolstoeltoegankelijke ingang en parkeergelegenheid vlakbij"
+  ],
+  "about": "Café 't Heuvelzicht hoort al generaties bij het Heuvelplein in Essen. Het interieur bleef grotendeels zoals het was, met de karakteristieke boogramen en een open haard die in de winter brandt. In een hoek staat een podium: met enige regelmaat wordt er live gespeeld en samen gejamd, en op het terras schuiven stamgasten en passanten gewoon bij elkaar aan.",
+  "cta_text": "Kom langs op het Heuvelplein",
+  "accent": "#b8543f",
+  "signature_word": "Podium & pint"
+}

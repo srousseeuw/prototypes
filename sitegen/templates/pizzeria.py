@@ -1,4 +1,21 @@
 from .common import esc, build_hours_rows, build_highlights, maps_query as _maps_query
+from . import order as _order
+
+# Kleuren van dit sjabloon, zodat een bestelpagina bij de hoofdsite past.
+_ORDER_THEME = {
+    "bg": "#123b3a",
+    "bg_deep": "#0b2726",
+    "accent": "#eaa42e",
+    "paper": "#faf6ee",
+    "font_display": "'Fjalla One', sans-serif",
+    "font_body": "'Work Sans', sans-serif",
+    "fonts_href": "https://fonts.googleapis.com/css2?family=Fjalla+One&family=Work+Sans:wght@400;500;600;700&display=swap",
+}
+
+def render_extra_pages(brief: dict) -> dict:
+    if not brief.get("order_menu"):
+        return {}
+    return {"bestellen/index.html": _order.render(brief, _ORDER_THEME)}
 
 def render(brief: dict) -> str:
     name = esc(brief["business_name"])
@@ -20,6 +37,17 @@ def render(brief: dict) -> str:
             start, end = [p.strip() for p in timerange.split("–", 1)]
             today_open, today_close = start, end
             break
+
+    has_order_page = bool(brief.get("order_menu"))
+    order_href = f'/{esc(brief["slug"])}/bestellen/'
+    top_cta = (
+        f'<a class="top-cta" href="{order_href}">Bestel online</a>' if has_order_page
+        else f'<a class="top-cta" href="tel:{phone_href}">Bel &amp; bestel</a>'
+    )
+    order_cta = (
+        f'<a class="hero-cta hero-cta-ghost" href="{order_href}">Bestel online</a>' if has_order_page
+        else ""
+    )
 
     return f"""<!DOCTYPE html>
 <html lang="nl">
@@ -131,6 +159,14 @@ def render(brief: dict) -> str:
     font-size: 0.96rem;
   }}
   .hero-cta:hover {{ background: var(--saffron-deep); }}
+  .hero-actions {{ display: flex; flex-wrap: wrap; gap: 12px; }}
+  .hero-cta-ghost {{
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 12px 28px;
+  }}
+  .hero-cta-ghost:hover {{ background: rgba(255,255,255,0.12); border-color: #fff; }}
 
   .ticket {{
     justify-self: end;
@@ -249,7 +285,7 @@ def render(brief: dict) -> str:
 <header class="top">
   <div class="wrap">
     <div class="brand">{name}</div>
-    <a class="top-cta" href="tel:{phone_href}">Bel &amp; bestel</a>
+    {top_cta}
   </div>
 </header>
 
@@ -259,7 +295,10 @@ def render(brief: dict) -> str:
       <span class="eyebrow">{category}</span>
       <h1>{tagline}</h1>
       <p class="tagline">{about}</p>
-      <a class="hero-cta" href="#info">{cta}</a>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#info">{cta}</a>
+        {order_cta}
+      </div>
     </div>
     <div class="ticket">
       <div class="stub-label">Vandaag open</div>

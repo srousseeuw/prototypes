@@ -7,13 +7,34 @@
   "address": "Kapelstraat 2, 2910 Essen",
   "phone": "+32 3 677 06 88",
   "hours": [
-    ["Maandag", "Gesloten"],
-    ["Dinsdag", "Gesloten"],
-    ["Woensdag", "16:00 – 22:00"],
-    ["Donderdag", "16:00 – 22:00"],
-    ["Vrijdag", "11:30 – 22:00"],
-    ["Zaterdag", "11:30 – 22:00"],
-    ["Zondag", "11:30 – 22:00"]
+    [
+      "Maandag",
+      "Gesloten"
+    ],
+    [
+      "Dinsdag",
+      "Gesloten"
+    ],
+    [
+      "Woensdag",
+      "16:00 – 22:00"
+    ],
+    [
+      "Donderdag",
+      "16:00 – 22:00"
+    ],
+    [
+      "Vrijdag",
+      "11:30 – 22:00"
+    ],
+    [
+      "Zaterdag",
+      "11:30 – 22:00"
+    ],
+    [
+      "Zondag",
+      "11:30 – 22:00"
+    ]
   ],
   "online_order_teaser": "Online bestellen kan hier binnenkort — kom voorlopig nog langs of bel voor afhaling.",
   "highlights": [
@@ -23,6 +44,9 @@
     "Steengoede reputatie bij buurtbewoners en passanten"
   ],
   "about": "Frituur Speciaal begon in 1980 als een verkoopwagentje en groeide uit tot een vaste waarde in Essen. Klanten komen al generaties lang terug voor de verse frieten, gebakken in 100% rundvet, en de vriendelijke, persoonlijke bediening waar de zaak al jaren om bekendstaat.",
-  "cta_text": "Kom langs voor een frisse portie",
-  "accent": "#e07a1f"
+  "cta_text": "Kom langs voor een verse portie frieten",
+  "accent": "#e07a1f",
+  "outreach": {
+    "status": "gepland"
+  }
 }

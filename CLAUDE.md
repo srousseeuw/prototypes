@@ -39,8 +39,12 @@ Wanneer gevraagd wordt "maak een prototype voor [bedrijfsnaam] in Essen":
    Dit schrijft direct naar `sites/<slug>/index.html` in deze repo.
 
 4. **Overzichtspagina bijwerken**
-   - Voeg een `<li><a href="/<slug>/">Bedrijfsnaam →</a></li>` toe aan
-     `sites/index.html`.
+   ```
+   python3 sitegen/build_index.py
+   ```
+   Dit genereert `sites/index.html` opnieuw uit alle briefs. Bewerk dat
+   bestand nooit met de hand — draai dit script na elk nieuw of verwijderd
+   prototype, dan kan het overzicht niet uit sync lopen.
 
 5. **Committen en pushen**
    ```
@@ -50,6 +54,27 @@ Wanneer gevraagd wordt "maak een prototype voor [bedrijfsnaam] in Essen":
    ```
    Cloudflare Pages pikt de push automatisch op — geen verdere actie nodig.
    Live op: `https://prototype.ocior.be/<slug>/`
+
+## Outreach bijhouden
+
+De overzichtspagina toont per prototype de contactstatus en laat erop
+filteren. Die status staat in de brief zelf, zodat er maar één bron van
+waarheid is:
+
+```json
+"outreach": {
+  "status": "gecontacteerd",
+  "date": "2026-08-13",
+  "note": "via contactformulier"
+}
+```
+
+Statussen: `nieuw` (standaard als het veld ontbreekt), `gepland`,
+`gecontacteerd`, `gereageerd`, `klant`, `geen-interesse`. `date` en `note`
+zijn optioneel en verschijnen klein onderaan de kaart.
+
+Na het aanpassen van een status: `python3 sitegen/build_index.py` draaien,
+dan committen en pushen.
 
 ## Belangrijke regels
 

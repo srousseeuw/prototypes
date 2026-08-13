@@ -16,13 +16,62 @@
     ["Zondag", "16:00 – 22:00"]
   ],
   "highlights": [
-    "Woensdag pizzadag: alle pizza's aan €6",
-    "Donderdag pastadag: alle pasta's aan €8",
+    "Dinsdag & donderdag pizzadag: alle pizza's aan €6,50 — ook aan tafel",
+    "Woensdag pastadag: alle pasta's aan €9,00 — ook aan tafel",
     "Ruime kaart met vegetarische opties",
     "Eten ter plaatse, terras of afhalen",
     "Ideaal voor een familiediner zonder poespas"
   ],
   "about": "O' Sole Mio brengt al jaren de Italiaanse keuken naar Essen: ovenverse pizza's, huisgemaakte pasta's en klassieke gerechten in een gemoedelijke sfeer. Met de wekelijkse pizza- en pastadag is het een vaste stek voor wie eenvoudig en betaalbaar Italiaans wil eten, zonder in te boeten op smaak.",
-  "menu_note": "Vaste kaart aangevuld met wekelijkse dagsuggesties — woensdag pizzadag, donderdag pastadag.",
-  "cta_text": "Bekijk de kaart"
+  "menu_note": "Vaste kaart aangevuld met wekelijkse dagacties — dinsdag en donderdag pizzadag, woensdag pastadag.",
+  "cta_text": "Bekijk de kaart",
+  "menu_prices_verified": false,
+  "order_deals": [
+    "Dinsdag & donderdag — alle pizza's €6,50",
+    "Woensdag — alle pasta's €9,00"
+  ],
+  "order_menu": [
+    {
+      "category": "Voorgerechten",
+      "items": [
+        {"name": "Bruschetta", "desc": "Geroosterd brood met tomaat, look en basilicum", "price": 7.5},
+        {"name": "Carpaccio", "desc": "Rundscarpaccio met parmezaan en pijnboompitten", "price": 12.5},
+        {"name": "Gegrilde scampi", "desc": "Huisspecialiteit, in look en olijfolie", "price": 14.5},
+        {"name": "Minestrone", "desc": "Italiaanse groentesoep", "price": 6.5}
+      ]
+    },
+    {
+      "category": "Pizza",
+      "note": "Op dinsdag en donderdag kosten alle pizza's €6,50, ook aan tafel.",
+      "items": [
+        {"name": "Margherita", "desc": "Tomaat, mozzarella, oregano", "price": 11.0},
+        {"name": "Prosciutto", "desc": "Tomaat, mozzarella, gekookte ham", "price": 12.5},
+        {"name": "Salami", "desc": "Tomaat, mozzarella, pittige salami", "price": 12.5},
+        {"name": "Quattro Stagioni", "desc": "Ham, champignons, artisjok en olijven", "price": 14.0},
+        {"name": "Frutti di Mare", "desc": "Tomaat, mozzarella, zeevruchten", "price": 15.5},
+        {"name": "Vegetariana", "desc": "Tomaat, mozzarella, seizoensgroenten", "price": 13.0},
+        {"name": "Sofia Loren", "desc": "Huisspecialiteit van het huis", "price": 15.5}
+      ]
+    },
+    {
+      "category": "Pasta",
+      "note": "Op woensdag kosten alle pasta's €9,00, ook aan tafel.",
+      "items": [
+        {"name": "Spaghetti Bolognese", "desc": "Met huisbereide vleessaus", "price": 13.0},
+        {"name": "Spaghetti Carbonara", "desc": "Roomsaus met spek en ei", "price": 13.5},
+        {"name": "Lasagne", "desc": "Klassiek gegratineerd uit de oven", "price": 14.0},
+        {"name": "Penne Arrabbiata", "desc": "Pittige tomatensaus", "price": 12.5},
+        {"name": "Tagliatelle Scampi", "desc": "Met scampi in roomsaus", "price": 16.5}
+      ]
+    },
+    {
+      "category": "Dranken",
+      "items": [
+        {"name": "Frisdrank", "desc": "Cola, Fanta, Sprite, water", "price": 2.8},
+        {"name": "Pint", "desc": "Van het vat", "price": 3.0},
+        {"name": "Huiswijn per glas", "desc": "Rood, wit of rosé", "price": 4.5},
+        {"name": "Fles huiswijn", "desc": "Rood, wit of rosé", "price": 21.0}
+      ]
+    }
+  ]
 }
