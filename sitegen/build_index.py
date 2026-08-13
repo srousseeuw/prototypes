@@ -41,6 +41,7 @@ SECTOR_LABELS = {
     "kringloopwinkel": "Kringloop",
     "opticien": "Optiek",
     "pizzeria": "Pizzeria & Italiaans",
+    "politiek": "Politiek",
     "restaurant": "Restaurant",
     "slager": "Slagerij",
     "sportclub": "Sport & vereniging",

@@ -55,6 +55,19 @@ Wanneer gevraagd wordt "maak een prototype voor [bedrijfsnaam] in Essen":
    Cloudflare Pages pikt de push automatisch op — geen verdere actie nodig.
    Live op: `https://prototype.ocior.be/<slug>/`
 
+## Handgemaakte sites
+
+Niet elke site komt uit een sjabloon. Wie met de hand gemaakt is (of
+rechtstreeks via GitHub geüpload), krijgt tóch een brief, zodat hij op het
+overzicht verschijnt — maar met:
+
+```json
+"generated": false
+```
+
+`generate.py` weigert dan te schrijven, ook binnen een lus over alle briefs.
+Bewerk zo'n site rechtstreeks in `sites/<slug>/index.html`.
+
 ## Outreach bijhouden
 
 De overzichtspagina toont per prototype de contactstatus en laat erop

@@ -26,6 +26,13 @@ def main():
     brief_path = Path(sys.argv[1])
     brief = json.loads(brief_path.read_text(encoding="utf-8"))
 
+    # Sommige sites zijn met de hand gemaakt en staan enkel in briefs/ zodat ze
+    # op het overzicht verschijnen. Die mogen nooit overschreven worden.
+    if brief.get("generated", True) is False:
+        print(f"⏭  Overgeslagen: {brief['slug']} is handmatig gemaakt (\"generated\": false).")
+        print(f"   Bewerk sites/{brief['slug']}/index.html rechtstreeks.")
+        return
+
     sector = brief.get("sector", "bakery")
     try:
         template = importlib.import_module(f"templates.{sector}")
