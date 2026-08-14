@@ -5,5 +5,8 @@
   "category": "Schrijnwerk & karwei op maat · Essen",
   "generated": false,
   "note": "Handmatig gemaakt, overgezet van lander.ocior.be. Niet uit een sjabloon: generate.py weigert dit bestand te overschrijven; bewerk sites/lvt-karweiwerken/index.html rechtstreeks.",
-  "source_url": "https://lander.ocior.be/"
+  "source_url": "https://lander.ocior.be/",
+  "outreach": {
+    "status": "gecontacteerd"
+  }
 }
