@@ -47,6 +47,7 @@ SECTOR_LABELS = {
     "schrijnwerk": "Schrijnwerk",
     "sportdirectory": "Sport & directory",
     "verhuur": "Verhuur",
+    "vrijetijd": "Vrije tijd & opvang",
     "zorg": "Zorg & welzijn",
     "politiek": "Politiek",
     "schilder": "Schilderwerken",

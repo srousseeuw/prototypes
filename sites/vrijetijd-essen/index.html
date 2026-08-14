@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vrije Tijd Essen — Vakantieopvang &amp; vrijetijdsaanbod gemeente</title>
+<meta name="description" content="Alle info staat open: leeftijd, datum, locatie, prijs en vrije plaatsen. Aanmelden hoeft pas op het moment dat je echt inschrijft.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a4a53">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14212b;
+  --ink-2:#42586a;
+  --ink-3:#6b7f8e;
+  --paper:#eef3f3;
+  --card:#ffffff;
+  --brand:#0f6d78;
+  --brand-deep:#0a4a53;
+  --brand-tint:#dceded;
+  --accent:#f2b134;
+  --ok:#1a7a4c;
+  --ok-tint:#e2f3ea;
+  --warn:#a1521a;
+  --warn-tint:#fbeddd;
+  --full:#7d3a63;
+  --full-tint:#f6e6ef;
+  --line:rgba(20,33,43,0.14);
+  --line-soft:rgba(20,33,43,0.08);
+  --radius:16px;
+  --shadow:0 10px 30px rgba(10,44,53,0.09);
+  --font-display:'Bricolage Grotesque','Public Sans',system-ui,sans-serif;
+  --font-body:'Public Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-body);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+  font-size:16px;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{max-width:100%}
+a{color:var(--brand-deep)}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.15;letter-spacing:-0.015em;overflow-wrap:anywhere}
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 18px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--brand-deep);color:#fff;padding:12px 18px;z-index:99}
+.skip:focus{left:8px;top:8px}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{
+  outline:3px solid var(--brand);outline-offset:2px;border-radius:6px;
+}
+
+/* ---------- prototypestrook + kop ---------- */
+.proto{
+  background:var(--brand-deep);color:#dff0f0;
+  font-size:0.82rem;line-height:1.4;padding:9px 0;
+}
+.proto strong{color:#fff}
+.site-head{background:var(--card);border-bottom:1px solid var(--line-soft)}
+.site-head .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);margin-right:auto;min-height:44px}
+.logo .mark{width:34px;height:34px;flex:0 0 34px}
+.logo .word{font-family:var(--font-display);font-weight:800;font-size:1.12rem;line-height:1.1}
+.logo .sub{display:block;font-family:var(--font-body);font-weight:500;font-size:0.72rem;color:var(--ink-3);letter-spacing:0.04em;text-transform:uppercase}
+nav.main{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+nav.main a{
+  display:inline-flex;align-items:center;min-height:44px;padding:0 14px;
+  text-decoration:none;color:var(--ink-2);font-weight:600;font-size:0.94rem;border-radius:10px;
+}
+nav.main a:hover{background:var(--brand-tint);color:var(--brand-deep)}
+nav.main a[aria-current="page"]{color:var(--brand-deep);background:var(--brand-tint)}
+nav.main a.cta{background:var(--brand);color:#fff}
+nav.main a.cta:hover{background:var(--brand-deep);color:#fff}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:var(--brand-deep);color:#fff;padding:26px 0 24px}
+.hero .deco{position:absolute;inset:0;pointer-events:none;opacity:.55}
+.hero .wrap{position:relative}
+.hero .eyebrow{
+  display:inline-block;font-weight:600;font-size:0.74rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:8px;
+}
+.hero h1{font-size:clamp(1.7rem,6.4vw,2.9rem);font-weight:800;max-width:17ch;color:#fff}
+.hero p.lead{margin-top:10px;font-size:clamp(0.98rem,2.6vw,1.14rem);color:#cfe4e5;max-width:52ch}
+.hero .stats{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.hero .stat{
+  background:rgba(255,255,255,0.11);border:1px solid rgba(255,255,255,0.18);
+  border-radius:999px;padding:8px 15px;font-size:0.88rem;font-weight:600;
+}
+.hero .stat b{color:var(--accent);font-weight:800}
+
+/* ---------- meldingen ---------- */
+.notice{
+  display:flex;gap:12px;align-items:flex-start;
+  background:#fff8e8;border:1px solid #e8cf94;border-left:5px solid var(--accent);
+  border-radius:12px;padding:14px 16px;font-size:0.92rem;color:#4d3a10;
+}
+.notice svg{flex:0 0 20px;margin-top:2px;color:#a6791a}
+.notice strong{font-weight:700}
+
+/* ---------- filters ---------- */
+main{padding-bottom:10px}
+section{padding:20px 0}
+.panel{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);box-shadow:var(--shadow)}
+.filters{padding:16px}
+.filters h2{font-size:1.1rem;margin-bottom:2px}
+.filters .hint{color:var(--ink-3);font-size:0.86rem;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 13px;
+  border:1.5px solid var(--line);background:#fff;color:var(--ink-2);
+  border-radius:999px;font:inherit;font-size:0.92rem;font-weight:600;cursor:pointer;
+  transition:background .13s ease,border-color .13s ease,color .13s ease;
+}
+.chip:hover{border-color:var(--brand);color:var(--brand-deep)}
+.chip .n{font-size:0.8rem;font-weight:700;color:var(--ink-3);background:var(--paper);border-radius:999px;padding:1px 7px}
+.chip[aria-pressed="true"]{background:var(--brand-deep);border-color:var(--brand-deep);color:#fff}
+.chip[aria-pressed="true"] .n{background:rgba(255,255,255,0.2);color:#fff}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.field.wide{grid-column:1 / -1}
+.field label{display:block;font-size:0.8rem;font-weight:700;color:var(--ink-2);margin-bottom:4px}
+.field select,.field input[type="text"],.field input[type="email"],.field input[type="tel"]{
+  width:100%;min-height:48px;padding:10px 12px;
+  border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+  font-family:inherit;font-size:1rem;
+}
+.field select{appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2342586a' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;background-size:18px;padding-right:40px;
+}
+.filter-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.toggle{display:inline-flex;align-items:center;gap:9px;min-height:44px;cursor:pointer;font-weight:600;font-size:0.92rem;color:var(--ink-2);margin-right:auto}
+.toggle input{width:24px;height:24px;accent-color:var(--brand);cursor:pointer}
+.linkbtn{
+  min-height:44px;padding:0 14px;border:1.5px solid var(--line);background:#fff;border-radius:10px;
+  font:inherit;font-weight:600;font-size:0.92rem;color:var(--ink-2);cursor:pointer;
+}
+.linkbtn:hover{border-color:var(--brand);color:var(--brand-deep)}
+.resultbar{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin:16px 0 10px}
+.resultbar .count{font-family:var(--font-display);font-weight:700;font-size:1.05rem}
+.resultbar .of{color:var(--ink-3);font-size:0.9rem}
+
+/* ---------- activiteitenkaarten ---------- */
+.cards{display:grid;grid-template-columns:1fr;gap:10px;list-style:none}
+.act{
+  position:relative;background:var(--card);border:1px solid var(--line-soft);border-radius:14px;
+  padding:12px 14px 12px 17px;overflow:hidden;
+}
+.act::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c,var(--brand))}
+.act-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:6px}
+.tag{
+  display:inline-flex;align-items:center;gap:6px;font-size:0.74rem;font-weight:700;letter-spacing:0.06em;
+  text-transform:uppercase;color:var(--c,var(--brand));background:color-mix(in srgb,var(--c,#0f6d78) 12%,#fff);
+  border-radius:999px;padding:4px 10px;
+}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;border-radius:999px;padding:4px 11px;margin-left:auto}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.st-vrij{color:var(--ok);background:var(--ok-tint)}
+.st-bijna{color:var(--warn);background:var(--warn-tint)}
+.st-vol{color:var(--full);background:var(--full-tint)}
+.act h3{font-size:1.04rem;font-weight:700;margin-bottom:5px}
+.meta{display:flex;flex-wrap:wrap;gap:2px 12px;list-style:none;color:var(--ink-2);font-size:0.86rem;line-height:1.4}
+.meta li{display:inline-flex;align-items:center;gap:5px}
+.meta svg{flex:0 0 15px;color:var(--ink-3)}
+.act .desc{display:none;color:var(--ink-2);font-size:0.89rem;margin-top:7px}
+.act-foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid var(--line-soft)}
+.price{font-family:var(--font-display);font-weight:700;font-size:1rem;line-height:1.25}
+.price small{font-family:var(--font-body);font-weight:500;font-size:0.8rem;color:var(--ink-3);margin-left:5px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:0 16px;margin-left:auto;
+  background:var(--brand);color:#fff;text-decoration:none;
+  border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:0.95rem;cursor:pointer;
+  transition:background .13s ease;
+}
+.btn:hover{background:var(--brand-deep);color:#fff}
+.btn:disabled{background:#b9c6cd;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--brand-deep);border:1.5px solid var(--line);margin-left:0}
+.btn.ghost:hover{background:var(--brand-tint);color:var(--brand-deep)}
+.btn.wait{background:var(--full)}
+.btn.wait:hover{background:#5f2c4b}
+.flag{
+  display:inline-flex;align-items:center;gap:5px;font-size:0.74rem;font-weight:600;color:var(--ink-3);
+  border:1px dashed var(--line);border-radius:999px;padding:2px 8px;
+}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:28px 18px;text-align:center;color:var(--ink-2)}
+.empty h3{font-size:1.1rem;margin-bottom:6px}
+
+/* ---------- algemene blokken ---------- */
+.band{background:var(--card);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+h2.title{font-size:clamp(1.32rem,4vw,1.9rem);font-weight:800;margin-bottom:5px}
+p.sub{color:var(--ink-2);max-width:60ch;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr;gap:10px}
+.tile{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;padding:14px 16px}
+.tile.plain{background:transparent;border:none;padding:0}
+.tile h3{font-size:1rem;margin-bottom:4px}
+.tile p{color:var(--ink-2);font-size:0.92rem}
+.tile.step-tile{padding-left:56px;position:relative}
+.stepnum{
+  display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+  background:var(--brand-tint);color:var(--brand-deep);border-radius:50%;
+  font-family:var(--font-display);font-weight:700;font-size:0.95rem;margin-bottom:9px;
+}
+.tile.step-tile .stepnum{position:absolute;left:15px;top:14px;margin:0}
+ul.linklist{list-style:none;margin-top:6px;font-size:0.9rem}
+ul.linklist a{display:flex;align-items:center;min-height:44px;color:var(--brand-deep)}
+ul.checks{list-style:none;display:grid;gap:9px}
+ul.checks li{display:flex;gap:10px;align-items:flex-start;color:var(--ink-2);font-size:0.95rem}
+ul.checks svg{flex:0 0 20px;color:var(--ok);margin-top:3px}
+details.faq{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;margin-bottom:9px}
+details.faq summary{
+  display:flex;align-items:center;gap:10px;min-height:52px;padding:10px 16px;cursor:pointer;
+  font-weight:700;font-size:0.98rem;list-style:none;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";margin-left:auto;font-size:1.35rem;color:var(--brand);line-height:1}
+details.faq[open] summary::after{content:"\2212"}
+details.faq p{padding:0 16px 15px;color:var(--ink-2);font-size:0.93rem}
+.callout{background:var(--brand-tint);border-radius:var(--radius);padding:18px 16px}
+.callout h2{font-size:1.22rem;margin-bottom:6px}
+.callout p{color:var(--brand-deep);max-width:56ch;margin-bottom:14px;font-size:0.94rem}
+
+/* ---------- inschrijfflow ---------- */
+.steps{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin-bottom:20px}
+.steps li{
+  display:flex;align-items:center;gap:8px;font-size:0.85rem;font-weight:600;color:var(--ink-3);
+  background:var(--card);border:1px solid var(--line-soft);border-radius:999px;padding:7px 13px;
+}
+.steps li b{
+  display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;
+  background:var(--paper);color:var(--ink-3);font-size:0.78rem;
+}
+.steps li[aria-current="step"]{background:var(--brand-deep);border-color:var(--brand-deep);color:#fff}
+.steps li[aria-current="step"] b{background:rgba(255,255,255,0.22);color:#fff}
+.steps li.done{color:var(--ok);border-color:var(--ok-tint);background:var(--ok-tint)}
+.steps li.done b{background:var(--ok);color:#fff}
+.step{padding:20px 18px}
+.step h2{font-size:1.3rem;margin-bottom:6px}
+.step > p.sub{margin-bottom:16px}
+.pick{
+  display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;
+  background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;
+  font:inherit;cursor:pointer;min-height:56px;margin-bottom:9px;
+}
+.pick:hover{border-color:var(--brand)}
+.pick input{width:22px;height:22px;margin-top:2px;flex:0 0 22px;accent-color:var(--brand);cursor:pointer}
+.pick .body{flex:1;min-width:0}
+.pick .body b{display:block;font-size:0.98rem}
+.pick .body span{display:block;color:var(--ink-2);font-size:0.86rem}
+.pick .body .row{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:5px}
+.pick.on{border-color:var(--brand);background:#f4fbfb}
+.pick.off{opacity:.62}
+.formgrid{display:grid;grid-template-columns:1fr;gap:12px}
+.err{color:#a3242b;font-size:0.86rem;font-weight:600;margin-top:5px}
+.field.bad select,.field.bad input{border-color:#a3242b;background:#fff6f6}
+.stepnav{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line-soft)}
+.stepnav .btn{margin-left:0}
+.stepnav .spacer{flex:1}
+.summary{list-style:none;display:grid;gap:8px;margin-bottom:14px}
+.summary li{display:flex;flex-wrap:wrap;gap:4px 10px;justify-content:space-between;padding:11px 13px;background:var(--paper);border-radius:10px;font-size:0.93rem}
+.summary li b{font-weight:700}
+.summary li .who{color:var(--ink-3);font-size:0.84rem;width:100%}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:13px;border-top:2px solid var(--line);font-family:var(--font-display);font-weight:800;font-size:1.15rem}
+.done-mark{
+  display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;
+  background:var(--ok-tint);color:var(--ok);margin-bottom:14px;
+}
+
+/* ---------- voet ---------- */
+footer.site{background:var(--brand-deep);color:#cfe4e5;padding:26px 0 24px;margin-top:22px;font-size:0.94rem}
+footer.site h4{color:#fff;font-size:0.96rem;margin-bottom:6px}
+footer.site .cols{display:grid;grid-template-columns:1fr;gap:18px}
+footer.site a{color:#fff}
+footer.site ul{list-style:none;display:grid;font-size:0.92rem}
+footer.site li{display:flex;align-items:center;min-height:44px}
+footer.site ul a{display:flex;align-items:center;min-height:44px}
+footer.site .fine a{display:inline-flex;align-items:center;min-height:44px}
+footer.site .fine{
+  margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.16);
+  font-size:0.83rem;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;
+}
+
+@media (min-width:620px){
+  .wrap{padding:0 24px}
+  section{padding:26px 0}
+  .fields{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .field.wide{grid-column:auto}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .act{padding:15px 16px 15px 19px;display:flex;flex-direction:column}
+  .act .desc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .act-foot{margin-top:auto;padding-top:12px}
+  .grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step{padding:26px 24px}
+  .filters{padding:22px 24px}
+}
+@media (min-width:980px){
+  section{padding:34px 0}
+  .hero{padding:56px 0 50px}
+  .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  footer.site .cols{grid-template-columns:1.4fr 1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Naar de inhoud</a>
+<svg class="sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 12.6l5 5L20 6.6"/></symbol>
+</svg>
+
+<div class="proto">
+  <div class="wrap"><strong>Prototype</strong> &mdash; geen offici&euml;le site van Gemeente Essen — dienst Vrije Tijd. Er wordt niets verstuurd of betaald.</div>
+</div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="/vrijetijd-essen/">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+        <rect width="40" height="40" rx="11" fill="#0f6d78"/>
+        <circle cx="14.5" cy="15" r="5.5" fill="#f2b134"/>
+        <path d="M8 31c0-5.2 4.3-8.4 9.6-8.4S27 25.8 27 31" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M25 9.5c5.2 0 8.5 3.4 8.5 8.2 0 3.4-2 6-5 7.6" stroke="#8fd3d0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span>
+        <span class="word">Vrije Tijd Essen</span>
+        <span class="sub">Gemeente Essen — dienst Vrije Tijd</span>
+      </span>
+    </a>
+    <nav class="main" aria-label="Hoofdnavigatie">
+      <a href="/vrijetijd-essen/" aria-current="page">Aanbod</a>
+      <a href="/vrijetijd-essen/praktisch/">Praktisch</a>
+      <a class="cta" href="/vrijetijd-essen/inschrijven/">Inschrijven</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero">
+  <svg class="deco" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <circle cx="1050" cy="70" r="180" fill="#0f6d78"/>
+    <circle cx="1160" cy="330" r="120" fill="#12838d"/>
+    <path d="M760 400c0-140 90-230 230-230" stroke="#f2b134" stroke-width="16" fill="none" stroke-linecap="round" opacity=".8"/>
+    <circle cx="905" cy="255" r="26" fill="#f2b134"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow">Aanbod 2026 &middot; Gemeente Essen — dienst Vrije Tijd</span>
+    <h1>Vakantieopvang en vrije tijd in Essen</h1>
+    <p class="lead">Alle info staat open: leeftijd, datum, locatie, prijs en vrije plaatsen. Aanmelden hoeft pas op het moment dat je echt inschrijft.</p>
+    <div class="stats">
+      <span class="stat"><b>17</b> activiteiten</span>
+      <span class="stat"><b>6</b> locaties</span>
+      <span class="stat"><b>214</b> plaatsen vrij</span>
+    </div>
+  </div>
+</section>
+
+<section id="aanbod">
+  <div class="wrap">
+    <div class="notice">
+  <svg width="20" height="20" aria-hidden="true"><use href="#i-info"/></svg>
+  <div><strong>Voorbeeldbedragen en voorbeeldcijfers.</strong> Tarieven en vrije plaatsen zijn hier voorbeelden: op het huidige platform zitten ze achter de login, dus ze moeten nog van de gemeente komen. Alleen SWAP Aquapark staat ook op de echte site als volzet.</div>
+</div>
+    <div class="panel filters" style="margin-top:18px">
+      <h2>Vind een activiteit</h2>
+      <p class="hint">De lijst past zich meteen aan. Geen login nodig.</p>
+      <div class="chips" role="group" aria-label="Soort activiteit">
+        <button class="chip" type="button" data-kind="alles" aria-pressed="true">Alles <span class="n">17</span></button>
+        <button class="chip" type="button" data-kind="speelplein" aria-pressed="false">Speelpleinen <span class="n">7</span></button>
+        <button class="chip" type="button" data-kind="sportweek" aria-pressed="false">Sportweken <span class="n">2</span></button>
+        <button class="chip" type="button" data-kind="boa" aria-pressed="false">BOA naschools <span class="n">6</span></button>
+        <button class="chip" type="button" data-kind="swap" aria-pressed="false">SWAP 12-16j <span class="n">1</span></button>
+        <button class="chip" type="button" data-kind="uitstap" aria-pressed="false">Uitstappen <span class="n">1</span></button>
+      </div>
+      <div class="fields">
+        <div class="field wide">
+          <label for="f-jaar">Leeftijd van je kind</label>
+          <select id="f-jaar">
+            <option value="alles">Alle leeftijden</option>
+            <option value="2022">4 jaar · geboren 2022</option>
+            <option value="2021">5 jaar · geboren 2021</option>
+            <option value="2020">6 jaar · geboren 2020</option>
+            <option value="2019">7 jaar · geboren 2019</option>
+            <option value="2018">8 jaar · geboren 2018</option>
+            <option value="2017">9 jaar · geboren 2017</option>
+            <option value="2016">10 jaar · geboren 2016</option>
+            <option value="2015">11 jaar · geboren 2015</option>
+            <option value="2014">12 jaar · geboren 2014</option>
+            <option value="2013">13 jaar · geboren 2013</option>
+            <option value="2012">14 jaar · geboren 2012</option>
+            <option value="2011">15 jaar · geboren 2011</option>
+            <option value="2010">16 jaar · geboren 2010</option>
+            <option value="2009">17 jaar · geboren 2009</option>
+            <option value="2008">18 jaar · geboren 2008</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-periode">Wanneer</label>
+          <select id="f-periode">
+            <option value="alles">Hele jaar</option>
+            <option value="zomer">Zomervakantie</option>
+            <option value="naschools">Naschools</option>
+            <option value="najaar">Najaar &amp; vrije dagen</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-loc">Waar</label>
+          <select id="f-loc">
+            <option value="alles">Alle locaties</option>
+            <option value="wonderwereld">GO! WonderWereld</option>
+            <option value="wigo">Wigo</option>
+            <option value="hemelrijk">Sportpark Hemelrijk</option>
+            <option value="mariaberg-centrum">Mariaberg Centrum</option>
+            <option value="mariaberg-hoek">Mariaberg Hoek</option>
+            <option value="heuvelhal">Vertrek parking Heuvelhal</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-foot">
+        <label class="toggle" for="f-vrij"><input type="checkbox" id="f-vrij"> Alleen met vrije plaatsen</label>
+        <button class="linkbtn" type="button" id="f-reset">Wissen</button>
+      </div>
+    </div>
+
+    <div class="resultbar">
+      <span class="count" id="count" role="status" aria-live="polite">17 activiteiten</span>
+      <span class="of" id="of">van de 17 in het aanbod</span>
+    </div>
+
+    <ul class="cards" id="cards">
+      <li class="act" id="speelplein-blauw" style="--c:#2f6fb5"
+          data-kind="speelplein" data-period="zomer"
+          data-loc="wonderwereld" data-years="2019,2020"
+          data-spots="14">
+        <div class="act-top">
+          <span class="tag">Speelpleinen</span>
+          <span class="status st-vrij">14 plaatsen vrij</span>
+        </div>
+        <h3>Speelpleinen BLAUW</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>6/07 – 20/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>GO! WonderWereld</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>geboren 2019 of 2020</li>
+        </ul>
+        <p class="desc">Ontdekken door te spelen: de eerste schooljaren, met veel ruimte om zelf dingen uit te proberen.</p>
+        <div class="act-foot">
+          <span class="price">€ 9,00<small>per dag · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=speelplein-blauw">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="speelplein-geel" style="--c:#d8a300"
+          data-kind="speelplein" data-period="zomer"
+          data-loc="wonderwereld" data-years="2014,2015,2016"
+          data-spots="8">
+        <div class="act-top">
+          <span class="tag">Speelpleinen</span>
+          <span class="status st-vrij">8 plaatsen vrij</span>
+        </div>
+        <h3>Speelpleinen GEEL</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>6/07 – 20/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>GO! WonderWereld</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>geboren 2014, 2015 of 2016</li>
+        </ul>
+        <p class="desc">De groep waar de spelen een tandje wilder mogen: veel beweging, veel lawaai, veel plezier.</p>
+        <div class="act-foot">
+          <span class="price">€ 9,00<small>per dag · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=speelplein-geel">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="speelplein-groen" style="--c:#2e8b57"
+          data-kind="speelplein" data-period="zomer"
+          data-loc="wonderwereld" data-years="2017,2018"
+          data-spots="31">
+        <div class="act-top">
+          <span class="tag">Speelpleinen</span>
+          <span class="status st-vrij">31 plaatsen vrij</span>
+        </div>
+        <h3>Speelpleinen GROEN</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>6/07 – 20/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>GO! WonderWereld</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>geboren 2017 of 2018</li>
+        </ul>
+        <p class="desc">Spelen met een verhaal errond: de leiding verwerkt fantasie en verkleedspelen in het programma.</p>
+        <div class="act-foot">
+          <span class="price">€ 9,00<small>per dag · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=speelplein-groen">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="speelplein-oranje" style="--c:#e2622a"
+          data-kind="speelplein" data-period="zomer"
+          data-loc="wonderwereld" data-years="2011,2012,2013"
+          data-spots="22">
+        <div class="act-top">
+          <span class="tag">Speelpleinen</span>
+          <span class="status st-vrij">22 plaatsen vrij</span>
+        </div>
+        <h3>Speelpleinen ORANJE</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>6/07 – 20/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>GO! WonderWereld</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>geboren 2011, 2012 of 2013</li>
+        </ul>
+        <p class="desc">De oudste groep. Tieners die op het speelplein blijven ravotten, met een eigen leidingsploeg en spelen op hun maat.</p>
+        <div class="act-foot">
+          <span class="price">€ 9,00<small>per dag · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=speelplein-oranje">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="speelplein-paars" style="--c:#7a4ca0"
+          data-kind="speelplein" data-period="zomer"
+          data-loc="wonderwereld" data-years="2021,2022"
+          data-spots="5">
+        <div class="act-top">
+          <span class="tag">Speelpleinen</span>
+          <span class="status st-bijna">Nog 5 plaatsen</span>
+        </div>
+        <h3>Speelpleinen PAARS</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>6/07 – 20/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>GO! WonderWereld</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>geboren 2021 of 2022</li>
+        </ul>
+        <p class="desc">De allerkleinsten, 4- en 5-jarigen, in een rustiger hoek van het plein met eigen begeleiding.</p>
+        <div class="act-foot">
+          <span class="price">€ 9,00<small>per dag · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=speelplein-paars">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="uitstap-planckendael" style="--c:#2e8b57"
+          data-kind="speelplein" data-period="zomer"
+          data-loc="wonderwereld" data-years="2011,2012,2013,2014,2015,2016"
+          data-spots="12">
+        <div class="act-top">
+          <span class="tag">Speelpleinen</span>
+          <span class="status st-vrij">12 plaatsen vrij</span>
+        </div>
+        <h3>Uitstap speelpleinen: Planckendael</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>14/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>GO! WonderWereld</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>geboren 2011 t.e.m. 2016</li>
+        </ul>
+        <p class="desc">Daguitstap naar het dierenpark met de groepen geel en oranje. Vertrek en terugkomst aan het speelplein.</p>
+        <div class="act-foot">
+          <span class="price">€ 25,00<small>per kind · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=uitstap-planckendael">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="kriebelsportweek-augustus" style="--c:#0f7d84"
+          data-kind="sportweek" data-period="zomer"
+          data-loc="wigo" data-years="2020,2021,2022"
+          data-spots="4">
+        <div class="act-top">
+          <span class="tag">Sportweken</span>
+          <span class="status st-bijna">Nog 4 plaatsen</span>
+        </div>
+        <h3>Kriebelsportweek augustus</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>17 – 21/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Wigo</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>4 tot 6 jaar</li>
+        </ul>
+        <p class="desc">Een week bewegen voor kleuters: klimmen, rollen, balspelen en kleine parcours, in het tempo van een vierjarige.</p>
+        <div class="act-foot">
+          <span class="price">€ 65,00<small>per week · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=kriebelsportweek-augustus">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="omnisportweek-augustus" style="--c:#0f7d84"
+          data-kind="sportweek" data-period="zomer"
+          data-loc="hemelrijk" data-years="2014,2015,2016,2017,2018,2019"
+          data-spots="19">
+        <div class="act-top">
+          <span class="tag">Sportweken</span>
+          <span class="status st-vrij">19 plaatsen vrij</span>
+        </div>
+        <h3>Omnisportweek augustus</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>17 – 21/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Sportpark Hemelrijk</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>7 tot 12 jaar</li>
+        </ul>
+        <p class="desc">Elke dag een andere sport uitproberen op het sportpark, van teamspelen tot atletiek.</p>
+        <div class="act-foot">
+          <span class="price">€ 65,00<small>per week · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=omnisportweek-augustus">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="swap-aquapark-lilse-bergen" style="--c:#b8336a"
+          data-kind="swap" data-period="zomer"
+          data-loc="heuvelhal" data-years="2010,2011,2012,2013,2014"
+          data-spots="0">
+        <div class="act-top">
+          <span class="tag">SWAP 12-16j</span>
+          <span class="status st-vol">Volzet · wachtlijst</span>
+        </div>
+        <h3>SWAP Aquapark Lilse Bergen</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>20/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Vertrek parking Heuvelhal</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>12 tot 16 jaar</li>
+        </ul>
+        <p class="desc">Een dag klauteren en vallen in het waterpretpark, met de bus heen en terug. Begeleiding door de SWAP-ploeg.</p>
+        <div class="act-foot">
+          <span class="price">€ 20,00<small>per jongere · voorbeeld</small></span>
+          
+          <a class="btn wait" href="/vrijetijd-essen/inschrijven/?a=swap-aquapark-lilse-bergen">Op de wachtlijst</a>
+        </div>
+      </li>
+      <li class="act" id="uitstap-beekse-bergen" style="--c:#2f6fb5"
+          data-kind="speelplein" data-period="zomer"
+          data-loc="wonderwereld" data-years="2011,2012,2013,2014,2015,2016,2017,2018,2019,2020"
+          data-spots="36">
+        <div class="act-top">
+          <span class="tag">Speelpleinen</span>
+          <span class="status st-vrij">36 plaatsen vrij</span>
+        </div>
+        <h3>Uitstap speelpleinen: Speelland Beekse Bergen</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>21/08</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>GO! WonderWereld</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>speelpleinleeftijd</li>
+        </ul>
+        <p class="desc">Laatste uitstap van de zomer: waterglijbanen, speeltuinen en avontuur, samen met de leiding van het plein.</p>
+        <div class="act-foot">
+          <span class="price">€ 25,00<small>per kind · voorbeeld</small></span>
+          <span class="flag" title="Leeftijdsgroep nog te bevestigen door de gemeente">leeftijd nog te bevestigen</span>
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=uitstap-beekse-bergen">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="boa-unicorn-glittertattoo" style="--c:#8a4fbe"
+          data-kind="boa" data-period="naschools"
+          data-loc="wigo" data-years="2014,2015,2016,2017,2018,2019,2020"
+          data-spots="6">
+        <div class="act-top">
+          <span class="tag">BOA naschools</span>
+          <span class="status st-vrij">6 plaatsen vrij</span>
+        </div>
+        <h3>BOA: Van unicorn tot glittertattoo</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>14/09 – 7/12 · ma</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Wigo</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>lagere school</li>
+        </ul>
+        <p class="desc">Creatieve reeks na school: knutselen rond glitter, kleur en fantasiefiguren.</p>
+        <div class="act-foot">
+          <span class="price">€ 45,00<small>per reeks · voorbeeld</small></span>
+          <span class="flag" title="Leeftijdsgroep nog te bevestigen door de gemeente">leeftijd nog te bevestigen</span>
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=boa-unicorn-glittertattoo">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="boa-knutselen-en-frutselen" style="--c:#8a4fbe"
+          data-kind="boa" data-period="naschools"
+          data-loc="mariaberg-hoek" data-years="2014,2015,2016,2017,2018,2019,2020"
+          data-spots="9">
+        <div class="act-top">
+          <span class="tag">BOA naschools</span>
+          <span class="status st-vrij">9 plaatsen vrij</span>
+        </div>
+        <h3>BOA: Knutselen en frutselen</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>17/09 – 10/12 · do</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Mariaberg Hoek</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>lagere school</li>
+        </ul>
+        <p class="desc">Werken met naald en draad, papier en kralen. Elke week iets anders in elkaar steken.</p>
+        <div class="act-foot">
+          <span class="price">€ 45,00<small>per reeks · voorbeeld</small></span>
+          <span class="flag" title="Leeftijdsgroep nog te bevestigen door de gemeente">leeftijd nog te bevestigen</span>
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=boa-knutselen-en-frutselen">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="boa-kindergrime-glittertattoos" style="--c:#8a4fbe"
+          data-kind="boa" data-period="naschools"
+          data-loc="mariaberg-centrum" data-years="2014,2015,2016,2017,2018,2019,2020"
+          data-spots="2">
+        <div class="act-top">
+          <span class="tag">BOA naschools</span>
+          <span class="status st-bijna">Nog 2 plaatsen</span>
+        </div>
+        <h3>BOA: Kindergrime en glittertattoos</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>28/09 – 7/12 · ma</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Mariaberg Centrum</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>lagere school</li>
+        </ul>
+        <p class="desc">Zelf leren schminken: van een simpel vlindertje tot een volledig geschminkt gezicht.</p>
+        <div class="act-foot">
+          <span class="price">€ 45,00<small>per reeks · voorbeeld</small></span>
+          <span class="flag" title="Leeftijdsgroep nog te bevestigen door de gemeente">leeftijd nog te bevestigen</span>
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=boa-kindergrime-glittertattoos">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="boa-sport-en-beweging" style="--c:#0f7d84"
+          data-kind="boa" data-period="naschools"
+          data-loc="mariaberg-centrum" data-years="2014,2015,2016,2017,2018,2019,2020"
+          data-spots="11">
+        <div class="act-top">
+          <span class="tag">BOA naschools</span>
+          <span class="status st-vrij">11 plaatsen vrij</span>
+        </div>
+        <h3>BOA: Sport en beweging</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>28/09 – 7/12 · ma</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Mariaberg Centrum</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>lagere school</li>
+        </ul>
+        <p class="desc">Speels sporten na school: spelvormen waarbij niemand op de bank blijft zitten.</p>
+        <div class="act-foot">
+          <span class="price">€ 45,00<small>per reeks · voorbeeld</small></span>
+          <span class="flag" title="Leeftijdsgroep nog te bevestigen door de gemeente">leeftijd nog te bevestigen</span>
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=boa-sport-en-beweging">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="boa-hutseldeknutsel" style="--c:#8a4fbe"
+          data-kind="boa" data-period="naschools"
+          data-loc="wigo" data-years="2014,2015,2016,2017,2018,2019,2020"
+          data-spots="7">
+        <div class="act-top">
+          <span class="tag">BOA naschools</span>
+          <span class="status st-vrij">7 plaatsen vrij</span>
+        </div>
+        <h3>BOA: Hutseldeknutsel</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>29/09 – 8/12 · di</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Wigo</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>lagere school</li>
+        </ul>
+        <p class="desc">Maken, plakken en uitproberen met alles wat voorhanden is. Het resultaat gaat mee naar huis.</p>
+        <div class="act-foot">
+          <span class="price">€ 45,00<small>per reeks · voorbeeld</small></span>
+          <span class="flag" title="Leeftijdsgroep nog te bevestigen door de gemeente">leeftijd nog te bevestigen</span>
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=boa-hutseldeknutsel">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="boa-dance-en-fun" style="--c:#b8336a"
+          data-kind="boa" data-period="naschools"
+          data-loc="mariaberg-centrum" data-years="2014,2015,2016,2017,2018,2019,2020"
+          data-spots="3">
+        <div class="act-top">
+          <span class="tag">BOA naschools</span>
+          <span class="status st-bijna">Nog 3 plaatsen</span>
+        </div>
+        <h3>BOA: Dance en Fun</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>1/10 – 10/12 · do</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Mariaberg Centrum</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>lagere school</li>
+        </ul>
+        <p class="desc">Elke week een uurtje dansen op muziek die de kinderen zelf kiezen.</p>
+        <div class="act-foot">
+          <span class="price">€ 45,00<small>per reeks · voorbeeld</small></span>
+          <span class="flag" title="Leeftijdsgroep nog te bevestigen door de gemeente">leeftijd nog te bevestigen</span>
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=boa-dance-en-fun">Inschrijven</a>
+        </div>
+      </li>
+      <li class="act" id="you-jump-trampolinepark" style="--c:#b8336a"
+          data-kind="uitstap" data-period="najaar"
+          data-loc="heuvelhal" data-years="2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020"
+          data-spots="25">
+        <div class="act-top">
+          <span class="tag">Uitstappen</span>
+          <span class="status st-vrij">25 plaatsen vrij</span>
+        </div>
+        <h3>You Jump Trampolinepark</h3>
+        <ul class="meta">
+          <li><svg width="15" height="15"><use href="#i-cal"/></svg>4/11</li>
+          <li><svg width="15" height="15"><use href="#i-pin"/></svg>Vertrek parking Heuvelhal</li>
+          <li><svg width="15" height="15"><use href="#i-user"/></svg>6 tot 18 jaar</li>
+        </ul>
+        <p class="desc">Namiddag springen in het trampolinepark, met de bus vanuit Essen en begeleiding erbij.</p>
+        <div class="act-foot">
+          <span class="price">€ 18,00<small>per kind · voorbeeld</small></span>
+          
+          <a class="btn" href="/vrijetijd-essen/inschrijven/?a=you-jump-trampolinepark">Inschrijven</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="empty" id="empty" hidden>
+      <h3>Niets gevonden met deze filters</h3>
+      <p>Probeer een andere leeftijd of periode, of wis de filters.</p>
+      <p style="margin-top:12px"><button class="btn ghost" type="button" id="f-reset2">Wis alle filters</button></p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="callout">
+      <h2>Inschrijven in vier stappen</h2>
+      <p>Kies je kind, vink de activiteiten aan, kijk alles na op &eacute;&eacute;n scherm en bevestig.
+         Een account maak je pas bij die laatste stap &mdash; niet om te kijken wat er te doen is.</p>
+      <a class="btn" style="margin-left:0" href="/vrijetijd-essen/inschrijven/">Start een inschrijving</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="title">Wat er anders is</h2>
+    <p class="sub">Zelfde aanbod als essen.ticketgang.eu, omgekeerde volgorde: eerst informatie, dan pas aanmelden.</p>
+    <ul class="checks">
+    <li><svg width="20" height="20" aria-hidden="true"><use href="#i-check"/></svg><span>Prijs, leeftijd, locatie, datum en vrije plaatsen staan meteen op de kaart</span></li>
+        <li><svg width="20" height="20" aria-hidden="true"><use href="#i-check"/></svg><span>Filteren op leeftijd, periode, locatie en beschikbaarheid — altijd zichtbaar</span></li>
+        <li><svg width="20" height="20" aria-hidden="true"><use href="#i-check"/></svg><span>Elke activiteit heeft een eigen adres in de URL, dus je kan ze doorsturen</span></li>
+        <li><svg width="20" height="20" aria-hidden="true"><use href="#i-check"/></svg><span>Inschrijven in vier stappen, zonder eerst een account aan te maken</span></li>
+        <li><svg width="20" height="20" aria-hidden="true"><use href="#i-check"/></svg><span>Alle knoppen minstens 44 pixels, geen zijwaarts scrollen</span></li>
+    </ul>
+    <p style="margin-top:16px"><a class="btn ghost" href="/vrijetijd-essen/praktisch/">Praktische info en veelgestelde vragen</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>Vrije Tijd Essen</h4>
+        <p>Alle info staat open: leeftijd, datum, locatie, prijs en vrije plaatsen. Aanmelden hoeft pas op het moment dat je echt inschrijft.</p>
+        <p style="margin-top:12px;font-size:0.88rem;opacity:.85">Contactgegevens van de dienst Vrije Tijd worden nog toegevoegd — dit prototype vult ze bewust niet in.</p>
+      </div>
+      <div>
+        <h4>Snel naar</h4>
+        <ul>
+          <li><a href="/vrijetijd-essen/#aanbod">Volledig aanbod</a></li>
+          <li><a href="/vrijetijd-essen/praktisch/">Praktisch &amp; veelgestelde vragen</a></li>
+          <li><a href="/vrijetijd-essen/inschrijven/">Inschrijven</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Huidig platform</h4>
+        <ul>
+          <li><a href="https://essen.ticketgang.eu" target="_blank" rel="noopener">essen.ticketgang.eu</a></li>
+          <li>Inschrijvingen lopen vandaag daar.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine">
+      <span>Prototype gebouwd voor Gemeente Essen — dienst Vrije Tijd</span>
+      <span><a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a></span>
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#cards .act'));
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var jaar = document.getElementById('f-jaar');
+  var periode = document.getElementById('f-periode');
+  var loc = document.getElementById('f-loc');
+  var vrij = document.getElementById('f-vrij');
+  var count = document.getElementById('count');
+  var of = document.getElementById('of');
+  var empty = document.getElementById('empty');
+  var totaal = cards.length;
+  var state = { k: 'alles', j: 'alles', p: 'alles', l: 'alles', v: false };
+
+  function fromUrl() {
+    var q = new URLSearchParams(location.search);
+    if (q.get('soort')) state.k = q.get('soort');
+    if (q.get('jaar')) state.j = q.get('jaar');
+    if (q.get('periode')) state.p = q.get('periode');
+    if (q.get('locatie')) state.l = q.get('locatie');
+    if (q.get('vrij') === '1') state.v = true;
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.kind === state.k)); });
+    if (!chips.some(function (c) { return c.dataset.kind === state.k; })) {
+      state.k = 'alles';
+      chips[0].setAttribute('aria-pressed', 'true');
+    }
+    jaar.value = has(jaar, state.j) ? state.j : 'alles';
+    periode.value = has(periode, state.p) ? state.p : 'alles';
+    loc.value = has(loc, state.l) ? state.l : 'alles';
+    vrij.checked = state.v;
+  }
+
+  function has(sel, val) {
+    return Array.prototype.some.call(sel.options, function (o) { return o.value === val; });
+  }
+
+  function toUrl() {
+    var q = new URLSearchParams();
+    if (state.k !== 'alles') q.set('soort', state.k);
+    if (state.j !== 'alles') q.set('jaar', state.j);
+    if (state.p !== 'alles') q.set('periode', state.p);
+    if (state.l !== 'alles') q.set('locatie', state.l);
+    if (state.v) q.set('vrij', '1');
+    var s = q.toString();
+    history.replaceState(null, '', s ? location.pathname + '?' + s : location.pathname);
+  }
+
+  function apply() {
+    var zichtbaar = 0;
+    cards.forEach(function (card) {
+      var ok = true;
+      if (state.k !== 'alles' && card.dataset.kind !== state.k) ok = false;
+      if (ok && state.p !== 'alles' && card.dataset.period !== state.p) ok = false;
+      if (ok && state.l !== 'alles' && card.dataset.loc !== state.l) ok = false;
+      if (ok && state.j !== 'alles' && card.dataset.years.split(',').indexOf(state.j) === -1) ok = false;
+      if (ok && state.v && parseInt(card.dataset.spots, 10) <= 0) ok = false;
+      card.hidden = !ok;
+      if (ok) zichtbaar++;
+    });
+    count.textContent = zichtbaar === 1 ? '1 activiteit' : zichtbaar + ' activiteiten';
+    of.textContent = zichtbaar === totaal ? 'van de ' + totaal + ' in het aanbod' : 'van de ' + totaal + ' \u2014 filters actief';
+    empty.hidden = zichtbaar > 0;
+    toUrl();
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      state.k = chip.dataset.kind;
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+      apply();
+    });
+  });
+  jaar.addEventListener('change', function () { state.j = jaar.value; apply(); });
+  periode.addEventListener('change', function () { state.p = periode.value; apply(); });
+  loc.addEventListener('change', function () { state.l = loc.value; apply(); });
+  vrij.addEventListener('change', function () { state.v = vrij.checked; apply(); });
+
+  function reset() {
+    state = { k: 'alles', j: 'alles', p: 'alles', l: 'alles', v: false };
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.kind === 'alles')); });
+    jaar.value = 'alles'; periode.value = 'alles'; loc.value = 'alles'; vrij.checked = false;
+    apply();
+  }
+  document.getElementById('f-reset').addEventListener('click', reset);
+  document.getElementById('f-reset2').addEventListener('click', function () {
+    reset();
+    document.getElementById('aanbod').scrollIntoView();
+  });
+
+  fromUrl();
+  apply();
+})();
+</script>
+</body>
+</html>

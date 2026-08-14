@@ -1,0 +1,486 @@
+{
+  "slug": "vrijetijd-essen",
+  "sector": "vrijetijd",
+  "business_name": "Vrije Tijd Essen",
+  "category": "Vakantieopvang & vrijetijdsaanbod gemeente",
+  "tagline": "Speelpleinen, sportweken, uitstappen en naschoolse activiteiten in Essen",
+  "headline": "Vakantieopvang en vrije tijd in Essen",
+  "current_site": "https://essen.ticketgang.eu",
+  "org": "Gemeente Essen — dienst Vrije Tijd",
+  "season_label": "Aanbod 2026",
+  "current_year": 2026,
+  "about": "Elk kind in Essen kan tijdens de vakantie naar het speelplein, mee op uitstap, een sportweek volgen of na school aansluiten bij een BOA-activiteit. Dit prototype toont hetzelfde aanbod als het huidige inschrijfplatform, maar dan zo dat een ouder op de gsm meteen ziet wat een activiteit inhoudt, voor welke leeftijd ze bedoeld is, wat ze kost en of er nog plaats is — zonder eerst te moeten inloggen.",
+  "intro_short": "Alle info staat open: leeftijd, datum, locatie, prijs en vrije plaatsen. Aanmelden hoeft pas op het moment dat je echt inschrijft.",
+  "prices_verified": false,
+  "spots_verified": false,
+  "data_notice": "Tarieven en vrije plaatsen zijn hier voorbeelden: op het huidige platform zitten ze achter de login, dus ze moeten nog van de gemeente komen. Alleen SWAP Aquapark staat ook op de echte site als volzet.",
+  "problems": [
+    {
+      "title": "Eerst inloggen, dan pas info",
+      "body": "Op “koop” klikken opent meteen een aanmeldformulier. Prijs en beschikbaarheid zie je nergens zonder account."
+    },
+    {
+      "title": "Zeven schermen scrollen",
+      "body": "De mobiele startpagina is zo’n 7.590 pixels lang om 17 activiteiten te tonen, met dezelfde grote foto vijf keer herhaald."
+    },
+    {
+      "title": "Te kleine knoppen",
+      "body": "45 van de 94 aanraakzones zijn kleiner dan 44 pixels — lastig te raken met een duim."
+    },
+    {
+      "title": "Geen deelbare links",
+      "body": "De categorieën zijn geen echte links: je kan een activiteit niet doorsturen en de terugknop van de browser werkt niet."
+    }
+  ],
+  "improvements": [
+    "Prijs, leeftijd, locatie, datum en vrije plaatsen staan meteen op de kaart",
+    "Filteren op leeftijd, periode, locatie en beschikbaarheid — altijd zichtbaar",
+    "Elke activiteit heeft een eigen adres in de URL, dus je kan ze doorsturen",
+    "Inschrijven in vier stappen, zonder eerst een account aan te maken",
+    "Alle knoppen minstens 44 pixels, geen zijwaarts scrollen"
+  ],
+  "locations": [
+    {
+      "key": "wonderwereld",
+      "name": "GO! WonderWereld",
+      "note": "Speelpleinwerking en vertrek van de speelpleinuitstappen"
+    },
+    {
+      "key": "wigo",
+      "name": "Wigo",
+      "note": "Kriebelsportweek en BOA-activiteiten"
+    },
+    {
+      "key": "hemelrijk",
+      "name": "Sportpark Hemelrijk",
+      "note": "Omnisportweek"
+    },
+    {
+      "key": "mariaberg-centrum",
+      "name": "Mariaberg Centrum",
+      "note": "BOA-activiteiten"
+    },
+    {
+      "key": "mariaberg-hoek",
+      "name": "Mariaberg Hoek",
+      "note": "BOA-activiteiten"
+    },
+    {
+      "key": "heuvelhal",
+      "name": "Vertrek parking Heuvelhal",
+      "note": "Opstapplaats voor de bus bij uitstappen"
+    }
+  ],
+  "periods": [
+    {
+      "key": "zomer",
+      "label": "Zomervakantie"
+    },
+    {
+      "key": "naschools",
+      "label": "Naschools"
+    },
+    {
+      "key": "najaar",
+      "label": "Najaar & vrije dagen"
+    }
+  ],
+  "kinds": [
+    {
+      "key": "speelplein",
+      "label": "Speelpleinen"
+    },
+    {
+      "key": "sportweek",
+      "label": "Sportweken"
+    },
+    {
+      "key": "boa",
+      "label": "BOA naschools"
+    },
+    {
+      "key": "swap",
+      "label": "SWAP 12-16j"
+    },
+    {
+      "key": "uitstap",
+      "label": "Uitstappen"
+    }
+  ],
+  "activities": [
+    {
+      "id": "speelplein-oranje",
+      "name": "Speelpleinen ORANJE",
+      "kind": "speelplein",
+      "accent": "#e2622a",
+      "group": "Oranje",
+      "years_label": "geboren 2011, 2012 of 2013",
+      "years": [2011, 2012, 2013],
+      "years_verified": true,
+      "date_label": "6 juli t.e.m. 20 augustus 2026",
+      "date_short": "6/07 – 20/08",
+      "sort": "2026-07-06",
+      "period": "zomer",
+      "location": "wonderwereld",
+      "desc": "De oudste groep. Tieners die op het speelplein blijven ravotten, met een eigen leidingsploeg en spelen op hun maat.",
+      "price": 9.0,
+      "price_unit": "per dag",
+      "capacity": 60,
+      "spots_left": 22
+    },
+    {
+      "id": "speelplein-geel",
+      "name": "Speelpleinen GEEL",
+      "kind": "speelplein",
+      "accent": "#d8a300",
+      "group": "Geel",
+      "years_label": "geboren 2014, 2015 of 2016",
+      "years": [2014, 2015, 2016],
+      "years_verified": true,
+      "date_label": "6 juli t.e.m. 20 augustus 2026",
+      "date_short": "6/07 – 20/08",
+      "sort": "2026-07-06",
+      "period": "zomer",
+      "location": "wonderwereld",
+      "desc": "De groep waar de spelen een tandje wilder mogen: veel beweging, veel lawaai, veel plezier.",
+      "price": 9.0,
+      "price_unit": "per dag",
+      "capacity": 60,
+      "spots_left": 8
+    },
+    {
+      "id": "speelplein-groen",
+      "name": "Speelpleinen GROEN",
+      "kind": "speelplein",
+      "accent": "#2e8b57",
+      "group": "Groen",
+      "years_label": "geboren 2017 of 2018",
+      "years": [2017, 2018],
+      "years_verified": true,
+      "date_label": "6 juli t.e.m. 20 augustus 2026",
+      "date_short": "6/07 – 20/08",
+      "sort": "2026-07-06",
+      "period": "zomer",
+      "location": "wonderwereld",
+      "desc": "Spelen met een verhaal errond: de leiding verwerkt fantasie en verkleedspelen in het programma.",
+      "price": 9.0,
+      "price_unit": "per dag",
+      "capacity": 60,
+      "spots_left": 31
+    },
+    {
+      "id": "speelplein-blauw",
+      "name": "Speelpleinen BLAUW",
+      "kind": "speelplein",
+      "accent": "#2f6fb5",
+      "group": "Blauw",
+      "years_label": "geboren 2019 of 2020",
+      "years": [2019, 2020],
+      "years_verified": true,
+      "date_label": "6 juli t.e.m. 20 augustus 2026",
+      "date_short": "6/07 – 20/08",
+      "sort": "2026-07-06",
+      "period": "zomer",
+      "location": "wonderwereld",
+      "desc": "Ontdekken door te spelen: de eerste schooljaren, met veel ruimte om zelf dingen uit te proberen.",
+      "price": 9.0,
+      "price_unit": "per dag",
+      "capacity": 60,
+      "spots_left": 14
+    },
+    {
+      "id": "speelplein-paars",
+      "name": "Speelpleinen PAARS",
+      "kind": "speelplein",
+      "accent": "#7a4ca0",
+      "group": "Paars",
+      "years_label": "geboren 2021 of 2022",
+      "years": [2021, 2022],
+      "years_verified": true,
+      "date_label": "6 juli t.e.m. 20 augustus 2026",
+      "date_short": "6/07 – 20/08",
+      "sort": "2026-07-06",
+      "period": "zomer",
+      "location": "wonderwereld",
+      "desc": "De allerkleinsten, 4- en 5-jarigen, in een rustiger hoek van het plein met eigen begeleiding.",
+      "price": 9.0,
+      "price_unit": "per dag",
+      "capacity": 48,
+      "spots_left": 5
+    },
+    {
+      "id": "uitstap-planckendael",
+      "name": "Uitstap speelpleinen: Planckendael",
+      "kind": "speelplein",
+      "accent": "#2e8b57",
+      "years_label": "geboren 2011 t.e.m. 2016",
+      "years": [2011, 2012, 2013, 2014, 2015, 2016],
+      "years_verified": true,
+      "date_label": "vrijdag 14 augustus 2026",
+      "date_short": "14/08",
+      "sort": "2026-08-14",
+      "period": "zomer",
+      "location": "wonderwereld",
+      "desc": "Daguitstap naar het dierenpark met de groepen geel en oranje. Vertrek en terugkomst aan het speelplein.",
+      "price": 25.0,
+      "price_unit": "per kind",
+      "capacity": 90,
+      "spots_left": 12
+    },
+    {
+      "id": "kriebelsportweek-augustus",
+      "name": "Kriebelsportweek augustus",
+      "kind": "sportweek",
+      "accent": "#0f7d84",
+      "years_label": "4 tot 6 jaar",
+      "years": [2020, 2021, 2022],
+      "years_verified": true,
+      "date_label": "maandag 17 t.e.m. vrijdag 21 augustus 2026",
+      "date_short": "17 – 21/08",
+      "sort": "2026-08-17",
+      "period": "zomer",
+      "location": "wigo",
+      "desc": "Een week bewegen voor kleuters: klimmen, rollen, balspelen en kleine parcours, in het tempo van een vierjarige.",
+      "price": 65.0,
+      "price_unit": "per week",
+      "capacity": 30,
+      "spots_left": 4
+    },
+    {
+      "id": "omnisportweek-augustus",
+      "name": "Omnisportweek augustus",
+      "kind": "sportweek",
+      "accent": "#0f7d84",
+      "years_label": "7 tot 12 jaar",
+      "years": [2014, 2015, 2016, 2017, 2018, 2019],
+      "years_verified": true,
+      "date_label": "maandag 17 t.e.m. vrijdag 21 augustus 2026",
+      "date_short": "17 – 21/08",
+      "sort": "2026-08-17",
+      "period": "zomer",
+      "location": "hemelrijk",
+      "desc": "Elke dag een andere sport uitproberen op het sportpark, van teamspelen tot atletiek.",
+      "price": 65.0,
+      "price_unit": "per week",
+      "capacity": 60,
+      "spots_left": 19
+    },
+    {
+      "id": "swap-aquapark-lilse-bergen",
+      "name": "SWAP Aquapark Lilse Bergen",
+      "kind": "swap",
+      "accent": "#b8336a",
+      "years_label": "12 tot 16 jaar",
+      "years": [2010, 2011, 2012, 2013, 2014],
+      "years_verified": true,
+      "date_label": "donderdag 20 augustus 2026",
+      "date_short": "20/08",
+      "sort": "2026-08-20",
+      "period": "zomer",
+      "location": "heuvelhal",
+      "desc": "Een dag klauteren en vallen in het waterpretpark, met de bus heen en terug. Begeleiding door de SWAP-ploeg.",
+      "price": 20.0,
+      "price_unit": "per jongere",
+      "capacity": 45,
+      "spots_left": 0,
+      "waitlist": true,
+      "spots_from_site": true
+    },
+    {
+      "id": "uitstap-beekse-bergen",
+      "name": "Uitstap speelpleinen: Speelland Beekse Bergen",
+      "kind": "speelplein",
+      "accent": "#2f6fb5",
+      "years_label": "speelpleinleeftijd",
+      "years": [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "years_verified": false,
+      "date_label": "vrijdag 21 augustus 2026",
+      "date_short": "21/08",
+      "sort": "2026-08-21",
+      "period": "zomer",
+      "location": "wonderwereld",
+      "desc": "Laatste uitstap van de zomer: waterglijbanen, speeltuinen en avontuur, samen met de leiding van het plein.",
+      "price": 25.0,
+      "price_unit": "per kind",
+      "capacity": 90,
+      "spots_left": 36
+    },
+    {
+      "id": "boa-unicorn-glittertattoo",
+      "name": "BOA: Van unicorn tot glittertattoo",
+      "kind": "boa",
+      "accent": "#8a4fbe",
+      "years_label": "lagere school",
+      "years": [2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "years_verified": false,
+      "date_label": "wekelijks op maandag, 14 september t.e.m. 7 december 2026",
+      "date_short": "14/09 – 7/12 · ma",
+      "sort": "2026-09-14",
+      "period": "naschools",
+      "location": "wigo",
+      "desc": "Creatieve reeks na school: knutselen rond glitter, kleur en fantasiefiguren.",
+      "price": 45.0,
+      "price_unit": "per reeks",
+      "capacity": 16,
+      "spots_left": 6
+    },
+    {
+      "id": "boa-knutselen-en-frutselen",
+      "name": "BOA: Knutselen en frutselen",
+      "kind": "boa",
+      "accent": "#8a4fbe",
+      "years_label": "lagere school",
+      "years": [2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "years_verified": false,
+      "date_label": "wekelijks op donderdag, 17 september t.e.m. 10 december 2026",
+      "date_short": "17/09 – 10/12 · do",
+      "sort": "2026-09-17",
+      "period": "naschools",
+      "location": "mariaberg-hoek",
+      "desc": "Werken met naald en draad, papier en kralen. Elke week iets anders in elkaar steken.",
+      "price": 45.0,
+      "price_unit": "per reeks",
+      "capacity": 16,
+      "spots_left": 9
+    },
+    {
+      "id": "boa-kindergrime-glittertattoos",
+      "name": "BOA: Kindergrime en glittertattoos",
+      "kind": "boa",
+      "accent": "#8a4fbe",
+      "years_label": "lagere school",
+      "years": [2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "years_verified": false,
+      "date_label": "wekelijks op maandag, 28 september t.e.m. 7 december 2026",
+      "date_short": "28/09 – 7/12 · ma",
+      "sort": "2026-09-28",
+      "period": "naschools",
+      "location": "mariaberg-centrum",
+      "desc": "Zelf leren schminken: van een simpel vlindertje tot een volledig geschminkt gezicht.",
+      "price": 45.0,
+      "price_unit": "per reeks",
+      "capacity": 16,
+      "spots_left": 2
+    },
+    {
+      "id": "boa-sport-en-beweging",
+      "name": "BOA: Sport en beweging",
+      "kind": "boa",
+      "accent": "#0f7d84",
+      "years_label": "lagere school",
+      "years": [2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "years_verified": false,
+      "date_label": "wekelijks op maandag, 28 september t.e.m. 7 december 2026",
+      "date_short": "28/09 – 7/12 · ma",
+      "sort": "2026-09-28",
+      "period": "naschools",
+      "location": "mariaberg-centrum",
+      "desc": "Speels sporten na school: spelvormen waarbij niemand op de bank blijft zitten.",
+      "price": 45.0,
+      "price_unit": "per reeks",
+      "capacity": 20,
+      "spots_left": 11
+    },
+    {
+      "id": "boa-hutseldeknutsel",
+      "name": "BOA: Hutseldeknutsel",
+      "kind": "boa",
+      "accent": "#8a4fbe",
+      "years_label": "lagere school",
+      "years": [2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "years_verified": false,
+      "date_label": "wekelijks op dinsdag, 29 september t.e.m. 8 december 2026",
+      "date_short": "29/09 – 8/12 · di",
+      "sort": "2026-09-29",
+      "period": "naschools",
+      "location": "wigo",
+      "desc": "Maken, plakken en uitproberen met alles wat voorhanden is. Het resultaat gaat mee naar huis.",
+      "price": 45.0,
+      "price_unit": "per reeks",
+      "capacity": 16,
+      "spots_left": 7
+    },
+    {
+      "id": "boa-dance-en-fun",
+      "name": "BOA: Dance en Fun",
+      "kind": "boa",
+      "accent": "#b8336a",
+      "years_label": "lagere school",
+      "years": [2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "years_verified": false,
+      "date_label": "wekelijks op donderdag, 1 oktober t.e.m. 10 december 2026",
+      "date_short": "1/10 – 10/12 · do",
+      "sort": "2026-10-01",
+      "period": "naschools",
+      "location": "mariaberg-centrum",
+      "desc": "Elke week een uurtje dansen op muziek die de kinderen zelf kiezen.",
+      "price": 45.0,
+      "price_unit": "per reeks",
+      "capacity": 20,
+      "spots_left": 3
+    },
+    {
+      "id": "you-jump-trampolinepark",
+      "name": "You Jump Trampolinepark",
+      "kind": "uitstap",
+      "accent": "#b8336a",
+      "years_label": "6 tot 18 jaar",
+      "years": [2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      "years_verified": true,
+      "date_label": "woensdag 4 november 2026",
+      "date_short": "4/11",
+      "sort": "2026-11-04",
+      "period": "najaar",
+      "location": "heuvelhal",
+      "desc": "Namiddag springen in het trampolinepark, met de bus vanuit Essen en begeleiding erbij.",
+      "price": 18.0,
+      "price_unit": "per kind",
+      "capacity": 40,
+      "spots_left": 25
+    }
+  ],
+  "steps": [
+    {
+      "title": "Kies je kind",
+      "body": "Vul de voornaam en het geboortejaar in. Je hebt hier nog geen account voor nodig."
+    },
+    {
+      "title": "Kies de activiteiten",
+      "body": "Je ziet alleen wat bij de leeftijd van dat kind past, met prijs en vrije plaatsen erbij."
+    },
+    {
+      "title": "Kijk alles na",
+      "body": "Eén scherm met alle keuzes en het totaal. Je contactgegevens komen hier, in plaats van vooraf."
+    },
+    {
+      "title": "Bevestig",
+      "body": "Pas nu maak je een account aan of log je in, om de inschrijving vast te leggen en te betalen."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Moet ik eerst een account maken om het aanbod te zien?",
+      "a": "Nee. Alle informatie — prijs, leeftijd, datum, locatie en het aantal vrije plaatsen — staat open op deze pagina. Aanmelden komt pas op het einde van de inschrijving."
+    },
+    {
+      "q": "Wat als een activiteit volzet is?",
+      "a": "Dan kan je op de wachtlijst. Komt er een plaats vrij, dan krijg je bericht en heb je een korte tijd om te bevestigen."
+    },
+    {
+      "q": "Kan ik meerdere kinderen in één keer inschrijven?",
+      "a": "Ja. Je doorloopt de stappen per kind en de keuzes worden samengeteld voor je bevestigt."
+    },
+    {
+      "q": "Krijg ik een fiscaal attest?",
+      "a": "Voor kinderopvang tot en met de leeftijdsgrens die de fiscus hanteert, levert de gemeente een attest af. Hoe dat hier precies loopt, moet nog bevestigd worden."
+    },
+    {
+      "q": "Wat kost het precies?",
+      "a": "De bedragen op deze pagina zijn voorbeelden. De echte tarieven staan op het huidige platform achter de login en worden nog aangeleverd door de gemeente."
+    }
+  ],
+  "contact_note": "Contactgegevens van de dienst Vrije Tijd worden nog toegevoegd — dit prototype vult ze bewust niet in.",
+  "outreach": {
+    "status": "gepland"
+  }
+}
