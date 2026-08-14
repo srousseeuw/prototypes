@@ -17,6 +17,24 @@ Velden in de brief:
   hours_note         (str)
 """
 from .common import esc, build_hours_rows, maps_query as _maps_query
+from . import order as _order
+
+# Kleuren van dit sjabloon, zodat de bestelpagina bij de hoofdsite past.
+_ORDER_THEME = {
+    "bg": "#16233d",
+    "bg_deep": "#0e182c",
+    "accent": "#e2704f",
+    "paper": "#f5f2ec",
+    "ink": "#141b2a",
+    "font_display": "'Shippori Mincho', Georgia, serif",
+    "font_body": "'Zen Kaku Gothic New', system-ui, sans-serif",
+    "fonts_href": "https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap",
+}
+
+def render_extra_pages(brief: dict) -> dict:
+    if not brief.get("order_menu"):
+        return {}
+    return {"bestellen/index.html": _order.render(brief, _ORDER_THEME)}
 
 
 def _tel(phone):
@@ -40,11 +58,13 @@ def render(brief: dict) -> str:
     hours_html = build_hours_rows(brief.get("hours", []))
     maps_q = _maps_query(brief.get("address", ""))
 
-    order_btn = (
-        f'<a class="btn btn-solid" href="{order_url}" target="_blank" rel="noopener">Bestel online</a>'
-        if order_url else
-        f'<a class="btn btn-solid" href="tel:{tel}">Bel om te bestellen</a>'
-    )
+    # Met de kaart in de brief bestel je op de site zelf; anders naar buiten of bellen.
+    if brief.get("order_menu"):
+        order_btn = f'<a class="btn btn-solid" href="/{esc(brief["slug"])}/bestellen/">Bestel online</a>'
+    elif order_url:
+        order_btn = f'<a class="btn btn-solid" href="{order_url}" target="_blank" rel="noopener">Bestel online</a>'
+    else:
+        order_btn = f'<a class="btn btn-solid" href="tel:{tel}">Bel om te bestellen</a>'
 
     # --- afhalen / leveren ------------------------------------------------
     modes = brief.get("service_modes", [])

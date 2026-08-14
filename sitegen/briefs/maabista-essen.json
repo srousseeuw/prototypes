@@ -34,40 +34,1196 @@
   "menu_sections": [
     {
       "title": "Om te beginnen",
-      "items": ["Voorgerechten", "Salades", "Soepen", "Gyoza"]
+      "items": [
+        "Voorgerechten",
+        "Salades",
+        "Soepen",
+        "Gyoza"
+      ]
     },
     {
       "title": "Sushi",
-      "items": ["Nigiri", "Sashimi", "Hosomaki", "Futomaki", "California rolls", "Handrolls", "Special rolls"]
+      "items": [
+        "Nigiri",
+        "Sashimi",
+        "Hosomaki",
+        "Futomaki",
+        "California rolls",
+        "Handrolls",
+        "Special rolls"
+      ]
     },
     {
       "title": "Sushi om te delen",
-      "items": ["Sushi combo's", "Sushiboten", "Roll van de maand"]
+      "items": [
+        "Sushi combo's",
+        "Sushiboten",
+        "Roll van de maand"
+      ]
     },
     {
       "title": "Warme keuken",
-      "items": ["Wok en pad thai", "Curry", "Roergebakken gerechten", "Rijstgerechten", "Teriyaki van de grill"]
+      "items": [
+        "Wok en pad thai",
+        "Curry",
+        "Roergebakken gerechten",
+        "Rijstgerechten",
+        "Teriyaki van de grill"
+      ]
     },
     {
       "title": "Voor de kleinsten",
-      "items": ["Kindermenu"]
+      "items": [
+        "Kindermenu"
+      ]
     },
     {
       "title": "Erbij",
-      "items": ["Dranken", "Extra's en sauzen"]
+      "items": [
+        "Dranken",
+        "Extra's en sauzen"
+      ]
     }
   ],
-  "menu_note": "Overzicht van de categorieën op de kaart. Actuele gerechten en prijzen vind je bij het bestellen.",
+  "menu_note": "200 gerechten over 20 categorieën, met de prijzen zoals ze nu op hun eigen bestelsysteem staan.",
   "hours": [
-    ["Maandag", "16:30 – 21:00"],
-    ["Dinsdag", "Gesloten"],
-    ["Woensdag", "16:30 – 21:00"],
-    ["Donderdag", "16:30 – 21:00"],
-    ["Vrijdag", "16:00 – 21:00"],
-    ["Zaterdag", "16:00 – 21:00"],
-    ["Zondag", "16:00 – 21:00"]
+    [
+      "Maandag",
+      "16:30 – 21:00"
+    ],
+    [
+      "Dinsdag",
+      "Gesloten"
+    ],
+    [
+      "Woensdag",
+      "16:30 – 21:00"
+    ],
+    [
+      "Donderdag",
+      "16:30 – 21:00"
+    ],
+    [
+      "Vrijdag",
+      "16:00 – 21:00"
+    ],
+    [
+      "Zaterdag",
+      "16:00 – 21:00"
+    ],
+    [
+      "Zondag",
+      "16:00 – 21:00"
+    ]
   ],
   "hours_note": "Op feestdagen open van 16:00 tot 21:00.",
+  "order_menu": [
+    {
+      "category": "Voorgerechten",
+      "items": [
+        {
+          "name": "Dim sum kip en scampi",
+          "desc": "6 of 12",
+          "price": 8
+        },
+        {
+          "name": "Dim sum kip",
+          "desc": "6 of 12",
+          "price": 7
+        },
+        {
+          "name": "Dim sum varkensvlees",
+          "desc": "6 of 12",
+          "price": 7
+        },
+        {
+          "name": "Dim sum scampi",
+          "desc": "6 of 12",
+          "price": 8.5
+        },
+        {
+          "name": "Dim sum vegetarisch",
+          "desc": "6 of 12",
+          "price": 6
+        },
+        {
+          "name": "Edamame",
+          "desc": "",
+          "price": 5
+        },
+        {
+          "name": "Ebi fried tempura",
+          "desc": "Enkel scampi's",
+          "price": 11
+        },
+        {
+          "name": "Mix tempura",
+          "desc": "Scampi en groenten",
+          "price": 8.5
+        },
+        {
+          "name": "Gyoza mix",
+          "desc": "6 of 12",
+          "price": 10
+        },
+        {
+          "name": "Gyoza kip",
+          "desc": "6 of 12",
+          "price": 10
+        },
+        {
+          "name": "Gyoza varken",
+          "desc": "6 of 12",
+          "price": 10
+        },
+        {
+          "name": "Kip loempia",
+          "desc": "3 stuks",
+          "price": 6.5
+        },
+        {
+          "name": "Gyoza vegetarisch",
+          "desc": "6 of 12",
+          "price": 7
+        },
+        {
+          "name": "Momo kip",
+          "desc": "Huisgemaakte gevulde dumpling met koriander, ui en Nepalese kruiden — 6 of 12",
+          "price": 10
+        },
+        {
+          "name": "Seafood tempura",
+          "desc": "Zeevruchten",
+          "price": 11.5
+        },
+        {
+          "name": "Vegetarische loempia",
+          "desc": "6 stuks",
+          "price": 5
+        },
+        {
+          "name": "Yakitori kip",
+          "desc": "2 stuks met rijst en zeewier",
+          "price": 9
+        },
+        {
+          "name": "Yashai tempura",
+          "desc": "Enkel groenten",
+          "price": 7
+        }
+      ]
+    },
+    {
+      "category": "Salades",
+      "items": [
+        {
+          "name": "Maguro busto",
+          "desc": "Gemarineerde tonijn",
+          "price": 12.5
+        },
+        {
+          "name": "Edamame",
+          "desc": "Groene sojaboontjes met zeezout",
+          "price": 5
+        },
+        {
+          "name": "Kamikaze salade",
+          "desc": "Scampi, avocado, mango, komkommer, mix sla, rice crispy en mayonaise",
+          "price": 11
+        },
+        {
+          "name": "Maabista salade",
+          "desc": "Zeewier, komkommer, mango, avocado en krab",
+          "price": 11
+        },
+        {
+          "name": "Mango salade",
+          "desc": "Mango met mix sla, avocado, komkommer, wortel, paprika, sesamolie, mayonaise en peper",
+          "price": 10
+        },
+        {
+          "name": "Sake butshu",
+          "desc": "Gemarineerde zalm",
+          "price": 11
+        },
+        {
+          "name": "Tonijn-avocadosalade",
+          "desc": "Met zoete chilisaus en soja",
+          "price": 14.5
+        },
+        {
+          "name": "Zalm-avocadosalade",
+          "desc": "Zalm met avocado, zoete chilisaus en soja",
+          "price": 13
+        },
+        {
+          "name": "Zeewiersalade",
+          "desc": "",
+          "price": 7
+        }
+      ]
+    },
+    {
+      "category": "Soepen",
+      "items": [
+        {
+          "name": "Kippensoep",
+          "desc": "Kip, wortel, selder, prei, sojascheuten en rijstnoedels",
+          "price": 10
+        },
+        {
+          "name": "Misosoep",
+          "desc": "Traditionele Japanse soep met zeewier en tofu",
+          "price": 5.5
+        },
+        {
+          "name": "Wontonsoep",
+          "desc": "Kipdumpling met wortel, prei, selder, paksoi, sojascheuten en rijstnoedels",
+          "price": 10
+        },
+        {
+          "name": "Tom ka gai",
+          "desc": "Pikant-zure soep met kokosmelk, kip, gember, champignon, citroengras en limoenblad",
+          "price": 11
+        },
+        {
+          "name": "Tom yum soep",
+          "desc": "Pikant-zure Thaise soep met scampi, paksoi, gember, citroengras en limoenblad",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "category": "Wok & pad thai",
+      "items": [
+        {
+          "name": "Wok kip",
+          "desc": "",
+          "price": 13.5
+        },
+        {
+          "name": "Wok rund",
+          "desc": "",
+          "price": 15
+        },
+        {
+          "name": "Wok scampi",
+          "desc": "",
+          "price": 14.5
+        },
+        {
+          "name": "Wok tofu",
+          "desc": "",
+          "price": 13
+        },
+        {
+          "name": "Wok vegetarisch",
+          "desc": "",
+          "price": 11.5
+        },
+        {
+          "name": "Maabista wok",
+          "desc": "Kip, rund, scampi en groenten",
+          "price": 20
+        },
+        {
+          "name": "Pad thai kip",
+          "desc": "",
+          "price": 14
+        },
+        {
+          "name": "Pad thai rund",
+          "desc": "",
+          "price": 15.5
+        },
+        {
+          "name": "Pad thai scampi",
+          "desc": "",
+          "price": 15
+        },
+        {
+          "name": "Pad thai vegetarisch",
+          "desc": "",
+          "price": 12
+        },
+        {
+          "name": "Pad thai tofu",
+          "desc": "",
+          "price": 13
+        }
+      ]
+    },
+    {
+      "category": "Curry",
+      "items": [
+        {
+          "name": "Thai curry gemengde vis",
+          "desc": "Currypasta, kokosmelk, vis en groenten. Standaard pikant, op vraag milder. Met rijst.",
+          "price": 22
+        },
+        {
+          "name": "Thai curry kip",
+          "desc": "Currypasta, kokosmelk, vlees en groenten. Standaard pikant, op vraag milder. Met rijst.",
+          "price": 18
+        },
+        {
+          "name": "Thai curry rund",
+          "desc": "Currypasta, kokosmelk, vlees en groenten. Standaard pikant, op vraag milder. Met rijst.",
+          "price": 20
+        },
+        {
+          "name": "Thai curry scampi",
+          "desc": "Currypasta, kokosmelk, scampi en groenten. Standaard pikant, op vraag milder. Met rijst.",
+          "price": 19
+        },
+        {
+          "name": "Thai curry tofu",
+          "desc": "",
+          "price": 18
+        },
+        {
+          "name": "Thai curry vegetarisch",
+          "desc": "",
+          "price": 14
+        },
+        {
+          "name": "Nepal curry kip",
+          "desc": "Gestoofd met ui en tomatensaus, op smaak met gember, look, pepers, kurkuma, komijn, koriander, kaneel en kardemom. Met rijst.",
+          "price": 17
+        },
+        {
+          "name": "Nepal curry vis",
+          "desc": "Gestoofd met ui en tomatensaus en een mix van kruiden. Met rijst.",
+          "price": 21
+        },
+        {
+          "name": "Nepal curry rund",
+          "desc": "Gestoofd met ui en tomatensaus en een mix van kruiden. Met rijst.",
+          "price": 19
+        },
+        {
+          "name": "Nepal curry vegetarisch",
+          "desc": "Groenten gestoofd met ui en tomatensaus en een mix van kruiden. Met rijst.",
+          "price": 14
+        },
+        {
+          "name": "Phad pak kip",
+          "desc": "Geroerbakte groenten met oestersaus",
+          "price": 16
+        },
+        {
+          "name": "Phad pak rund",
+          "desc": "Geroerbakte groenten met oestersaus",
+          "price": 18
+        },
+        {
+          "name": "Phad pak vegetarisch",
+          "desc": "Geroerbakte groenten met oestersaus",
+          "price": 14
+        },
+        {
+          "name": "Phad pak tofu",
+          "desc": "Geroerbakte groenten met oestersaus",
+          "price": 15
+        },
+        {
+          "name": "Crispy kip met groenten",
+          "desc": "Gefrituurde kip met groenten en zoete chilisaus, met witte rijst",
+          "price": 17
+        },
+        {
+          "name": "Crispy zalm met groenten",
+          "desc": "Gefrituurde zalm met groenten en zoete chilisaus, met witte rijst",
+          "price": 18.5
+        },
+        {
+          "name": "Currysaus",
+          "desc": "Met rode currypasta en kokosmelk",
+          "price": 6
+        },
+        {
+          "name": "Witte rijst",
+          "desc": "",
+          "price": 3.5
+        },
+        {
+          "name": "Noedels",
+          "desc": "Gebakken noedels met ei",
+          "price": 5.5
+        }
+      ]
+    },
+    {
+      "category": "Roergebakken rijst",
+      "items": [
+        {
+          "name": "Roergebakken rijst vegetarisch",
+          "desc": "",
+          "price": 11.5
+        },
+        {
+          "name": "Roergebakken rijst kip",
+          "desc": "",
+          "price": 13
+        },
+        {
+          "name": "Roergebakken rijst rund",
+          "desc": "",
+          "price": 14.5
+        },
+        {
+          "name": "Roergebakken rijst scampi",
+          "desc": "",
+          "price": 13
+        },
+        {
+          "name": "Roergebakken rijst tofu",
+          "desc": "",
+          "price": 13
+        },
+        {
+          "name": "Witte rijst",
+          "desc": "",
+          "price": 3.5
+        }
+      ]
+    },
+    {
+      "category": "Teriyaki van de grill",
+      "items": [
+        {
+          "name": "Teriyaki eend",
+          "desc": "Gegrilde eend met groenten, yakitorisaus en witte rijst",
+          "price": 23
+        },
+        {
+          "name": "Teriyaki kip",
+          "desc": "Gegrilde kip met groenten, yakitorisaus en witte rijst",
+          "price": 19
+        },
+        {
+          "name": "Teriyaki rund",
+          "desc": "Gegrild rund met groenten, yakitorisaus en witte rijst",
+          "price": 22
+        },
+        {
+          "name": "Teriyaki zalm",
+          "desc": "Gegrilde zalm met groenten, yakitorisaus en witte rijst",
+          "price": 22
+        },
+        {
+          "name": "Teriyaki mix",
+          "desc": "Rund, kip en eend met groenten, yakitorisaus en witte rijst",
+          "price": 25
+        },
+        {
+          "name": "Thaise ribs",
+          "desc": "Gefrituurde ribben met groenten, yakitorisaus en witte rijst",
+          "price": 19
+        }
+      ]
+    },
+    {
+      "category": "Sushi combo's",
+      "items": [
+        {
+          "name": "Combo 2",
+          "desc": "4 sashimi zalm en tonijn, 6 hosomaki en 4 nigiri zalm en tonijn",
+          "price": 20
+        },
+        {
+          "name": "Combo 4",
+          "desc": "20 futomaki: komkommer, avocado, scampi, zalm en tonijn",
+          "price": 19
+        },
+        {
+          "name": "Combo 6",
+          "desc": "6 futomaki, 4 california, 8 dragon eye",
+          "price": 17.5
+        },
+        {
+          "name": "Nigiri hoso combo",
+          "desc": "9 nigiri (zalm, tonijn, zeebaars en scampi) en 8 hosomaki zalm en tonijn",
+          "price": 19
+        },
+        {
+          "name": "Ebisu combo",
+          "desc": "4 nigiri, 4 green roll, 6 futomaki en 4 sashimi",
+          "price": 25
+        },
+        {
+          "name": "Beginner combo",
+          "desc": "4 california met zalm en 12 futomaki (zalm, tonijn en scampi)",
+          "price": 18
+        },
+        {
+          "name": "Tempura combo",
+          "desc": "12 maki kamikaze (zalm, tonijn en scampi) en dragon eye",
+          "price": 21
+        },
+        {
+          "name": "Zalm specials combo",
+          "desc": "4 nigiri, 4 sashimi, 4 california en 4 kamikaze — allemaal zalm",
+          "price": 21
+        },
+        {
+          "name": "Tonijn specials combo",
+          "desc": "4 nigiri, 4 sashimi, 4 california en 4 futomaki — allemaal tonijn",
+          "price": 23
+        },
+        {
+          "name": "Zalm en tonijn combo",
+          "desc": "4 nigiri, 4 california zalm, 4 sashimi en 4 futomaki tonijn",
+          "price": 22
+        },
+        {
+          "name": "Nigiri combo",
+          "desc": "16 stuks, gemixt van zalm, tonijn, zeebaars, scampi, krab en tamago",
+          "price": 25
+        },
+        {
+          "name": "Sashimi combo",
+          "desc": "27 stuks, gemixt van zalm, tonijn, zeebaars, scampi, krab en tamago",
+          "price": 30
+        },
+        {
+          "name": "Vegetarisch combo",
+          "desc": "24 futomaki: komkommer, avocado en mango",
+          "price": 21
+        },
+        {
+          "name": "Vegetarisch combo 2",
+          "desc": "8 hosomaki komkommer, 8 futomaki veggie en 8 california veggie",
+          "price": 20
+        },
+        {
+          "name": "Hoso combo",
+          "desc": "24 stuks: zalm, tonijn, avocado, komkommer, krab en scampi",
+          "price": 18
+        }
+      ]
+    },
+    {
+      "category": "Sushiboten",
+      "items": [
+        {
+          "name": "Sushiboot",
+          "desc": "30 stuks voor 1 persoon: california zalm, pikante tonijn, nigiri, sashimi, futomaki en dragon eye",
+          "price": 32
+        },
+        {
+          "name": "Medium boot",
+          "desc": "44 stuks voor 1 à 2 personen: california zalm en krab, pikante tonijn, green roll, nigiri, sashimi, futomaki mix en dragon eye",
+          "price": 48
+        },
+        {
+          "name": "Futomaki boot",
+          "desc": "50 stuks voor 2 personen: 40 futomaki en 8 dragon eye",
+          "price": 48
+        },
+        {
+          "name": "Akemi boot",
+          "desc": "56 stuks voor 2 à 3 personen, met uramaki, futomaki en dragon eye",
+          "price": 54
+        },
+        {
+          "name": "Sushi sashimi maki",
+          "desc": "56 stuks voor 2 personen: california, pikante roll, sexy roll, green roll, nigiri, futomaki mix, sashimi mix en dragon eye",
+          "price": 60
+        },
+        {
+          "name": "Japanse boot",
+          "desc": "54 stuks voor 2 personen: california zalm en krab, pikante roll, green roll, sexy roll, nigiri, sashimi, futomaki mix en dragon eye",
+          "price": 58
+        },
+        {
+          "name": "Sushihuis deluxe",
+          "desc": "56 stuks, mix van zalm en tonijn: sexy roll, california zalm, pikante roll, nigiri, sashimi, hosomaki, futomaki en dragon eye",
+          "price": 62
+        },
+        {
+          "name": "Belgium boot",
+          "desc": "66 stuks voor 3 personen: california zalm en krab, pikante roll, green roll, sexy roll, nigiri, sashimi, futomaki mix en dragon eye",
+          "price": 70
+        },
+        {
+          "name": "Titanic boot",
+          "desc": "112 stuks voor 4 personen: 40 uramaki, 12 nigiri mix, 12 sashimi, 32 futomaki mix en 16 dragon eye",
+          "price": 115
+        }
+      ]
+    },
+    {
+      "category": "Special rolls",
+      "items": [
+        {
+          "name": "Amai roll",
+          "desc": "Scampi, avocado, mango, zoete saus en mayonaise, topping met sesam",
+          "price": 11.5
+        },
+        {
+          "name": "BBQ roll",
+          "desc": "Pikante roll met topping van licht gebakken zalm en saus",
+          "price": 12
+        },
+        {
+          "name": "Butterfly roll",
+          "desc": "4 stuks — scampi, krab, komkommer, avocado, mango en wortel",
+          "price": 8
+        },
+        {
+          "name": "Crispy scampi",
+          "desc": "Gefrituurde scampi met avocado, gerold in crispy",
+          "price": 11
+        },
+        {
+          "name": "Crispy tonijn",
+          "desc": "Gefrituurde tonijn met avocado, gerold in crispy",
+          "price": 12
+        },
+        {
+          "name": "Crispy zalm",
+          "desc": "Gefrituurde zalm met avocado, gerold in crispy",
+          "price": 11
+        },
+        {
+          "name": "Crunchy kip",
+          "desc": "Gefrituurde kip met komkommer en salade, licht pikant",
+          "price": 10
+        },
+        {
+          "name": "Dorp roll",
+          "desc": "Scampi, avocado, krab, mango, komkommer en zoetpikante saus, gerold in crispy",
+          "price": 14
+        },
+        {
+          "name": "Dragon eye",
+          "desc": "Gefrituurde roll met zalm en avocado",
+          "price": 8
+        },
+        {
+          "name": "Dragon roll",
+          "desc": "Pikante roll met topping van avocado en saus",
+          "price": 11
+        },
+        {
+          "name": "Essen roll",
+          "desc": "Gefrituurde roll met scampi en avocado",
+          "price": 9
+        },
+        {
+          "name": "Fung roll",
+          "desc": "Zalm, avocado en tamago, topping met zalm, tonijn, zeebaars, scampi en avocado",
+          "price": 12.5
+        },
+        {
+          "name": "Green dragon",
+          "desc": "Mango, scampi en komkommer, topping met avocado",
+          "price": 11
+        },
+        {
+          "name": "Hamro roll",
+          "desc": "Zalm, avocado, mango, komkommer en zeewier, topping met sesam",
+          "price": 14
+        },
+        {
+          "name": "Kalmthout roll",
+          "desc": "Krab, scampi, komkommer, pijpajuin, pikante saus en crispy",
+          "price": 11.5
+        },
+        {
+          "name": "Karafuru",
+          "desc": "Zalm, avocado, krab, mango, sla, komkommer en zoetpikante saus, topping met sesam",
+          "price": 14
+        },
+        {
+          "name": "Maabista roll",
+          "desc": "Zalm, tonijn, krab, komkommer, tamago, scampi, avocado en crispy",
+          "price": 14.5
+        },
+        {
+          "name": "Oishi roll",
+          "desc": "Zalm, mango, komkommer en crispy",
+          "price": 10.5
+        },
+        {
+          "name": "Pikante roll",
+          "desc": "Zalm, tonijn, pijpajuin en pikante saus, gerold in crispy",
+          "price": 9.5
+        },
+        {
+          "name": "Sakura roll",
+          "desc": "Zalm, tonijn, masago (viseitjes) en avocado",
+          "price": 11.5
+        },
+        {
+          "name": "Sexy roll",
+          "desc": "Pikante roll met topping van zalm, tonijn en avocado",
+          "price": 11
+        },
+        {
+          "name": "Tempura roll",
+          "desc": "4 stuks — scampi, komkommer, sla, mango en rice crispy met zoete saus",
+          "price": 8.5
+        },
+        {
+          "name": "Vegetarische roll",
+          "desc": "Mango, komkommer, avocado en wortel, gerold in crispy",
+          "price": 9
+        },
+        {
+          "name": "Wakame roll",
+          "desc": "Zalm, tamago en avocado, topping met zeewier",
+          "price": 11
+        }
+      ]
+    },
+    {
+      "category": "California rolls",
+      "items": [
+        {
+          "name": "Cali avocado",
+          "desc": "Met tamago en viseitjes",
+          "price": 8
+        },
+        {
+          "name": "Cali krab",
+          "desc": "Met avocado, tamago en viseitjes",
+          "price": 8.5
+        },
+        {
+          "name": "Cali komkommer",
+          "desc": "Met avocado, tamago en viseitjes",
+          "price": 7.5
+        },
+        {
+          "name": "Cali mango",
+          "desc": "Met avocado, tamago en viseitjes",
+          "price": 7.5
+        },
+        {
+          "name": "Cali scampi",
+          "desc": "Met avocado, tamago en viseitjes",
+          "price": 9.5
+        },
+        {
+          "name": "Cali tamago",
+          "desc": "Met avocado, tamago en viseitjes",
+          "price": 9
+        },
+        {
+          "name": "Cali tonijn",
+          "desc": "Met avocado, tamago en viseitjes",
+          "price": 10.5
+        },
+        {
+          "name": "Cali zalm",
+          "desc": "Met avocado, tamago en viseitjes",
+          "price": 9.5
+        }
+      ]
+    },
+    {
+      "category": "Futomaki",
+      "items": [
+        {
+          "name": "Maki tonijn/komkommer",
+          "desc": "8 stuks",
+          "price": 10.5
+        },
+        {
+          "name": "Maki tonijn/avocado",
+          "desc": "8 stuks",
+          "price": 11
+        },
+        {
+          "name": "Maki zalm/avocado",
+          "desc": "8 stuks",
+          "price": 10
+        },
+        {
+          "name": "Maki zalm/komkommer",
+          "desc": "8 stuks",
+          "price": 9.5
+        },
+        {
+          "name": "Maki tempura avocado",
+          "desc": "8 stuks",
+          "price": 10.5
+        },
+        {
+          "name": "Maki tempura komkommer",
+          "desc": "8 stuks",
+          "price": 10
+        },
+        {
+          "name": "Maki veggie",
+          "desc": "8 stuks",
+          "price": 8
+        },
+        {
+          "name": "Maki veggie komkommer",
+          "desc": "8 stuks",
+          "price": 7.5
+        },
+        {
+          "name": "Maki veggie avocado",
+          "desc": "8 stuks",
+          "price": 8
+        },
+        {
+          "name": "Maki veggie mango",
+          "desc": "8 stuks",
+          "price": 8
+        },
+        {
+          "name": "Maki kamikaze zalm",
+          "desc": "8 stuks",
+          "price": 10.5
+        },
+        {
+          "name": "Maki kamikaze tonijn",
+          "desc": "8 stuks",
+          "price": 11.5
+        },
+        {
+          "name": "Maki kamikaze krab",
+          "desc": "8 stuks",
+          "price": 9
+        }
+      ]
+    },
+    {
+      "category": "Nigiri",
+      "items": [
+        {
+          "name": "Nigiri zalm",
+          "desc": "Sake — 4 stuks",
+          "price": 7
+        },
+        {
+          "name": "Nigiri tonijn",
+          "desc": "4 stuks",
+          "price": 8
+        },
+        {
+          "name": "Nigiri omelet",
+          "desc": "Tamago — 4 stuks",
+          "price": 6
+        },
+        {
+          "name": "Nigiri scampi",
+          "desc": "4 stuks",
+          "price": 7
+        },
+        {
+          "name": "Nigiri zeebaars",
+          "desc": "Suzuki — 4 stuks",
+          "price": 7
+        },
+        {
+          "name": "Nigiri krab",
+          "desc": "4 stuks",
+          "price": 6
+        },
+        {
+          "name": "Nigiri zalm en tonijn combo",
+          "desc": "10 stuks",
+          "price": 17
+        },
+        {
+          "name": "Licht gebakken zalm nigiri",
+          "desc": "5 stuks",
+          "price": 11
+        },
+        {
+          "name": "Licht gebakken tonijn nigiri",
+          "desc": "5 stuks",
+          "price": 13
+        }
+      ]
+    },
+    {
+      "category": "Sashimi",
+      "items": [
+        {
+          "name": "Sashimi zalm",
+          "desc": "4 of 10 stuks",
+          "price": 7.5
+        },
+        {
+          "name": "Sashimi tonijn",
+          "desc": "4 of 10 stuks",
+          "price": 8.5
+        },
+        {
+          "name": "Sashimi tamago",
+          "desc": "4 stuks",
+          "price": 6
+        },
+        {
+          "name": "Sashimi krab",
+          "desc": "4 stuks",
+          "price": 6
+        },
+        {
+          "name": "Sashimi zalm en tonijn combo",
+          "desc": "12 stuks",
+          "price": 20
+        },
+        {
+          "name": "Licht gebakken sashimi zalm",
+          "desc": "8 stuks met avocado en unagisaus",
+          "price": 16
+        },
+        {
+          "name": "Licht gebakken sashimi tonijn",
+          "desc": "8 stuks met avocado en unagisaus",
+          "price": 18
+        },
+        {
+          "name": "Sashimi combo",
+          "desc": "26 stuks, gemixt van zalm, tonijn, krab, scampi, tamago en zeebaars",
+          "price": 30
+        }
+      ]
+    },
+    {
+      "category": "Handrolls",
+      "items": [
+        {
+          "name": "Handroll zalm",
+          "desc": "",
+          "price": 8.5
+        },
+        {
+          "name": "Handroll tonijn",
+          "desc": "",
+          "price": 9
+        },
+        {
+          "name": "Handroll ebi",
+          "desc": "",
+          "price": 7.5
+        },
+        {
+          "name": "Handroll krab",
+          "desc": "",
+          "price": 7
+        },
+        {
+          "name": "Handroll pikant",
+          "desc": "",
+          "price": 8
+        },
+        {
+          "name": "Handroll vegetarisch",
+          "desc": "",
+          "price": 7
+        }
+      ]
+    },
+    {
+      "category": "Hosomaki",
+      "items": [
+        {
+          "name": "Hoso zalm",
+          "desc": "",
+          "price": 7
+        },
+        {
+          "name": "Hoso tonijn",
+          "desc": "",
+          "price": 8
+        },
+        {
+          "name": "Hoso scampi",
+          "desc": "",
+          "price": 7
+        },
+        {
+          "name": "Hoso krab",
+          "desc": "",
+          "price": 6
+        },
+        {
+          "name": "Hoso tamago",
+          "desc": "",
+          "price": 6
+        },
+        {
+          "name": "Hoso avocado",
+          "desc": "",
+          "price": 5.5
+        },
+        {
+          "name": "Hoso komkommer",
+          "desc": "",
+          "price": 5
+        },
+        {
+          "name": "Hoso mango",
+          "desc": "",
+          "price": 5
+        }
+      ]
+    },
+    {
+      "category": "Kindermenu",
+      "items": [
+        {
+          "name": "Curryworst met frietjes",
+          "desc": "",
+          "price": 8
+        },
+        {
+          "name": "Kipfilet met frietjes",
+          "desc": "",
+          "price": 9
+        },
+        {
+          "name": "Gebakken kindernoedels",
+          "desc": "Noedels met kip",
+          "price": 7
+        },
+        {
+          "name": "Gebakken kinderrijst",
+          "desc": "Rijst met kip",
+          "price": 7
+        },
+        {
+          "name": "Sushi mix kids",
+          "desc": "Hosomaki met komkommer, tamago en scampi — 24 stuks",
+          "price": 14
+        }
+      ]
+    },
+    {
+      "category": "Roll van de maand",
+      "items": [
+        {
+          "name": "Karafuru roll",
+          "desc": "Zalm, krab, sla, avocado, komkommer, mango, rice crispy, mayonaise en zoetpikante saus, topping met sesam",
+          "price": 14
+        }
+      ]
+    },
+    {
+      "category": "Dranken",
+      "items": [
+        {
+          "name": "Coca-Cola",
+          "desc": "",
+          "price": 2.5
+        },
+        {
+          "name": "Coca-Cola Zero",
+          "desc": "",
+          "price": 2.5
+        },
+        {
+          "name": "Sprite",
+          "desc": "",
+          "price": 2.5
+        },
+        {
+          "name": "Fanta",
+          "desc": "",
+          "price": 2.5
+        },
+        {
+          "name": "Ice tea",
+          "desc": "",
+          "price": 2.5
+        },
+        {
+          "name": "Spa",
+          "desc": "",
+          "price": 2.5
+        },
+        {
+          "name": "Jupiler",
+          "desc": "",
+          "price": 3
+        },
+        {
+          "name": "Japanse sake",
+          "desc": "",
+          "price": 6.5
+        }
+      ]
+    },
+    {
+      "category": "Extra's",
+      "items": [
+        {
+          "name": "Gebakken noedels met ei",
+          "desc": "",
+          "price": 5.5
+        },
+        {
+          "name": "Gebakken rijst met ei",
+          "desc": "",
+          "price": 5.5
+        },
+        {
+          "name": "Currysaus",
+          "desc": "",
+          "price": 6
+        },
+        {
+          "name": "Witte rijst",
+          "desc": "",
+          "price": 3.5
+        },
+        {
+          "name": "Teriyakisaus",
+          "desc": "",
+          "price": 0.8
+        },
+        {
+          "name": "Unagisaus",
+          "desc": "Zoete sojasaus",
+          "price": 0.8
+        },
+        {
+          "name": "Gember",
+          "desc": "",
+          "price": 0.5
+        },
+        {
+          "name": "Kroepoek",
+          "desc": "",
+          "price": 0.5
+        },
+        {
+          "name": "Mayonaise",
+          "desc": "",
+          "price": 0.5
+        },
+        {
+          "name": "Wasabi",
+          "desc": "",
+          "price": 0.5
+        },
+        {
+          "name": "Zoete chilisaus",
+          "desc": "",
+          "price": 0.5
+        },
+        {
+          "name": "Sojasaus",
+          "desc": "",
+          "price": 0.4
+        }
+      ]
+    }
+  ],
+  "menu_prices_verified": true,
+  "order_deals": [
+    "Afhalen in de Stationsstraat — ongeveer 40 min",
+    "Leveren in 2910 Essen — ongeveer 30 min, minimum €20"
+  ],
   "outreach": {
     "status": "nieuw",
     "note": "Heeft al een werkende bestelsite (essen.maabistasushi.com) — prototype is vooral een presentatie-upgrade"
