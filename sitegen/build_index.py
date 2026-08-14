@@ -65,7 +65,7 @@ STATUSSEN = [
     ("gecontacteerd", "Gecontacteerd", "#2f5fd0"),
     ("gereageerd", "Heeft gereageerd", "#7c3aed"),
     ("klant", "Klant", "#15803d"),
-    ("geen-interesse", "Geen interesse", "#9ca3af"),
+    ("geen-vervolg", "Geen vervolg", "#8a8f98"),
 ]
 STATUS_LABEL = {k: label for k, label, _ in STATUSSEN}
 STATUS_KLEUR = {k: kleur for k, _, kleur in STATUSSEN}

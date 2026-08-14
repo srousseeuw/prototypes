@@ -132,7 +132,7 @@
   .badge-gecontacteerd { color: #2f5fd0; border-color: #2f5fd033; background: #2f5fd014; }
   .badge-gereageerd { color: #7c3aed; border-color: #7c3aed33; background: #7c3aed14; }
   .badge-klant { color: #15803d; border-color: #15803d33; background: #15803d14; }
-  .badge-geen-interesse { color: #9ca3af; border-color: #9ca3af33; background: #9ca3af14; }
+  .badge-geen-vervolg { color: #8a8f98; border-color: #8a8f9833; background: #8a8f9814; }
   .card-name { font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; }
   .card-cat { color: var(--ink-soft); font-size: 0.86rem; }
   .card-detail {
@@ -171,8 +171,9 @@
     <div class="filters" id="filters">
       <button class="filter is-active" type="button" data-filter="alles">Alles <span class="filter-n">39</span></button>
       <button class="filter" type="button" data-filter="nieuw">Nog niet benaderd <span class="filter-n">18</span></button>
-      <button class="filter" type="button" data-filter="gepland">Klaar om te mailen <span class="filter-n">9</span></button>
-      <button class="filter" type="button" data-filter="gecontacteerd">Gecontacteerd <span class="filter-n">12</span></button>
+      <button class="filter" type="button" data-filter="gepland">Klaar om te mailen <span class="filter-n">8</span></button>
+      <button class="filter" type="button" data-filter="gecontacteerd">Gecontacteerd <span class="filter-n">7</span></button>
+      <button class="filter" type="button" data-filter="geen-vervolg">Geen vervolg <span class="filter-n">6</span></button>
     </div>
     <div class="grid" id="grid">
       <a class="card" href="/t-schakeltje/" data-status="nieuw">
@@ -184,19 +185,19 @@
         <span class="card-cat">Kringloopwinkel &amp; ontmoetingsplek</span>
         
       </a>
-      <a class="card" href="/ann-van-gastel/" data-status="gecontacteerd">
+      <a class="card" href="/ann-van-gastel/" data-status="geen-vervolg">
         <span class="card-top">
           <span class="card-sector">Zorg &amp; welzijn</span>
-          <span class="badge badge-gecontacteerd">Gecontacteerd</span>
+          <span class="badge badge-geen-vervolg">Geen vervolg</span>
         </span>
         <span class="card-name">Ann Van Gastel</span>
         <span class="card-cat">Klinisch orthopedagoog</span>
         
       </a>
-      <a class="card" href="/begolf-ios/" data-status="gecontacteerd">
+      <a class="card" href="/begolf-ios/" data-status="geen-vervolg">
         <span class="card-top">
           <span class="card-sector">App</span>
-          <span class="badge badge-gecontacteerd">Gecontacteerd</span>
+          <span class="badge badge-geen-vervolg">Geen vervolg</span>
         </span>
         <span class="card-name">BEgolf</span>
         <span class="card-cat">iOS-app voor tee-times in België</span>
@@ -229,19 +230,19 @@
         <span class="card-cat">Bruin café met terras</span>
         
       </a>
-      <a class="card" href="/camperhuur/" data-status="gecontacteerd">
+      <a class="card" href="/camperhuur/" data-status="geen-vervolg">
         <span class="card-top">
           <span class="card-sector">Verhuur</span>
-          <span class="badge badge-gecontacteerd">Gecontacteerd</span>
+          <span class="badge badge-geen-vervolg">Geen vervolg</span>
         </span>
         <span class="card-name">CamperHuur.be</span>
         <span class="card-cat">Motorhomes huren &amp; verhuren</span>
         
       </a>
-      <a class="card" href="/christoph-longueville/" data-status="gecontacteerd">
+      <a class="card" href="/christoph-longueville/" data-status="geen-vervolg">
         <span class="card-top">
           <span class="card-sector">Metaal &amp; bouw</span>
-          <span class="badge badge-gecontacteerd">Gecontacteerd</span>
+          <span class="badge badge-geen-vervolg">Geen vervolg</span>
         </span>
         <span class="card-name">Christoph Longueville</span>
         <span class="card-cat">Metaalbewerking &amp; bouwtechniek · Essen</span>
@@ -355,10 +356,10 @@
         <span class="card-cat">Garage &amp; Nissan-dealer</span>
         
       </a>
-      <a class="card" href="/golfreservatie/" data-status="gecontacteerd">
+      <a class="card" href="/golfreservatie/" data-status="geen-vervolg">
         <span class="card-top">
           <span class="card-sector">Sport &amp; directory</span>
-          <span class="badge badge-gecontacteerd">Gecontacteerd</span>
+          <span class="badge badge-geen-vervolg">Geen vervolg</span>
         </span>
         <span class="card-name">GolfReservatie.be</span>
         <span class="card-cat">Tee-time directory · België &amp; Nederland</span>
@@ -427,10 +428,10 @@
         <span class="card-cat">FKC-therapie in Essen</span>
         
       </a>
-      <a class="card" href="/lvt-karweiwerken/" data-status="gecontacteerd">
+      <a class="card" href="/lvt-karweiwerken/" data-status="geen-vervolg">
         <span class="card-top">
           <span class="card-sector">Schrijnwerk</span>
-          <span class="badge badge-gecontacteerd">Gecontacteerd</span>
+          <span class="badge badge-geen-vervolg">Geen vervolg</span>
         </span>
         <span class="card-name">LVT-Karweiwerken</span>
         <span class="card-cat">Schrijnwerk &amp; karwei op maat · Essen</span>
@@ -517,14 +518,14 @@
         <span class="card-cat">Lokale afdeling</span>
         <span class="card-detail">2026-08-13</span>
       </a>
-      <a class="card" href="/vrijetijd-essen/" data-status="gepland">
+      <a class="card" href="/vrijetijd-essen/" data-status="gecontacteerd">
         <span class="card-top">
           <span class="card-sector">Vrije tijd &amp; opvang</span>
-          <span class="badge badge-gepland">Klaar om te mailen</span>
+          <span class="badge badge-gecontacteerd">Gecontacteerd</span>
         </span>
         <span class="card-name">Vrije Tijd Essen</span>
         <span class="card-cat">Vakantieopvang &amp; vrijetijdsaanbod gemeente</span>
-        
+        <span class="card-detail">2026-08-13</span>
       </a>
     </div>
     <p class="empty" id="empty" hidden>Niets in deze status.</p>
