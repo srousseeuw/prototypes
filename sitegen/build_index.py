@@ -26,6 +26,7 @@ ROOT = Path(__file__).parent
 SECTOR_LABELS = {
     "bakery": "Bakkerij",
     "bloemist": "Bloemen",
+    "broodboetiek": "Bakkerij",
     "brouwerij": "Brouwerij",
     "cafe": "Café",
     "dierenarts": "Dierenzorg",
@@ -46,6 +47,7 @@ SECTOR_LABELS = {
     "metaal": "Metaal & bouw",
     "schrijnwerk": "Schrijnwerk",
     "sportdirectory": "Sport & directory",
+    "sushi": "Sushi & Aziatisch",
     "verhuur": "Verhuur",
     "vrijetijd": "Vrije tijd & opvang",
     "zorg": "Zorg & welzijn",

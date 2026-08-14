@@ -1,0 +1,85 @@
+{
+  "slug": "bakkerij-van-tichelt",
+  "business_name": "Broodboetiek Van Tichelt",
+  "sector": "broodboetiek",
+  "category": "Brood- & banketbakkerij · kaas en charcuterie",
+  "tagline": "Al drie generaties brood uit Essen-Heikant",
+  "address": "Heikantstraat 81, 2910 Essen",
+  "phone": "03 667 24 16",
+  "email": "info@vantichelt.be",
+  "founded": "1947",
+  "intro": "Brood, patisserie en delicatessen uit de Heikantstraat. Alles wordt ter plaatse gebakken, zes dagen per week — donderdag zijn we gesloten.",
+  "about": "Een buurtbakkerij die sinds 1947 in dezelfde familie zit. Brood en patisserie worden ter plaatse gebakken in eigen werkhuis, en naast de toog met gebak vind je er ook een ruime keuze kaas, charcuterie, salades en delicatessen.",
+  "cta_text": "Bekijk de openingsuren",
+  "route": "Vanuit Essen-centrum: volg de Stationsstraat tot aan het station, steek de spoorwegbrug over en sla meteen links af. Volg de Heikantlaan tot aan het kruispunt. Er is voldoende parkeerplaats voor auto en fiets.",
+  "order_lead": "Bestellingen graag minstens 24 uur op voorhand doorgeven.",
+  "order_note": "Van een enkel broodje tot een volledig samengestelde ontbijtmand, van een mini-koffiekoek tot een gebak dat helemaal volgens jouw wensen wordt gemaakt: geef je bestelling door per e-mail of telefoon en ze staat op het afgesproken moment klaar.",
+  "highlights": [
+    "Brood en patisserie dagelijks vers uit eigen werkhuis",
+    "Meer dan vijftien soorten specialiteitenbrood naast klassiek wit en bruin",
+    "Ruim aanbod kazen, charcuterie, salades en delicatessen",
+    "Gebak en ontbijtmanden volledig op maat, op bestelling",
+    "Vlot bereikbaar met ruime parkeergelegenheid voor auto en fiets"
+  ],
+  "assortment": [
+    {
+      "title": "Brood",
+      "desc": "Ovenvers, van klassiek wit en bruin tot meer dan vijftien soorten specialiteitenbrood. Gebakken in twee ovens: één traditioneel, één computergestuurd."
+    },
+    {
+      "title": "Patisserie",
+      "desc": "Een ruime keuze gebak, alles vers uit het eigen atelier. Taarten worden ook volledig op maat gemaakt."
+    },
+    {
+      "title": "Koffiekoeken & broodjes",
+      "desc": "Van een mini-koffiekoek tot belegde broodjes, klaar om mee te nemen."
+    },
+    {
+      "title": "Kaas & charcuterie",
+      "desc": "Een uitgebreide toog met kazen, charcuterie, salades en delicatessen, sinds de winkel in 1987 werd uitgebreid."
+    },
+    {
+      "title": "Ontbijtmanden",
+      "desc": "Volledig samengestelde manden voor een verjaardag, een feest of gewoon een zondagochtend."
+    },
+    {
+      "title": "Op bestelling",
+      "desc": "Grotere bestellingen worden op maat gemaakt. Minstens 24 uur op voorhand doorgeven."
+    }
+  ],
+  "timeline": [
+    {
+      "year": "1947",
+      "title": "Louis begint voor zichzelf",
+      "text": "Na jaren als bakkersgast start Louis Van Tichelt een eigen kruidenierswinkeltje met bakkerij."
+    },
+    {
+      "year": "1970",
+      "title": "François neemt over",
+      "text": "De tweede generatie bouwt de zaak uit tot een volwaardige brood- en banketbakkerij."
+    },
+    {
+      "year": "1987",
+      "title": "De winkel wordt vernieuwd",
+      "text": "Bij de verbouwing komen kaas en charcuterie in het assortiment. In 1990 plaatst François de eerste broodautomaat van Essen."
+    },
+    {
+      "year": "1995",
+      "title": "Derde generatie",
+      "text": "Erwin Van Tichelt neemt de fakkel over, koopt het buurpand en bouwt op die plek een volledig nieuwe zaak."
+    }
+  ],
+  "hours": [
+    ["Maandag", "7:30 – 18:00"],
+    ["Dinsdag", "7:30 – 18:00"],
+    ["Woensdag", "7:30 – 18:00"],
+    ["Donderdag", "Gesloten"],
+    ["Vrijdag", "7:30 – 18:00"],
+    ["Zaterdag", "7:00 – 18:00"],
+    ["Zondag", "7:00 – 17:00"]
+  ],
+  "outreach": {
+    "status": "nieuw",
+    "note": "Huidige site vantichelt.be is een FrontPage-framesetsite, niet mobielvriendelijk"
+  }
+}

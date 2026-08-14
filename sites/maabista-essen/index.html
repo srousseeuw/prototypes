@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maabista Sushi Essen — Sushi &amp; Aziatische keuken · afhalen en leveren</title>
+<meta name="description" content="Verse sushi en wokgerechten, klaar wanneer jij dat bent. Stationsstraat 150, 2910 Essen. 03 501 73 39">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --indigo:      #16233d;
+    --indigo-deep: #0e182c;
+    --indigo-soft: #2c4471;
+    --rice:        #f5f2ec;
+    --rice-warm:   #eae5db;
+    --salmon:      #e2704f;
+    --salmon-soft: #f0a488;
+    --ink:         #141b2a;
+    --ink-soft:    #5a6478;
+    --line:        #ddd6c9;
+    --display: 'Shippori Mincho', Georgia, serif;
+    --body: 'Zen Kaku Gothic New', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body);
+    background: var(--rice);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  .wrap { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 22px; }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.2; }
+  h2 { font-size: clamp(1.55rem, 3.4vw, 2.2rem); margin-bottom: 16px; }
+  h3 { font-size: 1.08rem; margin-bottom: 8px; }
+
+  .eyebrow {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.22em;
+    font-weight: 700; color: var(--salmon); margin-bottom: 10px;
+  }
+  .eyebrow.light { color: var(--salmon-soft); }
+
+  /* ---------- header ---------- */
+  header.top {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(22,35,61,0.97);
+    color: var(--rice);
+    border-bottom: 1px solid rgba(245,242,236,0.12);
+  }
+  header.top .wrap { display: flex; align-items: center; gap: 14px; min-height: 62px; flex-wrap: wrap; }
+  .brand { font-family: var(--display); font-size: 1.2rem; font-weight: 700; margin-right: auto; white-space: nowrap; }
+  nav.main { display: flex; gap: 2px; flex-wrap: wrap; }
+  nav.main a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px;
+    text-decoration: none; font-size: 0.88rem; font-weight: 500;
+    color: rgba(245,242,236,0.8); border-radius: 6px;
+  }
+  nav.main a:hover { color: #fff; background: rgba(255,255,255,0.10); }
+
+  /* ---------- hero met seigaiha-golven ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    background: var(--indigo);
+    color: var(--rice);
+    padding: 66px 0 76px;
+  }
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 190px;
+    opacity: 0.5; pointer-events: none;
+    background-image:
+      radial-gradient(circle at 50% 100%, transparent 26px, rgba(240,164,136,0.55) 27px, transparent 28px),
+      radial-gradient(circle at 50% 100%, transparent 17px, rgba(240,164,136,0.42) 18px, transparent 19px),
+      radial-gradient(circle at 50% 100%, transparent 8px, rgba(240,164,136,0.3) 9px, transparent 10px);
+    background-size: 76px 38px;
+    background-position: 0 0, 0 0, 0 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000);
+    mask-image: linear-gradient(to bottom, transparent, #000);
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero .kicker {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.24em;
+    font-weight: 700; color: var(--salmon-soft); margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 5.6vw, 3.4rem);
+    font-weight: 700; margin-bottom: 18px; max-width: 18ch;
+  }
+  .hero p.sub { font-size: 1.06rem; color: rgba(245,242,236,0.84); max-width: 52ch; margin-bottom: 30px; }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px; padding: 0 24px;
+    border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 0.94rem;
+    border: 2px solid transparent;
+  }
+  .btn-solid { background: var(--salmon); color: #fff; }
+  .btn-solid:hover { background: #cf5f40; }
+  .btn-ghost { border-color: rgba(245,242,236,0.55); color: var(--rice); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.10); }
+
+  /* ---------- secties ---------- */
+  section { padding: 62px 0; }
+  .body-lg { font-size: 1.03rem; color: var(--ink-soft); }
+
+  .modes { background: var(--rice); }
+  .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; margin-top: 26px; }
+  .mode {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 14px; padding: 24px 22px;
+  }
+  .mode h3 { color: var(--indigo); }
+  .mode p { font-size: 0.95rem; color: var(--ink-soft); }
+  .mode p.meta {
+    margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line);
+    font-size: 0.87rem; color: var(--indigo-soft); font-weight: 500;
+  }
+
+  /* ---------- kaart ---------- */
+  .menu { background: var(--indigo-deep); color: var(--rice); }
+  .menu h2 { color: var(--rice); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 26px; margin-top: 28px; }
+  .menu-block h3 {
+    color: var(--salmon-soft); padding-bottom: 8px;
+    border-bottom: 1px solid rgba(245,242,236,0.18); margin-bottom: 12px;
+  }
+  .menu-block ul { list-style: none; }
+  .menu-block li {
+    font-size: 0.93rem; color: rgba(245,242,236,0.82);
+    padding: 5px 0 5px 16px; position: relative;
+  }
+  .menu-block li::before {
+    content: ""; position: absolute; left: 0; top: 13px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--salmon);
+  }
+  .menu-note { margin-top: 26px; font-size: 0.87rem; color: rgba(245,242,236,0.6); }
+
+  /* ---------- over ---------- */
+  .over { background: var(--rice-warm); }
+  .over-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 44px; align-items: start; }
+  ul.points { list-style: none; }
+  ul.points li {
+    position: relative; padding: 12px 0 12px 28px;
+    border-bottom: 1px solid var(--line); font-size: 0.96rem;
+  }
+  ul.points li:first-child { border-top: 1px solid var(--line); }
+  ul.points li::before {
+    content: ""; position: absolute; left: 2px; top: 21px;
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 2px solid var(--salmon);
+  }
+
+  /* ---------- contact ---------- */
+  .contact { background: var(--indigo); color: var(--rice); }
+  .contact h2 { color: var(--rice); }
+  .contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+  .hours-row {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 11px 0; border-bottom: 1px solid rgba(245,242,236,0.16);
+    font-size: 0.95rem;
+  }
+  .hours-row:first-child { border-top: 1px solid rgba(245,242,236,0.16); }
+  .hours-row.closed span:last-child { color: var(--salmon-soft); font-weight: 700; }
+  .hours-note { margin-top: 12px; font-size: 0.86rem; color: rgba(245,242,236,0.6); }
+  .contact p { color: rgba(245,242,236,0.86); margin-bottom: 8px; }
+  a.plain { color: var(--salmon-soft); text-decoration: underline; text-underline-offset: 3px; }
+  a.map-link {
+    display: inline-flex; align-items: center; min-height: 44px;
+    margin-top: 6px; font-weight: 700; font-size: 0.92rem;
+    color: var(--salmon-soft); text-decoration: none;
+  }
+  a.map-link:hover { text-decoration: underline; }
+
+  footer {
+    background: var(--indigo-deep); color: rgba(245,242,236,0.6);
+    padding: 26px 0; text-align: center; font-size: 0.82rem;
+  }
+  footer a { color: var(--salmon-soft); }
+
+  a:focus-visible, .btn:focus-visible { outline: 3px solid var(--salmon-soft); outline-offset: 3px; border-radius: 6px; }
+
+  @media (max-width: 860px) {
+    .over-grid, .contact .wrap { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    header.top .wrap { padding-top: 8px; padding-bottom: 8px; }
+    .brand { width: 100%; margin-right: 0; }
+    nav.main { width: 100%; }
+    nav.main a { padding: 0 10px; font-size: 0.84rem; }
+    section { padding: 46px 0; }
+    .hero { padding: 44px 0 60px; }
+    .hero-btns .btn { flex: 1 1 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">Maabista Sushi Essen</span>
+    <nav class="main" aria-label="Hoofdnavigatie">
+      <a href="#bestellen">Bestellen</a>
+<a href="#kaart">Kaart</a>
+<a href="#over">Over ons</a>
+<a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Sushi &amp; Aziatische keuken · afhalen en leveren</p>
+    <h1>Verse sushi en wokgerechten, klaar wanneer jij dat bent</h1>
+    <p class="sub">Sushi, sashimi, wokgerechten en curry's uit de Stationsstraat in Essen. Afhalen of laten leveren, elke dag behalve dinsdag.</p>
+    <div class="hero-btns">
+      <a class="btn btn-solid" href="https://essen.maabistasushi.com/Menu" target="_blank" rel="noopener">Bestel online</a>
+      <a class="btn btn-ghost" href="#kaart">Bekijk de kaart</a>
+    </div>
+  </div>
+</section>
+
+<section class="modes" id="bestellen">
+  <div class="wrap">
+    <p class="eyebrow">Afhalen of leveren</p>
+    <h2>Twee manieren om thuis te eten</h2>
+    <div class="mode-grid">
+      <article class="mode">
+          <h3>Afhalen</h3>
+          <p>Bestel vooraf en pik je bestelling op in de Stationsstraat. Zo blijft de sushi op zijn best tot je thuiskomt.</p>
+          <p class="meta">Reken op ongeveer 40 minuten bereidingstijd</p>
+        </article>
+<article class="mode">
+          <h3>Leveren</h3>
+          <p>Binnen Essen brengen we je bestelling aan huis. Handig voor een avond met vrienden of een gezinsmaaltijd zonder gedoe.</p>
+          <p class="meta">Leverzone 2910 Essen · minimumbestelling € 20</p>
+        </article>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="kaart">
+  <div class="wrap">
+    <p class="eyebrow light">De kaart</p>
+    <h2>Van nigiri tot pad thai</h2>
+    <div class="menu-grid">
+      <div class="menu-block">
+          <h3>Om te beginnen</h3>
+          <ul><li>Voorgerechten</li><li>Salades</li><li>Soepen</li><li>Gyoza</li></ul>
+        </div><div class="menu-block">
+          <h3>Sushi</h3>
+          <ul><li>Nigiri</li><li>Sashimi</li><li>Hosomaki</li><li>Futomaki</li><li>California rolls</li><li>Handrolls</li><li>Special rolls</li></ul>
+        </div><div class="menu-block">
+          <h3>Sushi om te delen</h3>
+          <ul><li>Sushi combo's</li><li>Sushiboten</li><li>Roll van de maand</li></ul>
+        </div><div class="menu-block">
+          <h3>Warme keuken</h3>
+          <ul><li>Wok en pad thai</li><li>Curry</li><li>Roergebakken gerechten</li><li>Rijstgerechten</li><li>Teriyaki van de grill</li></ul>
+        </div><div class="menu-block">
+          <h3>Voor de kleinsten</h3>
+          <ul><li>Kindermenu</li></ul>
+        </div><div class="menu-block">
+          <h3>Erbij</h3>
+          <ul><li>Dranken</li><li>Extra's en sauzen</li></ul>
+        </div>
+    </div>
+    <p class="menu-note">Overzicht van de categorieën op de kaart. Actuele gerechten en prijzen vind je bij het bestellen.</p>
+  </div>
+</section>
+
+<section class="over" id="over">
+  <div class="wrap over-grid">
+    <div>
+      <p class="eyebrow">Over ons</p>
+      <h2>Elke dag vers gesneden</h2>
+      <p class="body-lg">Een Aziatische afhaal- en leverzaak aan de Stationsstraat, met een tweede vestiging in Kalmthout. Op de kaart staan sushi en sashimi naast warme gerechten uit de wok, curry's, teriyaki en noedels. Alles is opgezet om thuis te eten: je haalt af of laat leveren.</p>
+    </div>
+    <div><ul class="points"><li>Sushi en sashimi dagelijks vers bereid</li><li>Ook warme keuken: wok, pad thai, curry, teriyaki en noedels</li><li>Sushiboten en combo's voor groepen en families</li><li>Apart kindermenu</li><li>Vegetarische keuzes op de kaart</li><li>Tweede vestiging in Kalmthout</li></ul></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow light">Openingsuren</p>
+      <h2>Wanneer we open zijn</h2>
+      <div class="hours-row "><span>Maandag</span><span>16:30 – 21:00</span></div>
+<div class="hours-row closed"><span>Dinsdag</span><span>Gesloten</span></div>
+<div class="hours-row "><span>Woensdag</span><span>16:30 – 21:00</span></div>
+<div class="hours-row "><span>Donderdag</span><span>16:30 – 21:00</span></div>
+<div class="hours-row "><span>Vrijdag</span><span>16:00 – 21:00</span></div>
+<div class="hours-row "><span>Zaterdag</span><span>16:00 – 21:00</span></div>
+<div class="hours-row "><span>Zondag</span><span>16:00 – 21:00</span></div>
+      <p class="hours-note">Op feestdagen open van 16:00 tot 21:00.</p>
+    </div>
+    <div>
+      <p class="eyebrow light">Contact</p>
+      <h2>Waar je ons vindt</h2>
+      <p>Stationsstraat 150, 2910 Essen</p>
+      <p><a class="plain" href="tel:035017339">03 501 73 39</a></p>
+      <p><a class="plain" href="mailto:clipanbvba@gmail.com">clipanbvba@gmail.com</a></p>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Stationsstraat+150,+2910+Essen" target="_blank" rel="noopener">Route op Google Maps &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Websiteprototype voor Maabista Sushi Essen · gemaakt door <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+  </div>
+</footer>
+
+</body>
+</html>

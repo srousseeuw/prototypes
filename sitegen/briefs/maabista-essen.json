@@ -1,0 +1,75 @@
+{
+  "slug": "maabista-essen",
+  "business_name": "Maabista Sushi Essen",
+  "sector": "sushi",
+  "category": "Sushi & Aziatische keuken · afhalen en leveren",
+  "tagline": "Verse sushi en wokgerechten, klaar wanneer jij dat bent",
+  "address": "Stationsstraat 150, 2910 Essen",
+  "phone": "03 501 73 39",
+  "email": "clipanbvba@gmail.com",
+  "order_url": "https://essen.maabistasushi.com/Menu",
+  "intro": "Sushi, sashimi, wokgerechten en curry's uit de Stationsstraat in Essen. Afhalen of laten leveren, elke dag behalve dinsdag.",
+  "about": "Een Aziatische afhaal- en leverzaak aan de Stationsstraat, met een tweede vestiging in Kalmthout. Op de kaart staan sushi en sashimi naast warme gerechten uit de wok, curry's, teriyaki en noedels. Alles is opgezet om thuis te eten: je haalt af of laat leveren.",
+  "cta_text": "Bekijk de kaart",
+  "highlights": [
+    "Sushi en sashimi dagelijks vers bereid",
+    "Ook warme keuken: wok, pad thai, curry, teriyaki en noedels",
+    "Sushiboten en combo's voor groepen en families",
+    "Apart kindermenu",
+    "Vegetarische keuzes op de kaart",
+    "Tweede vestiging in Kalmthout"
+  ],
+  "service_modes": [
+    {
+      "title": "Afhalen",
+      "desc": "Bestel vooraf en pik je bestelling op in de Stationsstraat. Zo blijft de sushi op zijn best tot je thuiskomt.",
+      "meta": "Reken op ongeveer 40 minuten bereidingstijd"
+    },
+    {
+      "title": "Leveren",
+      "desc": "Binnen Essen brengen we je bestelling aan huis. Handig voor een avond met vrienden of een gezinsmaaltijd zonder gedoe.",
+      "meta": "Leverzone 2910 Essen · minimumbestelling € 20"
+    }
+  ],
+  "menu_sections": [
+    {
+      "title": "Om te beginnen",
+      "items": ["Voorgerechten", "Salades", "Soepen", "Gyoza"]
+    },
+    {
+      "title": "Sushi",
+      "items": ["Nigiri", "Sashimi", "Hosomaki", "Futomaki", "California rolls", "Handrolls", "Special rolls"]
+    },
+    {
+      "title": "Sushi om te delen",
+      "items": ["Sushi combo's", "Sushiboten", "Roll van de maand"]
+    },
+    {
+      "title": "Warme keuken",
+      "items": ["Wok en pad thai", "Curry", "Roergebakken gerechten", "Rijstgerechten", "Teriyaki van de grill"]
+    },
+    {
+      "title": "Voor de kleinsten",
+      "items": ["Kindermenu"]
+    },
+    {
+      "title": "Erbij",
+      "items": ["Dranken", "Extra's en sauzen"]
+    }
+  ],
+  "menu_note": "Overzicht van de categorieën op de kaart. Actuele gerechten en prijzen vind je bij het bestellen.",
+  "hours": [
+    ["Maandag", "16:30 – 21:00"],
+    ["Dinsdag", "Gesloten"],
+    ["Woensdag", "16:30 – 21:00"],
+    ["Donderdag", "16:30 – 21:00"],
+    ["Vrijdag", "16:00 – 21:00"],
+    ["Zaterdag", "16:00 – 21:00"],
+    ["Zondag", "16:00 – 21:00"]
+  ],
+  "hours_note": "Op feestdagen open van 16:00 tot 21:00.",
+  "outreach": {
+    "status": "nieuw",
+    "note": "Heeft al een werkende bestelsite (essen.maabistasushi.com) — prototype is vooral een presentatie-upgrade"
+  }
+}
