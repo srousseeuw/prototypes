@@ -42,6 +42,7 @@ SECTOR_LABELS = {
     "opticien": "Optiek",
     "pizzeria": "Pizzeria & Italiaans",
     "politiek": "Politiek",
+    "schilder": "Schilderwerken",
     "restaurant": "Restaurant",
     "slager": "Slagerij",
     "sportclub": "Sport & vereniging",

@@ -1,0 +1,8 @@
+{
+  "slug": "jens-gotink",
+  "sector": "schilder",
+  "business_name": "Jens Gotink Schilderwerken",
+  "category": "Schilderbedrijf in Kalmthout",
+  "generated": false,
+  "note": "Handmatig gemaakt, overgezet uit de aparte repo srousseeuw/jensgotink. Niet uit een sjabloon: generate.py weigert dit bestand te overschrijven; bewerk sites/jens-gotink/index.html rechtstreeks."
+}

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JENS Professioneel Schilderwerk – Vakmanschap in Kalmthout &amp; Noorderkempen</title>
+<meta name="description" content="JENS Professioneel Schilderwerk – schilderbedrijf in Kalmthout. Binnen- en buitenschilderwerken, behang, lakwerk. Persoonlijke aanpak, propere werf. Bel +32 494 87 50 55." />
+<meta property="og:title" content="JENS Professioneel Schilderwerk – Vakmanschap in verf" />
+<meta property="og:description" content="Schildersbedrijf in Kalmthout &amp; Noorderkempen. Binnenschilderwerken, buitenschilderwerken, lakwerk, behang en meer." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="nl_BE" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --charcoal:#3b3739;--charcoal-deep:#2b2829;--charcoal-soft:#4a4547;
+    --steel:#b9b6b4;--steel-light:#d7d4d2;--linen:#f3f1ec;--linen-warm:#e9e6df;
+    --paper:#ffffff;--ink:#2a2728;--ink-soft:#6b6663;--accent:#a8825b;--accent-deep:#8a6a46;
+    --line:rgba(43,40,41,.12);--line-light:rgba(255,255,255,.14);
+    --shadow:0 24px 60px -28px rgba(43,40,41,.45);--radius:14px;--maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--linen);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.display{font-family:'Archivo',sans-serif;letter-spacing:-.02em;line-height:1.05;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  .eyebrow{font-family:'Archivo',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;color:var(--accent-deep);}
+  .eyebrow.light{color:var(--steel);}
+  .logo{display:block;height:auto;}
+  .logo-header{width:210px;color:var(--ink);}
+  .logo-footer{width:250px;color:var(--steel-light);}
+  .btn{display:inline-flex;align-items:center;gap:.55em;font-family:'Archivo',sans-serif;font-weight:600;font-size:.92rem;padding:.85em 1.5em;border-radius:999px;border:1.5px solid transparent;transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease;cursor:pointer;}
+  .btn-primary{background:var(--charcoal);color:var(--linen);}
+  .btn-primary:hover{background:var(--accent-deep);transform:translateY(-2px);}
+  .btn-ghost{border-color:currentColor;color:var(--charcoal);}
+  .btn-ghost:hover{background:var(--charcoal);color:var(--linen);transform:translateY(-2px);}
+  .btn-light{border-color:var(--line-light);color:var(--linen);}
+  .btn-light:hover{background:var(--linen);color:var(--charcoal);transform:translateY(-2px);}
+  header{position:sticky;top:0;z-index:50;background:rgba(243,241,236,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;max-width:var(--maxw);margin:0 auto;gap:24px;}
+  .brand{display:flex;align-items:center;}
+  .nav-links{display:flex;gap:28px;align-items:center;}
+  .nav-links a{font-weight:500;font-size:.92rem;color:var(--ink-soft);transition:color .15s;}
+  .nav-links a:hover{color:var(--ink);}
+  .menu-cta{display:none;}
+  .nav-cta{display:flex;gap:12px;align-items:center;}
+  .menu-toggle{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;}
+  .menu-toggle span{width:24px;height:2px;background:var(--charcoal);display:block;}
+  .hero{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 85% 0%,rgba(168,130,91,.16),transparent 55%),linear-gradient(160deg,var(--charcoal) 0%,var(--charcoal-deep) 100%);color:var(--linen);}
+  .hero-inner{max-width:760px;padding:96px 0 100px;}
+  .hero h1{font-size:clamp(2.7rem,6vw,4.6rem);font-weight:800;color:var(--linen);}
+  .hero h1 em{font-style:italic;font-weight:600;color:var(--steel);}
+  .hero p.lead{margin-top:22px;font-size:1.1rem;color:var(--steel-light);max-width:46ch;}
+  .hero-cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+  .hero-stats{display:flex;gap:34px;margin-top:46px;flex-wrap:wrap;}
+  .stat b{font-family:'Archivo',sans-serif;font-weight:800;font-size:1.9rem;display:block;color:var(--linen);}
+  .stat span{font-size:.82rem;color:var(--steel);letter-spacing:.04em;}
+  section{padding:88px 0;}
+  .sec-head{max-width:60ch;margin-bottom:52px;}
+  .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700;margin-top:12px;}
+  .sec-head p{margin-top:14px;color:var(--ink-soft);font-size:1.05rem;}
+  .services{background:var(--linen);}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .svc{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s;}
+  .svc:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent;}
+  .svc .ico{width:44px;height:44px;border-radius:11px;background:var(--linen-warm);display:flex;align-items:center;justify-content:center;margin-bottom:18px;color:var(--accent-deep);font-size:20px;}
+  .svc h3{font-size:1.18rem;font-weight:700;}
+  .svc p{margin-top:9px;color:var(--ink-soft);font-size:.96rem;}
+  .about{background:var(--paper);}
+  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;}
+  .about-media{position:relative;}
+  .about-media img{border-radius:var(--radius);box-shadow:var(--shadow);}
+  .about-media .badge{position:absolute;bottom:-22px;left:-22px;background:var(--charcoal);color:var(--linen);padding:18px 22px;border-radius:12px;box-shadow:var(--shadow);}
+  .about-media .badge b{font-family:'Archivo',sans-serif;font-size:1.5rem;display:block;}
+  .about-media .badge span{font-size:.78rem;color:var(--steel);letter-spacing:.05em;}
+  .about-text p{margin-top:16px;color:var(--ink-soft);}
+  .about-stats{display:flex;gap:36px;margin-top:30px;}
+  .about-stats .stat b{color:var(--ink);}
+  .about-stats .stat span{color:var(--ink-soft);}
+  .process{background:var(--charcoal);color:var(--linen);}
+  .process .sec-head h2{color:var(--linen);}
+  .process .sec-head p{color:var(--steel);}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .step{border-top:2px solid var(--line-light);padding-top:20px;}
+  .step .n{font-family:'Archivo',sans-serif;font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:.05em;}
+  .step h3{font-size:1.12rem;margin-top:14px;color:var(--linen);}
+  .step p{margin-top:8px;color:var(--steel);font-size:.94rem;}
+  .why{background:var(--linen);}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .why-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;}
+  .why-card .k{font-family:'Archivo',sans-serif;font-weight:800;color:var(--accent-deep);font-size:.9rem;letter-spacing:.05em;}
+  .why-card h3{margin-top:12px;font-size:1.2rem;}
+  .why-card p{margin-top:10px;color:var(--ink-soft);font-size:.96rem;}
+  .contact{background:var(--paper);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+  .form-field{margin-bottom:16px;}
+  .form-field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--ink);}
+  .form-field input,.form-field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:.95rem;background:var(--linen);transition:border-color .15s,background .15s;}
+  .form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--accent);background:var(--paper);}
+  .form-note{font-size:.78rem;color:var(--ink-soft);margin:8px 0 18px;}
+  .contact-info{background:var(--linen);border-radius:var(--radius);padding:32px;border:1px solid var(--line);}
+  .contact-info h3{font-size:1.3rem;}
+  .contact-info .sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:22px;}
+  .ci-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line);}
+  .ci-row:first-of-type{border-top:0;}
+  .ci-row .lab{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-deep);font-weight:700;min-width:96px;padding-top:2px;}
+  .ci-row .val{font-size:.96rem;}
+  .ci-row .val a{color:var(--ink);font-weight:500;}
+  .map-section{background:var(--charcoal-deep);color:var(--linen);padding:0;}
+  .map-grid{display:grid;grid-template-columns:.82fr 1.18fr;min-height:460px;}
+  .map-copy{padding:72px 56px;display:flex;flex-direction:column;justify-content:center;}
+  .map-copy h2{font-size:clamp(1.8rem,3vw,2.5rem);color:var(--linen);margin-top:12px;}
+  .map-copy p{color:var(--steel);margin-top:14px;max-width:40ch;}
+  .zones{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .zone{font-size:.86rem;font-weight:500;padding:.5em 1em;border-radius:999px;border:1px solid var(--line-light);color:var(--steel-light);transition:background .15s,color .15s,border-color .15s;}
+  .zone.core{background:var(--accent);color:#1f1c1a;border-color:transparent;font-weight:600;}
+  .map-frame{position:relative;filter:grayscale(1) contrast(1.05) brightness(.92);}
+  .map-frame iframe{width:100%;height:100%;min-height:460px;border:0;display:block;}
+  .map-frame::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 120px 20px rgba(43,40,41,.55);pointer-events:none;}
+  .map-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:none;display:flex;flex-direction:column;align-items:center;}
+  .map-pin .dot{width:16px;height:16px;border-radius:50%;background:var(--accent);border:3px solid var(--linen);box-shadow:0 0 0 8px rgba(168,130,91,.28);animation:pulse 2.4s infinite;}
+  .map-pin .tag{margin-top:10px;background:var(--linen);color:var(--ink);font-family:'Archivo',sans-serif;font-weight:700;font-size:.78rem;padding:.35em .8em;border-radius:8px;white-space:nowrap;box-shadow:var(--shadow);}
+  @keyframes pulse{0%{box-shadow:0 0 0 8px rgba(168,130,91,.28);}70%{box-shadow:0 0 0 18px rgba(168,130,91,0);}100%{box-shadow:0 0 0 8px rgba(168,130,91,0);}}
+  footer{background:var(--charcoal);color:var(--steel);padding:72px 0 0;}
+  .foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:44px;padding-bottom:48px;border-bottom:1px solid var(--line-light);}
+  .foot-brand p{margin-top:20px;font-size:.94rem;max-width:38ch;color:var(--steel);}
+  .foot-brand .fcta{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;}
+  .foot-col h4{font-family:'Archivo',sans-serif;font-weight:700;color:var(--linen);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;}
+  .foot-col a,.foot-col p{color:var(--steel);font-size:.92rem;display:block;margin-bottom:8px;}
+  .foot-col a:hover{color:var(--linen);}
+  .foot-legal{padding:24px 0 30px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--steel);}
+  .foot-legal .meta{display:flex;gap:22px;flex-wrap:wrap;}
+  .made-by{font-size:.82rem;color:var(--steel);}
+  .made-by a{color:var(--accent);font-weight:600;}
+  .made-by a:hover{color:var(--steel-light);}
+  @media(max-width:960px){
+    .about-grid,.contact-grid{grid-template-columns:1fr;}
+    .svc-grid,.why-grid{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .map-grid{grid-template-columns:1fr;}
+    .map-copy{padding:52px 32px;}
+    .foot-top{grid-template-columns:1fr;}
+    /* Header: show only logo + hamburger */
+    .nav-links{display:none;}
+    .nav-cta .btn{display:none;}
+    .menu-toggle{display:flex;order:2;}
+    .nav{padding:14px 20px;}
+    .logo-header{width:132px;}
+    /* Dropdown menu */
+    .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:var(--linen);padding:16px 20px 22px;border-bottom:1px solid var(--line);gap:4px;box-shadow:var(--shadow);}
+    .nav-links.open a{padding:12px 4px;font-size:1rem;border-bottom:1px solid var(--line);}
+    .nav-links.open a:last-child{border-bottom:0;}
+    .menu-cta{display:block;font-family:'Archivo',sans-serif;font-weight:600;text-align:center;margin-top:8px;padding:14px !important;border-radius:999px !important;border:1.5px solid var(--charcoal) !important;color:var(--charcoal) !important;}
+    .menu-cta-primary{background:var(--charcoal);color:var(--linen) !important;}
+  }
+  @media(max-width:560px){
+    .svc-grid,.why-grid,.steps{grid-template-columns:1fr;}
+    section{padding:60px 0;}
+    .hero-inner{padding:56px 0 60px;}
+    .wrap{padding:0 20px;}
+    .hero h1{font-size:clamp(2.4rem,11vw,3.4rem);}
+    .hero p.lead{font-size:1.02rem;}
+    .hero-cta{gap:10px;}
+    .hero-cta .btn{flex:1;justify-content:center;}
+    .hero-stats{gap:20px 26px;margin-top:38px;}
+    .stat b{font-size:1.55rem;}
+    .stat span{font-size:.78rem;}
+    .sec-head{margin-bottom:38px;}
+    .map-copy{padding:44px 24px;}
+    .map-frame iframe,.map-frame{min-height:340px;}
+    .contact-info{padding:26px;}
+    .foot-legal{flex-direction:column;align-items:flex-start;gap:10px;}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+
+<a href="#main" style="position:absolute;left:-9999px;">Ga naar inhoud</a>
+
+<header>
+  <div class="nav">
+    <a href="#hero" class="brand" aria-label="JENS Professioneel Schilderwerk — home">
+      <svg class="logo logo-header" viewBox="0 0 560 300" role="img" aria-label="JENS Professioneel Schilderwerk">
+        <path fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"
+              d="M486 78 C486 50 466 34 430 34 L104 34 C68 34 48 50 48 78 L48 152 C48 180 68 196 104 196 L430 196 C466 196 486 180 486 152 L486 118 L430 118"/>
+        <text x="267" y="153" text-anchor="middle" fill="currentColor" font-family="Archivo, 'Arial Black', sans-serif" font-weight="800" font-size="102" letter-spacing="3">JENS</text>
+        <text x="267" y="256" text-anchor="middle" fill="currentColor" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="20" letter-spacing="5.5">PROFESSIONEEL SCHILDERWERK</text>
+      </svg>
+    </a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#diensten">Diensten</a>
+      <a href="#werkwijze">Werkwijze</a>
+      <a href="#werkgebied">Werkgebied</a>
+      <a href="#contact">Contact</a>
+      <a href="tel:+32494875055" class="menu-cta">Bel Jens</a>
+      <a href="#contact" class="menu-cta menu-cta-primary">Vraag een offerte</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="tel:+32494875055" class="btn btn-ghost">Bel Jens</a>
+      <a href="#contact" class="btn btn-primary">Vraag een offerte</a>
+      <button class="menu-toggle" aria-label="Menu" id="menuToggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow light">Kalmthout &amp; Noorderkempen</span>
+      <h1>Vakmanschap <em>in verf.</em></h1>
+      <p class="lead">Jens, erkend schilder met meer dan 15 jaar ervaring in binnen- en buitenschilderwerken. Actief in Kalmthout en de volledige Noorderkempen — propere werf, stipte oplevering, altijd persoonlijk contact.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-light">Vraag een offerte</a>
+        <a href="tel:+32494875055" class="btn btn-light" style="background:var(--linen);color:var(--charcoal);border-color:transparent;">Bel Jens →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>15+</b><span>Jaar ervaring</span></div>
+        <div class="stat"><b>100%</b><span>Eigen uitvoering</span></div>
+        <div class="stat"><b>Kalmthout</b><span>&amp; Noorderkempen</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="diensten">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Wat ik doe</span>
+      <h2>Diensten</h2>
+      <p>Van muren tot gevels, van lakwerk tot behang — Jens verzorgt uw schilderwerken van begin tot einde.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc"><div class="ico">&#9635;</div><h3>Binnenschilderwerken</h3><p>Muren, plafonds en deuren vakkundig afgewerkt. Strak resultaat, minimale hinder.</p></div>
+      <div class="svc"><div class="ico">&#9707;</div><h3>Buitenschilderwerken</h3><p>Gevels, ramen en kozijnen behandeld met duurzame buitenverf. Weersbestendig en mooi.</p></div>
+      <div class="svc"><div class="ico">&#9636;</div><h3>Behangwerken</h3><p>Vliesbehang, glasweefsel en klassiek behang. Nauwkeurige verwerking, perfecte naden.</p></div>
+      <div class="svc"><div class="ico">&#9704;</div><h3>Lakwerk</h3><p>Deuren, ramen, keukens en meubels met hoogwaardige lakafwerking. Gladde, duurzame finish.</p></div>
+      <div class="svc"><div class="ico">&#9638;</div><h3>Gevelbescherming</h3><p>Impregnatie en hydrofuge behandeling. Uw gevel beschermd tegen vocht, schimmel en vervuiling.</p></div>
+      <div class="svc"><div class="ico">&#9681;</div><h3>Kleuradvies op maat</h3><p>Geen idee welke kleur? Jens helpt u met een persoonlijk kleuradvies dat past bij uw woning.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="werkwijze">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" style="color:var(--accent);">Hoe het werkt</span>
+      <h2>Van eerste contact tot oplevering</h2>
+      <p>Een helder traject zonder verrassingen. Zo werkt Jens.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Vrijblijvend contact</h3><p>Bel, stuur een mail of vul het contactformulier in. Jens reageert snel en persoonlijk.</p></div>
+      <div class="step"><div class="n">02</div><h3>Plaatsbezoek &amp; offerte</h3><p>Jens komt langs, bekijkt de werf en maakt een duidelijke, gedetailleerde offerte — zonder verborgen kosten.</p></div>
+      <div class="step"><div class="n">03</div><h3>Planning</h3><p>Samen spreken we een startdatum en planning af die voor u past. Geen vrijblijvende beloften.</p></div>
+      <div class="step"><div class="n">04</div><h3>Uitvoering &amp; oplevering</h3><p>Propere werf, vakkundig uitgevoerd, stipt opgeleverd. Jens vertrekt pas als u tevreden bent.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <span class="eyebrow">Neem contact op</span>
+      <h2 style="font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:700;margin:12px 0 10px;">Vraag uw vrijblijvende offerte</h2>
+      <p style="color:var(--ink-soft);margin-bottom:26px;">Vul het formulier in of bel Jens rechtstreeks.</p>
+      <form onsubmit="event.preventDefault();this.style.display='none';document.getElementById('thanks').style.display='block';">
+        <div class="form-field"><label>Naam *</label><input required type="text" name="naam" /></div>
+        <div class="form-field"><label>E-mailadres *</label><input required type="email" name="email" /></div>
+        <div class="form-field"><label>Telefoonnummer</label><input type="tel" name="tel" /></div>
+        <div class="form-field"><label>Adres van de werf</label><input type="text" name="adres" /></div>
+        <div class="form-field"><label>Beschrijf uw project *</label><textarea required rows="4" name="bericht"></textarea></div>
+        <p class="form-note">* Verplichte velden. Uw gegevens worden enkel gebruikt om uw aanvraag te verwerken en worden niet gedeeld met derden.</p>
+        <button type="submit" class="btn btn-primary">Verstuur aanvraag</button>
+      </form>
+      <p id="thanks" style="display:none;background:var(--linen-warm);border-radius:10px;padding:18px;color:var(--ink);">Bedankt voor uw bericht! Jens neemt zo snel mogelijk contact met u op.</p>
+    </div>
+    <div class="contact-info">
+      <h3>JENS Professioneel Schilderwerk</h3>
+      <p class="sub">Schildersbedrijf — BTW BE 0686.886.593</p>
+      <div class="ci-row"><span class="lab">Telefoon</span><span class="val"><a href="tel:+32494875055">+32 494 87 50 55</a> (mobiel)<br /><a href="tel:+3232977562">+32 3 297 75 62</a> (vast)</span></div>
+      <div class="ci-row"><span class="lab">E-mail</span><span class="val"><a href="mailto:info@gotink-schilderwerken.be">info@gotink-schilderwerken.be</a></span></div>
+      <div class="ci-row"><span class="lab">Adres</span><span class="val"><a href="https://www.google.com/maps/search/?api=1&query=Nieuwmoer-Dorp+4%2C+2920+Kalmthout" target="_blank" rel="noopener">Nieuwmoer-Dorp 4/2, 2920 Kalmthout</a></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="map-section" id="werkgebied">
+  <div class="map-grid">
+    <div class="map-copy">
+      <span class="eyebrow" style="color:var(--accent);">Werkgebied</span>
+      <h2>Actief in de Noorderkempen</h2>
+      <p>Van thuisbasis Nieuwmoer bedient Jens de volledige regio. Twijfelt u of uw adres binnen het werkgebied valt? Bel gerust — meestal lukt het.</p>
+      <div class="zones">
+        <span class="zone core">Kalmthout</span>
+        <span class="zone">Putte</span>
+        <span class="zone">Kapellen</span>
+        <span class="zone">Brasschaat</span>
+        <span class="zone">Wuustwezel</span>
+        <span class="zone">Essen</span>
+        <span class="zone">Stabroek</span>
+        <span class="zone">Hoevenen</span>
+      </div>
+    </div>
+    <div class="map-frame">
+      <div class="map-pin"><span class="dot"></span><span class="tag">Nieuwmoer, Kalmthout</span></div>
+      <iframe title="Werkgebied Kalmthout en Noorderkempen" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.35%2C51.33%2C4.60%2C51.46&layer=mapnik&marker=51.383%2C4.466"></iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <svg class="logo logo-footer" viewBox="0 0 560 300" role="img" aria-label="JENS Professioneel Schilderwerk">
+          <path fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"
+                d="M486 78 C486 50 466 34 430 34 L104 34 C68 34 48 50 48 78 L48 152 C48 180 68 196 104 196 L430 196 C466 196 486 180 486 152 L486 118 L430 118"/>
+          <text x="267" y="153" text-anchor="middle" fill="currentColor" font-family="Archivo, 'Arial Black', sans-serif" font-weight="800" font-size="102" letter-spacing="3">JENS</text>
+          <text x="267" y="256" text-anchor="middle" fill="currentColor" font-family="Archivo, Arial, sans-serif" font-weight="600" font-size="20" letter-spacing="5.5">PROFESSIONEEL SCHILDERWERK</text>
+        </svg>
+        <p>Vakmanschap in verf. Professioneel schildersbedrijf met ruim 15 jaar ervaring — van binnenschilderwerken tot gevelrenovaties, altijd persoonlijk en vakkundig.</p>
+        <div class="fcta">
+          <a href="tel:+32494875055" class="btn btn-light">Bel nu</a>
+          <a href="#contact" class="btn btn-light" style="background:var(--linen);color:var(--charcoal);border-color:transparent;">Offerte aanvragen</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <p>Nieuwmoer-Dorp 4/2<br />2920 Kalmthout<br />Antwerpen, Belgi&euml;</p>
+        <a href="tel:+32494875055">+32 494 87 50 55</a>
+        <a href="tel:+3232977562">+32 3 297 75 62</a>
+        <a href="mailto:info@gotink-schilderwerken.be">info@gotink-schilderwerken.be</a>
+      </div>
+      <div class="foot-col">
+        <h4>Navigatie</h4>
+        <a href="#diensten">Diensten</a>
+        <a href="#werkwijze">Werkwijze</a>
+        <a href="#werkgebied">Werkgebied</a>
+        <a href="#contact">Contact &amp; offerte</a>
+        <p style="margin-top:14px;">BTW: BE 0686.886.593</p>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>&copy; 2026 JENS Professioneel Schilderwerk. Alle rechten voorbehouden.</span>
+      <div class="meta">
+        <span class="made-by">Website door <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const t=document.getElementById('menuToggle'),l=document.getElementById('navlinks');
+  if(t){t.addEventListener('click',()=>l.classList.toggle('open'));}
+  document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+</script>
+
+</body>
+</html>
