@@ -1,0 +1,9 @@
+{
+  "slug": "finum-accountants",
+  "sector": "boekhouding",
+  "business_name": "Finum Accountants",
+  "category": "Boekhouding & fiscaliteit · Antwerpen & Schilde",
+  "generated": false,
+  "note": "Handmatig gemaakt, overgezet van finum2.ocior.be. Niet uit een sjabloon: generate.py weigert dit bestand te overschrijven; bewerk sites/finum-accountants/index.html rechtstreeks.",
+  "source_url": "https://finum2.ocior.be/"
+}

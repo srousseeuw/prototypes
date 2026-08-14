@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kristel de Clerck — FKC-therapie in Essen</title>
+<meta name="description" content="Kristel de Clerck begeleidt cliënten met Fundamentele Kinesiologische Communicatie (FKC) in Essen. Op afspraak — Elf-Novemberstraat 22, 2910 Essen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EDE7DE;
+    --bg-alt: #E2DBCE;
+    --ink: #2A2233;
+    --ink-soft: #55495F;
+    --plum: #3E2F5B;
+    --plum-deep: #241C36;
+    --mauve: #8D7B95;
+    --sage: #62815E;
+    --gold: #B98B3C;
+    --line: rgba(42,33,51,0.16);
+    --paper: #F6F2EA;
+    --max: 1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    margin:0 0 0.5em 0;
+    color:var(--plum-deep);
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--sage);
+    display:inline-block;
+    margin-bottom:0.9em;
+  }
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--sage);
+    outline-offset:3px;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(237,231,222,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+    max-width:var(--max); margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+    text-decoration:none;
+  }
+  .brand-mark{width:34px; height:34px; flex-shrink:0;}
+  .brand-text{
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    color:var(--plum-deep);
+    line-height:1.15;
+  }
+  .brand-text small{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--mauve);
+    margin-top:2px;
+  }
+  nav.links{display:flex; gap:28px; align-items:center;}
+  nav.links a{
+    font-size:0.92rem;
+    text-decoration:none;
+    color:var(--ink-soft);
+    transition:color .15s ease;
+  }
+  nav.links a:hover{color:var(--plum);}
+  .nav-cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    background:var(--plum);
+    color:var(--paper);
+    padding:9px 16px;
+    border-radius:2px;
+    text-decoration:none;
+    letter-spacing:0.02em;
+    transition:background .15s ease;
+  }
+  .nav-cta:hover{background:var(--plum-deep);}
+  .menu-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:88px 0 72px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 4vw, 3.35rem);
+    line-height:1.08;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--sage);
+    font-weight:500;
+  }
+  .hero p.lead{
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    max-width:46ch;
+    margin:18px 0 30px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.82rem;
+    letter-spacing:0.02em;
+    padding:13px 22px;
+    border-radius:2px;
+    text-decoration:none;
+    display:inline-block;
+    transition:transform .15s ease, background .15s ease;
+    border:1px solid var(--plum);
+  }
+  .btn-primary{background:var(--plum); color:var(--paper);}
+  .btn-primary:hover{background:var(--plum-deep); transform:translateY(-1px);}
+  .btn-ghost{background:transparent; color:var(--plum);}
+  .btn-ghost:hover{background:rgba(62,47,91,0.06);}
+
+  /* Signal circle demo */
+  .signal{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:34px 30px 28px;
+    text-align:center;
+  }
+  .signal-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:18px;
+  }
+  .signal-ring-holder{
+    display:flex; justify-content:center; margin:6px 0 20px;
+  }
+  .signal svg{width:180px; height:180px;}
+  .ring-path{
+    fill:none;
+    stroke:var(--sage);
+    stroke-width:6;
+    stroke-linecap:round;
+    transition:stroke-dashoffset 1.1s cubic-bezier(.65,0,.35,1), stroke .4s ease;
+  }
+  .signal-status{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.2rem;
+    color:var(--plum-deep);
+    min-height:1.4em;
+  }
+  .signal-toggle{
+    margin-top:16px;
+    display:inline-flex;
+    background:var(--bg-alt);
+    border-radius:20px;
+    padding:4px;
+    gap:2px;
+  }
+  .signal-toggle button{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    border:none;
+    background:transparent;
+    color:var(--ink-soft);
+    padding:8px 16px;
+    border-radius:16px;
+    cursor:pointer;
+    transition:all .2s ease;
+  }
+  .signal-toggle button.active{
+    background:var(--plum);
+    color:var(--paper);
+  }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{padding:84px 0;}
+  section.alt{background:var(--bg-alt);}
+  .section-head{max-width:62ch; margin-bottom:48px;}
+  .section-head p{color:var(--ink-soft); font-size:1.03rem;}
+
+  /* Wat is FKC */
+  .fkc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+  }
+  .fkc-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:30px 28px;
+  }
+  .fkc-card h3{font-size:1.25rem; margin-bottom:12px;}
+  .fkc-card p{color:var(--ink-soft); font-size:0.98rem;}
+
+  /* Cascade / werkwijze */
+  .cascade{
+    display:flex;
+    flex-direction:column;
+    border-top:1px solid var(--line);
+  }
+  .cascade-step{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:24px;
+    padding:26px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .cascade-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--gold);
+    padding-top:4px;
+  }
+  .cascade-step h3{font-size:1.1rem; margin-bottom:6px;}
+  .cascade-step p{color:var(--ink-soft); margin:0; font-size:0.97rem; max-width:60ch;}
+
+  /* Over Kristel */
+  .about{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:52px;
+    align-items:start;
+  }
+  .about-portrait{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    aspect-ratio:4/5;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--mauve);
+  }
+  .about-portrait svg{width:64%; height:64%;}
+  .about h2{margin-bottom:6px;}
+  .about .role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--sage);
+    margin-bottom:22px;
+    display:block;
+  }
+  .about p{color:var(--ink-soft); font-size:1rem;}
+  .quote{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.3rem;
+    color:var(--plum-deep);
+    border-left:3px solid var(--gold);
+    padding-left:20px;
+    margin:26px 0;
+  }
+
+  /* Praktisch */
+  .practical{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:stretch;
+  }
+  .info-list{list-style:none; margin:0; padding:0;}
+  .info-list li{
+    display:grid;
+    grid-template-columns:26px 1fr;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .info-list li:first-child{border-top:1px solid var(--line);}
+  .info-list svg{width:20px; height:20px; margin-top:2px; color:var(--sage); stroke:var(--sage);}
+  .info-list .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:block;
+    margin-bottom:4px;
+  }
+  .info-list a{text-decoration:none; color:var(--plum-deep); font-weight:500;}
+  .info-list a:hover{color:var(--sage);}
+  .map-frame{
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    min-height:280px;
+  }
+  .map-frame iframe{width:100%; height:100%; min-height:280px; border:0; display:block;}
+
+  /* Contact CTA band */
+  .cta-band{
+    background:var(--plum-deep);
+    color:var(--paper);
+    padding:64px 0;
+  }
+  .cta-band .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .cta-band h2{color:var(--paper); margin-bottom:6px;}
+  .cta-band p{color:rgba(246,242,234,0.72); margin:0; max-width:44ch;}
+  .cta-band .btn-primary{background:var(--gold); border-color:var(--gold); color:var(--plum-deep); font-weight:500;}
+  .cta-band .btn-primary:hover{background:#caa15a;}
+
+  footer{
+    padding:36px 0;
+    background:var(--bg);
+  }
+  footer .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+  }
+  footer .brand-text{font-size:0.95rem;}
+
+  @media (max-width: 860px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero{padding-top:100px;}
+    .fkc-grid{grid-template-columns:1fr;}
+    .about{grid-template-columns:1fr;}
+    .about-portrait{max-width:220px; margin:0 auto;}
+    .practical{grid-template-columns:1fr;}
+    nav.links{
+      position:fixed; top:70px; left:0; right:0;
+      background:var(--paper);
+      flex-direction:column;
+      align-items:flex-start;
+      padding:20px 28px 26px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-130%);
+      transition:transform .25s ease;
+    }
+    nav.links.open{transform:translateY(0);}
+    .menu-toggle{
+      display:block;
+      background:none; border:none;
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.8rem;
+      color:var(--plum-deep);
+      cursor:pointer;
+    }
+    .nav-cta{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="17" fill="none" stroke="#3E2F5B" stroke-width="2"/>
+        <circle cx="20" cy="20" r="6" fill="#B98B3C"/>
+      </svg>
+      <span class="brand-text">Kristel de Clerck<small>FKC-therapie · Essen</small></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <nav class="links" id="navLinks">
+      <a href="#fkc">Wat is FKC</a>
+      <a href="#werkwijze">Werkwijze</a>
+      <a href="#kristel">Over Kristel</a>
+      <a href="#praktisch">Praktisch</a>
+      <a class="nav-cta" href="tel:036676093">03 667 60 93</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">FKC-hulpverlener in Essen</span>
+        <h1>Uw lichaam geeft <em>antwoord</em> — wij leren het lezen.</h1>
+        <p class="lead">Kristel de Clerck begeleidt cliënten in Essen met Fundamentele Kinesiologische Communicatie (FKC): een spiertest die, laag per laag, de weg wijst naar de kern van een klacht.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="tel:036676093">Bel 03 667 60 93</a>
+          <a class="btn btn-ghost" href="#fkc">Ontdek FKC</a>
+        </div>
+      </div>
+
+      <div class="signal">
+        <div class="signal-label">De pink-duim-cirkel, uitgelegd</div>
+        <div class="signal-ring-holder">
+          <svg viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="70" fill="none" stroke="#E2DBCE" stroke-width="6"/>
+            <circle id="ringPath" class="ring-path" cx="90" cy="90" r="70" fill="none"
+              transform="rotate(-90 90 90)"/>
+          </svg>
+        </div>
+        <div class="signal-status" id="signalStatus">Sterk signaal — de cirkel houdt stand</div>
+        <div class="signal-toggle">
+          <button id="btnStrong" class="active" type="button">Sterk</button>
+          <button id="btnWeak" type="button">Zwak</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAT IS FKC -->
+  <section id="fkc" class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Wat is FKC</span>
+        <h2>Fundamentele Kinesiologische Communicatie</h2>
+        <p>FKC gebruikt de zogenaamde pink-duim-cirkel: een lichte druk op duim en pink geeft een ‘zwak’ of ‘sterk’ signaal. Niet de spier zelf wordt getest, zoals bij een arts of kinesist — het signaal is een ingang, geen diagnose op zich.</p>
+      </div>
+      <div class="fkc-grid">
+        <div class="fkc-card">
+          <h3>De pink-duim-cirkel</h3>
+          <p>Via een cascade van gerichte vragen zoekt Kristel, samen met u, laag per laag naar de domeinen waarop een klacht zich werkelijk situeert — vaak dieper dan het eerste, zichtbare symptoom.</p>
+        </div>
+        <div class="fkc-card">
+          <h3>Graderen</h3>
+          <p>Een klacht, spanning of thema krijgt een score. Dat graderen is een vorm van meten die inzicht geeft, en dient meteen ook als opvolginstrument doorheen het traject.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WERKWIJZE -->
+  <section id="werkwijze">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Verloop van een sessie</span>
+        <h2>Hoe een FKC-traject bij Kristel verloopt</h2>
+        <p>Elke sessie volgt dezelfde opbouw: van eerste gesprek tot concrete opvolging.</p>
+      </div>
+      <div class="cascade">
+        <div class="cascade-step">
+          <span class="cascade-num">01</span>
+          <div>
+            <h3>Intakegesprek</h3>
+            <p>U vertelt wat u meebrengt: een klacht, een vraag, een gevoel dat om aandacht vraagt. Er is ruimte om vrijuit te spreken, zonder dat dit al ergens naartoe moet.</p>
+          </div>
+        </div>
+        <div class="cascade-step">
+          <span class="cascade-num">02</span>
+          <div>
+            <h3>De spiertest</h3>
+            <p>Via de pink-duim-cirkel test Kristel een reeks gerichte vragen af op ‘sterk’ of ‘zwak’ signaal — het startpunt van het verdere onderzoek.</p>
+          </div>
+        </div>
+        <div class="cascade-step">
+          <span class="cascade-num">03</span>
+          <div>
+            <h3>Cascade van vragen</h3>
+            <p>Laag per laag wordt scherper gesteld waar de klacht vandaan komt en op welke domeinen ze zich situeert — lichamelijk, emotioneel of anderszins.</p>
+          </div>
+        </div>
+        <div class="cascade-step">
+          <span class="cascade-num">04</span>
+          <div>
+            <h3>Aanpak</h3>
+            <p>Op basis van wat naar boven komt, wordt samen bepaald welke stap nu passend is — soms een inzicht, soms een concrete oefening of aandachtspunt.</p>
+          </div>
+        </div>
+        <div class="cascade-step">
+          <span class="cascade-num">05</span>
+          <div>
+            <h3>Opvolging &amp; gradatie</h3>
+            <p>Bij een volgende sessie wordt de score herbekeken: zo blijft zichtbaar wat er verschoven is, en wat nog aandacht vraagt.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVER KRISTEL -->
+  <section id="kristel" class="alt">
+    <div class="wrap about">
+      <div class="about-portrait" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="38" r="20" stroke="currentColor" stroke-width="2"/>
+          <path d="M18 92c4-22 20-34 32-34s28 12 32 34" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+      <div>
+        <span class="eyebrow">Over Kristel</span>
+        <h2>Kristel de Clerck</h2>
+        <span class="role">FKC-hulpverlener &middot; Essen</span>
+        <p>Kristel de Clerck ontvangt cliënten in haar praktijk in Essen voor begeleiding met Fundamentele Kinesiologische Communicatie. Ze werkt rustig en methodisch: eerst luisteren, dan testen, en pas daarna samen bepalen welke stap past.</p>
+        <p class="quote">“Het lichaam vergeet niets — het is aan ons om goed te vragen.”</p>
+        <p>Elke sessie vertrekt van uw eigen vraag. Er wordt niets opgelegd: de pink-duim-cirkel geeft signalen, u en Kristel geven er samen betekenis aan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRAKTISCH -->
+  <section id="praktisch">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Praktisch</span>
+        <h2>Praktijkgegevens</h2>
+        <p>Sessies zijn op afspraak. Bel gerust om samen een moment te vinden.</p>
+      </div>
+      <div class="practical">
+        <ul class="info-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+            <div>
+              <span class="label">Adres</span>
+              <a href="https://www.google.com/maps/search/?api=1&query=Elf-Novemberstraat+22%2C+2910+Essen" target="_blank" rel="noopener">Elf-Novemberstraat 22, 2910 Essen</a>
+            </div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.9c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1L6.6 10.8Z"/></svg>
+            <div>
+              <span class="label">Telefoon</span>
+              <a href="tel:036676093">03 667 60 93</a>
+            </div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+            <div>
+              <span class="label">Sessies</span>
+              Op afspraak, telefonisch te regelen
+            </div>
+          </li>
+        </ul>
+        <div class="map-frame">
+          <iframe title="Kaart Elf-Novemberstraat 22, Essen" loading="lazy"
+            src="https://www.google.com/maps?q=Elf-Novemberstraat+22,+2910+Essen&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Klaar voor een eerste gesprek?</h2>
+        <p>Bel Kristel de Clerck om een afspraak in te plannen in de praktijk in Essen.</p>
+      </div>
+      <a class="btn btn-primary" href="tel:036676093">Bel 03 667 60 93</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand-text">Kristel de Clerck — FKC-therapie</span>
+    <span>Elf-Novemberstraat 22, 2910 Essen &middot; 03 667 60 93</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  var toggle = document.getElementById('menuToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ links.classList.remove('open'); });
+  });
+
+  // Signal ring demo (sterk / zwak)
+  var ring = document.getElementById('ringPath');
+  var status = document.getElementById('signalStatus');
+  var btnStrong = document.getElementById('btnStrong');
+  var btnWeak = document.getElementById('btnWeak');
+  var R = 70, C = 2 * Math.PI * R;
+  ring.style.strokeDasharray = C;
+
+  function setStrong(){
+    ring.style.stroke = '#62815E';
+    ring.style.strokeDashoffset = 0;
+    status.textContent = 'Sterk signaal — de cirkel houdt stand';
+    btnStrong.classList.add('active');
+    btnWeak.classList.remove('active');
+  }
+  function setWeak(){
+    ring.style.stroke = '#B98B3C';
+    ring.style.strokeDashoffset = C * 0.62;
+    status.textContent = 'Zwak signaal — de cirkel geeft mee';
+    btnWeak.classList.add('active');
+    btnStrong.classList.remove('active');
+  }
+  btnStrong.addEventListener('click', setStrong);
+  btnWeak.addEventListener('click', setWeak);
+  setStrong();
+
+  // Cycle demo automatically once, gently, on load for ambience
+  setTimeout(function(){
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      setWeak();
+      setTimeout(setStrong, 1800);
+    }
+  }, 1200);
+</script>
+
+</body>
+</html>

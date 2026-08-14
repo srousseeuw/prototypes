@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LVT-Karweiwerken — Schrijnwerk & karwei op maat in Essen</title>
+<meta name="description" content="LVT-Karweiwerken uit Essen: schrijnwerk, maatkasten, vloeren, deuren en karweiwerken op maat. Vakmanschap in Essen, Kalmthout, Wuustwezel en de Noorderkempen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --oak:#c9a36a;
+  --oak-deep:#a67c45;
+  --bark:#2a211a;
+  --bark-soft:#3d3229;
+  --linen:#f4efe6;
+  --linen-warm:#eae2d3;
+  --sap:#6b7a52;
+  --ink:#1a140f;
+  --paper:#fbf8f2;
+  --line:rgba(42,33,26,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
+body{
+  font-family:'Archivo',system-ui,sans-serif;
+  color:var(--bark);
+  background:var(--paper);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  width:100%;
+  position:relative;
+}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.05;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* wood grain texture used as a signature motif */
+.grain{
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(166,124,69,.05) 0px,
+      rgba(166,124,69,.05) 1px,
+      transparent 1px,
+      transparent 7px),
+    repeating-linear-gradient(90deg,
+      rgba(42,33,26,.03) 0px,
+      rgba(42,33,26,.03) 2px,
+      transparent 2px,
+      transparent 23px);
+}
+
+/* ---------- NAV ---------- */
+header.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .3s,box-shadow .3s,padding .3s;
+  padding:22px 0;
+}
+header.nav.scrolled{
+  background:rgba(251,248,242,.92);
+  backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 var(--line);
+  padding:14px 0;
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;color:var(--ink)}
+.brand .mark{
+  width:38px;height:38px;flex:0 0 38px;
+  border:1.5px solid var(--oak-deep);
+  display:grid;place-items:center;
+  border-radius:3px;
+  font-size:.82rem;font-weight:700;letter-spacing:.02em;
+  color:var(--oak-deep);
+  transition:transform .4s;
+}
+.brand:hover .mark{transform:rotate(-6deg)}
+nav ul{display:flex;gap:34px;list-style:none;align-items:center}
+nav a{font-family:'Archivo';font-size:.9rem;font-weight:500;color:var(--bark-soft);position:relative}
+nav a:not(.nav-cta)::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1.5px;background:var(--oak-deep);transition:width .3s}
+nav a:not(.nav-cta):hover::after{width:100%}
+.nav-cta{
+  background:var(--bark);color:var(--linen)!important;
+  padding:10px 20px;border-radius:2px;font-weight:600;
+  transition:background .25s,transform .25s;
+}
+.nav-cta:hover{background:var(--oak-deep);transform:translateY(-1px)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:8px;z-index:130;position:relative}
+.burger span{width:26px;height:2px;background:var(--bark);transition:.3s;transform-origin:center}
+.burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-overlay{
+  position:fixed;inset:0;background:rgba(26,20,15,.5);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;
+  z-index:90;
+}
+.nav-overlay.open{opacity:1;visibility:visible}
+body.menu-open{overflow:hidden}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;
+  background:
+    linear-gradient(105deg,rgba(26,20,15,.86) 0%,rgba(26,20,15,.55) 48%,rgba(26,20,15,.15) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Crect fill='%232a211a' width='1600' height='1000'/%3E%3Cg fill='none' stroke='%23a67c45' stroke-opacity='.22'%3E%3Cpath d='M0 120 Q400 90 800 130 T1600 110' stroke-width='2'/%3E%3Cpath d='M0 260 Q400 300 800 250 T1600 280' stroke-width='2.5'/%3E%3Cpath d='M0 420 Q500 380 900 430 T1600 400' stroke-width='2'/%3E%3Cpath d='M0 580 Q400 620 800 560 T1600 600' stroke-width='3'/%3E%3Cpath d='M0 740 Q500 700 900 750 T1600 720' stroke-width='2'/%3E%3Cpath d='M0 880 Q400 850 800 900 T1600 870' stroke-width='2.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover;background-position:center;
+  color:var(--linen);
+}
+.hero-content{max-width:760px;padding-top:60px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Archivo';font-size:.78rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--oak);margin-bottom:26px;
+}
+.eyebrow::before{content:"";width:34px;height:1.5px;background:var(--oak)}
+.hero h1{
+  font-size:clamp(2.9rem,7vw,5.4rem);font-weight:600;color:#fff;
+  margin-bottom:26px;
+}
+.hero h1 em{font-style:italic;color:var(--oak);font-weight:400}
+.hero p.lead{
+  font-size:clamp(1.05rem,1.6vw,1.28rem);
+  max-width:540px;color:rgba(244,239,230,.86);margin-bottom:38px;
+}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Archivo';font-weight:600;font-size:.96rem;
+  padding:15px 28px;border-radius:2px;cursor:pointer;
+  transition:transform .25s,background .25s,color .25s;
+}
+.btn-primary{background:var(--oak);color:var(--ink)}
+.btn-primary:hover{background:#fff;transform:translateY(-2px)}
+.btn-ghost{border:1.5px solid rgba(244,239,230,.4);color:var(--linen)}
+.btn-ghost:hover{border-color:var(--oak);color:var(--oak)}
+.hero-meta{
+  position:absolute;bottom:38px;left:0;right:0;
+}
+.hero-meta .wrap{display:flex;gap:44px;flex-wrap:wrap;
+  border-top:1px solid rgba(244,239,230,.16);padding-top:22px}
+.hero-meta .stat{display:flex;flex-direction:column}
+.hero-meta .stat b{font-family:'Fraunces',serif;font-size:1.7rem;color:var(--oak);font-weight:600}
+.hero-meta .stat span{font-size:.82rem;letter-spacing:.04em;color:rgba(244,239,230,.7)}
+
+/* ---------- SECTION SHELL ---------- */
+section{padding:110px 0}
+.sec-head{max-width:640px;margin-bottom:64px}
+.sec-tag{
+  font-family:'Archivo';font-size:.76rem;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--oak-deep);
+  display:flex;align-items:center;gap:12px;margin-bottom:18px;
+}
+.sec-tag::before{content:"";width:26px;height:1.5px;background:var(--oak-deep)}
+.sec-head h2{font-size:clamp(2rem,4vw,3.1rem);color:var(--ink);margin-bottom:18px}
+.sec-head p{color:var(--bark-soft);font-size:1.08rem;max-width:520px}
+
+/* ---------- INTRO / OVER ---------- */
+.intro{background:var(--linen)}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.intro-photo{
+  aspect-ratio:4/5;border-radius:3px;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,var(--bark) 0%,var(--bark-soft) 100%);
+  box-shadow:0 30px 60px -30px rgba(42,33,26,.5);
+}
+.intro-photo .plank{
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(180deg,
+    rgba(201,163,106,.14) 0 38px,
+    rgba(166,124,69,.08) 38px 40px,
+    rgba(201,163,106,.10) 40px 78px,
+    rgba(166,124,69,.06) 78px 80px);
+}
+.intro-photo .tool{
+  position:absolute;bottom:28px;left:28px;right:28px;
+  color:var(--linen);font-family:'Fraunces',serif;
+}
+.intro-photo .tool small{font-family:'Archivo';letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;color:var(--oak);display:block;margin-bottom:8px}
+.intro-photo .tool b{font-size:1.5rem;font-weight:500}
+.intro-text h2{font-size:clamp(1.9rem,3.4vw,2.7rem);color:var(--ink);margin-bottom:24px}
+.intro-text h2 em{font-style:italic;color:var(--oak-deep)}
+.intro-text p{margin-bottom:20px;color:var(--bark-soft);font-size:1.05rem}
+.signature{
+  font-family:'Fraunces',serif;font-style:italic;font-size:1.4rem;
+  color:var(--oak-deep);margin-top:14px;
+}
+
+/* ---------- DIENSTEN ---------- */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line)}
+.svc{
+  background:var(--paper);padding:44px 36px;position:relative;
+  transition:background .3s;
+  min-height:280px;display:flex;flex-direction:column;
+}
+.svc:hover{background:var(--linen)}
+.svc .num{font-family:'Fraunces',serif;font-size:.9rem;color:var(--oak-deep);opacity:.6;margin-bottom:auto}
+.svc .icon{width:44px;height:44px;margin-bottom:22px;color:var(--oak-deep)}
+.svc h3{font-size:1.4rem;color:var(--ink);margin-bottom:12px}
+.svc p{font-size:.96rem;color:var(--bark-soft)}
+.svc .icon svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.4;fill:none}
+
+/* ---------- WERK / PORTFOLIO ---------- */
+.work{background:var(--bark);color:var(--linen)}
+.work .sec-head h2{color:#fff}
+.work .sec-tag{color:var(--oak)}
+.work .sec-tag::before{background:var(--oak)}
+.work .sec-head p{color:rgba(244,239,230,.72)}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
+.tile{
+  position:relative;border-radius:3px;overflow:hidden;cursor:pointer;
+  background:linear-gradient(150deg,var(--bark-soft),#4a3d31);
+}
+.tile.big{grid-column:span 2;grid-row:span 2}
+.tile.wide{grid-column:span 2}
+.tile .grainfill{position:absolute;inset:0;opacity:.5}
+.tile .cap{
+  position:absolute;left:0;right:0;bottom:0;padding:18px 20px;
+  background:linear-gradient(transparent,rgba(26,20,15,.9));
+  transform:translateY(8px);opacity:0;transition:.35s;
+}
+.tile:hover .cap{transform:translateY(0);opacity:1}
+.tile .cap small{font-family:'Archivo';letter-spacing:.14em;text-transform:uppercase;font-size:.68rem;color:var(--oak)}
+.tile .cap b{display:block;font-family:'Fraunces',serif;font-size:1.15rem;font-weight:500;color:#fff}
+.tile:hover{transform:scale(.985)}
+.tile{transition:transform .3s}
+
+/* ---------- WERKWIJZE ---------- */
+.process{background:var(--linen-warm)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.step{padding:36px 30px 36px 0;position:relative}
+.step:not(:last-child){border-right:1px solid var(--line)}
+.step:not(:first-child){padding-left:30px}
+.step .idx{
+  font-family:'Fraunces',serif;font-size:2.6rem;color:var(--oak);
+  font-weight:400;line-height:1;margin-bottom:20px;display:block;
+}
+.step h3{font-size:1.2rem;color:var(--ink);margin-bottom:10px}
+.step p{font-size:.93rem;color:var(--bark-soft)}
+
+/* ---------- REVIEWS ---------- */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.review{
+  background:var(--paper);border:1px solid var(--line);padding:34px 30px;
+  border-radius:3px;display:flex;flex-direction:column;
+}
+.stars{color:var(--oak);letter-spacing:3px;margin-bottom:18px;font-size:.95rem}
+.review q{font-family:'Fraunces',serif;font-size:1.12rem;font-style:italic;color:var(--bark);line-height:1.5;quotes:none;margin-bottom:auto}
+.review .who{margin-top:26px;display:flex;align-items:center;gap:14px}
+.review .who .av{width:42px;height:42px;border-radius:50%;background:var(--oak);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;color:var(--ink)}
+.review .who b{display:block;font-size:.95rem;color:var(--ink)}
+.review .who span{font-size:.82rem;color:var(--bark-soft)}
+
+/* ---------- CTA / CONTACT ---------- */
+.contact{background:var(--bark);color:var(--linen);position:relative;overflow:hidden}
+.contact::before{
+  content:"";position:absolute;inset:0;opacity:.4;
+  background:repeating-linear-gradient(115deg,
+    rgba(201,163,106,.06) 0 3px,transparent 3px 26px);
+}
+.contact .wrap{position:relative;z-index:1}
+.contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:70px;align-items:start}
+.contact h2{font-size:clamp(2.2rem,4.5vw,3.4rem);color:#fff;margin-bottom:22px}
+.contact h2 em{font-style:italic;color:var(--oak)}
+.contact .lead{color:rgba(244,239,230,.8);font-size:1.1rem;margin-bottom:38px;max-width:440px}
+.contact-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.contact-list li a,.contact-list li div{
+  display:flex;align-items:center;gap:18px;padding:18px 0;
+  border-top:1px solid rgba(244,239,230,.14);transition:padding-left .3s;
+}
+.contact-list li:last-child a,.contact-list li:last-child div{border-bottom:1px solid rgba(244,239,230,.14)}
+.contact-list li a:hover{padding-left:8px;color:var(--oak)}
+.contact-list .ci{width:24px;height:24px;flex:0 0 24px;stroke:var(--oak);stroke-width:1.5;fill:none}
+.contact-list small{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,239,230,.55)}
+.contact-list b{font-family:'Fraunces',serif;font-weight:500;font-size:1.15rem;color:#fff}
+
+/* form */
+.form{background:var(--paper);border-radius:4px;padding:38px 34px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.form h3{font-size:1.4rem;color:var(--ink);margin-bottom:6px}
+.form>p{font-size:.92rem;color:var(--bark-soft);margin-bottom:26px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.04em;color:var(--bark);margin-bottom:7px}
+.field input,.field textarea,.field select{
+  width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:2px;
+  font-family:'Archivo';font-size:.95rem;color:var(--ink);background:#fff;
+  transition:border-color .25s,box-shadow .25s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+  outline:none;border-color:var(--oak-deep);box-shadow:0 0 0 3px rgba(166,124,69,.15);
+}
+.field textarea{resize:vertical;min-height:110px}
+.form .btn-primary{width:100%;justify-content:center;background:var(--bark);color:var(--linen)}
+.form .btn-primary:hover{background:var(--oak-deep);color:#fff}
+.form-note{font-size:.8rem;color:var(--bark-soft);margin-top:14px;text-align:center}
+.form-success{display:none;background:var(--sap);color:#fff;padding:16px;border-radius:2px;text-align:center;font-weight:500;margin-top:16px}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--ink);color:rgba(244,239,230,.6);padding:56px 0 34px}
+.foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;align-items:flex-start;padding-bottom:34px;border-bottom:1px solid rgba(244,239,230,.12)}
+.foot-brand{font-family:'Fraunces',serif;font-size:1.4rem;color:#fff;margin-bottom:10px}
+.foot-brand+p{max-width:300px;font-size:.9rem}
+.foot-cols{display:flex;gap:70px;flex-wrap:wrap}
+.foot-col b{display:block;font-family:'Archivo';font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--oak);margin-bottom:16px}
+.foot-col a{display:block;font-size:.92rem;padding:5px 0;transition:color .2s}
+.foot-col a:hover{color:#fff}
+.foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:26px;font-size:.82rem}
+.foot-bottom a:hover{color:var(--oak)}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:960px){
+  .intro-grid{grid-template-columns:1fr;gap:44px}
+  .intro-photo{max-width:420px}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+  .tile.big{grid-column:span 2;grid-row:span 1}
+  .steps{grid-template-columns:1fr 1fr;gap:2px}
+  .step{border-right:0!important;border-bottom:1px solid var(--line);padding:30px 20px!important}
+  .reviews-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr;gap:44px}
+}
+@media(max-width:640px){
+  .wrap{padding:0 20px}
+  section{padding:72px 0}
+  /* voorkom auto-zoom op iOS bij focus in velden */
+  .field input,.field textarea,.field select{font-size:16px}
+  /* comfortabele tikzones */
+  .btn{padding:16px 26px;width:100%;justify-content:center}
+  .hero-actions{width:100%}
+  .hero-actions .btn{width:100%}
+  .contact-list li a,.contact-list li div{padding:16px 0}
+  nav ul{
+    position:fixed;top:0;right:0;bottom:0;width:80%;max-width:320px;
+    background:var(--paper);flex-direction:column;align-items:flex-start;
+    padding:96px 30px 40px;gap:6px;
+    transform:translateX(105%);transition:transform .35s ease;
+    box-shadow:-20px 0 50px -20px rgba(0,0,0,.4);
+    visibility:hidden;overflow-y:auto;z-index:120;
+  }
+  nav ul.open{transform:translateX(0);visibility:visible}
+  nav ul li{width:100%}
+  nav ul li a{display:block;padding:12px 0;font-size:1.05rem;border-bottom:1px solid var(--line)}
+  .nav-cta{display:inline-block;margin-top:12px}
+  .burger{display:flex}
+  .brand{font-size:1rem;gap:9px}
+  .brand .mark{width:34px;height:34px;flex-basis:34px;font-size:.74rem}
+  .services-grid{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr;grid-auto-rows:180px}
+  .tile.big,.tile.wide{grid-column:span 1}
+  .steps{grid-template-columns:1fr}
+  .hero-meta{position:static;margin-top:40px}
+  .hero-meta .wrap{gap:28px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="mark">LVT</span>
+      LVT-Karweiwerken
+    </a>
+    <nav>
+      <ul id="menu">
+        <li><a href="#diensten">Diensten</a></li>
+        <li><a href="#werk">Realisaties</a></li>
+        <li><a href="#over">Over Lander</a></li>
+        <li><a href="#werkwijze">Werkwijze</a></li>
+        <li><a href="#contact" class="nav-cta">Offerte aanvragen</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu openen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-content">
+    <span class="eyebrow">Schrijnwerk & karwei · Essen</span>
+    <h1>Vakwerk in hout,<br><em>afgewerkt tot in de nerf.</em></h1>
+    <p class="lead">Van maatkast tot volledige renovatie — LVT-Karweiwerken pakt uw klus aan met de precisie en zorg die u van een echte schrijnwerker verwacht.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Vraag een gratis offerte
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="tel:+32496441153" class="btn btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
+        +32 496 44 11 53
+      </a>
+    </div>
+  </div>
+  <div class="hero-meta">
+    <div class="wrap">
+      <div class="stat"><b>100%</b><span>Maatwerk</span></div>
+      <div class="stat"><b>Essen</b><span>& de Noorderkempen</span></div>
+      <div class="stat"><b>Eén aanspreekpunt</b><span>van opmeting tot oplevering</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OVER / INTRO -->
+<section class="intro" id="over">
+  <div class="wrap intro-grid">
+    <div class="intro-photo reveal">
+      <div class="plank"></div>
+      <div class="tool">
+        <small>De vakman</small>
+        <b>Lander Vanthillo</b>
+      </div>
+    </div>
+    <div class="intro-text reveal">
+      <div class="sec-tag">Over LVT-Karweiwerken</div>
+      <h2>Eén schrijnwerker die uw project <em>van begin tot eind</em> in handen neemt.</h2>
+      <p>LVT-Karweiwerken is de zaak van Lander Vanthillo, schrijnwerker en klusspecialist uit Essen. Geen wisselende onderaannemers of losse handen: u heeft één aanspreekpunt die het werk ook zelf uitvoert.</p>
+      <p>Of het nu gaat om een maatkast die perfect in de nis past, een nieuwe vloer, of een reeks karweien die al te lang blijven liggen — het wordt afgewerkt met oog voor detail en respect voor uw woning. Netjes, op tijd en zoals afgesproken.</p>
+      <div class="signature">— Afgewerkt zoals ik het zelf thuis zou willen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIENSTEN -->
+<section id="diensten">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Wat we voor u doen</div>
+      <h2>Diensten</h2>
+      <p>Schrijnwerk op maat en alle karweien er rond — binnen en buiten uw woning.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc reveal">
+        <span class="num">01</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="36" rx="1"/><line x1="24" y1="6" x2="24" y2="42"/><circle cx="19" cy="24" r="1.4" fill="currentColor" stroke="none"/><circle cx="29" cy="24" r="1.4" fill="currentColor" stroke="none"/></svg></div>
+        <h3>Maatkasten & interieur</h3>
+        <p>Inbouwkasten, dressings en maatmeubels die naadloos in uw ruimte passen — tot in de laatste centimeter.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="num">02</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36" rx="1"/><line x1="10" y1="16" x2="38" y2="16"/><line x1="10" y1="32" x2="38" y2="32"/></svg></div>
+        <h3>Binnen- & buitendeuren</h3>
+        <p>Plaatsen en afstellen van deuren, met de juiste afwerking van omlijstingen en beslag.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="num">03</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><path d="M6 34h36M6 34l6-14h24l6 14M14 20v-6h20v6"/></svg></div>
+        <h3>Vloeren & parket</h3>
+        <p>Leggen van parket, laminaat en houten vloeren — strak uitgelijnd, met nette plinten en overgangen.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="num">04</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><path d="M8 40V22l16-12 16 12v18"/><path d="M8 40h32M20 40V28h8v12"/></svg></div>
+        <h3>Renovatie & verbouwing</h3>
+        <p>Van vernieuwde ruimtes tot volledige opknapbeurten — met de schrijnwerker in de lead.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="num">05</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><path d="M6 42V16l18-10 18 10v26M18 42V26h12v16"/><line x1="6" y1="42" x2="42" y2="42"/></svg></div>
+        <h3>Tuinhout & bergingen</h3>
+        <p>Terrassen, schuttingen, carports en tuinbergingen in hout — gebouwd om jaren mee te gaan.</p>
+      </div>
+      <div class="svc reveal">
+        <span class="num">06</span>
+        <div class="icon"><svg viewBox="0 0 48 48"><path d="M30 6l12 12-8 8-12-12zM22 14L6 30v12h12l16-16"/></svg></div>
+        <h3>Karwei & herstellingen</h3>
+        <p>De klussen die blijven liggen: een deur die klemt, een plank die los zit, een reparatie die net dat vakmanschap vraagt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WERK / PORTFOLIO -->
+<section class="work" id="werk">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Realisaties</div>
+      <h2>Werk dat voor zich spreekt</h2>
+      <p>Een greep uit projecten in en rond Essen. Elke opdracht wordt op maat gemaakt — dit geeft een idee van de mogelijkheden.</p>
+    </div>
+    <div class="gallery">
+      <div class="tile big reveal"><div class="grainfill grain"></div><div class="cap"><small>Maatwerk</small><b>Inbouwdressing in eik</b></div></div>
+      <div class="tile reveal"><div class="grainfill grain"></div><div class="cap"><small>Vloeren</small><b>Visgraatparket</b></div></div>
+      <div class="tile reveal"><div class="grainfill grain"></div><div class="cap"><small>Interieur</small><b>TV-wand op maat</b></div></div>
+      <div class="tile wide reveal"><div class="grainfill grain"></div><div class="cap"><small>Buiten</small><b>Terras in padoek</b></div></div>
+      <div class="tile reveal"><div class="grainfill grain"></div><div class="cap"><small>Deuren</small><b>Massieve binnendeuren</b></div></div>
+      <div class="tile reveal"><div class="grainfill grain"></div><div class="cap"><small>Renovatie</small><b>Vernieuwde bijkeuken</b></div></div>
+      <div class="tile wide reveal"><div class="grainfill grain"></div><div class="cap"><small>Tuin</small><b>Bergingen & schutting</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WERKWIJZE -->
+<section class="process" id="werkwijze">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Hoe we werken</div>
+      <h2>Van eerste gesprek tot nette oplevering</h2>
+      <p>Een duidelijke aanpak zonder verrassingen — u weet altijd waar u aan toe bent.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="idx">01</span>
+        <h3>Kennismaking</h3>
+        <p>We bespreken uw idee, wensen en budget. Vrijblijvend en zonder verplichting.</p>
+      </div>
+      <div class="step reveal">
+        <span class="idx">02</span>
+        <h3>Opmeting & offerte</h3>
+        <p>Ter plaatse opmeten en een heldere offerte, zodat u precies weet wat u krijgt.</p>
+      </div>
+      <div class="step reveal">
+        <span class="idx">03</span>
+        <h3>Uitvoering</h3>
+        <p>Vakkundig uitgevoerd, netjes gewerkt en uw woning met respect behandeld.</p>
+      </div>
+      <div class="step reveal">
+        <span class="idx">04</span>
+        <h3>Oplevering</h3>
+        <p>We lopen het resultaat samen na — pas als u tevreden bent, is het af.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Wat klanten zeggen</div>
+      <h2>Tevreden klanten in de streek</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review reveal">
+        <div class="stars">★★★★★</div>
+        <q>Onze inbouwkast past perfect en de afwerking is echt tot in de puntjes. Lander denkt mee en houdt zich aan zijn woord.</q>
+        <div class="who"><span class="av">K</span><div><b>Familie K.</b><span>Essen</span></div></div>
+      </div>
+      <div class="review reveal">
+        <div class="stars">★★★★★</div>
+        <q>Nieuwe vloer laten leggen en meteen enkele klusjes mee opgelost. Nette werkman, alles proper achtergelaten.</q>
+        <div class="who"><span class="av">D</span><div><b>Dirk V.</b><span>Kalmthout</span></div></div>
+      </div>
+      <div class="review reveal">
+        <div class="stars">★★★★★</div>
+        <q>Correcte offerte, stipt op afspraak en een resultaat waar we heel blij mee zijn. Zeker een aanrader.</q>
+        <div class="who"><span class="av">S</span><div><b>Sofie & Tom</b><span>Wuustwezel</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="sec-tag" style="color:var(--oak)"><span style="width:26px;height:1.5px;background:var(--oak);display:inline-block"></span>Contact</div>
+        <h2>Een klus of project <em>in gedachten?</em></h2>
+        <p class="lead">Bel of stuur een berichtje. U krijgt snel een antwoord en een vrijblijvende offerte op maat.</p>
+        <ul class="contact-list">
+          <li><a href="tel:+32496441153">
+            <svg class="ci" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
+            <div><small>Bel of app</small><b>+32 496 44 11 53</b></div>
+          </a></li>
+          <li><a href="mailto:info@lvt-karweiwerken.be">
+            <svg class="ci" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+            <div><small>E-mail</small><b>info@lvt-karweiwerken.be</b></div>
+          </a></li>
+          <li><div>
+            <svg class="ci" viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div><small>Werkgebied</small><b>Essen & de Noorderkempen</b></div>
+          </div></li>
+        </ul>
+      </div>
+      <div class="form reveal">
+        <h3>Vraag uw offerte aan</h3>
+        <p>Vertel kort over uw project — u hoort snel van ons.</p>
+        <form id="offerteForm" novalidate>
+          <div class="field">
+            <label for="naam">Naam</label>
+            <input type="text" id="naam" name="naam" required placeholder="Uw naam">
+          </div>
+          <div class="field">
+            <label for="tel">Telefoon</label>
+            <input type="tel" id="tel" name="tel" required placeholder="Waarop we u kunnen bereiken">
+          </div>
+          <div class="field">
+            <label for="type">Type werk</label>
+            <select id="type" name="type">
+              <option>Maatkast / interieur</option>
+              <option>Vloer / parket</option>
+              <option>Deuren</option>
+              <option>Renovatie / verbouwing</option>
+              <option>Tuinhout / berging</option>
+              <option>Karwei / herstelling</option>
+              <option>Iets anders</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="bericht">Uw project</label>
+            <textarea id="bericht" name="bericht" placeholder="Beschrijf kort wat u in gedachten heeft"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Verstuur aanvraag
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <p class="form-note">Of bel rechtstreeks: <a href="tel:+32496441153" style="color:var(--oak-deep);font-weight:600">+32 496 44 11 53</a></p>
+          <div class="form-success" id="formSuccess">Bedankt! Uw aanvraag is genoteerd — we nemen snel contact op.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">LVT-Karweiwerken</div>
+        <p>Schrijnwerk en karweien op maat, uitgevoerd met vakmanschap in Essen en de wijde omgeving.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <b>Diensten</b>
+          <a href="#diensten">Maatkasten</a>
+          <a href="#diensten">Vloeren & parket</a>
+          <a href="#diensten">Deuren</a>
+          <a href="#diensten">Renovatie</a>
+          <a href="#diensten">Tuinhout</a>
+        </div>
+        <div class="foot-col">
+          <b>Navigatie</b>
+          <a href="#werk">Realisaties</a>
+          <a href="#over">Over Lander</a>
+          <a href="#werkwijze">Werkwijze</a>
+          <a href="#contact">Offerte aanvragen</a>
+        </div>
+        <div class="foot-col">
+          <b>Contact</b>
+          <a href="tel:+32496441153">+32 496 44 11 53</a>
+          <a href="mailto:info@lvt-karweiwerken.be">info@lvt-karweiwerken.be</a>
+          <a href="#contact">Essen, België</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="jaar"></span> LVT-Karweiwerken · Essen</span>
+      <span>Ontworpen met oog voor het ambacht</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// nav scroll state
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+// mobile menu
+const burger=document.getElementById('burger'),menu=document.getElementById('menu'),overlay=document.getElementById('navOverlay');
+function setMenu(open){
+  menu.classList.toggle('open',open);
+  overlay.classList.toggle('open',open);
+  burger.classList.toggle('active',open);
+  document.body.classList.toggle('menu-open',open);
+  burger.setAttribute('aria-expanded',open);
+}
+burger.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
+overlay.addEventListener('click',()=>setMenu(false));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+
+// reveal on scroll
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el)});
+
+// form
+document.getElementById('offerteForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const naam=document.getElementById('naam'),tel=document.getElementById('tel');
+  if(!naam.value.trim()||!tel.value.trim()){
+    (!naam.value.trim()?naam:tel).focus();return;
+  }
+  document.getElementById('formSuccess').style.display='block';
+  e.target.querySelector('button').style.display='none';
+});
+
+// year
+document.getElementById('jaar').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

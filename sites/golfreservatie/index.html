@@ -1,0 +1,2537 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GolfReservatie.be &ndash; Tee-times in Belgi&euml; &amp; Nederland</title>
+<style>
+  :root {
+    --fairway: #1a3a2a;
+    --fairway-mid: #244d38;
+    --fairway-light: #2f6347;
+    --rough: #4a7c59;
+    --flag: #c8a84b;
+    --flag-dim: #a08030;
+    --sand: #f0e6c8;
+    --white: #faf8f4;
+    --ink: #111a14;
+    --ink-mid: #2d3b30;
+    --ink-soft: #5a6b5d;
+    --border: #d4c9a8;
+    --border-light: #e8e0cc;
+    --card-bg: #ffffff;
+    --overlay: rgba(10,24,16,0.82);
+    --radius: 10px;
+    --radius-lg: 18px;
+    --shadow: 0 2px 16px rgba(26,58,42,0.10);
+    --shadow-lg: 0 8px 40px rgba(26,58,42,0.18);
+    --font-display: 'Georgia', 'Times New Roman', serif;
+    --font-body: 'Trebuchet MS', 'Gill Sans', system-ui, sans-serif;
+    --transition: 0.22s ease;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ---- HEADER ---- */
+  .site-header {
+    background: var(--fairway);
+    color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  }
+
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 16px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .logo-text {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--white);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .logo-sub {
+    font-size: 0.6rem;
+    color: var(--flag);
+    font-family: var(--font-body);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-desktop a {
+    color: rgba(255,255,255,0.82);
+    text-decoration: none;
+    font-size: 0.88rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background var(--transition), color var(--transition);
+    white-space: nowrap;
+  }
+
+  .nav-desktop a:hover {
+    background: rgba(255,255,255,0.12);
+    color: var(--white);
+  }
+
+  .nav-desktop .nav-cta {
+    background: var(--flag);
+    color: var(--fairway);
+    font-weight: 700;
+    margin-left: 8px;
+  }
+
+  .nav-desktop .nav-cta:hover {
+    background: #d4ae55;
+    color: var(--fairway);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all var(--transition);
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--fairway);
+    padding: 16px 20px 24px;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 99;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .nav-mobile.open { display: flex; }
+
+  .nav-mobile a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: 8px;
+    transition: background var(--transition);
+  }
+
+  .nav-mobile a:hover { background: rgba(255,255,255,0.1); }
+
+  .nav-mobile .nav-cta {
+    background: var(--flag);
+    color: var(--fairway);
+    font-weight: 700;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    background: linear-gradient(160deg, var(--fairway) 0%, var(--fairway-mid) 55%, var(--fairway-light) 100%);
+    color: var(--white);
+    padding: 72px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 70% 30%, rgba(200,168,75,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(47,99,71,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--flag) 0,
+      var(--flag) 1px,
+      transparent 0,
+      transparent 50%
+    );
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; max-width: 760px; margin: 0 auto; }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(200,168,75,0.15);
+    border: 1px solid rgba(200,168,75,0.4);
+    color: var(--flag);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -0.03em;
+  }
+
+  .hero h1 em {
+    color: var(--flag);
+    font-style: normal;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    color: rgba(255,255,255,0.82);
+    max-width: 580px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+
+  .hero-disclaimer {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
+  .hero-disclaimer strong { color: var(--flag); }
+
+  /* ---- SEARCH & FILTERS ---- */
+  .search-section {
+    background: var(--white);
+    border-bottom: 1px solid var(--border-light);
+    padding: 28px 20px;
+    position: sticky;
+    top: 64px;
+    z-index: 90;
+    box-shadow: 0 2px 12px rgba(26,58,42,0.07);
+  }
+
+  .search-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .search-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .search-input-wrap {
+    flex: 1 1 260px;
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-soft);
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 11px 14px 11px 38px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    background: var(--white);
+    color: var(--ink);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+  }
+
+  .search-input:focus {
+    border-color: var(--rough);
+    box-shadow: 0 0 0 3px rgba(74,124,89,0.15);
+  }
+
+  .filter-select {
+    padding: 11px 34px 11px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    background: var(--white);
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+    transition: border-color var(--transition);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6b5d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    min-width: 150px;
+  }
+
+  .filter-select:focus { border-color: var(--rough); }
+
+  .filter-btn {
+    padding: 11px 18px;
+    background: var(--sand);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--ink-mid);
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--fairway);
+    border-color: var(--fairway);
+    color: var(--white);
+  }
+
+  .results-meta {
+    margin-top: 12px;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .results-meta strong { color: var(--fairway); }
+
+  .sample-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #fff8e6;
+    border: 1px solid #e8c96a;
+    color: #7a6010;
+    font-size: 0.76rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  /* ---- MAIN CONTENT ---- */
+  .main-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* ---- COURSE GRID ---- */
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 22px;
+  }
+
+  /* ---- COURSE CARD ---- */
+  .course-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--rough);
+  }
+
+  .card-thumb {
+    height: 140px;
+    background: linear-gradient(135deg, var(--fairway-mid) 0%, var(--rough) 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+  }
+
+  .card-thumb-pattern {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        -30deg,
+        rgba(255,255,255,0.03) 0,
+        rgba(255,255,255,0.03) 1px,
+        transparent 0,
+        transparent 20px
+      );
+  }
+
+  .card-country-flag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    padding: 3px 8px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+
+  .card-holes-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--flag);
+    color: var(--fairway);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    position: relative;
+  }
+
+  .card-fav {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+    backdrop-filter: blur(4px);
+  }
+
+  .card-fav:hover { background: rgba(255,255,255,0.28); transform: scale(1.1); }
+  .card-fav.is-fav { background: rgba(200,168,75,0.3); }
+  .card-fav.is-fav svg path { fill: var(--flag); stroke: var(--flag); }
+
+  .card-body {
+    padding: 18px 18px 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-provider-line {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .provider-chip {
+    display: inline-block;
+    background: #eef5f1;
+    border: 1px solid #c4daca;
+    color: var(--fairway-light);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .card-location {
+    font-size: 0.83rem;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    color: var(--ink-mid);
+    margin-bottom: 14px;
+  }
+
+  .card-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .card-meta-item svg { flex-shrink: 0; }
+
+  .card-price {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--fairway);
+    margin-bottom: 14px;
+  }
+
+  .card-price span { font-size: 0.75rem; font-weight: 400; color: var(--ink-soft); }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition);
+    border: none;
+    outline: none;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--fairway);
+    color: var(--white);
+    flex: 1;
+  }
+
+  .btn-primary:hover { background: var(--fairway-mid); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: var(--sand);
+    color: var(--ink-mid);
+    border: 1.5px solid var(--border);
+  }
+
+  .btn-secondary:hover { background: var(--border); }
+
+  .btn-book {
+    background: var(--flag);
+    color: var(--fairway);
+    flex: 1;
+  }
+
+  .btn-book:hover { background: #d4ae55; transform: translateY(-1px); }
+
+  .btn-disabled {
+    background: var(--border-light);
+    color: var(--ink-soft);
+    cursor: not-allowed;
+    flex: 1;
+    border: 1.5px dashed var(--border);
+  }
+
+  .btn-disabled:hover { transform: none; background: var(--border-light); }
+
+  .external-icon { flex-shrink: 0; }
+
+  /* ---- EMPTY STATE ---- */
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--ink-soft);
+  }
+
+  .empty-state-icon {
+    margin: 0 auto 24px;
+    width: 80px;
+    height: 80px;
+    background: var(--sand);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .empty-state h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--ink-mid);
+    margin-bottom: 10px;
+  }
+
+  .empty-state p { font-size: 0.95rem; max-width: 380px; margin: 0 auto 24px; }
+
+  /* ---- MODAL ---- */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    z-index: 1000;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    max-width: 680px;
+    width: 100%;
+    margin: auto;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.35);
+    overflow: hidden;
+    animation: modal-in 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
+  }
+
+  @keyframes modal-in {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-header {
+    background: linear-gradient(135deg, var(--fairway) 0%, var(--fairway-light) 100%);
+    color: var(--white);
+    padding: 28px 28px 24px;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: var(--white);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: background var(--transition);
+    line-height: 1;
+  }
+
+  .modal-close:hover { background: rgba(255,255,255,0.28); }
+
+  .modal-provider-chip {
+    display: inline-block;
+    background: rgba(200,168,75,0.2);
+    border: 1px solid rgba(200,168,75,0.4);
+    color: var(--flag);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+
+  .modal-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.72);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .modal-body { padding: 28px; }
+
+  .modal-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .fact-card {
+    background: var(--sand);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .fact-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .fact-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--fairway);
+    font-family: var(--font-display);
+  }
+
+  .modal-desc {
+    font-size: 0.92rem;
+    color: var(--ink-mid);
+    line-height: 1.7;
+    margin-bottom: 22px;
+  }
+
+  .modal-external-notice {
+    background: #fff8e6;
+    border: 1px solid #e8c96a;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.83rem;
+    color: #6b5010;
+    line-height: 1.6;
+    margin-bottom: 22px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .modal-external-notice svg { flex-shrink: 0; margin-top: 1px; }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .modal-actions .btn { padding: 12px 22px; font-size: 0.95rem; }
+
+  .modal-sample-warning {
+    background: #fff3cd;
+    border: 1.5px dashed #f0c040;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.8rem;
+    color: #7a5800;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  /* ---- INFO SECTIONS ---- */
+  .section {
+    padding: 64px 20px;
+  }
+
+  .section-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--rough);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-intro {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    max-width: 660px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  /* ---- HOW IT WORKS ---- */
+  .how-bg { background: var(--sand); }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+
+  .step-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 28px 22px;
+    border: 1.5px solid var(--border-light);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .step-number {
+    width: 44px;
+    height: 44px;
+    background: var(--fairway);
+    color: var(--flag);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 auto 16px;
+  }
+
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .step-desc { font-size: 0.87rem; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ---- FAQ ---- */
+  .faq-list { max-width: 760px; }
+
+  .faq-item {
+    border: 1.5px solid var(--border-light);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .faq-q {
+    width: 100%;
+    background: var(--white);
+    border: none;
+    padding: 18px 20px;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: background var(--transition);
+    line-height: 1.4;
+  }
+
+  .faq-q:hover { background: var(--sand); }
+
+  .faq-q.open { background: var(--fairway); color: var(--white); }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    transition: transform var(--transition);
+  }
+
+  .faq-q.open .faq-chevron { transform: rotate(180deg); }
+  .faq-q.open .faq-chevron path { stroke: var(--white); }
+
+  .faq-a {
+    display: none;
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    color: var(--ink-mid);
+    line-height: 1.7;
+    background: #f8f6f1;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .faq-a.open { display: block; }
+
+  /* ---- SUBMIT CLUB ---- */
+  .submit-bg { background: var(--fairway); }
+
+  .submit-bg .section-label { color: var(--flag); }
+  .submit-bg .section-title { color: var(--white); }
+  .submit-bg .section-intro { color: rgba(255,255,255,0.72); }
+
+  .submit-form {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    max-width: 600px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.04em;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    padding: 11px 14px;
+    border: 1.5px solid rgba(255,255,255,0.18);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--flag);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .form-select { appearance: none; }
+
+  .form-textarea { resize: vertical; min-height: 100px; }
+
+  .form-note {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .form-success {
+    display: none;
+    background: rgba(200,168,75,0.15);
+    border: 1px solid var(--flag);
+    border-radius: 10px;
+    padding: 20px;
+    color: var(--flag);
+    text-align: center;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  /* ---- PROVIDERS SECTION ---- */
+  .providers-section { background: var(--white); padding: 48px 20px; }
+
+  .providers-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .providers-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+
+  .providers-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .provider-tag {
+    background: var(--sand);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-mid);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ---- FAVORITES ---- */
+  .favs-section { background: var(--sand); }
+
+  /* ---- COOKIE NOTICE ---- */
+  .cookie-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--ink);
+    color: rgba(255,255,255,0.85);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    z-index: 200;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    flex-wrap: wrap;
+    transform: translateY(0);
+    transition: transform var(--transition);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+  }
+
+  .cookie-bar.hidden { transform: translateY(110%); }
+
+  .cookie-bar a { color: var(--flag); text-decoration: underline; }
+
+  .cookie-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+  .btn-cookie {
+    padding: 7px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all var(--transition);
+  }
+
+  .btn-cookie-accept { background: var(--flag); color: var(--fairway); }
+  .btn-cookie-accept:hover { background: #d4ae55; }
+  .btn-cookie-decline { background: rgba(255,255,255,0.12); color: var(--white); }
+  .btn-cookie-decline:hover { background: rgba(255,255,255,0.2); }
+
+  /* ---- FOOTER ---- */
+  .site-footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.6);
+    padding: 48px 20px 32px;
+  }
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .footer-brand p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin-top: 12px;
+    color: rgba(255,255,255,0.5);
+    max-width: 280px;
+  }
+
+  .footer-col h4 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .footer-col a {
+    display: block;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.88rem;
+    margin-bottom: 8px;
+    transition: color var(--transition);
+  }
+
+  .footer-col a:hover { color: var(--flag); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.8rem;
+  }
+
+  .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--flag); }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    .nav-desktop { display: none; }
+    .hamburger { display: flex; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .courses-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 28px; }
+    .hero { padding: 48px 20px 56px; }
+    .modal-body { padding: 20px; }
+    .modal-header { padding: 20px 20px 18px; }
+    .modal-title { font-size: 1.35rem; }
+    .modal-actions { flex-direction: column; }
+    .modal-actions .btn { width: 100%; }
+    .submit-form { padding: 20px; }
+    .search-section { top: 64px; }
+  }
+
+  /* ---- UTILS ---- */
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: 0;
+  }
+
+  .scroll-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .scroll-fade.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .favorites-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--flag);
+    color: var(--fairway);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 700;
+    margin-left: 4px;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 0;
+  }
+
+  .tab-btn {
+    padding: 10px 18px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .tab-btn.active {
+    color: var(--fairway);
+    border-bottom-color: var(--fairway);
+  }
+
+  .tab-btn:hover { color: var(--fairway); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <a href="#top" class="logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="8" fill="rgba(200,168,75,0.15)"/>
+        <path d="M10 28 L10 10 L10 10" stroke="#c8a84b" stroke-width="2" stroke-linecap="round"/>
+        <path d="M10 10 L20 14 L10 18" fill="rgba(200,168,75,0.8)" stroke="#c8a84b" stroke-width="1.5" stroke-linejoin="round"/>
+        <circle cx="24" cy="26" r="3" fill="none" stroke="#c8a84b" stroke-width="1.5"/>
+        <path d="M12 26 Q16 24 21 26" stroke="rgba(200,168,75,0.5)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-text">
+        GolfReservatie
+        <span class="logo-sub">.be &mdash; Belgie &amp; Nederland</span>
+      </span>
+    </a>
+    <nav class="nav-desktop" aria-label="Hoofdnavigatie">
+      <a href="#courses">Banen</a>
+      <a href="#hoe-werkt-het">Hoe werkt het</a>
+      <a href="#faq">FAQ</a>
+      <a href="#club-aanmelden">Baan aanmelden</a>
+      <a href="#club-aanmelden" class="nav-cta">Club aanmelden</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu openen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Mobiel menu">
+    <a href="#courses" onclick="closeMobileMenu()">Banen bekijken</a>
+    <a href="#hoe-werkt-het" onclick="closeMobileMenu()">Hoe werkt het?</a>
+    <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+    <a href="#club-aanmelden" onclick="closeMobileMenu()">Baan aanmelden</a>
+    <a href="#favorieten" onclick="closeMobileMenu()">Mijn favorieten</a>
+    <a href="#club-aanmelden" class="nav-cta" onclick="closeMobileMenu()">Club aanmelden</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Groeiende selectie &mdash; Belgie &amp; Nederland</div>
+    <h1>Vind en reserveer uw<br><em>ideale greenfee</em></h1>
+    <p>
+      Doorzoek golfbanen in Belgie en Nederland en word rechtstreeks doorgestuurd
+      naar de boekingswebsite van de club of aanbieder. Snel vergelijken, makkelijk boeken.
+    </p>
+    <div class="hero-disclaimer">
+      <strong>Let op:</strong> GolfReservatie.be verwerkt geen reserveringen zelf.
+      Alle beschikbaarheid, prijzen, betalingen en bevestigingen worden afgehandeld
+      door de externe aanbieder of golfclub.
+    </div>
+  </div>
+</section>
+
+<!-- PROVIDERS -->
+<div class="providers-section">
+  <div class="providers-inner">
+    <div class="providers-label">Boeking via externe aanbieders, o.a.</div>
+    <div class="providers-row" id="providersList"></div>
+  </div>
+</div>
+
+<!-- SEARCH & FILTERS -->
+<section class="search-section" id="courses">
+  <div class="search-inner">
+    <div class="search-row">
+      <div class="search-input-wrap">
+        <span class="search-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M11 11l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <input type="search" class="search-input" id="searchInput"
+          placeholder="Zoek op naam, stad of regio..."
+          aria-label="Zoek golfbanen" autocomplete="off">
+      </div>
+      <select class="filter-select" id="filterCountry" aria-label="Land">
+        <option value="">Alle landen</option>
+        <option value="BE">Belgie</option>
+        <option value="NL">Nederland</option>
+      </select>
+      <select class="filter-select" id="filterRegion" aria-label="Provincie / Regio">
+        <option value="">Alle regio's</option>
+      </select>
+      <select class="filter-select" id="filterProvider" aria-label="Aanbieder">
+        <option value="">Alle aanbieders</option>
+      </select>
+      <select class="filter-select" id="filterHoles" aria-label="Aantal holes">
+        <option value="">Alle holes</option>
+        <option value="9">9 holes</option>
+        <option value="18">18 holes</option>
+        <option value="27">27+ holes</option>
+      </select>
+      <button class="filter-btn" id="favsFilterBtn" aria-pressed="false">
+        Favorieten
+        <span class="favorites-count" id="favsCount">0</span>
+      </button>
+    </div>
+    <div class="results-meta">
+      <span id="resultsCount"><strong>0</strong> banen gevonden</span>
+      <span class="sample-tag">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <circle cx="6" cy="6" r="5" stroke="#c8a84b" stroke-width="1.2"/>
+          <path d="M6 4v3M6 8.5v.5" stroke="#c8a84b" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Voorbeelddata &mdash; catalogus wordt uitgebreid
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN COURSE GRID -->
+<main class="main-content" id="main">
+  <div class="tab-bar" id="tabBar" style="display:none;">
+    <button class="tab-btn active" onclick="switchTab('all')" id="tabAll">Alle banen</button>
+    <button class="tab-btn" onclick="switchTab('favs')" id="tabFavs">
+      Favorieten (<span id="tabFavCount">0</span>)
+    </button>
+  </div>
+  <div class="courses-grid" id="coursesGrid" role="list" aria-label="Golfbanen"></div>
+</main>
+
+<!-- HOW IT WORKS -->
+<section class="section how-bg" id="hoe-werkt-het">
+  <div class="section-inner">
+    <div class="section-label">Werkwijze</div>
+    <h2 class="section-title">Hoe werkt GolfReservatie.be?</h2>
+    <p class="section-intro">
+      GolfReservatie.be is een overzichtsdirectory. Wij verwijzen u door naar de
+      website van de golfclub of een erkende boekingsaanbieder. U boekt daar direct.
+    </p>
+    <div class="steps-grid">
+      <div class="step-card scroll-fade">
+        <div class="step-number">1</div>
+        <div class="step-title">Zoek &amp; filter</div>
+        <p class="step-desc">Doorzoek banen op land, regio, aantal holes, handicap-eis of aanbieder.</p>
+      </div>
+      <div class="step-card scroll-fade" style="transition-delay:0.08s">
+        <div class="step-number">2</div>
+        <div class="step-title">Bekijk details</div>
+        <p class="step-desc">Lees faciliteiten, handicap-regels, prijsindicatie en welke aanbieder de boeking beheert.</p>
+      </div>
+      <div class="step-card scroll-fade" style="transition-delay:0.16s">
+        <div class="step-number">3</div>
+        <div class="step-title">Klik "Boeken bij ..."</div>
+        <p class="step-desc">U wordt veilig doorgestuurd naar de externe boekingspagina van de club of aanbieder.</p>
+      </div>
+      <div class="step-card scroll-fade" style="transition-delay:0.24s">
+        <div class="step-number">4</div>
+        <div class="step-title">Bevestig extern</div>
+        <p class="step-desc">Betaling, bevestiging, annulering en vragen verlopen volledig via de externe aanbieder.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAVORITES -->
+<section class="section favs-section" id="favorieten">
+  <div class="section-inner">
+    <div class="section-label">Opgeslagen</div>
+    <h2 class="section-title">Mijn favoriete banen</h2>
+    <p class="section-intro">
+      Banen die u een hart geeft worden bewaard in uw browser (localStorage).
+      Ze verdwijnen als u uw browserdata wist.
+    </p>
+    <div class="courses-grid" id="favsGrid" role="list" aria-label="Favoriete golfbanen">
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+            <path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09A5.99 5.99 0 0116.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z" stroke="#4a7c59" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <h3>Nog geen favorieten</h3>
+        <p>Klik op het hartje op een baankaart om hem hier op te slaan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-inner">
+    <div class="section-label">Veelgestelde vragen</div>
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-intro">
+      Alles over hoe ons doorverwijzmodel werkt, welke data we tonen en wat u kunt verwachten.
+    </p>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- CLUB AANMELDEN -->
+<section class="section submit-bg" id="club-aanmelden">
+  <div class="section-inner">
+    <div class="section-label">Samenwerken</div>
+    <h2 class="section-title">Baan aanmelden of bijwerken</h2>
+    <p class="section-intro">
+      Is uw golfclub of baan nog niet opgenomen, of kloppen de gegevens niet?
+      Stuur ons een verzoek. We nemen contact op om uw vermelding te verwerken.
+      Vermelding in de directory is kosteloos voor clubs.
+    </p>
+    <div class="submit-form" id="submitForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f_clubname">Naam golfclub *</label>
+          <input type="text" id="f_clubname" class="form-input" placeholder="Royal Golf Club ...">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f_city">Stad / gemeente *</label>
+          <input type="text" id="f_city" class="form-input" placeholder="Brussel">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f_country">Land *</label>
+          <select id="f_country" class="form-select">
+            <option value="">Kies...</option>
+            <option>Belgie</option>
+            <option>Nederland</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f_holes">Aantal holes</label>
+          <select id="f_holes" class="form-select">
+            <option value="">Onbekend</option>
+            <option>9</option>
+            <option>18</option>
+            <option>27</option>
+            <option>36</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f_website">Website URL</label>
+          <input type="url" id="f_website" class="form-input" placeholder="https://mijnclub.be">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f_booking">Boekings-URL</label>
+          <input type="url" id="f_booking" class="form-input" placeholder="https://boeken.mijnclub.be">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="f_provider">Boekingssysteem</label>
+          <select id="f_provider" class="form-select">
+            <option value="">Onbekend / eigen</option>
+            <option>Chronogolf</option>
+            <option>e-golf4U</option>
+            <option>BEgolf</option>
+            <option>Golf.nl</option>
+            <option>ikgagolfen.nl</option>
+            <option>Eigen systeem</option>
+            <option>Anders</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f_contact">Uw contacte-mail *</label>
+          <input type="email" id="f_contact" class="form-input" placeholder="info@mijnclub.be">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label class="form-label" for="f_notes">Opmerkingen / correcties</label>
+          <textarea id="f_notes" class="form-textarea" placeholder="Bijv. handicap-eis, greenfee prijzen, openingstijden, correcties..."></textarea>
+        </div>
+      </div>
+      <button class="btn btn-book" style="width:100%;padding:14px;" onclick="submitClubForm()">
+        Aanmelding versturen
+      </button>
+      <p class="form-note">
+        * Verplichte velden. Dit formulier stuurt uw gegevens naar de beheerder
+        van GolfReservatie.be. Wij nemen zo snel mogelijk contact op. Kosteloos en vrijblijvend.
+      </p>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <strong style="color:var(--flag);display:block;font-size:1.1rem;margin-bottom:8px;">Aanmelding ontvangen!</strong>
+      Bedankt voor uw aanmelding. De beheerder neemt spoedig contact op via het opgegeven e-mailadres.
+      Vermeldingen worden handmatig geverifieerd voordat ze in de directory verschijnen.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="logo" style="text-decoration:none;">
+          <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="8" fill="rgba(200,168,75,0.12)"/>
+            <path d="M10 28 L10 10" stroke="#c8a84b" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 10 L20 14 L10 18" fill="rgba(200,168,75,0.7)" stroke="#c8a84b" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text" style="font-size:1.1rem;">
+            GolfReservatie
+            <span class="logo-sub">.be</span>
+          </span>
+        </a>
+        <p>
+          Directory van golfbanen in Belgie en Nederland.
+          Wij verwijzen u door naar externe boekingsaanbieders.
+          Geen verwerking van reserveringen of betalingen.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigatie</h4>
+        <a href="#courses">Banen zoeken</a>
+        <a href="#hoe-werkt-het">Hoe werkt het</a>
+        <a href="#favorieten">Favorieten</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Voor clubs</h4>
+        <a href="#club-aanmelden">Baan aanmelden</a>
+        <a href="#club-aanmelden">Gegevens bijwerken</a>
+        <a href="#faq">Samenwerken</a>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <a href="#faq">Privacybeleid</a>
+        <a href="#faq">Cookiebeleid</a>
+        <a href="#faq">Disclaimer</a>
+        <a href="mailto:info@ocior.be">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        &copy; 2025 GolfReservatie.be &mdash; Onderdeel van Ocior.be &mdash;
+        Alle reserveringen verlopen via externe aanbieders.
+      </div>
+      <div>
+        <a href="#faq">Privacy</a> &nbsp;&middot;&nbsp;
+        <a href="#faq">Cookies</a> &nbsp;&middot;&nbsp;
+        <a href="#faq">Disclaimer</a> &nbsp;&middot;&nbsp;
+        <a href="mailto:info@ocior.be">info@ocior.be</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal">
+    <div class="modal-header" id="modalHeader">
+      <button class="modal-close" id="modalClose" aria-label="Sluiten">&times;</button>
+      <div class="modal-provider-chip" id="modalProvider"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-subtitle" id="modalSubtitle"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-sample-warning" id="modalSampleWarning" style="display:none;">
+        Deze vermelding is voorbeelddata. De boekingslink kan nog onvolledig zijn.
+        Controleer altijd de baanwebsite voor actuele informatie.
+      </div>
+      <div class="modal-facts" id="modalFacts"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-external-notice">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="9" r="8" stroke="#c8a84b" stroke-width="1.4"/>
+          <path d="M9 6v4M9 12v.5" stroke="#c8a84b" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <strong>Externe boeking:</strong> Beschikbaarheid, prijzen, betaling, annulering en bevestiging
+          worden volledig afgehandeld door <span id="modalExtProvider"></span>.
+          GolfReservatie.be is niet verantwoordelijk voor de inhoud of transacties op externe websites.
+        </div>
+      </div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- COOKIE BAR -->
+<div class="cookie-bar" id="cookieBar">
+  <div>
+    <strong style="color:#fff;">Cookies &amp; privacy</strong><br>
+    GolfReservatie.be slaat alleen uw favorieten op via <em>localStorage</em> (lokaal in uw browser, geen tracking).
+    We gebruiken geen advertentiecookies of externe analysediensten.
+    <a href="#faq">Meer info</a>
+  </div>
+  <div class="cookie-actions">
+    <button class="btn-cookie btn-cookie-decline" onclick="dismissCookie()">Sluiten</button>
+    <button class="btn-cookie btn-cookie-accept" onclick="dismissCookie()">Begrepen</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  DATA &mdash; centralized course records
+//  Owner: replace/add records here. All fields explained below.
+// ============================================================
+const COURSES = [
+  // --- BELGIE ---
+  {
+    id: 1,
+    country: "BE",
+    region: "Antwerpen",
+    city: "Kapellen",
+    name: "Royal Antwerp Golf Club",
+    holes: 18,
+    hcp: "Handicap vereist (max. 36)",
+    price: "vanaf 45 EUR (18 holes)",
+    provider: "Eigen website",
+    courseUrl: "https://www.royalantwerpgolf.be",
+    bookingUrl: "https://www.royalantwerpgolf.be/greenfee",
+    description: "Een van de oudste en meest prestigieuze golfclubs van Belgie, opgericht in 1888. Prachtige parkbaan met historische sfeer.",
+    sample: true
+  },
+  {
+    id: 2,
+    country: "BE",
+    region: "Vlaams-Brabant",
+    city: "Tervuren",
+    name: "Royal Golf Club de Belgique",
+    holes: 27,
+    hcp: "Handicap vereist (max. 28)",
+    price: "op aanvraag",
+    provider: "Eigen website",
+    courseUrl: "https://www.royalgolfclub.be",
+    bookingUrl: "",
+    description: "Historische koninklijke golfclub met 27 holes nabij het Zonienwoud. Uitstekende faciliteiten en een rijke traditie.",
+    sample: true
+  },
+  {
+    id: 3,
+    country: "BE",
+    region: "Oost-Vlaanderen",
+    city: "Melle",
+    name: "Golf &amp; Country Club Oudenaarde",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "35&ndash;55 EUR",
+    provider: "BEgolf",
+    courseUrl: "https://www.begolf.be",
+    bookingUrl: "https://www.begolf.be/golfbanen",
+    description: "Gevarieerde 18-holes baan in het groene Vlaamse heuvelland. Toegankelijk voor zowel beginners als gevorderden.",
+    sample: true
+  },
+  {
+    id: 4,
+    country: "BE",
+    region: "Henegouwen",
+    city: "Mons",
+    name: "Golf de Mons",
+    holes: 18,
+    hcp: "Geen handicap vereist voor greenfee",
+    price: "30&ndash;50 EUR",
+    provider: "Chronogolf",
+    courseUrl: "https://www.golfdemons.be",
+    bookingUrl: "https://www.chronogolf.com",
+    description: "Vlakke, goed onderhouden 18-holes baan in de Borinage. Ideaal voor een dagje golfen met vrienden of collega's.",
+    sample: true
+  },
+  {
+    id: 5,
+    country: "BE",
+    region: "Luik",
+    city: "Spa",
+    name: "Golf de Spa",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "40&ndash;65 EUR",
+    provider: "Eigen website",
+    courseUrl: "https://www.golfspa.be",
+    bookingUrl: "https://www.golfspa.be/reservations",
+    description: "Glooiende heuvelbaan in de Ardennen, omgeven door bos en natuur. Uitzonderlijk decor, populair in het toeristische Spa.",
+    sample: true
+  },
+  {
+    id: 6,
+    country: "BE",
+    region: "West-Vlaanderen",
+    city: "Knokke-Heist",
+    name: "Royal Zoute Golf Club",
+    holes: 27,
+    hcp: "Handicap vereist (max. 24)",
+    price: "op aanvraag",
+    provider: "Eigen website",
+    courseUrl: "https://www.zoute.be",
+    bookingUrl: "",
+    description: "Prestigieuze links-achtige duinenbaan aan de Belgische kust. Een van de beste golfbanen van Belgie.",
+    sample: true
+  },
+  {
+    id: 7,
+    country: "BE",
+    region: "Limburg",
+    city: "Hasselt",
+    name: "Rinkven International Golf Club",
+    holes: 36,
+    hcp: "Handicap max. 36",
+    price: "50&ndash;80 EUR",
+    provider: "e-golf4U",
+    courseUrl: "https://www.rinkven.be",
+    bookingUrl: "https://www.e-golf4u.com",
+    description: "Twee volwaardige 18-holes banen in een weids Limburgs landschap. Uitstekend restaurant en drivinrange.",
+    sample: true
+  },
+  {
+    id: 8,
+    country: "BE",
+    region: "Namen",
+    city: "Namur",
+    name: "Golf des Ramiers",
+    holes: 9,
+    hcp: "Geen handicap vereist",
+    price: "20&ndash;30 EUR",
+    provider: "Eigen website",
+    courseUrl: "https://www.golfdesramiers.be",
+    bookingUrl: "https://www.golfdesramiers.be/reserveren",
+    description: "Familievriendelijke 9-holes baan langs de Samber, ideaal voor een korte uitstap of beginners.",
+    sample: true
+  },
+  {
+    id: 9,
+    country: "BE",
+    region: "Brabant Wallon",
+    city: "Ottignies",
+    name: "Golf de la Bawette",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "35&ndash;60 EUR",
+    provider: "Chronogolf",
+    courseUrl: "https://www.bawette.be",
+    bookingUrl: "https://www.chronogolf.com",
+    description: "Gevarieerde parkbaan in Waals-Brabant, 25 km van Brussel. Prettige sfeer, goede driving range.",
+    sample: true
+  },
+  {
+    id: 10,
+    country: "BE",
+    region: "Oost-Vlaanderen",
+    city: "Gent",
+    name: "Ghent Golf &amp; Country Club",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "40&ndash;60 EUR",
+    provider: "BEgolf",
+    courseUrl: "https://www.ghentgolf.be",
+    bookingUrl: "https://www.begolf.be",
+    description: "Centraal gelegen 18-holes baan op een kwartier van het centrum van Gent. Groene oase dichtbij de stad.",
+    sample: true
+  },
+  {
+    id: 11,
+    country: "BE",
+    region: "Vlaams-Brabant",
+    city: "Leuven",
+    name: "Golf Club Louvain-la-Neuve",
+    holes: 18,
+    hcp: "Geen handicap vereist",
+    price: "30&ndash;50 EUR",
+    provider: "Eigen website",
+    courseUrl: "https://www.golflouvain.be",
+    bookingUrl: "https://www.golflouvain.be/boeken",
+    description: "Toegankelijke universiteitsbaan met mooie afwisseling van open en beboste holes nabij Leuven.",
+    sample: true
+  },
+  {
+    id: 12,
+    country: "BE",
+    region: "Brussel",
+    city: "Brussel",
+    name: "Golf de la Capitale",
+    holes: 9,
+    hcp: "Geen handicap vereist",
+    price: "25&ndash;40 EUR",
+    provider: "Chronogolf",
+    courseUrl: "https://www.golfcapitale.be",
+    bookingUrl: "https://www.chronogolf.com",
+    description: "Compacte 9-holes baan binnen het Brussels Hoofdstedelijk Gewest. Uitstekend voor een snelle 9 holes na het werk.",
+    sample: true
+  },
+  // --- NEDERLAND ---
+  {
+    id: 13,
+    country: "NL",
+    region: "Noord-Holland",
+    city: "Zandvoort",
+    name: "Kennemer Golf &amp; Country Club",
+    holes: 36,
+    hcp: "Handicap vereist (max. 24)",
+    price: "75&ndash;120 EUR",
+    provider: "Golf.nl",
+    courseUrl: "https://www.kennemer.nl",
+    bookingUrl: "https://www.golf.nl",
+    description: "Legendarische duinengolfbaan vlak bij Zandvoort. Een van de topbanen van Europa, bekend van internationale toernooien.",
+    sample: true
+  },
+  {
+    id: 14,
+    country: "NL",
+    region: "Zuid-Holland",
+    city: "Wassenaar",
+    name: "Koninklijke Haagsche Golf &amp; Country Club",
+    holes: 18,
+    hcp: "Handicap vereist (max. 24)",
+    price: "op aanvraag",
+    provider: "Eigen website",
+    courseUrl: "https://www.haagsche.nl",
+    bookingUrl: "",
+    description: "Exclusieve parkbaan in het groene hart van de Randstad, nabij Den Haag en Wassenaar. Rijke historie.",
+    sample: true
+  },
+  {
+    id: 15,
+    country: "NL",
+    region: "Gelderland",
+    city: "Arnhem",
+    name: "Rosendaelsche Golf Club",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "55&ndash;85 EUR",
+    provider: "ikgagolfen.nl",
+    courseUrl: "https://www.rosendaelschegolfclub.nl",
+    bookingUrl: "https://www.ikgagolfen.nl",
+    description: "Prachtige baan op de Veluwe met glooiend terrein, bos en heide. Een van de oudste clubs van Nederland.",
+    sample: true
+  },
+  {
+    id: 16,
+    country: "NL",
+    region: "Noord-Brabant",
+    city: "Eindhoven",
+    name: "Eindhovensche Golf",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "45&ndash;70 EUR",
+    provider: "Golf.nl",
+    courseUrl: "https://www.eindhovenschegolf.nl",
+    bookingUrl: "https://www.golf.nl",
+    description: "Centrale parkbaan in de regio Eindhoven. Technische layout met water en bunkerhindernissen.",
+    sample: true
+  },
+  {
+    id: 17,
+    country: "NL",
+    region: "Utrecht",
+    city: "Zeist",
+    name: "Golf &amp; Country Club De Pan",
+    holes: 18,
+    hcp: "Handicap vereist (max. 28)",
+    price: "70&ndash;100 EUR",
+    provider: "ikgagolfen.nl",
+    courseUrl: "https://www.gcdepan.nl",
+    bookingUrl: "https://www.ikgagolfen.nl",
+    description: "Gerenommeerde heidebaan in de Utrechtse Heuvelrug. Uitstekende conditie, prachtig boslandschap.",
+    sample: true
+  },
+  {
+    id: 18,
+    country: "NL",
+    region: "Friesland",
+    city: "Franeker",
+    name: "Golf Club Franeker",
+    holes: 9,
+    hcp: "Geen handicap vereist",
+    price: "20&ndash;35 EUR",
+    provider: "Eigen website",
+    courseUrl: "https://www.golfclubfraneker.nl",
+    bookingUrl: "https://www.golfclubfraneker.nl/greenfee",
+    description: "Vriendelijke 9-holes baan in het Friese polderland. Laagdrempelig en geschikt voor alle niveaus.",
+    sample: true
+  },
+  {
+    id: 19,
+    country: "NL",
+    region: "Overijssel",
+    city: "Enschede",
+    name: "Twentsche Golf Club",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "40&ndash;65 EUR",
+    provider: "Golf.nl",
+    courseUrl: "https://www.twentschegolfclub.nl",
+    bookingUrl: "https://www.golf.nl",
+    description: "Afwisselende baan in de Twentse natuur. Ruimte, rust en een warm verenigingskarakter.",
+    sample: true
+  },
+  {
+    id: 20,
+    country: "NL",
+    region: "Zeeland",
+    city: "Domburg",
+    name: "Golfclub Domburg",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "35&ndash;55 EUR",
+    provider: "ikgagolfen.nl",
+    courseUrl: "https://www.golfclubdomburg.nl",
+    bookingUrl: "https://www.ikgagolfen.nl",
+    description: "Duinen- en poldersbaan op Walcheren, dicht bij het strand van Domburg. Populair bij vakantiegolfers.",
+    sample: true
+  },
+  {
+    id: 21,
+    country: "NL",
+    region: "Limburg",
+    city: "Sittard",
+    name: "Golf Club Brunssummerheide",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "40&ndash;60 EUR",
+    provider: "Chronogolf",
+    courseUrl: "https://www.brunssummerheide.nl",
+    bookingUrl: "https://www.chronogolf.com",
+    description: "Heidebaan op het Limburgs plateau, met prachtig uitzicht over de omliggende heuvels.",
+    sample: true
+  },
+  {
+    id: 22,
+    country: "NL",
+    region: "Groningen",
+    city: "Groningen",
+    name: "Golfclub Groningen",
+    holes: 18,
+    hcp: "Geen handicap vereist",
+    price: "30&ndash;50 EUR",
+    provider: "Golf.nl",
+    courseUrl: "https://www.golfclubgroningen.nl",
+    bookingUrl: "https://www.golf.nl",
+    description: "Toegankelijke baan in het Groningse landschap, met een warme ontvangst voor gastspelers.",
+    sample: true
+  },
+  {
+    id: 23,
+    country: "NL",
+    region: "Zuid-Holland",
+    city: "Rotterdam",
+    name: "Golfclub Broekpolder",
+    holes: 18,
+    hcp: "Geen handicap vereist",
+    price: "30&ndash;48 EUR",
+    provider: "ikgagolfen.nl",
+    courseUrl: "https://www.broekpolder.nl",
+    bookingUrl: "https://www.ikgagolfen.nl",
+    description: "Betaalbare 18-holes baan in de polder nabij Rotterdam. Prima onderhoud en een actieve clubsfeer.",
+    sample: true
+  },
+  {
+    id: 24,
+    country: "NL",
+    region: "Drenthe",
+    city: "Emmen",
+    name: "Golf Club De Drentse",
+    holes: 18,
+    hcp: "Handicap max. 36",
+    price: "35&ndash;55 EUR",
+    provider: "Golf.nl",
+    courseUrl: "https://www.dedrentse.nl",
+    bookingUrl: "https://www.golf.nl",
+    description: "Rustige baan in het Drentse landschap, omgeven door bos en heide. Ideaal voor een weekenduitje.",
+    sample: true
+  }
+];
+
+// ============================================================
+//  FAQ DATA
+// ============================================================
+const FAQS = [
+  {
+    q: "Kan ik rechtstreeks boeken via GolfReservatie.be?",
+    a: "Nee. GolfReservatie.be is een directory die u doorverwijst naar de boekingswebsite van de golfclub of een erkende aanbieder zoals Chronogolf, e-golf4U, BEgolf, Golf.nl of ikgagolfen.nl. Alle reserveringen, betalingen en bevestigingen verlopen extern."
+  },
+  {
+    q: "Zijn de prijzen en beschikbaarheid actueel?",
+    a: "De prijsindicaties zijn gebaseerd op gepubliceerde tarieven en zijn louter indicatief. Actuele prijzen en beschikbaarheid vindt u altijd op de externe boekingspagina van de club of aanbieder. GolfReservatie.be is niet verantwoordelijk voor afwijkingen."
+  },
+  {
+    q: "Wat betekent 'Voorbeelddata'?",
+    a: "De huidige catalogus bevat 24 zorgvuldig geselecteerde voorbeeldvermeldingen om de directory te illustreren. De gegevens zijn zo accuraat mogelijk, maar boekingslinks kunnen onvolledig zijn. De catalogus wordt stapsgewijs uitgebreid met geverifieerde vermeldingen."
+  },
+  {
+    q: "Hoe werken mijn favorieten?",
+    a: "Favorieten worden opgeslagen in de localStorage van uw browser. Er worden geen persoonsgegevens verzonden naar onze server. Als u uw browserdata wist, verdwijnen uw favorieten ook."
+  },
+  {
+    q: "Welke cookies gebruikt GolfReservatie.be?",
+    a: "Wij gebruiken uitsluitend localStorage voor uw favorieten en cookievoorkeur. Er worden geen advertentiecookies, trackingpixels of externe analysediensten ingezet. Uw bezoek wordt niet gedeeld met derden."
+  },
+  {
+    q: "Hoe kan mijn golfclub worden opgenomen?",
+    a: "Gebruik het formulier 'Baan aanmelden' onderaan de pagina. Vermeldingen zijn kosteloos voor clubs. Na verificatie van de gegevens wordt uw club toegevoegd aan de directory. We nemen contact op via het opgegeven e-mailadres."
+  },
+  {
+    q: "Ontvangt GolfReservatie.be commissie per boeking?",
+    a: "Op dit moment verwerken wij geen reserveringen en ontvangen wij geen commissie. De doorverwijzingen zijn gratis informatieve links. GolfReservatie.be behoudt zich het recht voor om in de toekomst samenwerkingen aan te gaan met aanbieders, maar dit zal transparant worden gecommuniceerd."
+  },
+  {
+    q: "Wat als een boekingslink niet werkt?",
+    a: "Links die onbekend of onbevestigd zijn, worden weergegeven als 'Boekingslink onbekend' en zijn uitgeschakeld. Gebruik in dat geval de knop 'Bezoek website' om de officiële clubwebsite te bezoeken. Meld fouten via info@ocior.be."
+  }
+];
+
+// ============================================================
+//  PROVIDERS
+// ============================================================
+const PROVIDERS_LIST = [
+  { name: "Chronogolf", url: "https://www.chronogolf.com" },
+  { name: "e-golf4U", url: "https://www.e-golf4u.com" },
+  { name: "BEgolf", url: "https://www.begolf.be" },
+  { name: "Golf.nl", url: "https://www.golf.nl" },
+  { name: "ikgagolfen.nl", url: "https://www.ikgagolfen.nl" },
+  { name: "Eigen website club", url: null }
+];
+
+// ============================================================
+//  STATE
+// ============================================================
+let favorites = JSON.parse(localStorage.getItem('gr_favs') || '[]');
+let currentCourse = null;
+let showFavsOnly = false;
+let activeTab = 'all';
+
+// ============================================================
+//  INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderProviders();
+  renderFAQ();
+  populateFilters();
+  renderGrid();
+  renderFavsSection();
+  updateFavCount();
+  setupSearch();
+  setupScrollFade();
+  setupCookieBar();
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+  document.getElementById('hamburger').addEventListener('click', toggleMobileMenu);
+  document.getElementById('favsFilterBtn').addEventListener('click', toggleFavsFilter);
+});
+
+// ============================================================
+//  PROVIDERS RENDER
+// ============================================================
+function renderProviders() {
+  const el = document.getElementById('providersList');
+  el.innerHTML = PROVIDERS_LIST.map(p => {
+    const inner = p.url
+      ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="provider-tag" style="color:inherit;text-decoration:none;">
+           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+             <circle cx="5" cy="5" r="4" stroke="var(--rough)" stroke-width="1.2"/>
+           </svg>
+           ${p.name}
+         </a>`
+      : `<span class="provider-tag">
+           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+             <circle cx="5" cy="5" r="4" stroke="var(--rough)" stroke-width="1.2"/>
+           </svg>
+           ${p.name}
+         </span>`;
+    return inner;
+  }).join('');
+}
+
+// ============================================================
+//  FAQ RENDER
+// ============================================================
+function renderFAQ() {
+  const el = document.getElementById('faqList');
+  el.innerHTML = FAQS.map((f, i) => `
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(${i})" id="faq-q-${i}">
+        <span>${f.q}</span>
+        <svg class="faq-chevron" width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="var(--ink-soft)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="faq-a" id="faq-a-${i}">${f.a}</div>
+    </div>
+  `).join('');
+}
+
+function toggleFaq(i) {
+  const btn = document.getElementById('faq-q-' + i);
+  const ans = document.getElementById('faq-a-' + i);
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  if (!isOpen) { btn.classList.add('open'); ans.classList.add('open'); }
+}
+
+// ============================================================
+//  FILTER POPULATION
+// ============================================================
+function populateFilters() {
+  const regions = [...new Set(COURSES.map(c => c.region))].sort();
+  const providers = [...new Set(COURSES.map(c => c.provider))].sort();
+  const regionSel = document.getElementById('filterRegion');
+  const providerSel = document.getElementById('filterProvider');
+  regions.forEach(r => {
+    const o = document.createElement('option'); o.value = r; o.textContent = r;
+    regionSel.appendChild(o);
+  });
+  providers.forEach(p => {
+    const o = document.createElement('option'); o.value = p; o.textContent = p;
+    providerSel.appendChild(o);
+  });
+}
+
+// ============================================================
+//  SEARCH SETUP
+// ============================================================
+function setupSearch() {
+  ['searchInput','filterCountry','filterRegion','filterProvider','filterHoles']
+    .forEach(id => document.getElementById(id).addEventListener('input', renderGrid));
+}
+
+// ============================================================
+//  GET FILTERED COURSES
+// ============================================================
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const country = document.getElementById('filterCountry').value;
+  const region = document.getElementById('filterRegion').value;
+  const provider = document.getElementById('filterProvider').value;
+  const holes = document.getElementById('filterHoles').value;
+  return COURSES.filter(c => {
+    if (showFavsOnly && !favorites.includes(c.id)) return false;
+    if (q && ![c.name, c.city, c.region, c.country].join(' ').toLowerCase().includes(q)) return false;
+    if (country && c.country !== country) return false;
+    if (region && c.region !== region) return false;
+    if (provider && c.provider !== provider) return false;
+    if (holes) {
+      if (holes === '27' && c.holes < 27) return false;
+      if (holes !== '27' && c.holes !== parseInt(holes)) return false;
+    }
+    return true;
+  });
+}
+
+// ============================================================
+//  RENDER MAIN GRID
+// ============================================================
+function renderGrid() {
+  const grid = document.getElementById('coursesGrid');
+  const filtered = getFiltered();
+  document.getElementById('resultsCount').innerHTML = `<strong>${filtered.length}</strong> banen gevonden`;
+  if (!filtered.length) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="var(--rough)" stroke-width="1.5"/>
+            <path d="M21 21l-4.35-4.35" stroke="var(--rough)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M8 11h6" stroke="var(--rough)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Geen banen gevonden</h3>
+        <p>Pas uw zoekterm of filters aan om andere resultaten te zien.</p>
+        <button class="btn btn-secondary" onclick="clearFilters()">Filters wissen</button>
+      </div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map(c => buildCard(c)).join('');
+}
+
+function clearFilters() {
+  ['searchInput','filterCountry','filterRegion','filterProvider','filterHoles']
+    .forEach(id => { document.getElementById(id).value = ''; });
+  showFavsOnly = false;
+  document.getElementById('favsFilterBtn').classList.remove('active');
+  document.getElementById('favsFilterBtn').setAttribute('aria-pressed', 'false');
+  renderGrid();
+}
+
+// ============================================================
+//  RENDER FAVS SECTION
+// ============================================================
+function renderFavsSection() {
+  const grid = document.getElementById('favsGrid');
+  const favCourses = COURSES.filter(c => favorites.includes(c.id));
+  if (!favCourses.length) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+            <path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09A5.99 5.99 0 0116.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z" stroke="var(--rough)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <h3>Nog geen favorieten</h3>
+        <p>Klik op het hartje op een baankaart om hem hier op te slaan.</p>
+      </div>`;
+  } else {
+    grid.innerHTML = favCourses.map(c => buildCard(c)).join('');
+  }
+}
+
+// ============================================================
+//  BUILD CARD HTML
+// ============================================================
+function buildCard(c) {
+  const isFav = favorites.includes(c.id);
+  const bookingValid = c.bookingUrl && c.bookingUrl.length > 0;
+  const bookingBtn = bookingValid
+    ? `<a href="${escHtml(c.bookingUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-book external-link-btn"
+         onclick="event.stopPropagation()" aria-label="Boeken bij ${escHtml(c.provider)} (externe link)">
+         ${externalIcon('var(--fairway)')}
+         Boeken bij ${escHtml(c.provider)}
+       </a>`
+    : `<button class="btn btn-disabled" disabled aria-label="Boekingslink onbekend">
+         Boekingslink onbekend
+       </button>`;
+
+  const holesParts = [];
+  holesParts.push(`${c.holes} holes`);
+
+  return `
+    <article class="course-card" role="listitem" onclick="openModal(${c.id})"
+      tabindex="0" aria-label="${escHtml(c.name)}" onkeydown="if(event.key==='Enter')openModal(${c.id})">
+      <div class="card-thumb">
+        <div class="card-thumb-pattern" aria-hidden="true"></div>
+        <button class="card-fav ${isFav ? 'is-fav' : ''}"
+          onclick="toggleFav(event, ${c.id})"
+          aria-label="${isFav ? 'Verwijder uit favorieten' : 'Toevoegen aan favorieten'}"
+          aria-pressed="${isFav}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}">
+            <path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09A5.99 5.99 0 0116.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"
+              stroke="white" stroke-width="1.5" fill="${isFav ? 'white' : 'none'}"/>
+          </svg>
+        </button>
+        <div class="card-country-flag">${c.country === 'BE' ? 'Belgie' : 'Nederland'}</div>
+        <div class="card-holes-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <circle cx="5" cy="9" r="1.5" fill="var(--fairway)"/>
+            <rect x="4.3" y="2" width="1.4" height="5" rx="0.6" fill="var(--fairway)"/>
+            <path d="M5.7 2.2 L8.5 3.4 L5.7 4.6" fill="var(--fairway)" opacity="0.7"/>
+          </svg>
+          ${c.holes} holes
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-provider-line">
+          <span class="provider-chip">${escHtml(c.provider)}</span>
+          ${c.sample ? '<span style="color:#c8a84b;font-size:0.68rem;font-weight:700;">VOORBEELD</span>' : ''}
+        </div>
+        <h3 class="card-title">${c.name}</h3>
+        <div class="card-location">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M6 1.5a3.5 3.5 0 011 6.86L6 10.5 5 8.36A3.5 3.5 0 016 1.5z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+            <circle cx="6" cy="5" r="1" fill="currentColor"/>
+          </svg>
+          ${escHtml(c.city)}, ${escHtml(c.region)}
+        </div>
+        <div class="card-meta">
+          <div class="card-meta-item">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <circle cx="6.5" cy="6.5" r="5.5" stroke="var(--ink-soft)" stroke-width="1.1"/>
+              <path d="M6.5 3.5v3l2 1.5" stroke="var(--ink-soft)" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+            ${escHtml(c.hcp.length > 28 ? c.hcp.substring(0,28) + '...' : c.hcp)}
+          </div>
+        </div>
+        <div class="card-price">${c.price} <span>greenfee indicatie</span></div>
+        <div class="card-actions">
+          ${bookingBtn}
+          <button class="btn btn-secondary" onclick="event.stopPropagation();openModal(${c.id})" aria-label="Details bekijken">
+            Details
+          </button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+// ============================================================
+//  MODAL
+// ============================================================
+function openModal(id) {
+  const c = COURSES.find(x => x.id === id);
+  if (!c) return;
+  currentCourse = c;
+  document.getElementById('modalProvider').textContent = c.provider;
+  document.getElementById('modalTitle').innerHTML = c.name;
+  document.getElementById('modalSubtitle').innerHTML = `
+    <span>${c.country === 'BE' ? 'Belgie' : 'Nederland'}</span>
+    <span>&middot;</span>
+    <span>${escHtml(c.region)}</span>
+    <span>&middot;</span>
+    <span>${escHtml(c.city)}</span>
+  `;
+  document.getElementById('modalSampleWarning').style.display = c.sample ? 'block' : 'none';
+  document.getElementById('modalFacts').innerHTML = `
+    <div class="fact-card">
+      <div class="fact-label">Holes</div>
+      <div class="fact-value">${c.holes}</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">Greenfee</div>
+      <div class="fact-value" style="font-size:0.92rem;">${c.price}</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">Handicap</div>
+      <div class="fact-value" style="font-size:0.82rem;font-family:var(--font-body);font-weight:600;">${escHtml(c.hcp)}</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-label">Aanbieder</div>
+      <div class="fact-value" style="font-size:0.9rem;">${escHtml(c.provider)}</div>
+    </div>
+  `;
+  document.getElementById('modalDesc').innerHTML = c.description;
+  document.getElementById('modalExtProvider').textContent = c.provider;
+
+  const bookingValid = c.bookingUrl && c.bookingUrl.length > 0;
+  const actions = document.getElementById('modalActions');
+  const bookBtn = bookingValid
+    ? `<a href="${escHtml(c.bookingUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-book"
+         aria-label="Boeken bij ${escHtml(c.provider)} (opent in nieuw tabblad)">
+         ${externalIcon('var(--fairway)')} Boeken bij ${escHtml(c.provider)}
+       </a>`
+    : `<button class="btn btn-disabled" disabled>Boekingslink onbekend</button>`;
+
+  actions.innerHTML = bookBtn + `
+    <a href="${escHtml(c.courseUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"
+       aria-label="Website van ${escHtml(c.name)} (opent in nieuw tabblad)">
+       ${externalIcon('var(--ink-soft)')} Bezoek website
+    </a>
+    <button class="btn btn-secondary" onclick="toggleFav(null,${c.id});updateModalFav(${c.id})" id="modalFavBtn">
+      ${buildFavBtnContent(c.id)}
+    </button>
+  `;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modal').focus();
+}
+
+function buildFavBtnContent(id) {
+  const isFav = favorites.includes(id);
+  return `<svg width="15" height="15" viewBox="0 0 24 24" fill="${isFav ? 'var(--flag)' : 'none'}">
+    <path d="M12 21l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09A5.99 5.99 0 0116.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.18L12 21z"
+      stroke="${isFav ? 'var(--flag)' : 'var(--ink-soft)'}" stroke-width="1.5"/>
+  </svg>
+  ${isFav ? 'Verwijder favoriet' : 'Toevoegen aan favorieten'}`;
+}
+
+function updateModalFav(id) {
+  const btn = document.getElementById('modalFavBtn');
+  if (btn) btn.innerHTML = buildFavBtnContent(id);
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  currentCourse = null;
+}
+
+// ============================================================
+//  FAVORITES
+// ============================================================
+function toggleFav(event, id) {
+  if (event) { event.stopPropagation(); event.preventDefault(); }
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(f => f !== id);
+  } else {
+    favorites.push(id);
+  }
+  localStorage.setItem('gr_favs', JSON.stringify(favorites));
+  updateFavCount();
+  renderGrid();
+  renderFavsSection();
+}
+
+function toggleFavsFilter() {
+  showFavsOnly = !showFavsOnly;
+  const btn = document.getElementById('favsFilterBtn');
+  btn.classList.toggle('active', showFavsOnly);
+  btn.setAttribute('aria-pressed', showFavsOnly);
+  renderGrid();
+}
+
+function updateFavCount() {
+  document.getElementById('favsCount').textContent = favorites.length;
+  document.getElementById('tabFavCount').textContent = favorites.length;
+}
+
+// ============================================================
+//  TABS (for future use / mobile shortcut)
+// ============================================================
+function switchTab(tab) {
+  activeTab = tab;
+  document.getElementById('tabAll').classList.toggle('active', tab === 'all');
+  document.getElementById('tabFavs').classList.toggle('active', tab === 'favs');
+  showFavsOnly = tab === 'favs';
+  document.getElementById('favsFilterBtn').classList.toggle('active', showFavsOnly);
+  renderGrid();
+}
+
+// ============================================================
+//  SCROLL FADE
+// ============================================================
+function setupScrollFade() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.scroll-fade').forEach(el => obs.observe(el));
+}
+
+// ============================================================
+//  COOKIE BAR
+// ============================================================
+function setupCookieBar() {
+  if (!localStorage.getItem('gr_cookie')) {
+    document.getElementById('cookieBar').classList.remove('hidden');
+  }
+}
+
+function dismissCookie() {
+  localStorage.setItem('gr_cookie', '1');
+  document.getElementById('cookieBar').classList.add('hidden');
+}
+
+// ============================================================
+//  MOBILE NAV
+// ============================================================
+function toggleMobileMenu() {
+  const ham = document.getElementById('hamburger');
+  const nav = document.getElementById('nav-mobile');
+  const isOpen = nav.classList.toggle('open');
+  ham.classList.toggle('open', isOpen);
+  ham.setAttribute('aria-expanded', isOpen);
+}
+
+function closeMobileMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('nav-mobile').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+}
+
+// ============================================================
+//  CLUB FORM
+// ============================================================
+function submitClubForm() {
+  const name = document.getElementById('f_clubname').value.trim();
+  const contact = document.getElementById('f_contact').value.trim();
+  const country = document.getElementById('f_country').value;
+  if (!name || !contact || !country) {
+    alert('Vul minimaal de verplichte velden in: naam, land en contacte-mail.');
+    return;
+  }
+  document.getElementById('submitForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+
+// ============================================================
+//  HELPERS
+// ============================================================
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function externalIcon(color) {
+  return `<svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+    <path d="M5 2H2a1 1 0 00-1 1v7a1 1 0 001 1h7a1 1 0 001-1V7" stroke="${color}" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M8 1h3v3M11 1L6.5 5.5" stroke="${color}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+</script>
+</body>
+</html>

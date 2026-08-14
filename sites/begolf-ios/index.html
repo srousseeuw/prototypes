@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>BEgolf — Golf tee times across Belgium</title>
+<meta name="description" content="BEgolf — reserve golf tee times at clubs across Belgium." />
+<meta name="theme-color" content="#0E2A47" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="BEgolf" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%230E2A47'/%3E%3Cpath d='M4 30a20 20 0 0 0 40 0 44 44 0 0 1-40 0z' fill='%231F8A4C'/%3E%3Cpath d='M24 33V13' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M24 13l9 3-9 3.4z' fill='%231F8A4C' stroke='%23fff' stroke-width='1.2'/%3E%3Ccircle cx='24' cy='33.4' r='2' fill='%23fff'/%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%230E2A47'/%3E%3Cpath d='M4 30a20 20 0 0 0 40 0 44 44 0 0 1-40 0z' fill='%231F8A4C'/%3E%3Cpath d='M24 33V13' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M24 13l9 3-9 3.4z' fill='%231F8A4C' stroke='%23fff' stroke-width='1.2'/%3E%3Ccircle cx='24' cy='33.4' r='2' fill='%23fff'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* BEgolf brand palette — navy primary, fresh-grass accent */
+    --moss:#0E2A47; --moss-deep:#081B30; --grass:#1F8A4C; --grass-soft:#E8F2EC;
+    --navy-soft:#EAF0F6;
+    --paper:#F7F8FA; --paper-2:#EEF1F5; --edge:#E2E7EE;
+    --ink:#122132; --ink-2:#566274; --ink-3:#93A0B0;
+    --gold:#E4B33C; --clay:#D24B3E; --white:#fff;
+    --accent:#1F8A4C;
+    --shadow:0 10px 30px rgba(14,42,71,.12);
+    --shadow-sm:0 4px 14px rgba(14,42,71,.08);
+    --r:22px; --safe-top:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink);background:#0c1712;
+    display:flex;align-items:center;justify-content:center;min-height:100dvh;overflow:hidden;
+  }
+  #stage{position:relative;}
+  .device{
+    width:390px;height:844px;position:relative;flex-shrink:0;
+    background:#0c1712;border-radius:54px;padding:11px;
+    box-shadow:0 50px 110px rgba(0,0,0,.55), 0 0 0 2px #263a2d;
+    transform-origin:center center;
+  }
+  .screen{width:100%;height:100%;border-radius:44px;overflow:hidden;position:relative;
+    background:var(--paper);display:flex;flex-direction:column;}
+  .notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:122px;height:34px;background:#0c1712;border-radius:20px;z-index:60;}
+  .status{position:absolute;top:0;left:0;right:0;height:52px;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 30px 0;font-size:14px;font-weight:600;color:var(--ink);pointer-events:none;}
+  .status.light{color:#fff;}
+  .status .r{display:flex;gap:6px;align-items:center;}
+  .bars{width:18px;height:11px;background:currentColor;-webkit-mask:radial-gradient(circle at 2px 9px,transparent 2px,#000 0) 0 0/4px 100%;-webkit-mask-repeat:repeat-x;opacity:.95;border-radius:1px;}
+  .batt{width:24px;height:12px;border:1.4px solid currentColor;border-radius:3px;position:relative;opacity:.95;}
+  .batt::after{content:"";position:absolute;top:2px;left:1.6px;bottom:2px;width:16px;background:currentColor;border-radius:1px;}
+  .batt::before{content:"";position:absolute;right:-3px;top:3.5px;width:2px;height:4px;background:currentColor;border-radius:1px;}
+
+  .view{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative;}
+  .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:none;}
+  .scroll::-webkit-scrollbar{display:none;}
+  .xscroll{display:flex;overflow-x:auto;scrollbar-width:none;}
+  .xscroll::-webkit-scrollbar{display:none;}
+  .pad{padding:0 22px;}
+  .top-space{height:60px;}
+
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:30px;line-height:1.05;letter-spacing:-.5px;}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:19px;letter-spacing:-.3px;}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--grass);text-transform:uppercase;}
+  .muted{color:var(--ink-2);}
+  .press{cursor:pointer;transition:transform .14s cubic-bezier(.2,.8,.3,1),box-shadow .14s,filter .14s;}
+  .press:active{transform:scale(.97);}
+
+  .head{display:flex;justify-content:space-between;align-items:flex-start;padding-top:6px;}
+  .iconbtn{width:44px;height:44px;border-radius:15px;background:var(--white);border:1px solid var(--edge);display:grid;place-items:center;position:relative;box-shadow:var(--shadow-sm);}
+  .dot{position:absolute;top:11px;right:12px;width:7px;height:7px;border-radius:50%;background:var(--clay);box-shadow:0 0 0 2px #fff;}
+  .langsw{display:flex;background:var(--white);border:1px solid var(--edge);border-radius:12px;padding:3px;gap:2px;box-shadow:var(--shadow-sm);}
+  .langbtn{border:none;background:none;font-family:inherit;font-size:11.5px;font-weight:700;letter-spacing:.3px;color:var(--ink-3);padding:6px 8px;border-radius:9px;cursor:pointer;transition:all .14s;}
+  .langbtn.on{background:var(--moss);color:#fff;}
+
+  .search{margin-top:18px;height:50px;background:var(--white);border:1px solid var(--edge);border-radius:16px;display:flex;align-items:center;gap:11px;padding:0 15px;box-shadow:var(--shadow-sm);}
+  .search input{border:none;background:none;flex:1;font-size:15px;font-family:inherit;color:var(--ink);outline:none;}
+  .search input::placeholder{color:var(--ink-3);}
+
+  .chips{gap:8px;margin-top:16px;padding-bottom:2px;}
+  .chip{display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:20px;font-size:13px;font-weight:600;white-space:nowrap;border:1px solid var(--edge);background:var(--white);color:var(--ink-2);flex-shrink:0;}
+  .chip.on{background:var(--moss);color:#fff;border-color:var(--moss);}
+
+  .sectionhead{display:flex;justify-content:space-between;align-items:baseline;margin-top:26px;}
+
+  .card{background:var(--white);border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);width:100%;text-align:left;display:block;}
+  .card .img{height:140px;position:relative;overflow:hidden;}
+  .card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,30,18,.45));}
+  .grain{position:absolute;inset:0;opacity:.5;mix-blend-mode:soft-light;background-image:radial-gradient(circle at 20% 30%,rgba(255,255,255,.5),transparent 6%),radial-gradient(circle at 70% 60%,rgba(255,255,255,.35),transparent 5%),radial-gradient(circle at 45% 80%,rgba(0,0,0,.25),transparent 7%);}
+  .fairlines{position:absolute;inset:0;opacity:.16;background-image:repeating-linear-gradient(115deg,transparent 0 18px,rgba(255,255,255,.9) 18px 20px);}
+  .tag{position:absolute;top:13px;left:13px;padding:5px 11px;border-radius:20px;background:rgba(255,255,255,.94);color:var(--moss);font-size:10.5px;font-weight:800;letter-spacing:.4px;z-index:2;}
+  .pin{position:absolute;top:12px;right:13px;width:32px;height:32px;border-radius:11px;background:rgba(14,42,71,.42);backdrop-filter:blur(6px);display:grid;place-items:center;z-index:2;}
+  .rate{position:absolute;left:14px;bottom:13px;display:flex;align-items:center;gap:5px;z-index:2;background:rgba(255,255,255,.94);padding:5px 10px;border-radius:20px;font-size:12.5px;font-weight:800;color:var(--ink);}
+  .card .cbody{padding:15px 16px 17px;}
+  .cname{font-family:'Fraunces',serif;font-weight:600;font-size:18px;letter-spacing:-.3px;line-height:1.15;}
+  .cmeta{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--ink-2);margin-top:5px;}
+  .cfoot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px;}
+  .specs{display:flex;gap:7px;flex-wrap:wrap;}
+  .spec{font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--paper-2);padding:6px 11px;border-radius:9px;}
+  .price{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--moss);letter-spacing:-.5px;text-align:right;}
+  .price small{font-family:'Inter';font-size:10.5px;font-weight:600;color:var(--ink-3);display:block;margin-top:1px;letter-spacing:.2px;}
+
+  .empty{background:var(--white);border:1px solid var(--edge);border-radius:var(--r);padding:40px 22px;text-align:center;box-shadow:var(--shadow-sm);}
+
+  .hero{height:300px;position:relative;padding:22px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;overflow:hidden;}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,30,18,.15) 0%,transparent 30%,rgba(8,26,17,.72));}
+  .hero>*{position:relative;z-index:2;}
+  .back{position:absolute;top:calc(var(--safe-top) + 44px);left:18px;width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.92);display:grid;place-items:center;z-index:5;box-shadow:var(--shadow-sm);}
+  .heart{position:absolute;top:calc(var(--safe-top) + 44px);right:18px;width:42px;height:42px;border-radius:14px;background:rgba(14,42,71,.4);backdrop-filter:blur(8px);display:grid;place-items:center;z-index:5;}
+  .htitle{font-family:'Fraunces',serif;font-weight:600;font-size:27px;letter-spacing:-.5px;line-height:1.08;margin:12px 0 8px;text-shadow:0 2px 20px rgba(0,0,0,.35);}
+  .hmeta{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;font-weight:600;color:rgba(255,255,255,.94);}
+  .hmeta span{display:flex;align-items:center;gap:5px;}
+
+  .sheet{background:var(--paper);border-radius:26px 26px 0 0;margin-top:-24px;position:relative;z-index:3;padding:8px 22px 0;}
+  .grab{width:38px;height:4px;border-radius:3px;background:var(--edge);margin:8px auto 4px;}
+
+  .dates{gap:9px;padding:4px 0 2px;}
+  .datecell{min-width:60px;height:78px;border-radius:18px;border:1px solid var(--edge);background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;flex-shrink:0;box-shadow:var(--shadow-sm);}
+  .datecell.on{background:var(--moss);border-color:var(--moss);color:#fff;box-shadow:0 8px 20px rgba(27,77,51,.28);}
+  .datecell .dow{font-size:11px;font-weight:600;opacity:.7;}
+  .datecell .num{font-family:'Fraunces',serif;font-size:22px;font-weight:600;line-height:1;}
+  .datecell .mon{font-size:10px;opacity:.7;}
+
+  .weather{display:flex;align-items:center;gap:13px;background:var(--grass-soft);border:1px solid #DDEBE1;border-radius:16px;padding:13px 15px;margin:16px 0 4px;}
+  .wt{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;flex-shrink:0;}
+
+  .rowhead{display:flex;justify-content:space-between;align-items:center;margin-top:22px;}
+  .stepper{display:flex;align-items:center;gap:5px;background:var(--white);border:1px solid var(--edge);border-radius:15px;padding:5px;box-shadow:var(--shadow-sm);}
+  .stepbtn{width:36px;height:36px;border-radius:11px;background:var(--paper-2);border:none;display:grid;place-items:center;}
+  .stepbtn:disabled{opacity:.4;}
+  .pcount{display:flex;align-items:center;gap:6px;min-width:48px;justify-content:center;font-weight:700;font-size:18px;font-family:'Fraunces',serif;}
+
+  .timegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px;padding-bottom:150px;}
+  .slot{height:52px;border-radius:14px;border:1px solid var(--edge);background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:var(--shadow-sm);}
+  .slot .t{font-size:15px;font-weight:700;}
+  .slot .s{font-size:9.5px;font-weight:600;color:var(--grass);letter-spacing:.3px;}
+  .slot.on{background:var(--moss);border-color:var(--moss);color:#fff;box-shadow:0 8px 20px rgba(27,77,51,.28);}
+  .slot.on .s{color:#BBE3C9;}
+  .slot.taken{background:var(--paper-2);border-color:transparent;opacity:.5;}
+  .slot.taken .t{color:var(--ink-3);text-decoration:line-through;}
+  .slot.taken .s{color:var(--ink-3);}
+
+  .cta-wrap{position:absolute;left:0;right:0;bottom:0;padding:16px 22px 22px;background:linear-gradient(180deg,rgba(251,249,244,0),var(--paper) 24%);z-index:20;}
+  .cta-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--white);border:1px solid var(--edge);border-radius:20px;padding:12px 12px 12px 18px;box-shadow:var(--shadow);}
+  .cta-price{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--ink);letter-spacing:-.5px;}
+  .cta-sub{font-size:11.5px;font-weight:600;color:var(--ink-2);}
+  .cta{height:54px;padding:0 22px;border-radius:15px;border:none;background:var(--moss);color:#fff;font-family:inherit;font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;box-shadow:0 8px 20px rgba(27,77,51,.3);}
+  .cta:disabled{background:var(--paper-2);color:var(--ink-3);box-shadow:none;}
+
+  .confirm{flex:1;display:flex;flex-direction:column;align-items:center;padding:70px 22px 26px;overflow-y:auto;scrollbar-width:none;}
+  .confirm::-webkit-scrollbar{display:none;}
+  .badge{width:96px;height:96px;border-radius:50%;background:var(--moss);display:grid;place-items:center;position:relative;box-shadow:0 18px 40px rgba(27,77,51,.4);animation:pop .55s cubic-bezier(.2,1.35,.4,1) both;}
+  .badge::before{content:"";position:absolute;width:96px;height:96px;border-radius:50%;border:2px solid var(--grass);animation:ring 1s ease-out .1s both;}
+  @keyframes pop{0%{transform:scale(.3);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+  @keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+  .ticket{width:100%;background:var(--white);border-radius:24px;overflow:hidden;margin-top:28px;border:1px solid var(--edge);box-shadow:var(--shadow);}
+  .ticket .tt{padding:15px 19px;display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:14px;letter-spacing:.2px;}
+  .ticket .tb{padding:18px 19px 6px;}
+  .tname{font-family:'Fraunces',serif;font-weight:600;font-size:19px;letter-spacing:-.3px;}
+  .tcity{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--ink-2);margin-top:5px;}
+  .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+  .tlabel{font-size:10.5px;color:var(--ink-3);font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+  .tval{font-family:'Fraunces',serif;font-size:17px;font-weight:600;margin-top:3px;}
+  .perf{position:relative;height:26px;margin:14px 0 0;}
+  .perf::before,.perf::after{content:"";position:absolute;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--paper);}
+  .perf::before{left:-32px;} .perf::after{right:-32px;}
+  .perf .line{position:absolute;top:50%;left:8px;right:8px;border-top:2px dashed var(--edge);}
+  .barcode{height:56px;display:flex;gap:2.5px;align-items:stretch;justify-content:center;padding:6px 19px 20px;}
+  .barcode i{background:var(--ink);border-radius:1px;}
+  .donebtn{margin-top:26px;width:100%;height:56px;border-radius:16px;border:none;background:var(--moss);color:#fff;font-family:inherit;font-size:15px;font-weight:700;box-shadow:0 10px 24px rgba(27,77,51,.3);}
+
+  .bcard{display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--edge);border-radius:18px;padding:13px;box-shadow:var(--shadow-sm);}
+  .bswatch{width:60px;height:60px;border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;color:#fff;position:relative;overflow:hidden;}
+  .bswatch .d{font-family:'Fraunces',serif;font-size:22px;font-weight:600;line-height:1;position:relative;}
+  .bswatch .m{font-size:11px;font-weight:600;opacity:.85;position:relative;}
+  .btags{display:flex;gap:7px;margin-top:9px;}
+  .btag{display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--moss);background:var(--grass-soft);padding:5px 9px;border-radius:9px;}
+  .bcheck{width:28px;height:28px;border-radius:50%;background:var(--moss);display:grid;place-items:center;flex-shrink:0;}
+  .smallcta{height:48px;padding:0 24px;border-radius:15px;border:none;background:var(--moss);color:#fff;font-family:inherit;font-weight:700;font-size:14px;box-shadow:0 8px 20px rgba(27,77,51,.28);}
+
+  .profcard{display:flex;align-items:center;gap:15px;background:var(--moss);border-radius:var(--r);padding:20px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow);}
+  .profcard .fl{position:absolute;inset:0;opacity:.12;background-image:repeating-linear-gradient(120deg,transparent 0 22px,#fff 22px 24px);}
+  .profcard>*{position:relative;}
+  .avatar{width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:22px;flex-shrink:0;border:2px solid rgba(255,255,255,.3);}
+  .hcp{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-size:12px;font-weight:700;background:rgba(255,255,255,.18);padding:5px 11px;border-radius:9px;}
+  .statrow{display:flex;gap:11px;margin-top:16px;}
+  .stat{flex:1;background:var(--white);border:1px solid var(--edge);border-radius:16px;padding:16px 8px;text-align:center;box-shadow:var(--shadow-sm);}
+  .stat .n{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--moss);}
+  .stat .l{font-size:11.5px;color:var(--ink-2);font-weight:600;margin-top:2px;}
+  .menu{margin-top:16px;background:var(--white);border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);}
+  .mrow{display:flex;align-items:center;gap:13px;padding:15px 17px;border-bottom:1px solid var(--edge);}
+  .mrow:last-child{border-bottom:none;}
+  .micon{width:36px;height:36px;border-radius:11px;background:var(--grass-soft);display:grid;place-items:center;}
+  .mlabel{flex:1;font-weight:600;font-size:14.5px;}
+  .mtrail{font-size:13px;color:var(--ink-2);margin-right:2px;}
+
+  .tabbar{flex-shrink:0;height:78px;background:rgba(251,249,244,.86);backdrop-filter:blur(24px) saturate(1.4);border-top:1px solid var(--edge);display:flex;align-items:flex-start;padding:10px 14px 0;}
+  .tab{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 0;color:var(--ink-3);font-family:inherit;}
+  .tab.on{color:var(--moss);}
+  .tab .lbl{font-size:10.5px;font-weight:600;}
+  .tab.on .lbl{font-weight:700;}
+  .homeind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:var(--ink);opacity:.25;z-index:40;}
+
+  svg{display:block;}
+  @media (prefers-reduced-motion:reduce){.press,.badge,.badge::before{animation:none!important;transition:none!important;}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="device">
+    <div class="notch"></div>
+    <div class="screen">
+      <div class="status" id="statusbar">
+        <span>9:41</span>
+        <div class="r"><span class="bars"></span><span style="font-size:12px;font-weight:700">5G</span><span class="batt"></span></div>
+      </div>
+      <div class="view">
+        <div id="app" style="flex:1;display:flex;flex-direction:column;overflow:hidden;"></div>
+        <div id="tabbar" class="tabbar"></div>
+      </div>
+      <div class="homeind"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function fit(){
+  const dev=document.querySelector('.device');
+  const s=Math.min((window.innerWidth-24)/390,(window.innerHeight-24)/844,1.15);
+  dev.style.transform='scale('+s+')';
+}
+window.addEventListener('resize',fit);
+
+function svg(p,o){o=o||{};return `<svg width="${o.s||20}" height="${o.s||20}" viewBox="0 0 24 24" fill="${o.f?o.c:'none'}" stroke="${o.c}" stroke-width="${o.w||1.9}" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;}
+const IC={
+  home:c=>svg('<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/>',{c}),
+  cal:c=>svg('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 3v4M16 3v4"/>',{c}),
+  user:c=>svg('<circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c0-4 3.5-6.5 7.5-6.5s7.5 2.5 7.5 6.5"/>',{c}),
+  pin:c=>svg('<path d="M12 21s7-6.3 7-11.5A7 7 0 1 0 5 9.5C5 14.7 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/>',{c,s:14}),
+  clock:c=>svg('<circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/>',{c,s:14}),
+  users:c=>svg('<circle cx="9" cy="8" r="3.4"/><path d="M2.5 20c0-3.6 3-5.6 6.5-5.6M16 5.2a3.4 3.4 0 0 1 0 6.6M21.5 20c0-2.7-1.7-4.6-4.3-5.3"/>',{c,s:16}),
+  chevL:c=>svg('<path d="M15 5l-7 7 7 7"/>',{c,s:22,w:2.2}),
+  chevR:c=>svg('<path d="M9 5l7 7-7 7"/>',{c,s:18,w:2.2}),
+  search:c=>svg('<circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/>',{c}),
+  star:(c,f)=>svg('<path d="M12 3.2l2.5 5.3 5.8.7-4.3 4 1.1 5.7L12 16.1 6.9 18.9 8 13.2 3.7 9.2l5.8-.7z"/>',{c,f,s:13}),
+  check:(c,s)=>svg('<path d="M4 12.5l5 5L20 6.5"/>',{c,s:s||20,w:2.6}),
+  flag:(c,f)=>svg('<path d="M5.5 21V3.5M5.5 4h11l-2.2 3.8L16.5 12h-11"/>',{c,f,s:15}),
+  heart:c=>svg('<path d="M12 20s-7-4.4-7-9.4A3.9 3.9 0 0 1 12 7a3.9 3.9 0 0 1 7 3.6c0 5-7 9.4-7 9.4z"/>',{c,s:18}),
+  bell:c=>svg('<path d="M6.5 9.5a5.5 5.5 0 0 1 11 0c0 4.5 2 5.5 2 5.5H4.5s2-1 2-5.5z"/><path d="M10 19a2 2 0 0 0 4 0"/>',{c,s:18}),
+  card:c=>svg('<rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M2.5 10h19"/>',{c,s:17}),
+  plus:c=>svg('<path d="M12 5.5v13M5.5 12h13"/>',{c,s:17,w:2.3}),
+  minus:c=>svg('<path d="M5.5 12h13"/>',{c,s:17,w:2.3}),
+  sun:c=>svg('<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.5 12h-2M21.5 12h-2M5.5 5.5 6.9 6.9M17.1 17.1l1.4 1.4M5.5 18.5 6.9 17.1M17.1 6.9l1.4-1.4"/>',{c,s:20}),
+  cloud:c=>svg('<path d="M7 18a4 4 0 0 1 .5-8 5 5 0 0 1 9.5 1.5A3.5 3.5 0 0 1 16.5 18H7z"/>',{c,s:20}),
+  rain:c=>svg('<path d="M7 15a4 4 0 0 1 .5-8 5 5 0 0 1 9.5 1.5A3.5 3.5 0 0 1 16.5 15H7z"/><path d="M8 19l-1 2M12 19l-1 2M16 19l-1 2"/>',{c,s:20}),
+  wind:c=>svg('<path d="M4 9h9a2.5 2.5 0 1 0-2.5-2.5M4 15h13a2.5 2.5 0 1 1-2.5 2.5"/>',{c,s:20}),
+  compass:c=>svg('<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5 13 13l-4.5 2.5L11 11z"/>',{c,s:14}),
+};
+const WICON={sun:IC.sun,cloud:IC.cloud,rain:IC.rain,wind:IC.wind};
+
+/* ---- BEgolf brand marks ---- */
+// circular emblem: golf flag on a green mound inside a navy ring
+function begolfMark(size,navy,green){
+  navy=navy||'#0E2A47'; green=green||'#1F8A4C';
+  return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="24" cy="24" r="23" fill="${navy}"/>
+    <circle cx="24" cy="24" r="23" stroke="rgba(255,255,255,.14)" stroke-width="2"/>
+    <path d="M4 30a20 20 0 0 0 40 0 44 44 0 0 1-40 0z" fill="${green}"/>
+    <path d="M24 33V13" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M24 13l9 3-9 3.4z" fill="${green}" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
+    <circle cx="24" cy="33.4" r="2" fill="#fff"/>
+  </svg>`;
+}
+// full wordmark: [BE] block + "golf"
+function begolfWordmark(h,dark){
+  const be = dark? '#fff':'#0E2A47';
+  const box = '#1F8A4C';
+  const golf = dark? '#fff':'#0E2A47';
+  return `<span style="display:inline-flex;align-items:center;gap:0;font-family:'Fraunces',serif;font-weight:600;line-height:1;letter-spacing:-.5px;height:${h}px">
+    <span style="background:${box};color:#fff;border-radius:6px;padding:${h*0.14}px ${h*0.16}px;font-size:${h*0.62}px;display:inline-flex;align-items:center">BE</span>
+    <span style="color:${golf};font-size:${h*0.7}px;margin-left:${h*0.12}px">golf</span>
+  </span>`;
+}
+function begolfLockup(markSize,textH,dark){
+  return `<span style="display:inline-flex;align-items:center;gap:9px">${begolfMark(markSize)}${begolfWordmark(textH,dark)}</span>`;
+}
+
+const COURSES=[
+  {id:1,name:"Royal Waterloo Golf Club",region:"Brabant Wallon",area:"Brabant",city:"Ohain",holes:45,rating:4.8,price:85,g:["#3a8a5c","#1B4D33"],par:72,dist:"18 km",tag:"Championship",est:1923},
+  {id:2,name:"Golf de Rigenée",region:"Brabant Wallon",area:"Brabant",city:"Villers-la-Ville",holes:18,rating:4.5,price:55,g:["#4a9b6b","#256B44"],par:73,dist:"34 km",tag:"Parkland",est:1981},
+  {id:3,name:"Royal Golf du Hainaut",region:"Hainaut",area:"Hainaut",city:"Erbisœul",holes:27,rating:4.6,price:70,g:["#2f7a4f","#0E2E1E"],par:72,dist:"52 km",tag:"Historic",est:1933},
+  {id:4,name:"Winge Golf & Country Club",region:"Vlaams-Brabant",area:"Vlaanderen",city:"Sint-Joris-Winge",holes:18,rating:4.4,price:60,g:["#43946a","#1B4D33"],par:72,dist:"41 km",tag:"Links-style",est:1988},
+  {id:5,name:"Kempense Golf Club",region:"Antwerpen",area:"Antwerpen",city:"Vorselaar",holes:18,rating:4.3,price:50,g:["#3a8a5c","#256B44"],par:71,dist:"58 km",tag:"Heathland",est:1985},
+];
+const TIMES=["07:00","07:36","08:12","08:48","09:24","10:00","10:36","11:12","12:00","12:36","13:24","14:00","14:36","15:12","16:00"];
+const TEMPS=["18°","16°","14°","15°"];
+const DAYS=(()=>{const o=[],b=new Date();for(let i=0;i<14;i++){const d=new Date(b);d.setDate(b.getDate()+i);o.push(d);}return o;})();
+const grad=c=>`linear-gradient(150deg,${c.g[0]},${c.g[1]})`;
+
+/* ---------------- i18n ---------------- */
+const LANGS=["nl","fr","en"];
+const LANGNAME={nl:"NL",fr:"FR",en:"EN"};
+const WEEKDAYS={
+  en:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+  nl:["Ma","Di","Wo","Do","Vr","Za","Zo"],
+  fr:["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
+};
+const MONTHS={
+  en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+  nl:["jan","feb","mrt","apr","mei","jun","jul","aug","sep","okt","nov","dec"],
+  fr:["janv","févr","mars","avr","mai","juin","juil","août","sept","oct","nov","déc"],
+};
+const T={
+  en:{
+    greeting:"Good morning, Lucas", h1a:"Find your", h1b:"tee time",
+    search:"Search club or city…", nearby:"Nearby clubs", clubs:"clubs",
+    allBelgium:"All Belgium",
+    selectDate:"Select a date", players:"Players", flight:"Flight size · max 4",
+    conditions:"Great conditions for a round", teetimes:"Available tee times",
+    open:"Open", left:"left", full:"Full", selectTime:"Select a time", reserve:"Reserve",
+    player:"player", players2:"players", greenfee:"green fee", holes:"holes", par:"Par", est:"est.",
+    booked:"You're booked in", bookedSub:"Confirmation sent to your email. See you on the first tee.",
+    confirmed:"CONFIRMED", tDate:"Date", tTime:"Tee time", tPlayers:"Players", tTotal:"Total paid",
+    viewTimes:"View my tee times",
+    upcoming:"Upcoming", myTimes:"My tee times", noTimes:"No tee times yet",
+    noTimesSub:"Browse Belgian clubs and book your first round.", findCourse:"Find a course",
+    account:"Account", profile:"Profile", handicap:"Handicap",
+    booked2:"Booked", rounds:"Rounds '25", clubsStat:"Clubs",
+    mPay:"Payment methods", mNotif:"Notifications", mFed:"Federation details", mRegion:"Home region",
+    noClubs:"No clubs found", noClubsSub:"Try a different club or city.",
+    tabCourses:"Courses", tabTimes:"Tee Times", tabProfile:"Profile",
+    wind:"wind",
+    weather:[{i:'sun',s:"Clear skies"},{i:'cloud',s:"Partly cloudy"},{i:'rain',s:"Light showers"},{i:'wind',s:"Breezy"}],
+    tags:{Championship:"Championship",Parkland:"Parkland",Historic:"Historic","Links-style":"Links-style",Heathland:"Heathland"},
+  },
+  nl:{
+    greeting:"Goedemorgen, Lucas", h1a:"Reserveer je", h1b:"starttijd",
+    search:"Zoek club of stad…", nearby:"Clubs in de buurt", clubs:"clubs",
+    allBelgium:"Heel België",
+    selectDate:"Kies een datum", players:"Spelers", flight:"Flightgrootte · max 4",
+    conditions:"Prima omstandigheden voor een ronde", teetimes:"Beschikbare starttijden",
+    open:"Vrij", left:"over", full:"Vol", selectTime:"Kies een tijd", reserve:"Reserveren",
+    player:"speler", players2:"spelers", greenfee:"greenfee", holes:"holes", par:"Par", est:"opgericht",
+    booked:"Je bent geboekt", bookedSub:"Bevestiging verstuurd naar je e-mail. Tot op de eerste tee.",
+    confirmed:"BEVESTIGD", tDate:"Datum", tTime:"Starttijd", tPlayers:"Spelers", tTotal:"Totaal betaald",
+    viewTimes:"Bekijk mijn starttijden",
+    upcoming:"Binnenkort", myTimes:"Mijn starttijden", noTimes:"Nog geen starttijden",
+    noTimesSub:"Blader door Belgische clubs en boek je eerste ronde.", findCourse:"Zoek een baan",
+    account:"Account", profile:"Profiel", handicap:"Handicap",
+    booked2:"Geboekt", rounds:"Rondes '25", clubsStat:"Clubs",
+    mPay:"Betaalmethoden", mNotif:"Meldingen", mFed:"Federatiegegevens", mRegion:"Thuisregio",
+    noClubs:"Geen clubs gevonden", noClubsSub:"Probeer een andere club of stad.",
+    tabCourses:"Banen", tabTimes:"Starttijden", tabProfile:"Profiel",
+    wind:"wind",
+    weather:[{i:'sun',s:"Onbewolkt"},{i:'cloud',s:"Deels bewolkt"},{i:'rain',s:"Lichte buien"},{i:'wind',s:"Winderig"}],
+    tags:{Championship:"Championship",Parkland:"Parkbaan",Historic:"Historisch","Links-style":"Linksstijl",Heathland:"Heidebaan"},
+  },
+  fr:{
+    greeting:"Bonjour, Lucas", h1a:"Réservez votre", h1b:"départ",
+    search:"Rechercher un club ou une ville…", nearby:"Clubs à proximité", clubs:"clubs",
+    allBelgium:"Toute la Belgique",
+    selectDate:"Choisir une date", players:"Joueurs", flight:"Taille du flight · max 4",
+    conditions:"Excellentes conditions pour un parcours", teetimes:"Heures de départ disponibles",
+    open:"Libre", left:"rest.", full:"Complet", selectTime:"Choisir une heure", reserve:"Réserver",
+    player:"joueur", players2:"joueurs", greenfee:"green fee", holes:"trous", par:"Par", est:"depuis",
+    booked:"Réservation confirmée", bookedSub:"Confirmation envoyée par e-mail. Rendez-vous au premier tee.",
+    confirmed:"CONFIRMÉ", tDate:"Date", tTime:"Départ", tPlayers:"Joueurs", tTotal:"Total payé",
+    viewTimes:"Voir mes départs",
+    upcoming:"À venir", myTimes:"Mes départs", noTimes:"Aucun départ pour l'instant",
+    noTimesSub:"Parcourez les clubs belges et réservez votre premier parcours.", findCourse:"Trouver un parcours",
+    account:"Compte", profile:"Profil", handicap:"Handicap",
+    booked2:"Réservés", rounds:"Parcours '25", clubsStat:"Clubs",
+    mPay:"Moyens de paiement", mNotif:"Notifications", mFed:"Détails fédération", mRegion:"Région d'attache",
+    noClubs:"Aucun club trouvé", noClubsSub:"Essayez un autre club ou une autre ville.",
+    tabCourses:"Parcours", tabTimes:"Départs", tabProfile:"Profil",
+    wind:"vent",
+    weather:[{i:'sun',s:"Ciel dégagé"},{i:'cloud',s:"Partiellement nuageux"},{i:'rain',s:"Averses légères"},{i:'wind',s:"Venteux"}],
+    tags:{Championship:"Championship",Parkland:"Parcours parc",Historic:"Historique","Links-style":"Style links",Heathland:"Lande"},
+  },
+};
+function detectLang(){
+  try{ const s=localStorage.getItem('begolf_lang'); if(s&&LANGS.includes(s)) return s; }catch(e){}
+  const n=(navigator.language||"nl").slice(0,2).toLowerCase();
+  return LANGS.includes(n)?n:"nl";
+}
+let LANG=detectLang();
+const t=()=>T[LANG];
+const WD=()=>WEEKDAYS[LANG];
+const MO=()=>MONTHS[LANG];
+const REGIONS=()=>[t().allBelgium,"Brabant","Hainaut","Antwerpen","Vlaanderen"];
+const REGION_KEYS=["all","Brabant","Hainaut","Antwerpen","Vlaanderen"];
+
+let S={tab:"home",course:null,players:2,dayIdx:0,time:null,bookings:[],confirm:null,query:"",region:0};
+const app=document.getElementById('app'), tabbar=document.getElementById('tabbar'), statusbar=document.getElementById('statusbar');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CO={ink:'#122132',ink2:'#566274',ink3:'#93A0B0',moss:'#0E2A47',grass:'#1F8A4C',gold:'#E4B33C'};
+
+function render(){
+  let html="";
+  statusbar.classList.toggle('light', !!S.course && !S.confirm);
+  if(S.confirm){html=confirmView();tabbar.style.display='none';}
+  else if(S.course){html=detailView();tabbar.style.display='none';}
+  else{
+    tabbar.style.display='flex';
+    html = S.tab==="home"?homeView() : S.tab==="bookings"?bookingsView() : profileView();
+    tabbar.innerHTML=tabsHTML();
+  }
+  app.innerHTML=html;
+  bind();
+}
+
+function filteredCourses(){
+  const q=S.query.toLowerCase();
+  return COURSES.filter(c=>{
+    const okR = S.region===0 || c.area===REGION_KEYS[S.region];
+    const okQ = c.name.toLowerCase().includes(q)||c.city.toLowerCase().includes(q);
+    return okR&&okQ;
+  });
+}
+
+function homeView(){
+  const L=t(), list=filteredCourses(), R=REGIONS();
+  return `<div class="scroll pad"><div class="top-space"></div>
+    <div class="head" style="align-items:center">
+      ${begolfLockup(34,22,false)}
+      <div style="display:flex;align-items:center;gap:10px">
+        ${langSwitcher()}
+        <button class="iconbtn press">${IC.bell(CO.moss)}<span class="dot"></span></button>
+      </div>
+    </div>
+    <div style="margin-top:20px"><div class="eyebrow">${L.greeting}</div><h1 style="margin-top:6px">${L.h1a}<br>${L.h1b}</h1></div>
+    <div class="search">${IC.search(CO.ink3)}<input id="q" placeholder="${L.search}" value="${esc(S.query)}"/></div>
+    <div class="xscroll chips">
+      ${R.map((r,i)=>`<button class="chip press ${i===S.region?'on':''}" data-region="${i}">${i===0?IC.flag(i===S.region?'#fff':CO.moss):''}${r}</button>`).join('')}
+    </div>
+    <div class="sectionhead"><h2>${S.region===0?L.nearby:R[S.region]}</h2><span class="muted" style="font-size:13px;font-weight:600">${list.length} ${L.clubs}</span></div>
+    <div id="grid" style="display:grid;gap:16px;margin-top:14px;padding-bottom:26px">
+      ${list.map(courseCard).join('')||emptyBlock(IC.pin(CO.ink3),L.noClubs,L.noClubsSub)}
+    </div>
+  </div>`;
+}
+
+function langSwitcher(){
+  return `<div class="langsw">${LANGS.map(l=>`<button class="langbtn ${l===LANG?'on':''}" data-lang="${l}">${LANGNAME[l]}</button>`).join('')}</div>`;
+}
+
+function courseCard(c){
+  const L=t();
+  return `<button class="card press" data-course="${c.id}">
+    <div class="img" style="background:${grad(c)}">
+      <div class="fairlines"></div><div class="grain"></div>
+      <span class="tag">${L.tags[c.tag]||c.tag}</span>
+      <div class="pin">${IC.flag('#fff','f')}</div>
+      <div class="rate">${IC.star(CO.gold,'f')}${c.rating}</div>
+    </div>
+    <div class="cbody">
+      <div class="cname">${esc(c.name)}</div>
+      <div class="cmeta">${IC.pin(CO.ink2)}${esc(c.city)} · ${c.dist} · ${L.est} ${c.est}</div>
+      <div class="cfoot">
+        <div class="specs"><span class="spec">${c.holes} ${L.holes}</span><span class="spec">${L.par} ${c.par}</span></div>
+        <div class="price">€${c.price}<small>${L.greenfee}</small></div>
+      </div>
+    </div>
+  </button>`;
+}
+
+function detailView(){
+  const L=t(), c=S.course, wx=L.weather[S.dayIdx%L.weather.length], temp=TEMPS[S.dayIdx%TEMPS.length];
+  return `<div class="scroll">
+    <button class="back press" data-back="1">${IC.chevL(CO.ink)}</button>
+    <button class="heart press">${IC.heart('#fff')}</button>
+    <div class="hero" style="background:${grad(c)}">
+      <div class="fairlines"></div><div class="grain"></div>
+      <span class="tag" style="position:static;align-self:flex-start;margin-bottom:2px">${L.tags[c.tag]||c.tag}</span>
+      <h1 class="htitle">${esc(c.name)}</h1>
+      <div class="hmeta">
+        <span>${IC.pin('#fff')} ${esc(c.city)}</span>
+        <span>${IC.star(CO.gold,'f')} ${c.rating}</span>
+        <span>${c.holes} ${L.holes} · ${L.par} ${c.par}</span>
+      </div>
+    </div>
+    <div class="sheet">
+      <div class="grab"></div>
+      <h2 style="margin-top:8px">${L.selectDate}</h2>
+      <div class="xscroll dates" style="margin-top:12px">
+        ${DAYS.map((d,i)=>`<button class="datecell press ${i===S.dayIdx?'on':''}" data-day="${i}">
+          <span class="dow">${WD()[(d.getDay()+6)%7]}</span><span class="num">${d.getDate()}</span><span class="mon">${MO()[d.getMonth()]}</span></button>`).join('')}
+      </div>
+      <div class="weather"><div class="wt">${WICON[wx.i](CO.grass)}</div>
+        <div style="flex:1"><div style="font-weight:700;font-size:14px">${temp} · ${wx.s}</div>
+        <div style="font-size:12px;color:${CO.ink2}">${L.conditions}</div></div>
+        <span style="font-size:12px;font-weight:700;color:${CO.grass};display:flex;align-items:center;gap:4px">${IC.compass(CO.grass)}12km/h</span>
+      </div>
+      <div class="rowhead"><div><h2>${L.players}</h2><div class="muted" style="font-size:12.5px;margin-top:2px">${L.flight}</div></div>
+        <div class="stepper">
+          <button class="stepbtn press" data-players="-1" ${S.players<=1?'disabled':''}>${IC.minus(CO.moss)}</button>
+          <div class="pcount">${IC.users(CO.ink)}<span>${S.players}</span></div>
+          <button class="stepbtn press" data-players="1" ${S.players>=4?'disabled':''}>${IC.plus(CO.moss)}</button>
+        </div>
+      </div>
+      <h2 style="margin-top:22px">${L.teetimes}</h2>
+      <div class="timegrid">
+        ${TIMES.map((tm,i)=>{const taken=i%7===3;const on=tm===S.time;const few=i%5===2;
+          return `<button class="slot ${taken?'taken':(on?'on press':'press')}" ${taken?'disabled':''} data-time="${tm}">
+            <span class="t">${tm}</span><span class="s">${taken?L.full:(few?'2 '+L.left:L.open)}</span></button>`;}).join('')}
+      </div>
+    </div>
+    <div class="cta-wrap"><div class="cta-bar">
+      <div><div class="cta-sub">${S.time?`${S.time} · ${S.players} ${S.players>1?L.players2:L.player}`:L.selectTime}</div>
+        <div class="cta-price">€${c.price*S.players}</div></div>
+      <button class="cta press" data-book="1" ${S.time?'':'disabled'}>${L.reserve} ${IC.chevR('#fff')}</button>
+    </div></div>
+  </div>`;
+}
+
+function confirmView(){
+  const L=t(), b=S.confirm,d=b.day;
+  const bars=Array.from({length:46}).map((_,i)=>`<i style="width:${i%3===0?3.5:1.8}px;opacity:${i%4===0?.9:.5}"></i>`).join('');
+  return `<div class="confirm">
+    <div style="position:relative"><div class="badge">${IC.check('#fff',44)}</div></div>
+    <h1 style="text-align:center;margin-top:24px">${L.booked}</h1>
+    <p class="muted" style="text-align:center;margin:8px 26px 0;font-size:14px;line-height:1.5">${L.bookedSub}</p>
+    <div class="ticket">
+      <div class="tt" style="background:${CO.moss}">${begolfWordmark(20,true)}<span style="margin-left:auto;font-size:12px;font-weight:700;opacity:.85;letter-spacing:.4px">${L.confirmed}</span></div>
+      <div class="tb">
+        <div class="tname">${esc(b.course.name)}</div>
+        <div class="tcity">${IC.pin(CO.ink2)} ${esc(b.course.city)}</div>
+        <div class="tgrid">
+          ${ti(L.tDate,`${WD()[(d.getDay()+6)%7]} ${d.getDate()} ${MO()[d.getMonth()]}`)}
+          ${ti(L.tTime,b.time)}${ti(L.tPlayers,String(b.players))}${ti(L.tTotal,`€${b.course.price*b.players}`)}
+        </div>
+        <div class="perf"><span class="line"></span></div>
+      </div>
+      <div class="barcode">${bars}</div>
+    </div>
+    <button class="donebtn press" data-done="1">${L.viewTimes}</button>
+  </div>`;
+}
+const ti=(l,v)=>`<div><div class="tlabel">${l}</div><div class="tval">${esc(v)}</div></div>`;
+
+function bookingsView(){
+  const L=t();
+  if(!S.bookings.length) return `<div class="scroll pad"><div class="top-space"></div>
+    <div class="eyebrow">${L.upcoming}</div><h1 style="margin-top:6px">${L.myTimes}</h1>
+    <div class="empty" style="margin-top:36px">${IC.cal(CO.ink3)}
+      <div style="font-family:'Fraunces';font-size:18px;font-weight:600;margin-top:14px">${L.noTimes}</div>
+      <p class="muted" style="font-size:13.5px;margin:6px 0 18px">${L.noTimesSub}</p>
+      <button class="smallcta press" data-go="home">${L.findCourse}</button></div></div>`;
+  return `<div class="scroll pad"><div class="top-space"></div>
+    <div class="eyebrow">${L.upcoming}</div><h1 style="margin-top:6px">${L.myTimes}</h1>
+    <div style="display:grid;gap:12px;margin-top:20px;padding-bottom:26px">
+      ${S.bookings.map(b=>{const d=b.day;return `<div class="bcard">
+        <div class="bswatch" style="background:${grad(b.course)}"><div class="fairlines"></div><div class="d">${d.getDate()}</div><div class="m">${MO()[d.getMonth()]}</div></div>
+        <div style="flex:1"><div style="font-family:'Fraunces';font-weight:600;font-size:15.5px;letter-spacing:-.2px">${esc(b.course.name)}</div>
+          <div class="muted" style="font-size:12.5px;margin-top:3px">${esc(b.course.city)}</div>
+          <div class="btags"><span class="btag">${IC.clock(CO.moss)}${b.time}</span><span class="btag">${IC.users(CO.moss)}${b.players}</span></div></div>
+        <div class="bcheck">${IC.check('#fff',15)}</div></div>`;}).join('')}
+    </div></div>`;
+}
+
+function profileView(){
+  const L=t();
+  const menu=[[IC.card(CO.moss),L.mPay,""],[IC.bell(CO.moss),L.mNotif,""],[IC.flag(CO.moss),L.mFed,""],[IC.pin(CO.moss),L.mRegion,"Brabant"]];
+  return `<div class="scroll pad"><div class="top-space"></div>
+    <div class="head" style="align-items:center"><div><div class="eyebrow">${L.account}</div><h1 style="margin-top:6px">${L.profile}</h1></div>${langSwitcher()}</div>
+    <div class="profcard" style="margin-top:20px"><div class="fl"></div>
+      <div class="avatar">LM</div>
+      <div style="flex:1"><div style="font-family:'Fraunces';font-weight:600;font-size:18px">Lucas Mertens</div>
+        <div style="font-size:12.5px;opacity:.85;margin-top:2px">Golf Vlaanderen · #BE-49281</div>
+        <div class="hcp">${IC.flag('#fff')}${L.handicap} 14.2</div></div>
+      <div style="opacity:.9">${begolfMark(38)}</div></div>
+    <div class="statrow">
+      <div class="stat"><div class="n">${S.bookings.length}</div><div class="l">${L.booked2}</div></div>
+      <div class="stat"><div class="n">9</div><div class="l">${L.rounds}</div></div>
+      <div class="stat"><div class="n">5</div><div class="l">${L.clubsStat}</div></div>
+    </div>
+    <div class="menu">${menu.map(m=>`<div class="mrow press"><div class="micon">${m[0]}</div><span class="mlabel">${m[1]}</span>${m[2]?`<span class="mtrail">${m[2]}</span>`:''}${IC.chevR(CO.ink3)}</div>`).join('')}</div>
+    <div style="height:26px"></div></div>`;
+}
+
+const emptyBlock=(ic,title,sub)=>`<div class="empty">${ic}<div style="font-family:'Fraunces';font-size:18px;font-weight:600;margin-top:12px">${title}</div><p class="muted" style="font-size:13.5px;margin-top:4px">${sub}</p></div>`;
+
+function tabsHTML(){
+  const L=t();
+  return [["home",IC.home,L.tabCourses],["bookings",IC.cal,L.tabTimes],["profile",IC.user,L.tabProfile]]
+    .map(([k,ic,l])=>{const on=S.tab===k;return `<button class="tab ${on?'on':''}" data-tab="${k}">${ic(on?CO.moss:CO.ink3)}<span class="lbl">${l}</span></button>`;}).join('');
+}
+
+function bind(){
+  app.querySelectorAll('[data-course]').forEach(el=>el.onclick=()=>{S.course=COURSES.find(c=>c.id==el.dataset.course);S.time=null;S.dayIdx=0;S.players=2;render();});
+  const q=app.querySelector('#q'); if(q) q.oninput=e=>{S.query=e.target.value;softHome();};
+  app.querySelectorAll('[data-region]').forEach(el=>el.onclick=()=>{S.region=+el.dataset.region;render();});
+  app.querySelectorAll('[data-back]').forEach(el=>el.onclick=()=>{S.course=null;render();});
+  app.querySelectorAll('[data-day]').forEach(el=>el.onclick=()=>{S.dayIdx=+el.dataset.day;S.time=null;render();});
+  app.querySelectorAll('[data-players]').forEach(el=>el.onclick=()=>{if(el.disabled)return;S.players=Math.max(1,Math.min(4,S.players+ +el.dataset.players));render();});
+  app.querySelectorAll('[data-time]').forEach(el=>el.onclick=()=>{if(el.disabled)return;S.time=el.dataset.time;render();});
+  app.querySelectorAll('[data-book]').forEach(el=>el.onclick=()=>{if(!S.time)return;const b={course:S.course,day:DAYS[S.dayIdx],time:S.time,players:S.players};S.bookings.unshift(b);S.confirm=b;render();});
+  app.querySelectorAll('[data-done]').forEach(el=>el.onclick=()=>{S.confirm=null;S.course=null;S.tab="bookings";render();});
+  app.querySelectorAll('[data-go]').forEach(el=>el.onclick=()=>{S.tab=el.dataset.go;render();});
+  app.querySelectorAll('[data-lang]').forEach(el=>el.onclick=()=>{LANG=el.dataset.lang;try{localStorage.setItem('begolf_lang',LANG);}catch(e){}document.documentElement.lang=LANG;render();});
+  tabbar.querySelectorAll('[data-tab]').forEach(el=>el.onclick=()=>{S.tab=el.dataset.tab;render();});
+}
+function softHome(){
+  if(S.tab!=="home"||S.course||S.confirm)return;
+  const grid=document.getElementById('grid');if(!grid){render();return;}
+  const L=t(), list=filteredCourses();
+  grid.innerHTML=list.map(courseCard).join('')||emptyBlock(IC.pin(CO.ink3),L.noClubs,L.noClubsSub);
+  grid.querySelectorAll('[data-course]').forEach(el=>el.onclick=()=>{S.course=COURSES.find(c=>c.id==el.dataset.course);S.time=null;S.dayIdx=0;S.players=2;render();});
+}
+
+document.documentElement.lang=LANG;
+fit(); render();
+</script>
+</body>
+</html>

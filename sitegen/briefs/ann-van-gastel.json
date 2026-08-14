@@ -1,0 +1,9 @@
+{
+  "slug": "ann-van-gastel",
+  "sector": "zorg",
+  "business_name": "Ann Van Gastel",
+  "category": "Klinisch orthopedagoog",
+  "generated": false,
+  "note": "Handmatig gemaakt, overgezet van annvangastel.ocior.be. Niet uit een sjabloon: generate.py weigert dit bestand te overschrijven; bewerk sites/ann-van-gastel/index.html rechtstreeks.",
+  "source_url": "https://annvangastel.ocior.be/"
+}

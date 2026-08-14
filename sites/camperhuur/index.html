@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CamperHuur.be — Motorhomes huren & verhuren (rijbewijs C)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#0B4D3A;
+    --green-dark:#072F24;
+    --green-light:#146A4E;
+    --cream:#F5F3EC;
+    --plate:#FFFFFF;
+    --red:#C1272D;
+    --asphalt:#14181B;
+    --asphalt-2:#1E2429;
+    --grey:#6B7280;
+    --yellow:#F4C430;
+    --radius:4px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--asphalt);
+    background:var(--cream);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    margin:0;
+  }
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--green);
+    display:flex;align-items:center;gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--red);display:inline-block;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:var(--asphalt);
+    border-bottom:3px solid var(--green);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;gap:20px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Oswald',sans-serif;
+    font-size:20px;font-weight:700;color:var(--cream);
+    text-transform:uppercase;letter-spacing:0.01em;
+  }
+  .brand .plate-dot{
+    width:12px;height:12px;background:var(--red);border-radius:2px;
+    box-shadow:0 0 0 2px var(--yellow);
+  }
+  nav.mainnav{display:flex;gap:28px;}
+  nav.mainnav a{
+    color:#C9CFD1;font-size:14px;font-weight:500;
+    text-transform:uppercase;letter-spacing:0.05em;
+    transition:color .15s;
+  }
+  nav.mainnav a:hover{color:var(--yellow);}
+  .header-right{display:flex;align-items:center;gap:18px;}
+  .langswitch{display:flex;border:1px solid #333;border-radius:var(--radius);overflow:hidden;}
+  .langswitch button{
+    background:transparent;border:none;color:#9AA1A4;
+    font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+    padding:7px 10px;border-right:1px solid #333;
+  }
+  .langswitch button:last-child{border-right:none;}
+  .langswitch button.active{background:var(--green);color:#fff;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 20px;border-radius:var(--radius);
+    font-size:13px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+    border:2px solid transparent;
+  }
+  .btn-primary{background:var(--green);color:#fff;}
+  .btn-primary:hover{background:var(--green-light);}
+  .btn-outline{border-color:var(--cream);color:var(--cream);}
+  .btn-outline:hover{border-color:var(--yellow);color:var(--yellow);}
+  .btn-dark{border-color:var(--asphalt);color:var(--asphalt);}
+  .btn-dark:hover{background:var(--asphalt);color:#fff;}
+  .menu-toggle{display:none;background:none;border:none;color:var(--cream);font-size:24px;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;background:var(--asphalt);color:var(--cream);
+    overflow:hidden;padding:72px 0 0;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(115deg, var(--asphalt) 45%, var(--green-dark) 45%, var(--green) 100%);
+    opacity:.96;
+  }
+  .hero-inner{position:relative;display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:center;}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--plate);color:var(--red);
+    border-radius:6px;padding:8px 14px 8px 10px;
+    font-family:'Space Mono',monospace;font-weight:700;font-size:13px;
+    letter-spacing:0.06em;
+    box-shadow:0 6px 18px rgba(0,0,0,.35);
+    margin-bottom:22px;
+  }
+  .hero-badge .flag{
+    width:20px;height:14px;background:linear-gradient(90deg,#000 33%,#FAE042 33%,#FAE042 66%,#ED2939 66%);
+    border-radius:2px;flex-shrink:0;
+  }
+  .hero h1{font-size:clamp(34px,5vw,58px);line-height:1.03;margin-bottom:18px;}
+  .hero h1 em{font-style:normal;color:var(--yellow);}
+  .hero p.sub{font-size:17px;line-height:1.55;color:#D9DDD9;max-width:480px;margin-bottom:30px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px;}
+
+  .hero-art{position:relative;height:420px;border-radius:12px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.45);}
+  .hero-art img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s;}
+  .hero-art:hover img{transform:scale(1.04);}
+  .hero-art::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(11,77,58,0) 55%, rgba(7,22,17,.55) 100%);
+    pointer-events:none;
+  }
+  .plate-tag{
+    position:absolute;top:16px;right:16px;z-index:2;background:var(--plate);color:var(--asphalt);
+    padding:10px 14px;border-radius:6px;box-shadow:0 10px 24px rgba(0,0,0,.4);
+    font-family:'Space Mono',monospace;text-align:center;transform:rotate(3deg);
+  }
+  .plate-tag .num{font-size:15px;font-weight:700;letter-spacing:0.08em;}
+  .plate-tag .b{font-size:9px;background:#003399;color:#FAE042;padding:1px 4px;border-radius:2px;margin-right:6px;}
+
+  /* ===== LICENSE BAND ===== */
+  .license-band{background:var(--green);color:#fff;padding:56px 0;position:relative;}
+  .license-band::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(-45deg, rgba(255,255,255,.03) 0 12px, transparent 12px 24px);
+  }
+  .license-inner{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;}
+  .license-icon{
+    width:74px;height:74px;background:#fff;border-radius:10px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .license-icon svg{width:40px;height:40px;}
+  .license-band h2{font-size:clamp(22px,3vw,30px);margin-bottom:8px;color:#fff;}
+  .license-band p{color:#DCEFE6;font-size:15px;line-height:1.55;max-width:560px;margin:0;}
+  .license-band .eyebrow{color:var(--yellow);}
+  .license-band .eyebrow::before{background:var(--yellow);}
+
+  /* ===== SECTION generic ===== */
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,40px);margin-bottom:14px;}
+  .section-head p{color:var(--grey);font-size:16px;line-height:1.6;}
+
+  /* ===== OFFER / CAMPER CARDS ===== */
+  .offer{background:var(--cream);}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .card{
+    background:#fff;border:1px solid #E4E0D4;border-radius:8px;overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .18s, box-shadow .18s;
+    cursor:pointer;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(20,24,27,.1);}
+  .card:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;}
+  .card-art{
+    height:150px;position:relative;overflow:hidden;
+    background:linear-gradient(160deg,var(--green) 0%, var(--green-dark) 100%);
+  }
+  .card-art img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s;}
+  .card:hover .card-art img{transform:scale(1.06);}
+  .card-plate{
+    position:absolute;top:10px;left:10px;background:#fff;color:var(--red);
+    font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
+    padding:4px 8px;border-radius:4px;letter-spacing:0.04em;
+  }
+  .card-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1;}
+  .card-loc{
+    font-family:'Space Mono',monospace;font-size:11px;color:var(--green);
+    letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px;
+  }
+  .card-title{font-size:16px;font-weight:600;line-height:1.3;font-family:'Inter',sans-serif;text-transform:none;}
+  .card-specs{display:flex;gap:14px;font-size:12.5px;color:var(--grey);margin-top:auto;}
+  .card-specs span{display:flex;align-items:center;gap:5px;}
+  .card-specs svg{width:14px;height:14px;stroke:var(--grey);}
+  .card-footer{
+    border-top:1px solid #EFEBDD;margin-top:12px;padding-top:12px;
+    display:flex;align-items:baseline;justify-content:space-between;
+  }
+  .card-price{font-family:'Space Mono',monospace;font-weight:700;font-size:18px;color:var(--asphalt);}
+  .card-price small{font-family:'Inter',sans-serif;font-weight:400;font-size:12px;color:var(--grey);}
+  .card-link{font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.04em;background:none;border:none;padding:0;font-family:inherit;cursor:pointer;}
+  .card-link:hover{text-decoration:underline;}
+
+  /* ===== HOW IT WORKS ===== */
+  .how{background:#fff;}
+  .route{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-bottom:56px;}
+  .route::before{
+    content:"";position:absolute;top:26px;left:8%;right:8%;height:3px;
+    background:repeating-linear-gradient(90deg, var(--grey) 0 14px, transparent 14px 24px);
+    z-index:0;
+  }
+  .stop{position:relative;z-index:1;}
+  .stop-marker{
+    width:54px;height:54px;border-radius:50%;background:var(--asphalt);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Mono',monospace;font-weight:700;font-size:18px;
+    border:4px solid var(--cream);box-shadow:0 0 0 2px var(--asphalt);
+    margin-bottom:20px;
+  }
+  .stop h3{font-size:18px;text-transform:none;font-family:'Inter',sans-serif;font-weight:700;margin-bottom:8px;}
+  .stop p{color:var(--grey);font-size:14.5px;line-height:1.55;margin:0;}
+
+  .feature-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .feature{
+    background:var(--cream);border-radius:8px;padding:26px;border-left:4px solid var(--green);
+  }
+  .feature h4{font-family:'Inter',sans-serif;text-transform:none;font-size:16px;font-weight:700;margin-bottom:8px;}
+  .feature p{margin:0;color:var(--grey);font-size:14px;line-height:1.55;}
+
+  /* ===== RENT OUT CTA ===== */
+  .rentout{
+    background:var(--asphalt);color:#fff;position:relative;overflow:hidden;
+    padding:80px 0;
+  }
+  .rentout::before{
+    content:"";position:absolute;top:0;bottom:0;right:-10%;width:55%;
+    background:var(--green);clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);opacity:.9;
+  }
+  .rentout-inner{position:relative;max-width:600px;}
+  .rentout h2{font-size:clamp(26px,3.6vw,42px);margin-bottom:16px;}
+  .rentout p{color:#D6D6D2;font-size:16px;line-height:1.6;margin-bottom:28px;max-width:480px;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--green-dark);color:#CFE3D8;padding:60px 0 26px;}
+  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:44px;}
+  .footer-brand .brand{color:#fff;margin-bottom:12px;}
+  .footer-brand p{font-size:14px;line-height:1.6;color:#AFCABB;max-width:280px;}
+  footer h5{
+    font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--yellow);margin-bottom:14px;
+  }
+  footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
+  footer a{font-size:14px;color:#CFE3D8;}
+  footer a:hover{color:#fff;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.12);padding-top:20px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:12.5px;color:#8FB39F;
+  }
+
+  /* ===== BOOKING MODAL ===== */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(10,14,16,.65);
+    display:none;align-items:center;justify-content:center;
+    padding:20px;z-index:1000;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:#fff;border-radius:10px;max-width:460px;width:100%;
+    max-height:90vh;overflow-y:auto;position:relative;
+    box-shadow:0 30px 70px rgba(0,0,0,.4);
+  }
+  .modal-photo{height:150px;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--green) 0%, var(--green-dark) 100%);}
+  .modal-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .modal-close{
+    position:absolute;top:12px;right:12px;z-index:2;
+    width:32px;height:32px;border-radius:50%;border:none;
+    background:rgba(20,24,27,.55);color:#fff;font-size:18px;line-height:1;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .modal-close:hover{background:var(--asphalt);}
+  .modal-body{padding:24px 26px 28px;}
+  .modal-plate{
+    display:inline-flex;align-items:center;gap:6px;background:var(--cream);color:var(--red);
+    font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.05em;
+    padding:5px 10px;border-radius:4px;margin-bottom:10px;
+  }
+  .modal-title{font-size:20px;font-weight:700;font-family:'Inter',sans-serif;text-transform:none;margin-bottom:4px;}
+  .modal-loc{font-family:'Space Mono',monospace;font-size:12px;color:var(--green);margin-bottom:14px;}
+  .modal-price{font-family:'Space Mono',monospace;font-weight:700;font-size:20px;margin-bottom:18px;}
+  .modal-price small{font-family:'Inter',sans-serif;font-weight:400;font-size:12px;color:var(--grey);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+  .form-group{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+  .form-group label{font-size:12px;font-weight:600;color:var(--asphalt);}
+  .form-group input[type="date"],
+  .form-group input[type="text"],
+  .form-group input[type="email"]{
+    border:1px solid #D8D3C4;border-radius:6px;padding:10px 12px;font-size:14px;
+    font-family:'Inter',sans-serif;color:var(--asphalt);background:var(--cream);
+  }
+  .form-group input:focus{outline:2px solid var(--green);outline-offset:1px;}
+  .checkbox-row{display:flex;align-items:flex-start;gap:10px;margin:14px 0 18px;}
+  .checkbox-row input{margin-top:3px;width:16px;height:16px;accent-color:var(--green);flex-shrink:0;}
+  .checkbox-row label{font-size:13px;line-height:1.4;color:var(--asphalt);}
+  .modal-submit{width:100%;justify-content:center;padding:13px;font-size:14px;}
+  .modal-note{font-size:11.5px;color:var(--grey);margin-top:12px;text-align:center;line-height:1.5;}
+  .modal-success{padding:40px 26px 32px;text-align:center;display:none;}
+  .modal-success.show{display:block;}
+  .modal-form.hide{display:none;}
+  .success-icon{
+    width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:26px;
+  }
+  .modal-success h3{font-size:20px;font-family:'Inter',sans-serif;text-transform:none;margin-bottom:10px;}
+  .modal-success p{color:var(--grey);font-size:14px;line-height:1.55;margin-bottom:22px;}
+
+  @media(max-width:480px){
+    .form-row{grid-template-columns:1fr;}
+  }
+
+  @media(max-width:920px){
+    nav.mainnav{display:none;}
+    .menu-toggle{display:block;}
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-art{height:260px;margin-top:20px;}
+    .grid-4{grid-template-columns:repeat(2,1fr);}
+    .route{grid-template-columns:1fr;gap:36px;}
+    .route::before{display:none;}
+    .feature-row{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .license-inner{grid-template-columns:1fr;text-align:left;}
+  }
+  @media(max-width:560px){
+    .grid-4{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .header-right .btn-primary{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-inner">
+    <a href="#top" class="brand"><span class="plate-dot"></span>CamperHuur.be</a>
+    <nav class="mainnav">
+      <a href="#aanbod" data-i18n="nav_offer">Aanbod</a>
+      <a href="#zowerkt" data-i18n="nav_how">Zo werkt het</a>
+      <a href="#rijbewijs" data-i18n="nav_license">Rijbewijs C</a>
+    </nav>
+    <div class="header-right">
+      <div class="langswitch" id="langswitch">
+        <button data-lang="nl" class="active">NL</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="de">DE</button>
+        <button data-lang="fr">FR</button>
+      </div>
+      <a href="#verhuren" class="btn btn-primary" data-i18n="nav_cta">Verhuur je camper</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" style="padding-bottom:0;">
+    <div class="wrap hero-inner" style="padding-top:56px;padding-bottom:56px;">
+      <div>
+        <div class="hero-badge"><span class="flag"></span><span data-i18n="hero_badge">RIJBEWIJS C VERPLICHT</span></div>
+        <h1 data-i18n-html="hero_title">Huur een motorhome.<br>Rij weg op <em>avontuur</em>.</h1>
+        <p class="sub" data-i18n="hero_sub">Huur ruime motorhomes rechtstreeks bij particuliere eigenaars in heel België. Transparante prijzen, geen verrassingen.</p>
+        <div class="hero-ctas">
+          <a href="#aanbod" class="btn btn-primary" data-i18n="hero_cta1">Bekijk het aanbod</a>
+          <a href="#verhuren" class="btn btn-outline" data-i18n="hero_cta2">Verhuur je camper</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="plate-tag"><span class="b">B</span><span class="num">1-CMP-745</span></div>
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Camping_Car_%28Unsplash%29.jpg?width=1200"
+             alt="Motorhome geparkeerd in een groene omgeving"
+             onerror="this.onerror=null;this.remove();">
+      </div>
+    </div>
+  </section>
+
+  <!-- LICENSE C BAND -->
+  <div class="license-band" id="rijbewijs">
+    <div class="wrap license-inner">
+      <div class="license-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0B4D3A" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><text x="12" y="15" font-family="Space Mono" font-size="9" font-weight="700" fill="#0B4D3A" text-anchor="middle">C</text></svg>
+      </div>
+      <div>
+        <div class="eyebrow" data-i18n="license_eyebrow">VERPLICHT VOOR VERTREK</div>
+        <h2 data-i18n="license_title">Rijbewijs C is verplicht</h2>
+        <p data-i18n="license_text">Onze motorhomes hebben een maximaal toegelaten massa boven 3,5 ton. Je rijdt ze enkel met een geldig rijbewijs categorie C — neem het mee bij ophaling.</p>
+      </div>
+      <a href="#zowerkt" class="btn btn-outline" data-i18n="license_cta">Lees meer</a>
+    </div>
+  </div>
+
+  <!-- OFFER -->
+  <section class="offer" id="aanbod">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-i18n="offer_eyebrow">BESCHIKBARE CAMPERS</div>
+        <h2 data-i18n="offer_title">Vind jouw ideale motorhome</h2>
+        <p data-i18n="offer_sub">Elke camper wordt aangeboden door een particuliere eigenaar. Reserveer je periode online — de eigenaar bevestigt je aanvraag.</p>
+      </div>
+      <div class="grid-4">
+
+        <div class="card" data-camper="1" onclick="openBooking('1')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openBooking('1')">
+          <div class="card-art">
+            <span class="card-plate" data-i18n="card_plate">RIJBEWIJS C</span>
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Transit_Alkoven_Wohnmobil.jpg?width=600" alt="Ruime integraalcamper" loading="lazy" onerror="this.onerror=null;this.remove();">
+          </div>
+          <div class="card-body">
+            <div class="card-loc">📍 <span data-i18n="c1_loc">Antwerpen</span></div>
+            <div class="card-title" data-i18n="c1_title">Ruime integraalcamper voor het hele gezin</div>
+            <div class="card-specs">
+              <span data-i18n="c1_sleeps">4 slaapplaatsen</span>
+              <span data-i18n="c1_trans">Handgeschakeld</span>
+            </div>
+            <div class="card-footer">
+              <div class="card-price mono" data-i18n="c1_price">€145 <small>/ dag</small></div>
+              <button type="button" class="card-link" data-i18n="card_view" onclick="event.stopPropagation();openBooking('1')">Bekijk</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-camper="2" onclick="openBooking('2')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openBooking('2')">
+          <div class="card-art">
+            <span class="card-plate" data-i18n="card_plate">RIJBEWIJS C</span>
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fiat_Chausson_Alkoven-Wohnmobil.jpg?width=600" alt="Gezinscamper met alkoof" loading="lazy" onerror="this.onerror=null;this.remove();">
+          </div>
+          <div class="card-body">
+            <div class="card-loc">📍 <span data-i18n="c2_loc">Gent</span></div>
+            <div class="card-title" data-i18n="c2_title">Gezinscamper met alkoof en stapelbedden</div>
+            <div class="card-specs">
+              <span data-i18n="c2_sleeps">6 slaapplaatsen</span>
+              <span data-i18n="c2_trans">Handgeschakeld</span>
+            </div>
+            <div class="card-footer">
+              <div class="card-price mono" data-i18n="c2_price">€125 <small>/ dag</small></div>
+              <button type="button" class="card-link" data-i18n="card_view" onclick="event.stopPropagation();openBooking('2')">Bekijk</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-camper="3" onclick="openBooking('3')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openBooking('3')">
+          <div class="card-art">
+            <span class="card-plate" data-i18n="card_plate">RIJBEWIJS C</span>
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/20200512_Mercedes_HYMER_Hymermobil.jpg?width=600" alt="Luxe liner motorhome" loading="lazy" onerror="this.onerror=null;this.remove();">
+          </div>
+          <div class="card-body">
+            <div class="card-loc">📍 <span data-i18n="c3_loc">Brussel</span></div>
+            <div class="card-title" data-i18n="c3_title">Luxe liner voor de veeleisende reiziger</div>
+            <div class="card-specs">
+              <span data-i18n="c3_sleeps">4 slaapplaatsen</span>
+              <span data-i18n="c3_trans">Automaat</span>
+            </div>
+            <div class="card-footer">
+              <div class="card-price mono" data-i18n="c3_price">€220 <small>/ dag</small></div>
+              <button type="button" class="card-link" data-i18n="card_view" onclick="event.stopPropagation();openBooking('3')">Bekijk</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-camper="4" onclick="openBooking('4')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openBooking('4')">
+          <div class="card-art">
+            <span class="card-plate" data-i18n="card_plate">RIJBEWIJS C</span>
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pilote_Alkoven-Wohnmobil_Ford_Transit_vl.jpg?width=600" alt="Semi-integraal motorhome" loading="lazy" onerror="this.onerror=null;this.remove();">
+          </div>
+          <div class="card-body">
+            <div class="card-loc">📍 <span data-i18n="c4_loc">Luik</span></div>
+            <div class="card-title" data-i18n="c4_title">Semi-integraal aan het water</div>
+            <div class="card-specs">
+              <span data-i18n="c4_sleeps">4 slaapplaatsen</span>
+              <span data-i18n="c4_trans">Handgeschakeld</span>
+            </div>
+            <div class="card-footer">
+              <div class="card-price mono" data-i18n="c4_price">€135 <small>/ dag</small></div>
+              <button type="button" class="card-link" data-i18n="card_view" onclick="event.stopPropagation();openBooking('4')">Bekijk</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="zowerkt">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" data-i18n="how_eyebrow">ZO WERKT HET</div>
+        <h2 data-i18n="how_title">Van zoeken tot op de baan</h2>
+      </div>
+
+      <div class="route">
+        <div class="stop">
+          <div class="stop-marker">1</div>
+          <h3 data-i18n="step1_title">Kies je camper</h3>
+          <p data-i18n="step1_text">Bekijk het aanbod en selecteer de motorhome die bij jouw reis past.</p>
+        </div>
+        <div class="stop">
+          <div class="stop-marker">2</div>
+          <h3 data-i18n="step2_title">Reserveer je periode</h3>
+          <p data-i18n="step2_text">Kies je data, bevestig je rijbewijs C en verstuur je aanvraag naar de eigenaar.</p>
+        </div>
+        <div class="stop">
+          <div class="stop-marker">3</div>
+          <h3 data-i18n="step3_title">Haal op & vertrek</h3>
+          <p data-i18n="step3_text">Ontmoet de eigenaar, toon je rijbewijs C en begin aan je avontuur.</p>
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature">
+          <h4 data-i18n="feat1_title">Transparante commissie</h4>
+          <p data-i18n="feat1_text">Op elke boeking rekent het platform 10% servicekost. Je ziet dit altijd duidelijk in de prijs.</p>
+        </div>
+        <div class="feature">
+          <h4 data-i18n="feat2_title">Rechtstreeks contact</h4>
+          <p data-i18n="feat2_text">Je regelt de ophaling rechtstreeks met de eigenaar. Lokaal en persoonlijk.</p>
+        </div>
+        <div class="feature">
+          <h4 data-i18n="feat3_title">Overal in België</h4>
+          <p data-i18n="feat3_text">Van Antwerpen tot Luik: vind een camper in jouw buurt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RENT OUT CTA -->
+  <section class="rentout" id="verhuren">
+    <div class="wrap rentout-inner">
+      <div class="eyebrow" style="color:var(--yellow);" data-i18n="rentout_eyebrow">VOOR EIGENAARS</div>
+      <h2 data-i18n="rentout_title">Staat jouw motorhome vaak stil?</h2>
+      <p data-i18n="rentout_text">Verhuur hem aan andere avonturiers en verdien bij. Jij bepaalt de prijs en de beschikbaarheid.</p>
+      <a href="#" class="btn btn-primary" data-i18n="rentout_cta">Verhuur je camper</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><span class="plate-dot"></span>CamperHuur.be</div>
+        <p data-i18n="footer_desc">Het Belgische platform om motorhomes te huren en te verhuren tussen particulieren. Transparant, lokaal en betrouwbaar.</p>
+      </div>
+      <div>
+        <h5 data-i18n="footer_col_platform">PLATFORM</h5>
+        <ul>
+          <li><a href="#aanbod" data-i18n="nav_offer">Aanbod</a></li>
+          <li><a href="#verhuren" data-i18n="footer_link_rentout">Verhuren</a></li>
+          <li><a href="#zowerkt" data-i18n="nav_how">Zo werkt het</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 data-i18n="footer_col_info">INFO</h5>
+        <ul>
+          <li><a href="#rijbewijs" data-i18n="nav_license">Rijbewijs C</a></li>
+          <li><a href="#zowerkt" data-i18n="footer_link_costs">Kosten & commissie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 data-i18n="footer_col_contact">CONTACT</h5>
+        <ul>
+          <li>info@camperhuur.be</li>
+          <li data-i18n="footer_country">België</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CamperHuur.be</span>
+      <span data-i18n="footer_copy">Alle prijzen incl. 10% platformkost. Prototype — geen echt platform.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingOverlay" onclick="if(event.target===this)closeBooking()">
+  <div class="modal-box">
+    <button type="button" class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+
+    <div class="modal-photo"><img id="modalImg" src="" alt=""></div>
+
+    <div class="modal-body">
+      <form class="modal-form" id="bookingForm" onsubmit="submitBooking(event)">
+        <span class="modal-plate" data-i18n="card_plate">RIJBEWIJS C</span>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-loc" id="modalLoc"></div>
+        <div class="modal-price mono" id="modalPrice"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="checkinInput" data-i18n="label_checkin">Ophaaldatum</label>
+            <input type="date" id="checkinInput" required>
+          </div>
+          <div class="form-group">
+            <label for="checkoutInput" data-i18n="label_checkout">Terugbrengdatum</label>
+            <input type="date" id="checkoutInput" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nameInput" data-i18n="label_name">Volledige naam</label>
+          <input type="text" id="nameInput" required>
+        </div>
+        <div class="form-group">
+          <label for="emailInput" data-i18n="label_email">E-mailadres</label>
+          <input type="email" id="emailInput" required>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="licenseCheck" required>
+          <label for="licenseCheck" data-i18n="label_license_confirm">Ik bevestig dat ik een geldig rijbewijs C heb</label>
+        </div>
+        <button type="submit" class="btn btn-primary modal-submit" id="submitBtn" data-i18n="btn_submit">Verstuur aanvraag</button>
+        <p class="modal-note" data-i18n="modal_note">De eigenaar bevestigt je aanvraag. Dit is een prototype — er wordt geen echte boeking gemaakt.</p>
+      </form>
+
+      <div class="modal-success" id="modalSuccess">
+        <div class="success-icon">✓</div>
+        <h3 data-i18n="success_title">Aanvraag verzonden</h3>
+        <p data-i18n="success_text">Dit is een demo-prototype: in het echte platform zou de eigenaar nu een melding krijgen om je aanvraag te bevestigen.</p>
+        <button type="button" class="btn btn-dark" onclick="closeBooking()" data-i18n="btn_close">Sluiten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const translations = {
+  nl: {
+    nav_offer:"Aanbod", nav_how:"Zo werkt het", nav_license:"Rijbewijs C", nav_cta:"Verhuur je camper",
+    hero_badge:"RIJBEWIJS C VERPLICHT",
+    hero_title:"Huur een motorhome.<br>Rij weg op <em>avontuur</em>.",
+    hero_sub:"Huur ruime motorhomes rechtstreeks bij particuliere eigenaars in heel België. Transparante prijzen, geen verrassingen.",
+    hero_cta1:"Bekijk het aanbod", hero_cta2:"Verhuur je camper",
+    license_eyebrow:"VERPLICHT VOOR VERTREK",
+    license_title:"Rijbewijs C is verplicht",
+    license_text:"Onze motorhomes hebben een maximaal toegelaten massa boven 3,5 ton. Je rijdt ze enkel met een geldig rijbewijs categorie C — neem het mee bij ophaling.",
+    license_cta:"Lees meer",
+    offer_eyebrow:"BESCHIKBARE CAMPERS", offer_title:"Vind jouw ideale motorhome",
+    offer_sub:"Elke camper wordt aangeboden door een particuliere eigenaar. Reserveer je periode online — de eigenaar bevestigt je aanvraag.",
+    card_plate:"RIJBEWIJS C", card_view:"Bekijk",
+    label_checkin:"Ophaaldatum", label_checkout:"Terugbrengdatum", label_name:"Volledige naam", label_email:"E-mailadres",
+    label_license_confirm:"Ik bevestig dat ik een geldig rijbewijs C heb", btn_submit:"Verstuur aanvraag",
+    modal_note:"De eigenaar bevestigt je aanvraag. Dit is een prototype — er wordt geen echte boeking gemaakt.",
+    success_title:"Aanvraag verzonden", success_text:"Dit is een demo-prototype: in het echte platform zou de eigenaar nu een melding krijgen om je aanvraag te bevestigen.", btn_close:"Sluiten",
+    c1_loc:"Antwerpen", c1_title:"Ruime integraalcamper voor het hele gezin", c1_sleeps:"4 slaapplaatsen", c1_trans:"Handgeschakeld", c1_price:"€145 <small>/ dag</small>",
+    c2_loc:"Gent", c2_title:"Gezinscamper met alkoof en stapelbedden", c2_sleeps:"6 slaapplaatsen", c2_trans:"Handgeschakeld", c2_price:"€125 <small>/ dag</small>",
+    c3_loc:"Brussel", c3_title:"Luxe liner voor de veeleisende reiziger", c3_sleeps:"4 slaapplaatsen", c3_trans:"Automaat", c3_price:"€220 <small>/ dag</small>",
+    c4_loc:"Luik", c4_title:"Semi-integraal aan het water", c4_sleeps:"4 slaapplaatsen", c4_trans:"Handgeschakeld", c4_price:"€135 <small>/ dag</small>",
+    how_eyebrow:"ZO WERKT HET", how_title:"Van zoeken tot op de baan",
+    step1_title:"Kies je camper", step1_text:"Bekijk het aanbod en selecteer de motorhome die bij jouw reis past.",
+    step2_title:"Reserveer je periode", step2_text:"Kies je data, bevestig je rijbewijs C en verstuur je aanvraag naar de eigenaar.",
+    step3_title:"Haal op & vertrek", step3_text:"Ontmoet de eigenaar, toon je rijbewijs C en begin aan je avontuur.",
+    feat1_title:"Transparante commissie", feat1_text:"Op elke boeking rekent het platform 10% servicekost. Je ziet dit altijd duidelijk in de prijs.",
+    feat2_title:"Rechtstreeks contact", feat2_text:"Je regelt de ophaling rechtstreeks met de eigenaar. Lokaal en persoonlijk.",
+    feat3_title:"Overal in België", feat3_text:"Van Antwerpen tot Luik: vind een camper in jouw buurt.",
+    rentout_eyebrow:"VOOR EIGENAARS", rentout_title:"Staat jouw motorhome vaak stil?",
+    rentout_text:"Verhuur hem aan andere avonturiers en verdien bij. Jij bepaalt de prijs en de beschikbaarheid.",
+    rentout_cta:"Verhuur je camper",
+    footer_desc:"Het Belgische platform om motorhomes te huren en te verhuren tussen particulieren. Transparant, lokaal en betrouwbaar.",
+    footer_col_platform:"PLATFORM", footer_link_rentout:"Verhuren", footer_col_info:"INFO", footer_link_costs:"Kosten & commissie",
+    footer_col_contact:"CONTACT", footer_country:"België",
+    footer_copy:"Alle prijzen incl. 10% platformkost. Prototype — geen echt platform."
+  },
+  en: {
+    nav_offer:"Listings", nav_how:"How it works", nav_license:"License C", nav_cta:"List your camper",
+    hero_badge:"CATEGORY C LICENSE REQUIRED",
+    hero_title:"Rent a motorhome.<br>Drive off on <em>adventure</em>.",
+    hero_sub:"Rent spacious motorhomes directly from private owners across Belgium. Transparent pricing, no surprises.",
+    hero_cta1:"Browse listings", hero_cta2:"List your camper",
+    license_eyebrow:"REQUIRED BEFORE DEPARTURE",
+    license_title:"A category C license is required",
+    license_text:"Our motorhomes have a maximum authorised mass above 3.5 tonnes. You may only drive them with a valid category C driving licence — bring it when you pick up the vehicle.",
+    license_cta:"Learn more",
+    offer_eyebrow:"AVAILABLE CAMPERS", offer_title:"Find your ideal motorhome",
+    offer_sub:"Every camper is listed by a private owner. Book your dates online — the owner confirms your request.",
+    card_plate:"LICENSE C", card_view:"View",
+    label_checkin:"Pick-up date", label_checkout:"Return date", label_name:"Full name", label_email:"Email address",
+    label_license_confirm:"I confirm I hold a valid category C driving licence", btn_submit:"Send request",
+    modal_note:"The owner confirms your request. This is a prototype — no real booking is made.",
+    success_title:"Request sent", success_text:"This is a demo prototype: on the real platform the owner would now be notified to confirm your request.", btn_close:"Close",
+    c1_loc:"Antwerp", c1_title:"Spacious integrated motorhome for the whole family", c1_sleeps:"4 sleeping places", c1_trans:"Manual", c1_price:"€145 <small>/ day</small>",
+    c2_loc:"Ghent", c2_title:"Family camper with alcove and bunk beds", c2_sleeps:"6 sleeping places", c2_trans:"Manual", c2_price:"€125 <small>/ day</small>",
+    c3_loc:"Brussels", c3_title:"Luxury liner for the discerning traveller", c3_sleeps:"4 sleeping places", c3_trans:"Automatic", c3_price:"€220 <small>/ day</small>",
+    c4_loc:"Liège", c4_title:"Semi-integrated, waterside", c4_sleeps:"4 sleeping places", c4_trans:"Manual", c4_price:"€135 <small>/ day</small>",
+    how_eyebrow:"HOW IT WORKS", how_title:"From search to the open road",
+    step1_title:"Choose your camper", step1_text:"Browse the listings and select the motorhome that fits your trip.",
+    step2_title:"Book your dates", step2_text:"Pick your dates, confirm your category C licence and send your request to the owner.",
+    step3_title:"Pick up & go", step3_text:"Meet the owner, show your licence and start your adventure.",
+    feat1_title:"Transparent commission", feat1_text:"The platform charges a 10% service fee on every booking, always shown clearly in the price.",
+    feat2_title:"Direct contact", feat2_text:"You arrange the pick-up directly with the owner. Local and personal.",
+    feat3_title:"All across Belgium", feat3_text:"From Antwerp to Liège: find a camper near you.",
+    rentout_eyebrow:"FOR OWNERS", rentout_title:"Is your motorhome sitting idle?",
+    rentout_text:"Rent it out to other adventurers and earn extra income. You set the price and the availability.",
+    rentout_cta:"List your camper",
+    footer_desc:"Belgium's platform for renting and listing motorhomes between individuals. Transparent, local and reliable.",
+    footer_col_platform:"PLATFORM", footer_link_rentout:"List a camper", footer_col_info:"INFO", footer_link_costs:"Fees & commission",
+    footer_col_contact:"CONTACT", footer_country:"Belgium",
+    footer_copy:"All prices include 10% platform fee. Prototype — not a real platform."
+  },
+  de: {
+    nav_offer:"Angebot", nav_how:"So funktioniert's", nav_license:"Führerschein C", nav_cta:"Camper vermieten",
+    hero_badge:"FÜHRERSCHEIN C ERFORDERLICH",
+    hero_title:"Miete ein Wohnmobil.<br>Fahr los ins <em>Abenteuer</em>.",
+    hero_sub:"Miete geräumige Wohnmobile direkt von privaten Eigentümern in ganz Belgien. Transparente Preise, keine Überraschungen.",
+    hero_cta1:"Angebot ansehen", hero_cta2:"Camper vermieten",
+    license_eyebrow:"VOR ABFAHRT ERFORDERLICH",
+    license_title:"Führerschein Klasse C ist Pflicht",
+    license_text:"Unsere Wohnmobile haben ein zulässiges Gesamtgewicht von über 3,5 Tonnen. Du darfst sie nur mit gültigem Führerschein der Klasse C fahren — bring ihn bei der Abholung mit.",
+    license_cta:"Mehr erfahren",
+    offer_eyebrow:"VERFÜGBARE CAMPER", offer_title:"Finde dein ideales Wohnmobil",
+    offer_sub:"Jeder Camper wird von einem privaten Eigentümer angeboten. Reserviere deinen Zeitraum online — der Eigentümer bestätigt deine Anfrage.",
+    card_plate:"FÜHRERSCHEIN C", card_view:"Ansehen",
+    label_checkin:"Abholdatum", label_checkout:"Rückgabedatum", label_name:"Vollständiger Name", label_email:"E-Mail-Adresse",
+    label_license_confirm:"Ich bestätige, dass ich einen gültigen Führerschein der Klasse C besitze", btn_submit:"Anfrage senden",
+    modal_note:"Der Eigentümer bestätigt deine Anfrage. Dies ist ein Prototyp — es wird keine echte Buchung vorgenommen.",
+    success_title:"Anfrage gesendet", success_text:"Dies ist ein Demo-Prototyp: Auf der echten Plattform würde der Eigentümer jetzt benachrichtigt, um deine Anfrage zu bestätigen.", btn_close:"Schließen",
+    c1_loc:"Antwerpen", c1_title:"Geräumiges Alkoven-Wohnmobil für die ganze Familie", c1_sleeps:"4 Schlafplätze", c1_trans:"Schaltgetriebe", c1_price:"€145 <small>/ Tag</small>",
+    c2_loc:"Gent", c2_title:"Familiencamper mit Alkoven und Etagenbetten", c2_sleeps:"6 Schlafplätze", c2_trans:"Schaltgetriebe", c2_price:"€125 <small>/ Tag</small>",
+    c3_loc:"Brüssel", c3_title:"Luxusliner für anspruchsvolle Reisende", c3_sleeps:"4 Schlafplätze", c3_trans:"Automatik", c3_price:"€220 <small>/ Tag</small>",
+    c4_loc:"Lüttich", c4_title:"Halbintegriertes Modell am Wasser", c4_sleeps:"4 Schlafplätze", c4_trans:"Schaltgetriebe", c4_price:"€135 <small>/ Tag</small>",
+    how_eyebrow:"SO FUNKTIONIERT'S", how_title:"Von der Suche bis auf die Straße",
+    step1_title:"Camper wählen", step1_text:"Sieh dir das Angebot an und wähle das Wohnmobil, das zu deiner Reise passt.",
+    step2_title:"Zeitraum buchen", step2_text:"Wähle deine Daten, bestätige deinen Führerschein C und sende deine Anfrage an den Eigentümer.",
+    step3_title:"Abholen & losfahren", step3_text:"Triff den Eigentümer, zeig deinen Führerschein und starte dein Abenteuer.",
+    feat1_title:"Transparente Provision", feat1_text:"Die Plattform berechnet 10% Servicegebühr pro Buchung — immer klar im Preis sichtbar.",
+    feat2_title:"Direkter Kontakt", feat2_text:"Du regelst die Abholung direkt mit dem Eigentümer. Lokal und persönlich.",
+    feat3_title:"Überall in Belgien", feat3_text:"Von Antwerpen bis Lüttich: finde einen Camper in deiner Nähe.",
+    rentout_eyebrow:"FÜR EIGENTÜMER", rentout_title:"Steht dein Wohnmobil oft ungenutzt herum?",
+    rentout_text:"Vermiete es an andere Abenteurer und verdiene dazu. Du bestimmst Preis und Verfügbarkeit.",
+    rentout_cta:"Camper vermieten",
+    footer_desc:"Die belgische Plattform zum Mieten und Vermieten von Wohnmobilen zwischen Privatpersonen. Transparent, lokal und zuverlässig.",
+    footer_col_platform:"PLATTFORM", footer_link_rentout:"Vermieten", footer_col_info:"INFO", footer_link_costs:"Kosten & Provision",
+    footer_col_contact:"KONTAKT", footer_country:"Belgien",
+    footer_copy:"Alle Preise inkl. 10% Plattformgebühr. Prototyp — keine echte Plattform."
+  },
+  fr: {
+    nav_offer:"Offre", nav_how:"Comment ça marche", nav_license:"Permis C", nav_cta:"Louer votre camping-car",
+    hero_badge:"PERMIS C OBLIGATOIRE",
+    hero_title:"Louez un camping-car.<br>Partez à l'<em>aventure</em>.",
+    hero_sub:"Louez de spacieux camping-cars directement auprès de particuliers, partout en Belgique. Prix transparents, aucune surprise.",
+    hero_cta1:"Voir l'offre", hero_cta2:"Louer votre camping-car",
+    license_eyebrow:"OBLIGATOIRE AVANT LE DÉPART",
+    license_title:"Le permis C est obligatoire",
+    license_text:"Nos camping-cars ont une masse maximale autorisée supérieure à 3,5 tonnes. Vous ne pouvez les conduire qu'avec un permis de catégorie C valide — munissez-vous en lors de la prise en charge.",
+    license_cta:"En savoir plus",
+    offer_eyebrow:"CAMPING-CARS DISPONIBLES", offer_title:"Trouvez votre camping-car idéal",
+    offer_sub:"Chaque camping-car est proposé par un particulier. Réservez vos dates en ligne — le propriétaire confirme votre demande.",
+    card_plate:"PERMIS C", card_view:"Voir",
+    label_checkin:"Date de prise en charge", label_checkout:"Date de retour", label_name:"Nom complet", label_email:"Adresse e-mail",
+    label_license_confirm:"Je confirme posséder un permis de catégorie C valide", btn_submit:"Envoyer la demande",
+    modal_note:"Le propriétaire confirme votre demande. Ceci est un prototype — aucune réservation réelle n'est effectuée.",
+    success_title:"Demande envoyée", success_text:"Ceci est un prototype de démonstration : sur la vraie plateforme, le propriétaire serait maintenant notifié pour confirmer votre demande.", btn_close:"Fermer",
+    c1_loc:"Anvers", c1_title:"Camping-car intégral spacieux pour toute la famille", c1_sleeps:"4 places", c1_trans:"Manuelle", c1_price:"€145 <small>/ jour</small>",
+    c2_loc:"Gand", c2_title:"Camping-car familial avec capucine et lits superposés", c2_sleeps:"6 places", c2_trans:"Manuelle", c2_price:"€125 <small>/ jour</small>",
+    c3_loc:"Bruxelles", c3_title:"Camping-car de luxe pour voyageurs exigeants", c3_sleeps:"4 places", c3_trans:"Automatique", c3_price:"€220 <small>/ jour</small>",
+    c4_loc:"Liège", c4_title:"Semi-intégral au bord de l'eau", c4_sleeps:"4 places", c4_trans:"Manuelle", c4_price:"€135 <small>/ jour</small>",
+    how_eyebrow:"COMMENT ÇA MARCHE", how_title:"De la recherche à la route",
+    step1_title:"Choisissez votre camping-car", step1_text:"Parcourez l'offre et sélectionnez le camping-car adapté à votre voyage.",
+    step2_title:"Réservez vos dates", step2_text:"Choisissez vos dates, confirmez votre permis C et envoyez votre demande au propriétaire.",
+    step3_title:"Récupérez & partez", step3_text:"Rencontrez le propriétaire, présentez votre permis et démarrez votre aventure.",
+    feat1_title:"Commission transparente", feat1_text:"La plateforme prélève 10% de frais de service par réservation, toujours affichés clairement dans le prix.",
+    feat2_title:"Contact direct", feat2_text:"Vous organisez la prise en charge directement avec le propriétaire. Local et personnel.",
+    feat3_title:"Partout en Belgique", feat3_text:"D'Anvers à Liège : trouvez un camping-car près de chez vous.",
+    rentout_eyebrow:"POUR LES PROPRIÉTAIRES", rentout_title:"Votre camping-car reste souvent au garage ?",
+    rentout_text:"Louez-le à d'autres aventuriers et générez un revenu complémentaire. Vous fixez le prix et les disponibilités.",
+    rentout_cta:"Louer votre camping-car",
+    footer_desc:"La plateforme belge pour louer et proposer des camping-cars entre particuliers. Transparente, locale et fiable.",
+    footer_col_platform:"PLATEFORME", footer_link_rentout:"Louer", footer_col_info:"INFO", footer_link_costs:"Frais & commission",
+    footer_col_contact:"CONTACT", footer_country:"Belgique",
+    footer_copy:"Tous les prix incluent 10% de frais de plateforme. Prototype — pas une vraie plateforme."
+  }
+};
+
+const titles = {
+  nl:"CamperHuur.be — Motorhomes huren & verhuren (rijbewijs C)",
+  en:"CamperHuur.be — Rent & list motorhomes (category C license)",
+  de:"CamperHuur.be — Wohnmobile mieten & vermieten (Führerschein C)",
+  fr:"CamperHuur.be — Louer & proposer des camping-cars (permis C)"
+};
+
+let currentLang = 'nl';
+
+function applyLang(lang){
+  currentLang = lang;
+  const dict = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-html');
+    if(dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('.card-price').forEach((el,i)=>{
+    const key = 'c'+(i+1)+'_price';
+    if(dict[key]) el.innerHTML = dict[key];
+  });
+  document.documentElement.lang = lang;
+  document.title = titles[lang];
+  document.querySelectorAll('#langswitch button').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+  });
+  if(currentCamper){ fillModal(currentCamper); }
+}
+
+const camperImages = {
+  '1':'https://commons.wikimedia.org/wiki/Special:FilePath/Ford_Transit_Alkoven_Wohnmobil.jpg?width=800',
+  '2':'https://commons.wikimedia.org/wiki/Special:FilePath/Fiat_Chausson_Alkoven-Wohnmobil.jpg?width=800',
+  '3':'https://commons.wikimedia.org/wiki/Special:FilePath/20200512_Mercedes_HYMER_Hymermobil.jpg?width=800',
+  '4':'https://commons.wikimedia.org/wiki/Special:FilePath/Pilote_Alkoven-Wohnmobil_Ford_Transit_vl.jpg?width=800'
+};
+let currentCamper = null;
+
+function fillModal(id){
+  const dict = translations[currentLang];
+  const img = document.getElementById('modalImg');
+  img.src = camperImages[id];
+  img.alt = dict['c'+id+'_title'];
+  document.getElementById('modalTitle').textContent = dict['c'+id+'_title'];
+  document.getElementById('modalLoc').textContent = '📍 ' + dict['c'+id+'_loc'];
+  document.getElementById('modalPrice').innerHTML = dict['c'+id+'_price'];
+}
+
+function openBooking(id){
+  currentCamper = id;
+  fillModal(id);
+  const form = document.getElementById('bookingForm');
+  form.reset();
+  form.classList.remove('hide');
+  document.getElementById('modalSuccess').classList.remove('show');
+  document.getElementById('bookingOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBooking(){
+  document.getElementById('bookingOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  currentCamper = null;
+}
+
+function submitBooking(e){
+  e.preventDefault();
+  document.getElementById('bookingForm').classList.add('hide');
+  document.getElementById('modalSuccess').classList.add('show');
+}
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') closeBooking();
+});
+
+document.getElementById('langswitch').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button[data-lang]');
+  if(!btn) return;
+  applyLang(btn.getAttribute('data-lang'));
+});
+
+// default language: try to guess from browser, fallback nl
+(function init(){
+  const supported = ['nl','en','de','fr'];
+  const browserLang = (navigator.language || 'nl').slice(0,2).toLowerCase();
+  const start = supported.includes(browserLang) ? browserLang : 'nl';
+  applyLang(start);
+})();
+</script>
+
+</body>
+</html>

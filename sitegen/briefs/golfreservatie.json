@@ -1,0 +1,9 @@
+{
+  "slug": "golfreservatie",
+  "sector": "sportdirectory",
+  "business_name": "GolfReservatie.be",
+  "category": "Tee-time directory · België & Nederland",
+  "generated": false,
+  "note": "Handmatig gemaakt, overgezet van golf.ocior.be. Niet uit een sjabloon: generate.py weigert dit bestand te overschrijven; bewerk sites/golfreservatie/index.html rechtstreeks.",
+  "source_url": "https://golf.ocior.be/"
+}

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christoph Longueville — Metaalbewerking & Bouwtechniek | Essen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --steel:#1b1f24;
+    --steel-2:#262c33;
+    --ink:#0e1114;
+    --zinc:#d7dbe0;
+    --zinc-dim:#8b939c;
+    --paper:#f2f0ec;
+    --safety:#ff5a1f;
+    --weld:#ffb547;
+    --line:rgba(255,255,255,.09);
+    --line-dark:rgba(0,0,0,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Archivo',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    -webkit-text-size-adjust:100%;
+    overflow-x:hidden;
+  }
+  a,button{-webkit-tap-highlight-color:transparent}
+  .mono{font-family:'Spline Sans Mono',monospace}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ---- Top bar ---- */
+  .topbar{
+    background:var(--steel);color:var(--zinc);
+    font-family:'Spline Sans Mono',monospace;
+    font-size:12px;letter-spacing:.02em;
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;flex-wrap:wrap;gap:8px}
+  .topbar b{color:var(--weld);font-weight:600}
+
+  /* ---- Nav ---- */
+  nav{background:var(--steel);color:var(--paper);position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:72px}
+  .brand{display:flex;align-items:baseline;gap:12px;font-weight:800;font-size:19px;letter-spacing:-.01em}
+  .brand .tick{color:var(--safety);font-family:'Spline Sans Mono',monospace;font-size:13px;font-weight:600}
+  .navlinks{display:flex;gap:30px;list-style:none}
+  .navlinks a{color:var(--zinc);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+  .navlinks a:hover{color:var(--safety)}
+  .navtoggle{
+    display:none;background:none;border:1px solid var(--line);
+    width:44px;height:44px;cursor:pointer;flex-direction:column;
+    justify-content:center;align-items:center;gap:5px;padding:0;
+  }
+  .navtoggle span{display:block;width:20px;height:2px;background:var(--paper);transition:.25s}
+  .navtoggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .navtoggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .navtoggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobilemenu{
+    display:none;flex-direction:column;background:var(--steel-2);
+    border-top:1px solid var(--line);
+  }
+  .mobilemenu a{
+    color:var(--zinc);text-decoration:none;font-weight:600;font-size:16px;
+    padding:16px 28px;border-bottom:1px solid var(--line);
+  }
+  .mobilemenu a:active{color:var(--safety)}
+  .mobilemenu.open{display:flex}
+
+  /* ---- Hero ---- */
+  .hero{background:var(--steel);color:var(--paper);position:relative;overflow:hidden;border-bottom:3px solid var(--safety)}
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 2px,transparent 2px 22px);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative;padding:78px 28px 88px}
+  .eyebrow{
+    font-family:'Spline Sans Mono',monospace;color:var(--safety);
+    font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::after{content:"";height:1px;width:64px;background:var(--safety);opacity:.6}
+  .hero h1{
+    font-size:clamp(2.6rem,6.5vw,5.3rem);line-height:.98;font-weight:900;
+    letter-spacing:-.03em;max-width:15ch;
+  }
+  .hero h1 span{color:var(--weld)}
+  .hero p{max-width:52ch;margin-top:26px;font-size:1.12rem;color:var(--zinc);line-height:1.6}
+  .cta-row{margin-top:38px;display:flex;gap:16px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 28px;font-weight:700;font-size:15px;text-decoration:none;
+    border:2px solid var(--safety);transition:.18s;
+  }
+  .btn-primary{background:var(--safety);color:var(--ink)}
+  .btn-primary:hover{background:transparent;color:var(--safety)}
+  .btn-ghost{color:var(--paper);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--safety);color:var(--safety)}
+
+  /* hero signature line */
+  .hero-sign{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    margin-top:56px;padding-top:26px;border-top:1px solid var(--line);
+    font-family:'Spline Sans Mono',monospace;font-size:14px;letter-spacing:.06em;
+    color:var(--zinc);text-transform:uppercase;
+  }
+  .hero-sign i{color:var(--safety);font-style:normal}
+  .hero-sign span{transition:color .2s}
+
+  /* ---- Over ---- */
+  .about{background:var(--paper)}
+  .about-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:start}
+  .about-body p{font-size:1.15rem;line-height:1.7;color:#3a4047;margin-bottom:20px}
+  .about-body p:last-child{margin-bottom:0}
+  .about-tag{
+    font-family:'Spline Sans Mono',monospace!important;font-size:.86rem!important;
+    letter-spacing:.04em;color:var(--safety)!important;padding-top:8px;
+  }
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---- Section base ---- */
+  section{padding:88px 0}
+  .sec-eyebrow{
+    font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--safety);margin-bottom:16px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .sec-eyebrow .num{color:var(--ink);opacity:.35;font-weight:600}
+  h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;letter-spacing:-.02em;line-height:1.05;max-width:20ch}
+  .lead{max-width:56ch;margin-top:20px;font-size:1.08rem;color:#42484f}
+
+  /* ---- Diensten ---- */
+  .services{background:var(--paper)}
+  .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:52px;border-top:2px solid var(--ink);border-left:2px solid var(--ink)}
+  .svc{
+    padding:34px 30px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);
+    background:var(--paper);transition:.2s;position:relative;
+  }
+  .svc:hover{background:var(--steel);color:var(--paper)}
+  .svc:hover .svc-num,.svc:hover h3{color:var(--weld)}
+  .svc:hover p{color:var(--zinc)}
+  .svc-num{font-family:'Spline Sans Mono',monospace;font-size:13px;color:var(--safety);font-weight:600}
+  .svc h3{font-size:1.35rem;font-weight:800;margin:14px 0 10px;letter-spacing:-.01em}
+  .svc p{color:#4a5058;font-size:.97rem;line-height:1.55}
+
+
+  /* ---- Werkgebied ---- */
+  .area{background:var(--paper)}
+  .area .box{
+    margin-top:40px;background:var(--ink);color:var(--paper);
+    border-left:6px solid var(--safety);padding:44px 40px;
+    display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;
+  }
+  .area .box h3{font-size:1.7rem;font-weight:800;letter-spacing:-.01em}
+  .area .box p{color:var(--zinc);margin-top:10px;max-width:44ch}
+  .area .pin{font-family:'Spline Sans Mono',monospace;text-align:right}
+  .area .pin .big{font-size:2.4rem;font-weight:800;color:var(--weld);letter-spacing:-.02em}
+  .area .pin .sm{color:var(--zinc-dim);font-size:.85rem;letter-spacing:.05em}
+
+  /* ---- Contact ---- */
+  .contact{background:var(--steel);color:var(--paper);border-top:3px solid var(--safety)}
+  .contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:12px}
+  .contact h2{color:var(--paper)}
+  .contact a{color:var(--weld);text-decoration:none;border-bottom:1px solid transparent;transition:.2s}
+  .contact a:hover{border-bottom-color:var(--weld)}
+  .cblock{margin-top:30px}
+  .cblock .lbl{font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--zinc-dim);margin-bottom:6px}
+  .cblock .big{font-size:1.25rem;font-weight:700}
+
+  /* ---- Footer ---- */
+  footer{background:var(--ink);color:var(--zinc-dim);font-size:13px;padding:40px 0}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+  footer .mono{font-size:12px}
+  .disclaimer{max-width:60ch;line-height:1.5;font-size:11.5px;margin-top:18px;color:#565d65}
+
+  @media(max-width:860px){
+    .navlinks{display:none}
+    .navtoggle{display:flex}
+    .topbar{font-size:11px}
+    .topbar .wrap{height:auto;padding:8px 28px}
+    .hero .wrap{padding:56px 28px 64px}
+    section{padding:64px 0}
+    .about-grid{grid-template-columns:1fr;gap:28px}
+    .contact .grid{grid-template-columns:1fr;gap:40px}
+    .area .box{grid-template-columns:1fr;gap:24px}
+    .area .pin{text-align:left}
+  }
+  @media(max-width:600px){
+    .wrap{padding:0 20px}
+    .topbar .wrap{padding:8px 20px}
+    .hero .wrap{padding:44px 20px 52px}
+    nav .wrap{height:64px}
+    .brand{font-size:16px}
+    .brand .tick{display:none}
+    .svc-grid{grid-template-columns:1fr}
+    .svc{padding:26px 22px}
+    .area .box{padding:32px 24px}
+    .about-body p{font-size:1.05rem}
+    .btn{padding:14px 22px;font-size:14px;flex:1 1 auto;justify-content:center}
+    .cta-row{gap:12px}
+    .hero-sign{gap:12px;font-size:12px;margin-top:40px}
+  }
+  @media(max-width:420px){
+    .hero h1{font-size:2.3rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Zelfstandig vakbedrijf · Actief sinds 01.05.2021</span>
+    <span>Metaal &amp; bouwtechniek · Essen, België</span>
+  </div>
+</div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Christoph Longueville <span class="tick">// metaal &amp; bouwtechniek</span></div>
+    <ul class="navlinks">
+      <li><a href="#over">Over</a></li>
+      <li><a href="#diensten">Diensten</a></li>
+      <li><a href="#werkgebied">Werkgebied</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="navtoggle" id="navtoggle" aria-label="Menu openen" aria-expanded="false" aria-controls="mobilemenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobilemenu" id="mobilemenu">
+    <a href="#over">Over</a>
+    <a href="#diensten">Diensten</a>
+    <a href="#werkgebied">Werkgebied</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Zelfstandig vakbedrijf · Essen</div>
+    <h1>Metaalbewerking en <span>bouwtechniek</span> met vakmanschap.</h1>
+    <p>Van reparatie van metaal tot HVAC, verwarming en afwerking — Christoph Longueville
+       brengt technisch inzicht en vakmanschap samen in elk project, groot of klein, voor
+       particulieren en bedrijven in en rond Essen.</p>
+    <div class="cta-row">
+      <a href="#contact" class="btn btn-primary">Vraag een offerte aan →</a>
+      <a href="#diensten" class="btn btn-ghost">Bekijk de diensten</a>
+    </div>
+
+    <div class="hero-sign">
+      <span>Metaal</span><i>·</i><span>HVAC</span><i>·</i><span>Verwarming</span><i>·</i><span>Afwerking</span>
+    </div>
+  </div>
+</header>
+
+<section class="about" id="over">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="sec-eyebrow"><span class="num">01</span> Over</div>
+        <h2>Een vakman die het werk afmaakt zoals het hoort.</h2>
+      </div>
+      <div class="about-body reveal">
+        <p>Achter dit bedrijf staat één iemand die van aanpakken houdt. Christoph Longueville
+           combineert een grondige kennis van metaalbewerking met een brede ervaring in de
+           bouwtechniek — een zeldzame mix die van pas komt zodra een project net iets meer
+           vraagt dan standaardwerk.</p>
+        <p>Of het nu gaat om het herstellen van een metalen constructie, het installeren van een
+           verwarmings- of klimaatsysteem, of het netjes afwerken van een ruimte: elke opdracht
+           krijgt dezelfde persoonlijke aandacht. Kort overleg, heldere afspraken en werk waar u
+           op kunt bouwen.</p>
+        <p class="about-tag">Persoonlijk contact · vakwerk op maat · in en rond Essen</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="diensten">
+  <div class="wrap">
+    <div class="sec-eyebrow"><span class="num">02</span> Diensten</div>
+    <h2>Wat we voor u kunnen betekenen</h2>
+    <p class="lead">Een veelzijdig aanbod dat de metaaltechniek verbindt met de installatie-
+       en afwerkingskant van de bouw. U hoeft niet voor elk onderdeel een andere partij te
+       zoeken — het komt samen bij één vertrouwd aanspreekpunt.</p>
+
+    <div class="svc-grid">
+      <div class="svc reveal">
+        <div class="svc-num">01</div>
+        <h3>Reparatie van metaalproducten</h3>
+        <p>Herstel, versteviging en onderhoud van constructies en onderdelen uit metaal —
+           het vakgebied waarin dit bedrijf zijn wortels heeft.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="svc-num">02</div>
+        <h3>HVAC-installaties</h3>
+        <p>Plaatsing en onderhoud van klimaat- en ventilatiesystemen voor een aangenaam
+           binnenklimaat, thuis of op de werkvloer.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="svc-num">03</div>
+        <h3>Verwarmingswerken</h3>
+        <p>Aanleg en herstel van verwarmingsinstallaties, met oog voor comfort, rendement en
+           een betrouwbare uitvoering.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="svc-num">04</div>
+        <h3>Afwerkingswerken</h3>
+        <p>De laatste hand aan een project, zodat alles netjes en volledig wordt opgeleverd.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="area" id="werkgebied">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal"><span class="num">03</span> Werkgebied</div>
+    <h2 class="reveal">Gevestigd in Essen, actief in de regio</h2>
+    <p class="lead reveal">Vanuit de standplaats in Essen bedienen we opdrachtgevers in de Antwerpse
+       Kempen en de omliggende gemeenten — dicht bij de Nederlandse grens, dus handig voor
+       projecten aan beide kanten.</p>
+    <div class="box reveal">
+      <div>
+        <h3>Gevestigd in Essen</h3>
+        <p>Centraal in het noorden van de provincie Antwerpen. Neem gerust contact op om
+           uw project te bespreken.</p>
+      </div>
+      <div class="pin">
+        <div class="big">Essen</div>
+        <div class="sm">PROV. ANTWERPEN · BE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal"><span class="num">04</span> Contact</div>
+    <div class="grid">
+      <div class="reveal">
+        <h2>Een project of herstelling in gedachten?</h2>
+        <p class="lead" style="color:var(--zinc)">Vertel gerust wat u nodig heeft. We denken
+           met u mee, bekijken samen de opdracht en bezorgen u een heldere offerte — zonder
+           verplichtingen.</p>
+      </div>
+      <div class="reveal">
+        <div class="cblock">
+          <div class="lbl">Onderneming</div>
+          <div class="big">Christoph Longueville</div>
+        </div>
+        <div class="cblock">
+          <div class="lbl">Locatie</div>
+          <div class="big">Essen, België</div>
+        </div>
+        <div class="cblock">
+          <div class="lbl">BTW</div>
+          <div class="big mono">BE 0767.573.965</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="flex-direction:column;align-items:flex-start">
+    <div style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:16px">
+      <span class="mono">© 2026 Christoph Longueville</span>
+      <span class="mono">Metaal &amp; bouwtechniek · Essen</span>
+    </div>
+    <p class="disclaimer">Voor de meest actuele ondernemingsgegevens gelden steeds de
+       officiële registraties.</p>
+    <p class="mono" style="margin-top:14px;font-size:12px">
+      Website door <a href="https://ocior.be" style="color:var(--weld);text-decoration:none">ocior.be</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var t=document.getElementById('navtoggle');
+    var m=document.getElementById('mobilemenu');
+    if(!t||!m)return;
+    function close(){m.classList.remove('open');t.setAttribute('aria-expanded','false')}
+    t.addEventListener('click',function(){
+      var open=m.classList.toggle('open');
+      t.setAttribute('aria-expanded',open?'true':'false');
+    });
+    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close)});
+
+    var els=document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+      },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+      els.forEach(function(el){io.observe(el)});
+    }else{
+      els.forEach(function(el){el.classList.add('in')});
+    }
+  })();
+</script>
+
+</body>
+</html>

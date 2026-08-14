@@ -1,0 +1,9 @@
+{
+  "slug": "begolf-ios",
+  "sector": "app",
+  "business_name": "BEgolf",
+  "category": "iOS-app voor tee-times in België",
+  "generated": false,
+  "note": "Handmatig gemaakt, overgezet van begolfios.ocior.be. Niet uit een sjabloon: generate.py weigert dit bestand te overschrijven; bewerk sites/begolf-ios/index.html rechtstreeks.",
+  "source_url": "https://begolfios.ocior.be/"
+}
