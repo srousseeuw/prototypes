@@ -55,6 +55,7 @@
   "cta_text": "Kom langs in de winkel",
   "accent": "#c6ff2f",
   "outreach": {
-    "status": "gepland"
+    "status": "gepland",
+    "note": "Enkel telefonisch — 03 677 12 14. Domein fietsenkris.be heeft geen DNS meer, dus e-mail bouncet."
   }
 }
