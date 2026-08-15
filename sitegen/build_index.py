@@ -34,6 +34,7 @@ SECTOR_LABELS = {
     "frituur": "Frituur",
     "garage": "Garage",
     "hoevewinkel": "Hoeve & streekproducten",
+    "hondentrimsalon": "Trimsalon",
     "hovenier": "Tuinaanleg",
     "juwelier": "Juwelier",
     "kapper": "Kapsalon",

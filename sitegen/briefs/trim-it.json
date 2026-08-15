@@ -1,0 +1,26 @@
+{
+  "slug": "trim-it",
+  "business_name": "Trim-It",
+  "sector": "hondentrimsalon",
+  "category": "Trimsalon voor hond, kat, konijn & cavia",
+  "tagline": "Rustige, persoonlijke verzorging voor uw huisdier in Ossendrecht",
+  "address": "Moleneind 52, 4641 SB Ossendrecht",
+  "phone": "0164 67 21 52",
+  "animals": ["Hond", "Kat", "Konijn", "Cavia"],
+  "appointment_note": "Uitsluitend op afspraak — bel voor de mogelijkheden",
+  "hours_note": "Geen vaste inloopuren: iedere afspraak wordt telefonisch ingepland, in overleg over dag en tijdstip.",
+  "highlights": [
+    "Trimmen, wassen en verzorgen van honden, katten, konijnen en cavia's",
+    "Aangesloten bij de ABHB, de Nederlandse beroepsvereniging voor hondentrimmers",
+    "Persoonlijke aanpak per dier, ook bij een onrustig of gevoelig karakter",
+    "Kleinschalige salon vlak over de grens bij Essen"
+  ],
+  "about": "Trim-It is een kleinschalige trimsalon in Ossendrecht waar honden, katten, konijnen en cavia's terechtkunnen voor een knipbeurt, wasbeurt of volledige verzorging. Er wordt uitsluitend op afspraak gewerkt, zodat er telkens alle tijd en rust is voor het dier.",
+  "cta_text": "Bel voor een afspraak",
+  "accent": "#e0a63e",
+  "email_note": "Geen e-mailadres teruggevonden — Trim-It heeft geen eigen website of domeinnaam, enkel vermeldingen op directories (telefoonboek.nl, Gouden Gids, Cylex, getrim.nl e.a.). Voor outreach voorlopig enkel telefonisch bereikbaar op 0164 67 21 52.",
+  "note": "Openingstijden konden niet betrouwbaar bevestigd worden (geen consistente bron); daarom alleen een algemene 'op afspraak'-tekst i.p.v. een concreet uurrooster. Adres en telefoonnummer zijn wel op meerdere onafhankelijke directories consistent teruggevonden.",
+  "outreach": {
+    "status": "nieuw"
+  }
+}
