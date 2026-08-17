@@ -34,7 +34,10 @@ def render(brief: dict) -> str:
     cta = esc(brief.get("cta_text", "Maak een afspraak"))
     appointment_note = esc(brief.get("appointment_note", "Enkel op afspraak"))
     accent = esc(brief.get("accent", "#9c6b4f"))
-    hours_html = build_hours_rows(brief.get("hours", []))
+    hours_note = esc(brief.get("hours_note", ""))
+    hours_html = build_hours_rows(brief.get("hours", [])) if brief.get("hours") else (
+        f'<p class="hours-note-text">{hours_note}</p>' if hours_note else ""
+    )
     highlights_html = build_highlights(brief.get("highlights", []), mark="✂")
     maps_q = _maps_query(address)
     monogram = esc(_initial(brief["business_name"]))
@@ -257,6 +260,7 @@ def render(brief: dict) -> str:
     font-size: 0.94rem;
   }}
   .hours-row.closed span:last-child {{ color: var(--accent); }}
+  .hours-note-text {{ color: rgba(246,244,240,0.82); font-size: 0.98rem; }}
   .contact-block p {{ margin-bottom: 10px; color: rgba(246,244,240,0.82); }}
   .contact-block a.map-link {{
     display: inline-block;
