@@ -1,0 +1,62 @@
+{
+  "slug": "cafe-de-valk",
+  "sector": "cafe",
+  "business_name": "Café De Valk",
+  "category": "Dorpscafé en feestzaal sinds 1558",
+  "tagline": "Herberg sinds 1558, feestzaal voor elk moment",
+  "address": "Wernhoutseweg 135, 4884 AT Wernhout",
+  "phone": "076 597 2364",
+  "accent": "#2f6b52",
+  "signature_word": "Terras & biljart",
+  "rating": 4.4,
+  "rating_count": 63,
+  "about": "Al sinds 1558 wordt er in Wernhout gedronken en gefeest onder de naam De Valk — toen als herberg langs de weg naar de kerk, vandaag als dorpscafé met feestzaal. Het pand bestaat uit meerdere sfeervolle ruimtes met een biljarttafel, en er is een terras voor als het weer meezit. Naast een pint aan de toog kun je er ook lunchen, en de zaal leent zich al jaren voor verjaardagen, communies en andere feesten uit de buurt.",
+  "cta_text": "Bel voor reservering",
+  "highlights": [
+    "Van herberg in 1558 tot dorpscafé en feestzaal vandaag",
+    "Meerdere sfeervolle ruimtes met een biljarttafel",
+    "Terras voor als het weer meezit",
+    "Lunch en drank aan de toog, ook voor grotere gezelschappen",
+    "Zaal beschikbaar voor verjaardagen, communies en familiefeesten"
+  ],
+  "hours": [
+    ["Maandag", "9:00 – 00:00"],
+    ["Dinsdag", "9:00 – 00:00"],
+    ["Woensdag", "Gesloten"],
+    ["Donderdag", "9:00 – 00:00"],
+    ["Vrijdag", "9:00 – 00:00"],
+    ["Zaterdag", "9:00 – 00:00"],
+    ["Zondag", "9:00 – 00:00"]
+  ],
+  "room_booking": {
+    "intro": "De zaal bij De Valk is al jaren de vaste plek in Wernhout voor een verjaardag, communie of familiefeest. Laat weten wat je van plan bent, dan wordt er meegedacht over wat mogelijk is.",
+    "capacity_note": "De juiste capaciteit en tarieven vullen we samen met het café in — die staan nog niet vast in dit prototype.",
+    "occasions": [
+      "Verjaardag",
+      "Communie of lentefeest",
+      "Familiefeest",
+      "Vergadering of clubavond",
+      "Condoleance of koffietafel"
+    ],
+    "extras": [
+      {
+        "name": "Hapjes of broodjes",
+        "desc": "In overleg met het café te regelen"
+      },
+      {
+        "name": "Drankarrangement",
+        "desc": "Vast bedrag per persoon in plaats van per consumptie"
+      },
+      {
+        "name": "Gebruik van het biljart",
+        "desc": "Voor gasten die tussendoor een partijtje willen spelen"
+      }
+    ],
+    "response_note": "In de echte versie komt deze aanvraag rechtstreeks bij het café terecht, en krijg je binnen een paar dagen antwoord."
+  },
+  "email_note": "Geen eigen website of domeinnaam gevonden voor Café De Valk — enkel vermeldingen op directories (telefoonboek.nl, De Telefoongids, Gouden Gids, Drimble, Oozo e.a.) en een Facebookpagina. Geen e-mailadres kunnen terugvinden op een bronpagina zelf; voorlopig enkel telefonisch bereikbaar op 076 597 2364.",
+  "note": "Openingsuren (9:00–00:00, woensdag gesloten) komen van directory-aggregators (o.a. openingstijden.com) — niet bevestigd via een eigen site, dus voor de zekerheid navragen. Adres, telefoonnummer en de vermelding uit 1558 zijn wel op meerdere onafhankelijke bronnen consistent teruggevonden. Legale naam op sommige bronnen 'Café-Zaal De Valk VOF'.",
+  "outreach": {
+    "status": "nieuw"
+  }
+}
