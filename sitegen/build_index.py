@@ -42,6 +42,7 @@ SECTOR_LABELS = {
     "kinderopvang": "Kinderopvang",
     "kringloopwinkel": "Kringloop",
     "opticien": "Optiek",
+    "pedicure": "Pedicure & voetverzorging",
     "pizzeria": "Pizzeria & Italiaans",
     "app": "App",
     "boekhouding": "Boekhouding",
