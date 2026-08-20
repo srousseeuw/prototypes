@@ -48,5 +48,9 @@
   "cta_text": "Maak een afspraak",
   "emergency_note": "Bij een noodgeval buiten de openingsuren is de praktijk 24 uur op 24 telefonisch bereikbaar.",
   "accent_context": "vet_calm",
-  "email": "info@daphethof.be"
+  "email": "info@daphethof.be",
+  "outreach": {
+    "status": "gecontacteerd",
+    "date": "2026-08-20"
+  }
 }
