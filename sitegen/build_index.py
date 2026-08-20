@@ -24,6 +24,7 @@ ROOT = Path(__file__).parent
 
 # Leesbare sectorlabels; onbekende sectoren vallen terug op de sectornaam zelf.
 SECTOR_LABELS = {
+    "accountant": "Accountancy & fiscaliteit",
     "bakery": "Bakkerij",
     "bloemist": "Bloemen",
     "broodboetiek": "Bakkerij",

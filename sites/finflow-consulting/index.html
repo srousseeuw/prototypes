@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finflow Consulting — Accountantskantoor &amp; fiscaal advies · Essen</title>
+<meta name="description" content="Uw boekhouding loopt. U onderneemt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #101A2E;
+    --ink-2: #1B2942;
+    --ink-soft: #5C6B85;
+    --paper: #ffffff;
+    --mist: #F1F4F9;
+    --mist-2: #E7EDF5;
+    --rule: #D8E1EC;
+    --accent: #0E8F80;
+    --accent-dk: #0A6E63;
+    --accent-tint: #E2F2EF;
+    --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; }
+  a { color: inherit; }
+  .wrap { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-dk);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(1.5rem, 3vw, 2.05rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 34px;
+  }
+  h3 {
+    font-size: 1.02rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  section { padding: 76px 0; }
+
+  /* ---------- kop ---------- */
+  header.top {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  header.top .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; min-height: 68px; flex-wrap: wrap;
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 11px;
+    font-weight: 600; font-size: 1.08rem; letter-spacing: -0.01em;
+    padding: 12px 0;
+    text-decoration: none;
+  }
+  .brand-mark {
+    width: 26px; height: 26px; flex: none;
+    border: 1.5px solid var(--ink);
+    border-radius: 5px;
+    position: relative; overflow: hidden;
+    background: var(--paper);
+  }
+  .brand-mark::before, .brand-mark::after {
+    content: ""; position: absolute; left: 4px; right: 4px; height: 1.5px;
+    background: var(--rule);
+  }
+  .brand-mark::before { top: 8px; }
+  .brand-mark::after { top: 13px; background: var(--accent); right: 10px; }
+  .top-cta {
+    display: inline-flex; align-items: center;
+    min-height: 44px; padding: 11px 22px;
+    background: var(--ink); color: #fff;
+    font-size: 0.88rem; font-weight: 500;
+    border-radius: 6px; text-decoration: none;
+  }
+  .top-cta:hover { background: var(--ink-2); }
+  .cta-short { display: none; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    background: var(--mist);
+    border-bottom: 1px solid var(--rule);
+    position: relative; overflow: hidden;
+    padding: 78px 0 82px;
+  }
+  /* gelinieerd 'rekenpapier' als achtergrondtextuur */
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom, transparent 0 31px, var(--rule) 31px 32px);
+    opacity: 0.5; pointer-events: none;
+  }
+  .hero .wrap { position: relative; }
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 56px; align-items: start;
+  }
+  h1 {
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.032em;
+    margin-bottom: 20px;
+    max-width: 16ch;
+  }
+  .hero .lede {
+    font-size: 1.06rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin-bottom: 30px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px; padding: 13px 26px;
+    border-radius: 6px; text-decoration: none;
+    font-size: 0.94rem; font-weight: 500;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-dk); }
+  .btn-ghost { border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--ink-soft); }
+
+  .stats {
+    display: flex; flex-wrap: wrap; gap: 32px;
+    margin-top: 40px; padding-top: 26px;
+    border-top: 1px solid var(--rule);
+  }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-v {
+    font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+    font-size: 1.35rem; font-weight: 500; color: var(--ink);
+  }
+  .stat-l { font-size: 0.8rem; color: var(--ink-soft); }
+
+  /* ---------- signature: grootboekkaart ---------- */
+  .ledger {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 8px 22px 20px;
+    box-shadow: 0 18px 40px -28px rgba(16,26,46,0.5);
+  }
+  .led-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 16px 0 12px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .led-title {
+    font-size: 0.9rem; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .led-mark {
+    width: 34px; height: 8px; flex: none; border-radius: 999px;
+    background: linear-gradient(to right, var(--accent) 0 60%, var(--mist-2) 60% 100%);
+  }
+  .led-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 4px 14px; padding: 13px 0;
+    border-bottom: 1px solid var(--rule);
+    flex-wrap: wrap;
+  }
+  .led-label { font-size: 0.93rem; min-width: 0; }
+  .led-freq {
+    font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+    font-size: 0.78rem; color: var(--accent-dk);
+    background: var(--accent-tint);
+    padding: 3px 9px; border-radius: 4px;
+    white-space: nowrap;
+  }
+  .led-note {
+    font-size: 0.79rem; color: var(--ink-soft);
+    margin-top: 16px; line-height: 1.5;
+  }
+
+  /* ---------- over ---------- */
+  .about { border-bottom: 1px solid var(--rule); }
+  .about-grid {
+    display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 48px;
+  }
+  .about h2 { margin-bottom: 0; }
+  .about-body p { font-size: 1.04rem; color: var(--ink-soft); }
+  .signature {
+    margin-top: 26px; padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    display: flex; flex-direction: column;
+  }
+  .signature strong { font-weight: 600; color: var(--ink); }
+  .signature span {
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft);
+  }
+
+  /* ---------- diensten ---------- */
+  .services { background: var(--mist); border-bottom: 1px solid var(--rule); }
+  .svc-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); border-radius: 10px; overflow: hidden;
+  }
+  .svc { background: var(--paper); padding: 28px 26px 30px; }
+  .svc-n {
+    display: block;
+    font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+    font-size: 0.75rem; color: var(--accent-dk); margin-bottom: 14px;
+  }
+  .svc p { font-size: 0.93rem; color: var(--ink-soft); }
+  .svc-list { list-style: none; margin-top: 14px; }
+  .svc-list li {
+    position: relative; padding-left: 18px; margin-top: 7px;
+    font-size: 0.87rem; color: var(--ink-soft);
+  }
+  .svc-list li::before {
+    content: ""; position: absolute; left: 0; top: 0.62em;
+    width: 8px; height: 1.5px; background: var(--accent);
+  }
+
+  /* ---------- voor wie ---------- */
+  .aud-grid {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 26px;
+  }
+  .aud { padding-top: 18px; border-top: 2px solid var(--ink); }
+  .aud p { font-size: 0.9rem; color: var(--ink-soft); }
+
+  /* ---------- aanpak ---------- */
+  .approach { background: var(--ink); color: #fff; }
+  .approach .eyebrow { color: #6FD3C6; }
+  .approach h2 { color: #fff; }
+  .steps { list-style: none; display: grid; gap: 1px; background: rgba(255,255,255,0.14); }
+  .step {
+    background: var(--ink);
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 24px 4px;
+  }
+  .step-n {
+    flex: none;
+    width: 34px; height: 34px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.35);
+    font-family: var(--font-mono); font-size: 0.82rem;
+    color: #6FD3C6;
+  }
+  .step h3 { color: #fff; }
+  .step p { color: rgba(255,255,255,0.72); font-size: 0.94rem; max-width: 62ch; }
+
+  /* ---------- contact ---------- */
+  .contact { background: var(--mist-2); }
+  .contact h2 { margin-bottom: 26px; }
+  .big-link {
+    display: inline-block;
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+    font-weight: 600; letter-spacing: -0.02em;
+    color: var(--accent-dk); text-decoration: none;
+    padding: 8px 0; min-height: 44px;
+    overflow-wrap: anywhere;
+  }
+  .big-link:hover { text-decoration: underline; }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 28px;
+    margin-top: 34px; padding-top: 28px;
+    border-top: 1px solid var(--rule);
+  }
+  .contact-k {
+    display: block;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 8px;
+  }
+  .contact-v { font-size: 0.98rem; }
+  .contact-role { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); }
+  .map-link {
+    display: inline-block; margin-top: 10px;
+    min-height: 44px; padding: 10px 0;
+    font-size: 0.88rem; font-weight: 500;
+    color: var(--accent-dk); text-decoration: none;
+  }
+  .map-link:hover { text-decoration: underline; }
+
+  footer {
+    padding: 30px 0 38px;
+    border-top: 1px solid var(--rule);
+    font-size: 0.79rem; color: var(--ink-soft);
+  }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: space-between; }
+  /* negatieve marge houdt de regel visueel gelijk, maar geeft de link een
+     tapdoel van 44px hoog op een telefoon */
+  footer a {
+    color: var(--accent-dk);
+    display: inline-block;
+    padding: 14px 4px; margin: -14px -4px;
+  }
+
+  a:focus-visible, .btn:focus-visible, .top-cta:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px;
+  }
+
+  @media (max-width: 900px) {
+    /* minmax(0,1fr) en niet 1fr: anders rekt een brede kaart de kolom
+       voorbij de schermbreedte op en valt de rechterrand weg */
+    .hero-grid, .about-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+    h1 { max-width: 20ch; }
+  }
+  @media (max-width: 620px) {
+    section { padding: 56px 0; }
+    .wrap { padding: 0 18px; }
+    header.top .wrap { flex-wrap: nowrap; min-height: 60px; }
+    .brand {
+      font-size: 0.98rem; min-width: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .top-cta { padding: 11px 16px; white-space: nowrap; }
+    .cta-long { display: none; }
+    .cta-short { display: inline; }
+    .eyebrow { font-size: 0.68rem; letter-spacing: 0.1em; }
+    .hero { padding: 52px 0 58px; }
+    .stats { gap: 22px 26px; }
+    .hero-actions .btn { flex: 1 1 100%; }
+    .step { gap: 14px; padding: 20px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>Finflow Consulting</a>
+    <a class="top-cta" href="mailto:kenneth@finflow.be"><span class="cta-long">Plan een kennismaking</span><span class="cta-short">Contact</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Accountantskantoor &amp; fiscaal advies · Essen</span>
+      <h1>Uw boekhouding loopt. U onderneemt.</h1>
+      <p class="lede">Finflow Consulting is het accountantskantoor van Kenneth Suykerbuyk in Essen. Eén vast aanspreekpunt voor eenmanszaken, vennootschappen en vrije beroepen in de Noorderkempen — van de dagelijkse boekhouding tot de jaarrekening en het advies dat erbij hoort.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:kenneth@finflow.be">Plan een kennismaking</a>
+        <a class="btn btn-ghost" href="#diensten">Wat we doen</a>
+      </div>
+      <div class="stats">
+<div class="stat"><span class="stat-v">2017</span><span class="stat-l">kantoor opgericht</span></div>
+<div class="stat"><span class="stat-v">ITAA</span><span class="stat-l">erkend accountant sinds 2020</span></div>
+<div class="stat"><span class="stat-v">1</span><span class="stat-l">vast aanspreekpunt</span></div>
+</div>
+    </div>
+    <aside class="ledger" aria-label="Het ritme van het jaar">
+      <div class="led-head">
+        <span class="led-title">Het ritme van het jaar</span>
+        <span class="led-mark" aria-hidden="true"></span>
+      </div>
+<div class="led-row"><span class="led-label">Btw-aangifte</span><span class="led-freq">kwartaal of maand</span></div>
+<div class="led-row"><span class="led-label">Voorafbetalingen</span><span class="led-freq">per kwartaal</span></div>
+<div class="led-row"><span class="led-label">Jaarrekening &amp; neerlegging</span><span class="led-freq">jaarlijks</span></div>
+<div class="led-row"><span class="led-label">Personen- en vennootschapsbelasting</span><span class="led-freq">jaarlijks</span></div>
+<div class="led-row"><span class="led-label">Tussentijdse cijfers</span><span class="led-freq">op vraag</span></div>
+      <p class="led-note">Elke verplichting krijgt vooraf een seintje, zodat een deadline nooit als verrassing komt.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="about" id="over">
+  <div class="wrap about-grid">
+    <div class="about-head">
+      <span class="eyebrow">Over het kantoor</span>
+      <h2>Eén aanspreekpunt dat uw dossier kent</h2>
+    </div>
+    <div class="about-body">
+      <p>Kenneth Suykerbuyk startte Finflow Consulting in 2017 en is sinds 2020 erkend als (fiscaal) accountant bij het ITAA, het beroepsinstituut voor accountants en belastingadviseurs. Het kantoor blijft bewust klein: wie mailt of langskomt, spreekt telkens dezelfde persoon — iemand die het dossier al kent en niet elk kwartaal opnieuw ingewerkt moet worden. Geen jargon waar gewone taal volstaat, en een antwoord vóór de deadline in plaats van erna.</p>
+      <p class="signature"><strong>Kenneth Suykerbuyk</strong><span>Zaakvoerder · erkend accountant ITAA</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="diensten">
+  <div class="wrap">
+    <span class="eyebrow">Diensten</span>
+    <h2>Wat we voor u opnemen</h2>
+    <div class="svc-grid">
+      <article class="svc">
+        <span class="svc-n">01</span>
+        <h3>Boekhouding</h3>
+        <p>Volledige of vereenvoudigde boekhouding, digitaal aangeleverd. Doorheen het jaar ziet u waar u staat, niet pas in maart.</p>
+        <ul class="svc-list"><li>Verwerking van aan- en verkoopfacturen</li><li>Bankverrichtingen en afpunting</li><li>Tussentijdse cijfers op vraag</li></ul>
+      </article>
+      <article class="svc">
+        <span class="svc-n">02</span>
+        <h3>Btw &amp; aangiften</h3>
+        <p>Periodieke btw-aangiften en de bijhorende listings, tijdig ingediend en nagekeken vóór ze de deur uitgaan.</p>
+        <ul class="svc-list"><li>Periodieke btw-aangifte</li><li>Jaarlijkse klantenlisting</li><li>Intracommunautaire opgave</li></ul>
+      </article>
+      <article class="svc">
+        <span class="svc-n">03</span>
+        <h3>Jaarrekening &amp; vennootschapsbelasting</h3>
+        <p>Opmaak en neerlegging van de jaarrekening, de aangifte vennootschapsbelasting, en een toelichting in gewone taal bij wat er in de cijfers staat.</p>
+        
+      </article>
+      <article class="svc">
+        <span class="svc-n">04</span>
+        <h3>Personenbelasting</h3>
+        <p>Aangifte voor zaakvoerders, bedrijfsleiders en vrije beroepen, met aandacht voor wat er in uw situatie effectief van toepassing is.</p>
+        
+      </article>
+      <article class="svc">
+        <span class="svc-n">05</span>
+        <h3>Starters &amp; oprichting</h3>
+        <p>Wat u moet regelen vóór u begint, en in welke volgorde: rechtsvorm, financieel plan, aansluitingen en de eerste aangiftes.</p>
+        
+      </article>
+      <article class="svc">
+        <span class="svc-n">06</span>
+        <h3>Advies bij beslissingen</h3>
+        <p>Een investering, een aanwerving, een wagen of een overstap naar een vennootschap: samen doorrekenen wat het betekent, vóór u tekent.</p>
+        
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="audiences">
+  <div class="wrap">
+    <span class="eyebrow">Voor wie</span>
+    <h2>Ondernemers in en rond Essen</h2>
+    <ul class="aud-grid">
+      <li class="aud">
+        <h3>Eenmanszaken &amp; freelancers</h3>
+        <p>Zelfstandigen in hoofd- of bijberoep die hun administratie liever uit handen geven dan er hun avonden aan te besteden.</p>
+      </li>
+      <li class="aud">
+        <h3>Vennootschappen</h3>
+        <p>Bv's met een lopende boekhouding, een jaarrekening en een bestuurder die wil weten wat de cijfers eigenlijk zeggen.</p>
+      </li>
+      <li class="aud">
+        <h3>Vrije beroepen</h3>
+        <p>Praktijken en zelfstandige professionals met hun eigen fiscale regels en bijhorende aandachtspunten.</p>
+      </li>
+      <li class="aud">
+        <h3>Starters</h3>
+        <p>Wie net begint en op één plek wil horen wat er van hem verwacht wordt, zonder eerst tien websites te moeten uitpluizen.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="approach" id="aanpak">
+  <div class="wrap">
+    <span class="eyebrow">Aanpak</span>
+    <h2>Van eerste gesprek tot lopend dossier</h2>
+    <ol class="steps">
+      <li class="step">
+        <span class="step-n">1</span>
+        <div>
+          <h3>Kennismaking</h3>
+          <p>Een gesprek over uw zaak, uw cijfers en wat u van een accountant verwacht. Vrijblijvend, en met een duidelijk beeld van wat het kost.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-n">2</span>
+        <div>
+          <h3>Overname van het dossier</h3>
+          <p>Loopt uw boekhouding vandaag elders? Dan nemen wij contact op met het huidige kantoor en halen we het dossier op — u hoeft daar zelf niets voor te doen.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-n">3</span>
+        <div>
+          <h3>Digitaal aanleveren</h3>
+          <p>Facturen en documenten komen het hele jaar door digitaal binnen. Geen schoendoos in december, geen zoektocht naar dat ene bewijsstuk.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-n">4</span>
+        <div>
+          <h3>Eén vast aanspreekpunt</h3>
+          <p>Uw vragen komen bij dezelfde persoon terecht, ook tussen de deadlines door. Een korte vraag mag ook een korte vraag blijven.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">Contact</span>
+    <h2>Plan een kennismaking</h2>
+    <div class="contact-links">
+      <a class="big-link" href="mailto:kenneth@finflow.be">kenneth@finflow.be</a>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-col">
+        <span class="contact-k">Aanspreekpunt</span>
+        <p class="contact-v">Kenneth Suykerbuyk<br><span class="contact-role">Zaakvoerder · erkend accountant ITAA</span></p>
+      </div>
+      <div class="contact-col">
+        <span class="contact-k">Kantoor</span>
+        <p class="contact-v">Dennenlaan 2a, 2910 Essen</p>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Dennenlaan+2a,+2910+Essen" target="_blank" rel="noopener">Bekijk op kaart <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="contact-col">
+        <span class="contact-k">Afspraken</span>
+        <p class="contact-v">Op afspraak, op kantoor in Essen of digitaal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Finflow Consulting BV · Ondernemingsnummer 0681.895.845 · Erkend (fiscaal) accountant ITAA</span>
+    <span>Prototype gebouwd voor Finflow Consulting · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

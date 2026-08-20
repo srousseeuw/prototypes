@@ -1,0 +1,119 @@
+{
+  "slug": "finflow-consulting",
+  "business_name": "Finflow Consulting",
+  "sector": "accountant",
+  "category": "Accountantskantoor & fiscaal advies · Essen",
+  "tagline": "Uw boekhouding loopt. U onderneemt.",
+  "intro": "Finflow Consulting is het accountantskantoor van Kenneth Suykerbuyk in Essen. Eén vast aanspreekpunt voor eenmanszaken, vennootschappen en vrije beroepen in de Noorderkempen — van de dagelijkse boekhouding tot de jaarrekening en het advies dat erbij hoort.",
+  "about": "Kenneth Suykerbuyk startte Finflow Consulting in 2017 en is sinds 2020 erkend als (fiscaal) accountant bij het ITAA, het beroepsinstituut voor accountants en belastingadviseurs. Het kantoor blijft bewust klein: wie mailt of langskomt, spreekt telkens dezelfde persoon — iemand die het dossier al kent en niet elk kwartaal opnieuw ingewerkt moet worden. Geen jargon waar gewone taal volstaat, en een antwoord vóór de deadline in plaats van erna.",
+  "address": "Dennenlaan 2a, 2910 Essen",
+  "email": "kenneth@finflow.be",
+  "email_note": "Gevonden als mailto:-link op hun eigen contactpagina (finflow.be). Het domein finflow.be heeft werkende MX-records bij one.com, dus mail komt aan.",
+  "contact_person": "Kenneth Suykerbuyk",
+  "contact_role": "Zaakvoerder · erkend accountant ITAA",
+  "availability": "Op afspraak, op kantoor in Essen of digitaal.",
+  "cta_text": "Plan een kennismaking",
+  "ledger_title": "Het ritme van het jaar",
+  "ledger": [
+    { "label": "Btw-aangifte", "freq": "kwartaal of maand" },
+    { "label": "Voorafbetalingen", "freq": "per kwartaal" },
+    { "label": "Jaarrekening & neerlegging", "freq": "jaarlijks" },
+    { "label": "Personen- en vennootschapsbelasting", "freq": "jaarlijks" },
+    { "label": "Tussentijdse cijfers", "freq": "op vraag" }
+  ],
+  "ledger_note": "Elke verplichting krijgt vooraf een seintje, zodat een deadline nooit als verrassing komt.",
+  "stats": [
+    { "value": "2017", "label": "kantoor opgericht" },
+    { "value": "ITAA", "label": "erkend accountant sinds 2020" },
+    { "value": "1", "label": "vast aanspreekpunt" }
+  ],
+  "services": [
+    {
+      "title": "Boekhouding",
+      "text": "Volledige of vereenvoudigde boekhouding, digitaal aangeleverd. Doorheen het jaar ziet u waar u staat, niet pas in maart.",
+      "items": [
+        "Verwerking van aan- en verkoopfacturen",
+        "Bankverrichtingen en afpunting",
+        "Tussentijdse cijfers op vraag"
+      ]
+    },
+    {
+      "title": "Btw & aangiften",
+      "text": "Periodieke btw-aangiften en de bijhorende listings, tijdig ingediend en nagekeken vóór ze de deur uitgaan.",
+      "items": [
+        "Periodieke btw-aangifte",
+        "Jaarlijkse klantenlisting",
+        "Intracommunautaire opgave"
+      ]
+    },
+    {
+      "title": "Jaarrekening & vennootschapsbelasting",
+      "text": "Opmaak en neerlegging van de jaarrekening, de aangifte vennootschapsbelasting, en een toelichting in gewone taal bij wat er in de cijfers staat."
+    },
+    {
+      "title": "Personenbelasting",
+      "text": "Aangifte voor zaakvoerders, bedrijfsleiders en vrije beroepen, met aandacht voor wat er in uw situatie effectief van toepassing is."
+    },
+    {
+      "title": "Starters & oprichting",
+      "text": "Wat u moet regelen vóór u begint, en in welke volgorde: rechtsvorm, financieel plan, aansluitingen en de eerste aangiftes."
+    },
+    {
+      "title": "Advies bij beslissingen",
+      "text": "Een investering, een aanwerving, een wagen of een overstap naar een vennootschap: samen doorrekenen wat het betekent, vóór u tekent."
+    }
+  ],
+  "audiences": [
+    {
+      "title": "Eenmanszaken & freelancers",
+      "text": "Zelfstandigen in hoofd- of bijberoep die hun administratie liever uit handen geven dan er hun avonden aan te besteden."
+    },
+    {
+      "title": "Vennootschappen",
+      "text": "Bv's met een lopende boekhouding, een jaarrekening en een bestuurder die wil weten wat de cijfers eigenlijk zeggen."
+    },
+    {
+      "title": "Vrije beroepen",
+      "text": "Praktijken en zelfstandige professionals met hun eigen fiscale regels en bijhorende aandachtspunten."
+    },
+    {
+      "title": "Starters",
+      "text": "Wie net begint en op één plek wil horen wat er van hem verwacht wordt, zonder eerst tien websites te moeten uitpluizen."
+    }
+  ],
+  "steps": [
+    {
+      "title": "Kennismaking",
+      "text": "Een gesprek over uw zaak, uw cijfers en wat u van een accountant verwacht. Vrijblijvend, en met een duidelijk beeld van wat het kost."
+    },
+    {
+      "title": "Overname van het dossier",
+      "text": "Loopt uw boekhouding vandaag elders? Dan nemen wij contact op met het huidige kantoor en halen we het dossier op — u hoeft daar zelf niets voor te doen."
+    },
+    {
+      "title": "Digitaal aanleveren",
+      "text": "Facturen en documenten komen het hele jaar door digitaal binnen. Geen schoendoos in december, geen zoektocht naar dat ene bewijsstuk."
+    },
+    {
+      "title": "Eén vast aanspreekpunt",
+      "text": "Uw vragen komen bij dezelfde persoon terecht, ook tussen de deadlines door. Een korte vraag mag ook een korte vraag blijven."
+    }
+  ],
+  "legal_line": "Finflow Consulting BV · Ondernemingsnummer 0681.895.845 · Erkend (fiscaal) accountant ITAA",
+  "sources": [
+    "https://finflow.be/ — eigen site: naam, zaakvoerder, e-mailadres, btw-nummer",
+    "https://kbopub.economie.fgov.be/kbopub/toonondernemingps.html?ondernemingsnummer=681895845 — KBO: zetel Dennenlaan 2a sinds 1 juni 2023, oprichting 29-09-2017, rechtsvorm BV, toelating '(Fiscaal) accountant ITAA' sinds 30-09-2020, NACE 69.201",
+    "https://www.staatsbladmonitor.be/bedrijfsfiche.html?ondernemingsnummer=0681895845 — bevestigt adres Dennenlaan 2a en de zetelwijziging (Staatsblad 07-06-2023)"
+  ],
+  "data_notes": [
+    "ADRES: hun eigen site vermeldt nog Kortestraat 14, maar de KBO geeft sinds 1 juni 2023 Dennenlaan 2a, 2910 Essen als maatschappelijke zetel. Het prototype gebruikt de actuele KBO-zetel; te bevestigen bij contact.",
+    "GEEN TELEFOONNUMMER opgenomen: hun eigen site publiceert er geen, de KBO evenmin. Obodo/FCR Media noemt drie verschillende nummers, die zijn niet geverifieerd en dus niet overgenomen.",
+    "GEEN OPENINGSUREN gevonden; het sjabloon toont bewust 'op afspraak' in plaats van winkeluren.",
+    "DIENSTEN zijn ingevuld op basis van de NACE-activiteit 69.201 (gecertificeerde/fiscaal accountants) en de rubrieken op hun profiel bij boekhoudkantoren.be. Het is de gebruikelijke scope van een ITAA-accountantskantoor, maar niet woordelijk door henzelf bevestigd — af te toetsen bij een gesprek.",
+    "ITAA-nummer 50.429.892 staat op boekhoudkantoren.be; niet geverifieerd in het ITAA-register en daarom niet op de pagina gezet."
+  ],
+  "outreach": {
+    "status": "nieuw",
+    "note": "Huidige site is een one-pager uit de One.com-editor, laatst gewijzigd in 2019, met een verouderd adres."
+  }
+}
