@@ -594,6 +594,8 @@
     }
   ],
   "contact_note": "Contactgegevens van de dienst Vrije Tijd worden nog toegevoegd — dit prototype vult ze bewust niet in.",
+  "email": "info@essen.be",
+  "email_note": "Algemeen adres van de gemeente; een rechtstreeks adres van de dienst Vrije Tijd staat nergens publiek.",
   "outreach": {
     "status": "gecontacteerd",
     "date": "2026-08-13"

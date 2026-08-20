@@ -7,13 +7,34 @@
   "address": "Sint-Jansstraat 144, 2910 Essen",
   "phone": "0476 67 84 92",
   "hours": [
-    ["Maandag", "Gesloten"],
-    ["Dinsdag", "Gesloten"],
-    ["Woensdag", "9:00 – 12:00 / 13:30 – 17:00"],
-    ["Donderdag", "9:00 – 12:00 / 13:30 – 17:00"],
-    ["Vrijdag", "9:00 – 12:00 / 13:30 – 17:00"],
-    ["Zaterdag", "9:00 – 17:00"],
-    ["Zondag", "Gesloten"]
+    [
+      "Maandag",
+      "Gesloten"
+    ],
+    [
+      "Dinsdag",
+      "Gesloten"
+    ],
+    [
+      "Woensdag",
+      "9:00 – 12:00 / 13:30 – 17:00"
+    ],
+    [
+      "Donderdag",
+      "9:00 – 12:00 / 13:30 – 17:00"
+    ],
+    [
+      "Vrijdag",
+      "9:00 – 12:00 / 13:30 – 17:00"
+    ],
+    [
+      "Zaterdag",
+      "9:00 – 17:00"
+    ],
+    [
+      "Zondag",
+      "Gesloten"
+    ]
   ],
   "highlights": [
     "Verse snijbloemen en boeketten op maat samengesteld",
@@ -29,5 +50,6 @@
   ],
   "about": "Een vertrouwd adres in Essen voor wie houdt van bloemen met karakter. Boeketten worden ter plaatse met zorg samengesteld, aangevuld met een mooie keuze kamer- en tuinplanten, en kruiden- en groenteplantjes voor de moestuin. Naast de winkel staat Bloemen Matheusen ook regelmatig op de lokale markten in de streek.",
   "cta_text": "Bestel je boeket",
-  "accent_context": "florist_fresh"
+  "accent_context": "florist_fresh",
+  "email": "bloemenmatheusen@outlook.be"
 }

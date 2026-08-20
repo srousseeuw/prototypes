@@ -7,13 +7,34 @@
   "address": "Donkweg 77, 2910 Essen",
   "phone": "03 667 70 98",
   "hours": [
-    ["Maandag", "9:00 – 12:30 / 13:30 – 18:00"],
-    ["Dinsdag", "Gesloten"],
-    ["Woensdag", "9:00 – 12:30 / 13:30 – 18:00"],
-    ["Donderdag", "9:00 – 12:30 / 13:30 – 18:00"],
-    ["Vrijdag", "9:00 – 12:30 / 13:30 – 18:00"],
-    ["Zaterdag", "9:00 – 12:30 / 13:30 – 17:00"],
-    ["Zondag", "10:00 – 12:30"]
+    [
+      "Maandag",
+      "9:00 – 12:30 / 13:30 – 18:00"
+    ],
+    [
+      "Dinsdag",
+      "Gesloten"
+    ],
+    [
+      "Woensdag",
+      "9:00 – 12:30 / 13:30 – 18:00"
+    ],
+    [
+      "Donderdag",
+      "9:00 – 12:30 / 13:30 – 18:00"
+    ],
+    [
+      "Vrijdag",
+      "9:00 – 12:30 / 13:30 – 18:00"
+    ],
+    [
+      "Zaterdag",
+      "9:00 – 12:30 / 13:30 – 17:00"
+    ],
+    [
+      "Zondag",
+      "10:00 – 12:30"
+    ]
   ],
   "highlights": [
     "Ruim assortiment tuinplanten, bloemen en seizoensbeplanting",
@@ -29,5 +50,6 @@
   ],
   "about": "Al jaren de vertrouwde tuinhandel van Essen, met een uitgebreid aanbod tuinplanten, bloemen en seizoensgroen. Bij Den Donk krijg je persoonlijk advies van mensen die weten wat er in de streek goed groeit — en voor een verjaardag of buurtfeest kan je er ook meteen een springkasteel huren.",
   "cta_text": "Kom een kijkje nemen",
-  "accent_context": "garden_earthy"
+  "accent_context": "garden_earthy",
+  "email": "d.milbou@pandora.be"
 }

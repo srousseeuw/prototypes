@@ -7,13 +7,34 @@
   "address": "Horendonk 358, 2910 Essen",
   "phone": "+32 486 63 50 80",
   "hours": [
-    ["Maandag", "7:00 – 22:00"],
-    ["Dinsdag", "7:00 – 22:00"],
-    ["Woensdag", "7:00 – 22:00"],
-    ["Donderdag", "7:00 – 22:00"],
-    ["Vrijdag", "7:00 – 22:00"],
-    ["Zaterdag", "7:00 – 22:00"],
-    ["Zondag", "7:00 – 22:00"]
+    [
+      "Maandag",
+      "7:00 – 22:00"
+    ],
+    [
+      "Dinsdag",
+      "7:00 – 22:00"
+    ],
+    [
+      "Woensdag",
+      "7:00 – 22:00"
+    ],
+    [
+      "Donderdag",
+      "7:00 – 22:00"
+    ],
+    [
+      "Vrijdag",
+      "7:00 – 22:00"
+    ],
+    [
+      "Zaterdag",
+      "7:00 – 22:00"
+    ],
+    [
+      "Zondag",
+      "7:00 – 22:00"
+    ]
   ],
   "highlights": [
     "Zelfbedieningswinkel, dag in dag uit open",
@@ -32,5 +53,9 @@
   ],
   "about": "Op de Vrijloophoeve in Essen kun je dag en nacht — van 's ochtends vroeg tot 's avonds laat — zelf je mandje vullen met wat het seizoen te bieden heeft. De koeien lopen er vrij rond in een ruime stal zonder afzonderlijke boxen, en hun melk wordt op de hoeve zelf verwerkt tot GMO-vrije zuivel. Daarnaast is de Vrijloophoeve ook een zorgboerderij: een plek waar mensen die het wat moeilijker hebben, mee de handen uit de mouwen steken.",
   "cta_text": "Kom zelf je mandje vullen",
-  "accent_context": "farm_earthy"
+  "accent_context": "farm_earthy",
+  "outreach": {
+    "status": "telefonisch",
+    "note": "Geen website of e-mailadres. Via Facebook of bellen: 0486 63 50 80."
+  }
 }

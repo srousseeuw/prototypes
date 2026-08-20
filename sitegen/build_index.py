@@ -66,6 +66,7 @@ SECTOR_LABELS = {
 STATUSSEN = [
     ("nieuw", "Nog niet benaderd", "#6b7280"),
     ("gepland", "Klaar om te mailen", "#b45309"),
+    ("telefonisch", "Enkel telefonisch", "#0f766e"),
     ("gecontacteerd", "Gecontacteerd", "#2f5fd0"),
     ("gereageerd", "Heeft gereageerd", "#7c3aed"),
     ("klant", "Klant", "#15803d"),

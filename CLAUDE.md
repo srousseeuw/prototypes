@@ -83,7 +83,7 @@ waarheid is:
 ```
 
 Statussen: `nieuw` (standaard als het veld ontbreekt), `gepland`,
-`gecontacteerd`, `gereageerd`, `klant`, `geen-vervolg`. `date` en `note`
+`telefonisch` (geen bruikbaar e-mailadres), `gecontacteerd`, `gereageerd`, `klant`, `geen-vervolg`. `date` en `note`
 zijn optioneel en verschijnen klein onderaan de kaart.
 
 Na het aanpassen van een status: `python3 sitegen/build_index.py` draaien,

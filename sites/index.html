@@ -129,6 +129,7 @@
   }
   .badge-nieuw { color: #6b7280; border-color: #6b728033; background: #6b728014; }
   .badge-gepland { color: #b45309; border-color: #b4530933; background: #b4530914; }
+  .badge-telefonisch { color: #0f766e; border-color: #0f766e33; background: #0f766e14; }
   .badge-gecontacteerd { color: #2f5fd0; border-color: #2f5fd033; background: #2f5fd014; }
   .badge-gereageerd { color: #7c3aed; border-color: #7c3aed33; background: #7c3aed14; }
   .badge-klant { color: #15803d; border-color: #15803d33; background: #15803d14; }
@@ -170,8 +171,9 @@
   <div class="wrap">
     <div class="filters" id="filters">
       <button class="filter is-active" type="button" data-filter="alles">Alles <span class="filter-n">45</span></button>
-      <button class="filter" type="button" data-filter="nieuw">Nog niet benaderd <span class="filter-n">24</span></button>
-      <button class="filter" type="button" data-filter="gepland">Klaar om te mailen <span class="filter-n">8</span></button>
+      <button class="filter" type="button" data-filter="nieuw">Nog niet benaderd <span class="filter-n">20</span></button>
+      <button class="filter" type="button" data-filter="gepland">Klaar om te mailen <span class="filter-n">4</span></button>
+      <button class="filter" type="button" data-filter="telefonisch">Enkel telefonisch <span class="filter-n">8</span></button>
       <button class="filter" type="button" data-filter="gecontacteerd">Gecontacteerd <span class="filter-n">6</span></button>
       <button class="filter" type="button" data-filter="geen-vervolg">Geen vervolg <span class="filter-n">7</span></button>
     </div>
@@ -230,14 +232,14 @@
         <span class="card-cat">Bruin café met podium</span>
         <span class="card-detail">2026-08-13</span>
       </a>
-      <a class="card" href="/cafe-bostella/" data-status="nieuw">
+      <a class="card" href="/cafe-bostella/" data-status="telefonisch">
         <span class="card-top">
           <span class="card-sector">Café</span>
-          <span class="badge badge-nieuw">Nog niet benaderd</span>
+          <span class="badge badge-telefonisch">Enkel telefonisch</span>
         </span>
         <span class="card-name">Café Bostella</span>
         <span class="card-cat">Bruin café met terras</span>
-        
+        <span class="card-detail">Geen website of e-mailadres. Via Facebook of bellen: 03 284 85 45.</span>
       </a>
       <a class="card" href="/cafe-de-valk/" data-status="nieuw">
         <span class="card-top">
@@ -293,14 +295,14 @@
         <span class="card-cat">Rundveefokkerij</span>
         
       </a>
-      <a class="card" href="/vrijloophoeve/" data-status="nieuw">
+      <a class="card" href="/vrijloophoeve/" data-status="telefonisch">
         <span class="card-top">
           <span class="card-sector">Hoeve &amp; streekproducten</span>
-          <span class="badge badge-nieuw">Nog niet benaderd</span>
+          <span class="badge badge-telefonisch">Enkel telefonisch</span>
         </span>
         <span class="card-name">De Vrijloophoeve</span>
         <span class="card-cat">Hoevewinkel &amp; zorgboerderij</span>
-        
+        <span class="card-detail">Geen website of e-mailadres. Via Facebook of bellen: 0486 63 50 80.</span>
       </a>
       <a class="card" href="/de-velo/" data-status="nieuw">
         <span class="card-top">
@@ -320,14 +322,14 @@
         <span class="card-cat">Dierenartsenpraktijk</span>
         
       </a>
-      <a class="card" href="/fietsen-kris/" data-status="gepland">
+      <a class="card" href="/fietsen-kris/" data-status="telefonisch">
         <span class="card-top">
           <span class="card-sector">Fietsen</span>
-          <span class="badge badge-gepland">Klaar om te mailen</span>
+          <span class="badge badge-telefonisch">Enkel telefonisch</span>
         </span>
         <span class="card-name">Fietsen Kris</span>
         <span class="card-cat">Fietsenwinkel &amp; herstelatelier</span>
-        <span class="card-detail">Enkel telefonisch — 03 677 12 14. Domein fietsenkris.be heeft geen DNS meer, dus e-mail bouncet.</span>
+        <span class="card-detail">Domein fietsenkris.be heeft geen DNS meer — mail bouncet. Bellen: 03 677 12 14.</span>
       </a>
       <a class="card" href="/finum-accountants/" data-status="gecontacteerd">
         <span class="card-top">
@@ -347,14 +349,14 @@
         <span class="card-cat">Hovenier — tuinaanleg &amp; tuinonderhoud</span>
         
       </a>
-      <a class="card" href="/frituur-speciaal/" data-status="gepland">
+      <a class="card" href="/frituur-speciaal/" data-status="telefonisch">
         <span class="card-top">
           <span class="card-sector">Frituur</span>
-          <span class="badge badge-gepland">Klaar om te mailen</span>
+          <span class="badge badge-telefonisch">Enkel telefonisch</span>
         </span>
         <span class="card-name">Frituur Speciaal</span>
         <span class="card-cat">Frituur</span>
-        
+        <span class="card-detail">Geen e-mailadres publiek. Via Facebook Messenger of bellen: 03 677 06 88.</span>
       </a>
       <a class="card" href="/garage-francken/" data-status="nieuw">
         <span class="card-top">
@@ -383,14 +385,14 @@
         <span class="card-cat">Tee-time directory · België &amp; Nederland</span>
         
       </a>
-      <a class="card" href="/jens-gotink/" data-status="nieuw">
+      <a class="card" href="/jens-gotink/" data-status="telefonisch">
         <span class="card-top">
           <span class="card-sector">Schilderwerken</span>
-          <span class="badge badge-nieuw">Nog niet benaderd</span>
+          <span class="badge badge-telefonisch">Enkel telefonisch</span>
         </span>
         <span class="card-name">Jens Gotink Schilderwerken</span>
         <span class="card-cat">Schilderbedrijf in Kalmthout</span>
-        
+        <span class="card-detail">Domein gotink-schilderwerken.be heeft geen DNS meer — mail bouncet. Bellen: 0494 87 50 55.</span>
       </a>
       <a class="card" href="/juwelier-aerden/" data-status="gepland">
         <span class="card-top">
@@ -482,23 +484,23 @@
         <span class="card-cat">Italiaans restaurant &amp; pizzeria</span>
         <span class="card-detail">2026-08-13</span>
       </a>
-      <a class="card" href="/optiek-michiels/" data-status="nieuw">
+      <a class="card" href="/optiek-michiels/" data-status="telefonisch">
         <span class="card-top">
           <span class="card-sector">Optiek</span>
-          <span class="badge badge-nieuw">Nog niet benaderd</span>
+          <span class="badge badge-telefonisch">Enkel telefonisch</span>
         </span>
         <span class="card-name">Optiek Michiels</span>
         <span class="card-cat">Optiek &amp; hoorcentrum</span>
-        
+        <span class="card-detail">Site optiekmichiels.be onbereikbaar, geen e-mailadres gevonden. Bellen: 03 667 54 88.</span>
       </a>
-      <a class="card" href="/pitta-verne/" data-status="gepland">
+      <a class="card" href="/pitta-verne/" data-status="telefonisch">
         <span class="card-top">
           <span class="card-sector">Pizzeria &amp; Italiaans</span>
-          <span class="badge badge-gepland">Klaar om te mailen</span>
+          <span class="badge badge-telefonisch">Enkel telefonisch</span>
         </span>
         <span class="card-name">Pitta Verne</span>
         <span class="card-cat">Pizza, pasta &amp; mediterrane grill</span>
-        
+        <span class="card-detail">Geen adres publiek; domein heeft wel mailservers. Gok info@pittaverne.be of bel 03 677 27 77.</span>
       </a>
       <a class="card" href="/de-heerlyckheyt/" data-status="gepland">
         <span class="card-top">
@@ -518,14 +520,14 @@
         <span class="card-cat">Slagerij, bakkerij &amp; traiteur</span>
         
       </a>
-      <a class="card" href="/snit-en-style/" data-status="gepland">
+      <a class="card" href="/snit-en-style/" data-status="telefonisch">
         <span class="card-top">
           <span class="card-sector">Kapsalon</span>
-          <span class="badge badge-gepland">Klaar om te mailen</span>
+          <span class="badge badge-telefonisch">Enkel telefonisch</span>
         </span>
         <span class="card-name">Snit &amp; Style</span>
         <span class="card-cat">Haarstudio voor dames, heren &amp; kinderen</span>
-        
+        <span class="card-detail">Publiceert bewust geen e-mailadres: afspraken enkel telefonisch. Contactformulier of 03 677 03 80.</span>
       </a>
       <a class="card" href="/trim-it/" data-status="nieuw">
         <span class="card-top">

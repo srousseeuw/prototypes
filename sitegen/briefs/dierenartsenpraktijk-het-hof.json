@@ -7,13 +7,34 @@
   "address": "Nieuwstraat 19, 2910 Essen",
   "phone": "+32 3 667 62 63",
   "hours": [
-    ["Maandag", "9:00 – 12:30, 14:00 – 18:30"],
-    ["Dinsdag", "9:00 – 12:30, 14:00 – 18:30"],
-    ["Woensdag", "9:00 – 12:30, 14:00 – 18:30"],
-    ["Donderdag", "9:00 – 12:30, 14:00 – 18:30"],
-    ["Vrijdag", "9:00 – 12:30, 14:00 – 18:30"],
-    ["Zaterdag", "9:00 – 12:00"],
-    ["Zondag", "Gesloten — enkel spoedgevallen"]
+    [
+      "Maandag",
+      "9:00 – 12:30, 14:00 – 18:30"
+    ],
+    [
+      "Dinsdag",
+      "9:00 – 12:30, 14:00 – 18:30"
+    ],
+    [
+      "Woensdag",
+      "9:00 – 12:30, 14:00 – 18:30"
+    ],
+    [
+      "Donderdag",
+      "9:00 – 12:30, 14:00 – 18:30"
+    ],
+    [
+      "Vrijdag",
+      "9:00 – 12:30, 14:00 – 18:30"
+    ],
+    [
+      "Zaterdag",
+      "9:00 – 12:00"
+    ],
+    [
+      "Zondag",
+      "Gesloten — enkel spoedgevallen"
+    ]
   ],
   "highlights": [
     "24/7 telefonisch bereikbaar voor spoedgevallen",
@@ -26,5 +47,6 @@
   "about": "Een team van vijf dierenartsen en vijf assistenten staat elke dag klaar voor het welzijn van uw huisdier — van een gewone controle tot dringende zorg. Dankzij een eigen laboratorium, hospitalisatie en intensieve zorg ter plaatse kan er snel en grondig gehandeld worden, ook buiten de gewone openingsuren.",
   "cta_text": "Maak een afspraak",
   "emergency_note": "Bij een noodgeval buiten de openingsuren is de praktijk 24 uur op 24 telefonisch bereikbaar.",
-  "accent_context": "vet_calm"
+  "accent_context": "vet_calm",
+  "email": "info@daphethof.be"
 }

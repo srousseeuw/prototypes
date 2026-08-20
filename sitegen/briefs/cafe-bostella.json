@@ -7,13 +7,34 @@
   "address": "Moerkantsebaan 196, 2910 Essen",
   "phone": "+32 3 284 85 45",
   "hours": [
-    ["Maandag", "Gesloten"],
-    ["Dinsdag", "9:00 – 20:00"],
-    ["Woensdag", "9:00 – 20:00"],
-    ["Donderdag", "9:00 – 20:00"],
-    ["Vrijdag", "9:00 – 20:00"],
-    ["Zaterdag", "9:00 – 20:00"],
-    ["Zondag", "8:30 – 20:00"]
+    [
+      "Maandag",
+      "Gesloten"
+    ],
+    [
+      "Dinsdag",
+      "9:00 – 20:00"
+    ],
+    [
+      "Woensdag",
+      "9:00 – 20:00"
+    ],
+    [
+      "Donderdag",
+      "9:00 – 20:00"
+    ],
+    [
+      "Vrijdag",
+      "9:00 – 20:00"
+    ],
+    [
+      "Zaterdag",
+      "9:00 – 20:00"
+    ],
+    [
+      "Zondag",
+      "8:30 – 20:00"
+    ]
   ],
   "highlights": [
     "Authentieke bruine kroeg-sfeer, zoals vroeger",
@@ -24,5 +45,9 @@
   "about": "Café Bostella is al decennialang een vertrouwd adres in Essen-Hoek. De open, warme sfeer van een echt volkscafé staat hier centraal: een plek waar stamgasten van beide kanten van de grens elkaar treffen voor een goed gesprek en een lekker pintje op het terras.",
   "cta_text": "Kom een pintje drinken",
   "accent": "#b5793a",
-  "signature_word": "Stamcafé"
+  "signature_word": "Stamcafé",
+  "outreach": {
+    "status": "telefonisch",
+    "note": "Geen website of e-mailadres. Via Facebook of bellen: 03 284 85 45."
+  }
 }
