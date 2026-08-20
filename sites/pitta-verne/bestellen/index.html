@@ -82,29 +82,44 @@
   .svc-detail { font-weight: 600; font-size: 1rem; }
   .svc-meta { color: var(--ink-soft); font-size: 0.88rem; }
 
+  /* Breed scherm: categorieën als vaste kolom links, altijd in beeld. */
+  .layout {
+    display: grid;
+    grid-template-columns: 200px 1fr 320px;
+    gap: 32px;
+    align-items: start;
+    padding: 30px 0 80px;
+  }
   .catnav {
-    position: sticky; top: 0; z-index: 20;
-    background: var(--paper);
-    border-bottom: 1px solid var(--line);
-    margin-top: 26px;
+    position: sticky; top: 18px;
+    align-self: start;
+    max-height: calc(100vh - 36px);
+    overflow-y: auto;
+    scrollbar-width: thin;
   }
-  /* Op een breed scherm past alles: laten afbreken in plaats van schuiven. */
-  .catnav .wrap {
-    display: flex; flex-wrap: wrap; gap: 6px;
-    padding-top: 10px; padding-bottom: 10px;
-  }
-  .catnav a {
-    white-space: nowrap;
-    font-size: 0.86rem; font-weight: 600;
-    text-decoration: none;
-    padding: 7px 14px;
-    border-radius: 999px;
+  .catnav-kop {
+    display: block;
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
     color: var(--ink-soft);
-    border: 1px solid transparent;
+    padding: 0 12px 10px;
   }
-  .catnav a:hover { background: rgba(20,23,28,0.06); color: var(--ink); border-color: var(--line); }
-
-  .layout { display: grid; grid-template-columns: 1fr 330px; gap: 40px; align-items: start; padding: 30px 0 80px; }
+  .catnav-lijst { display: flex; flex-direction: column; gap: 2px; }
+  .catnav a {
+    font-size: 0.88rem; font-weight: 600;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 7px;
+    color: var(--ink-soft);
+    border-left: 3px solid transparent;
+    transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  }
+  .catnav a:hover { background: rgba(20,23,28,0.05); color: var(--ink); }
+  .catnav a.is-actief {
+    background: rgba(20,23,28,0.05);
+    color: var(--ink);
+    border-left-color: var(--accent);
+  }
 
   .cat { margin-bottom: 34px; scroll-margin-top: 70px; }
   .cat h2 { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 6px; }
@@ -191,29 +206,53 @@
 
   footer { border-top: 1px solid var(--line); padding: 24px 0 40px; font-size: 0.84rem; color: var(--ink-soft); text-align: center; }
 
-  @media (max-width: 860px) {
-    .layout { grid-template-columns: 1fr; }
+  /* Smaller: geen ruimte voor een zijkolom. De categorieën worden dan een
+     balk die bovenaan blijft plakken — nog altijd permanent in beeld. */
+  @media (max-width: 980px) {
+    .layout { grid-template-columns: 1fr; gap: 24px; padding-top: 0; }
     .cart { position: static; }
-  }
-
-  /* Op een gsm passen twintig categorieën niet op een paar regels, dus daar
-     wél schuiven — maar met een zichtbare afloop, zodat het bedoeld oogt. */
-  @media (max-width: 700px) {
-    .catnav { position: relative; }
-    .catnav .wrap {
-      flex-wrap: nowrap;
+    .catnav {
+      grid-column: 1 / -1;
+      order: -1;
+      position: sticky; top: 0; z-index: 20;
+      max-height: none;
+      overflow: visible;
+      /* Zonder dit groeit het rasteritem mee met de volledige lijst en
+         duwt het de hele pagina breder dan het scherm. */
+      min-width: 0;
+      margin: 0 -24px;
+      padding: 0 24px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+    .catnav-kop { display: none; }
+    .catnav-lijst {
+      flex-direction: row;
+      gap: 4px;
+      min-width: 0;
       overflow-x: auto;
       scroll-snap-type: x proximity;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      padding-right: 34px;
+      padding: 9px 30px 9px 0;
     }
-    .catnav .wrap::-webkit-scrollbar { display: none; }
-    .catnav a { scroll-snap-align: start; }
+    .catnav-lijst::-webkit-scrollbar { display: none; }
+    .catnav a {
+      white-space: nowrap;
+      scroll-snap-align: start;
+      border-left: none;
+      border-bottom: 2px solid transparent;
+      border-radius: 999px;
+    }
+    .catnav a.is-actief {
+      border-left: none;
+      border-bottom-color: var(--accent);
+      background: rgba(20,23,28,0.06);
+    }
     .catnav::after {
       content: "";
       position: absolute; top: 0; right: 0; bottom: 1px;
-      width: 34px;
+      width: 30px;
       pointer-events: none;
       background: linear-gradient(to right, transparent, var(--paper));
     }
@@ -243,8 +282,11 @@
 
 </div>
 
-<nav class="catnav">
-  <div class="wrap">
+<div class="wrap">
+  <div class="layout">
+    <nav class="catnav" aria-label="Categorieën">
+      <span class="catnav-kop">Categorieën</span>
+      <div class="catnav-lijst">
       <a href="#cat-0">Pizza's met kaas</a>
       <a href="#cat-1">Pizza's met vlees</a>
       <a href="#cat-2">Pizza's met groenten</a>
@@ -264,11 +306,9 @@
       <a href="#cat-16">Extra's</a>
       <a href="#cat-17">Sauzen</a>
       <a href="#cat-18">Dranken</a>
-  </div>
-</nav>
+      </div>
+    </nav>
 
-<div class="wrap">
-  <div class="layout">
     <div>
     <section class="cat" id="cat-0">
       <h2>Pizza's met kaas</h2>
@@ -2551,6 +2591,49 @@
     totalEl.textContent = money(total);
     checkoutEl.disabled = !has;
   }
+
+  // Markeer waar je zit, en houd die knop in beeld in de smalle balk.
+  (() => {
+    const links = [...document.querySelectorAll('.catnav a')];
+    const secties = links
+      .map((a) => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+    if (!secties.length) return;
+
+    const zetActief = (i) => {
+      links.forEach((a, n) => a.classList.toggle('is-actief', n === i));
+      const lijst = document.querySelector('.catnav-lijst');
+      if (lijst && lijst.scrollWidth > lijst.clientWidth) {
+        const a = links[i];
+        const links_ = a.offsetLeft - lijst.offsetLeft;
+        if (links_ < lijst.scrollLeft || links_ + a.offsetWidth > lijst.scrollLeft + lijst.clientWidth) {
+          lijst.scrollTo({ left: links_ - 12, behavior: 'smooth' });
+        }
+      }
+    };
+
+    const bepaal = () => {
+      const grens = 130;
+      let huidig = 0;
+      secties.forEach((s, i) => {
+        if (s.getBoundingClientRect().top <= grens) huidig = i;
+      });
+      zetActief(huidig);
+    };
+
+    // IntersectionObserver in plaats van een scroll-listener: die blijft ook
+    // werken wanneer het tabblad niet zichtbaar is, en belast het scrollen niet.
+    const waarnemer = new IntersectionObserver(bepaal, {
+      rootMargin: '-130px 0px -70% 0px',
+      threshold: 0,
+    });
+    secties.forEach((s) => waarnemer.observe(s));
+
+    // Klik op een categorie: meteen markeren, niet wachten op het scrollen.
+    links.forEach((a, i) => a.addEventListener('click', () => zetActief(i)));
+
+    bepaal();
+  })();
 
   document.querySelectorAll('.add').forEach((btn) => {
     btn.addEventListener('click', () => {
