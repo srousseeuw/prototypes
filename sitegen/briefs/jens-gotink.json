@@ -7,6 +7,7 @@
   "note": "Handmatig gemaakt, overgezet uit de aparte repo srousseeuw/jensgotink. Niet uit een sjabloon: generate.py weigert dit bestand te overschrijven; bewerk sites/jens-gotink/index.html rechtstreeks.",
   "phone": "+32 494 87 50 55",
   "email_note": "info@gotink-schilderwerken.be staat op de pagina, maar dat domein heeft geen DNS meer — mail bouncet.",
+  "gemeente": "Kalmthout",
   "outreach": {
     "status": "gecontacteerd",
     "note": "Telefonisch gecontacteerd. Domein gotink-schilderwerken.be heeft geen DNS meer, dus mailen kan niet.",

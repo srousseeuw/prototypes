@@ -75,6 +75,24 @@ STATUSSEN = [
 STATUS_LABEL = {k: label for k, label, _ in STATUSSEN}
 STATUS_KLEUR = {k: kleur for k, _, kleur in STATUSSEN}
 
+import re
+
+def gemeente_van(brief):
+    """Gemeente voor op de kaart: expliciet veld, anders uit het adres.
+
+    Belgisch adres eindigt op "2910 Essen", Nederlands op "4884 AT Wernhout".
+    """
+    expliciet = brief.get("gemeente")
+    if expliciet:
+        return expliciet
+    adres = brief.get("address") or ""
+    m = re.search(r"\b[B-]?\s*(\d{4})\s*(?:[A-Z]{2}\s+)?([A-Za-zÀ-ÿ'’\-\. ]+)", adres)
+    if not m:
+        return ""
+    naam = m.group(2).strip(" .-")
+    naam = re.split(r"\s*\(", naam)[0].strip()
+    return naam
+
 def esc(s):
     if s is None:
         return ""
@@ -132,9 +150,11 @@ def render(briefs) -> str:
             tel_aantal[0] += 1
         tel_badge = f'<span class="badge badge-telefonisch">{TELEFOON_LABEL}</span>' if tel else ""
         detail_html = f'<span class="card-detail">{esc(detail)}</span>' if detail else ""
-        cards.append(f"""      <a class="card" href="/{esc(brief['slug'])}/" data-status="{status}" data-phone="{'1' if tel else '0'}">
+        gem = esc(gemeente_van(brief))
+        gem_html = f'<span class="card-gemeente">{gem}</span>' if gem else ""
+        cards.append(f"""      <a class="card" href="/{esc(brief['slug'])}/" data-status="{status}" data-phone="{'1' if tel else '0'}" data-gemeente="{gem}">
         <span class="card-top">
-          <span class="card-sector">{label}</span>
+          <span class="card-sector">{label}{gem_html}</span>
           <span class="badges">
             <span class="badge badge-{status}">{esc(status_label)}</span>
             {tel_badge}
@@ -170,6 +190,8 @@ def render(briefs) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prototypes — ocior.be</title>
 <meta name="description" content="Site-prototypes voor lokale ondernemers in en rond Essen.">
+<!-- Dit bord toont contactstatussen en eigen notities: hoort niet in een zoekmachine. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -297,6 +319,11 @@ def render(briefs) -> str:
     padding: 2px 9px;
   }}
 {badge_css}
+  .card-gemeente {{
+    color: var(--ink-soft);
+    font-weight: 500;
+  }}
+  .card-gemeente::before {{ content: " · "; opacity: 0.55; }}
   .card-name {{ font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; }}
   .card-cat {{ color: var(--ink-soft); font-size: 0.86rem; }}
   .card-detail {{

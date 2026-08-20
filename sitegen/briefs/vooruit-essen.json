@@ -5,6 +5,7 @@
   "category": "Lokale afdeling",
   "generated": false,
   "note": "Handmatig gemaakt en rechtstreeks via GitHub geüpload, niet uit een sjabloon. generate.py weigert dit bestand te overschrijven; bewerk sites/vooruit-essen/index.html rechtstreeks.",
+  "gemeente": "Essen",
   "outreach": {
     "status": "gecontacteerd",
     "date": "2026-08-13"
