@@ -30,6 +30,7 @@
   "email_note": "Geen eigen website of domeinnaam teruggevonden voor Garage Van Oers — enkel vermeldingen op autobedrijvendirectories (Telefoonboek.nl, garage-in.nl, garage-spot.nl, D&B, Infoisinfo e.a.), geen van allen met een e-mailadres of Facebookpagina. Voor outreach voorlopig enkel telefonisch bereikbaar op 0164 60 25 10, of eventueel per post naar Antwerpsestraat 244, 4645 BR Putte.",
   "note": "Adres, telefoonnummer, KvK-nummer (20030743) en oprichtingsdatum (30-06-1972) zijn consistent teruggevonden op meerdere onafhankelijke directories. Openingstijden van de werkplaats zelf zijn niet betrouwbaar bevestigd (enkel de openingstijden van het TinQ-tankstation op hetzelfde adres zijn bekend, en die zijn niet representatief voor de garage) — daarom een algemene 'bel voor een afspraak'-tekst in plaats van een concreet uurrooster. WebFetch naar externe sites was deze sessie geblokkeerd door het netwerkbeleid van de omgeving; alle gegevens komen daarom uit WebSearch-samenvattingen van meerdere onafhankelijke bronnen, niet uit rechtstreeks ingeziene paginas. Geen e-mailadres is daarom overgenomen zonder dat op de bronpagina zelf gezien te hebben.",
   "outreach": {
-    "status": "nieuw"
+    "status": "telefonisch",
+    "note": "Geen eigen website of domeinnaam teruggevonden voor Garage Van Oers — enkel vermeldingen op autobedrijvendirectories (Telefoonboek. Bellen: 0164 60 25 10."
   }
 }

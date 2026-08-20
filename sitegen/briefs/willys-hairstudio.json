@@ -22,6 +22,7 @@
   "email_note": "Geen eigen contactformulier of footer kunnen inzien (de website van de salon kon in deze omgeving niet rechtstreeks geladen worden). Meerdere onafhankelijke bedrijvengidsen (o.a. telefoonboek.nl, kappersalons.nl) vermelden willyshairstudio@gmail.com als contactadres — dit is niet op de bron zelf geverifieerd, dus controleer dit adres voor gebruik. Het domein willyshairstudio.nl bestaat en heeft actieve mailservers (MX via Strato/smtp.rzone.de); telefonisch zeker bereikbaar op 0165 303 261.",
   "note": "Adres, telefoonnummer, naam en 'sinds 1986' zijn consistent teruggevonden op meerdere onafhankelijke bronnen, waaronder de Ondernemersvereniging Wouw (lokale ondernemersvereniging, ovw-wouw.nl) waarvan de salon lid is. Openingsuren en exacte prijzen konden niet betrouwbaar bevestigd worden — daarom een algemene 'op afspraak'-tekst in plaats van een uurrooster, en geen prijslijst. De salon lijkt meerdere (deels verouderde/niet meer werkende) domeinnamen te hebben gehad, wat past bij een sterk verouderde webaanwezigheid.",
   "outreach": {
-    "status": "nieuw"
+    "status": "telefonisch",
+    "note": "Geen eigen contactformulier of footer kunnen inzien (de website van de salon kon in deze omgeving niet rechtstreeks geladen worden). Bellen: 0165 303 261."
   }
 }

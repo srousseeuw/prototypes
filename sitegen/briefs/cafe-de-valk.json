@@ -20,13 +20,34 @@
     "Zaal beschikbaar voor verjaardagen, communies en familiefeesten"
   ],
   "hours": [
-    ["Maandag", "9:00 – 00:00"],
-    ["Dinsdag", "9:00 – 00:00"],
-    ["Woensdag", "Gesloten"],
-    ["Donderdag", "9:00 – 00:00"],
-    ["Vrijdag", "9:00 – 00:00"],
-    ["Zaterdag", "9:00 – 00:00"],
-    ["Zondag", "9:00 – 00:00"]
+    [
+      "Maandag",
+      "9:00 – 00:00"
+    ],
+    [
+      "Dinsdag",
+      "9:00 – 00:00"
+    ],
+    [
+      "Woensdag",
+      "Gesloten"
+    ],
+    [
+      "Donderdag",
+      "9:00 – 00:00"
+    ],
+    [
+      "Vrijdag",
+      "9:00 – 00:00"
+    ],
+    [
+      "Zaterdag",
+      "9:00 – 00:00"
+    ],
+    [
+      "Zondag",
+      "9:00 – 00:00"
+    ]
   ],
   "room_booking": {
     "intro": "De zaal bij De Valk is al jaren de vaste plek in Wernhout voor een verjaardag, communie of familiefeest. Laat weten wat je van plan bent, dan wordt er meegedacht over wat mogelijk is.",
@@ -57,6 +78,7 @@
   "email_note": "Geen eigen website of domeinnaam gevonden voor Café De Valk — enkel vermeldingen op directories (telefoonboek.nl, De Telefoongids, Gouden Gids, Drimble, Oozo e.a.) en een Facebookpagina. Geen e-mailadres kunnen terugvinden op een bronpagina zelf; voorlopig enkel telefonisch bereikbaar op 076 597 2364.",
   "note": "Openingsuren (9:00–00:00, woensdag gesloten) komen van directory-aggregators (o.a. openingstijden.com) — niet bevestigd via een eigen site, dus voor de zekerheid navragen. Adres, telefoonnummer en de vermelding uit 1558 zijn wel op meerdere onafhankelijke bronnen consistent teruggevonden. Legale naam op sommige bronnen 'Café-Zaal De Valk VOF'.",
   "outreach": {
-    "status": "nieuw"
+    "status": "telefonisch",
+    "note": "Geen eigen website of domeinnaam gevonden voor Café De Valk — enkel vermeldingen op directories (telefoonboek. Bellen: 076 597 2364."
   }
 }

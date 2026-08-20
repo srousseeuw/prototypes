@@ -6,8 +6,19 @@
   "tagline": "Deskundige voetverzorging, in alle rust bij u in de buurt",
   "address": "Burgemeester de Regtstraat 2, 4715 HH Rucphen",
   "phone": "06 55 17 80 26",
-  "specialisaties": ["Medische pedicure", "Diabetische voet", "Reumatische voet", "Sportpedicure", "Nagelreparatie", "Manicure"],
-  "certifications": ["ProVoet-geregistreerd", "KRP-geregistreerd", "Stipezo-erkend"],
+  "specialisaties": [
+    "Medische pedicure",
+    "Diabetische voet",
+    "Reumatische voet",
+    "Sportpedicure",
+    "Nagelreparatie",
+    "Manicure"
+  ],
+  "certifications": [
+    "ProVoet-geregistreerd",
+    "KRP-geregistreerd",
+    "Stipezo-erkend"
+  ],
   "appointment_note": "Uitsluitend op afspraak — bel voor een moment dat u past",
   "hours_note": "Geen vaste inloopuren: iedere behandeling wordt telefonisch ingepland, in overleg over dag en tijdstip.",
   "highlights": [
@@ -21,6 +32,7 @@
   "email_note": "Geen e-mailadres teruggevonden. Voetylicious heeft geen eigen website, enkel vermeldingen op pedicure.nl, pedicure-in.nl, telefoonboek.nl en Cylex. Voor outreach voorlopig alleen telefonisch bereikbaar.",
   "note": "Adres is consistent teruggevonden op meerdere onafhankelijke pedicure-directories. Voor het telefoonnummer is gekozen voor 06 55 17 80 26, dat specifiek op de Voetylicious-pagina's van pedicure.nl en pedicure-in.nl staat; een los vast nummer (0165 850215) dook op via een verzamelpagina met meerdere Rucphense pedicures en kon niet betrouwbaar aan deze salon bevestigd worden, dus niet gebruikt. Openingstijden en oprichtingsjaar niet teruggevonden.",
   "outreach": {
-    "status": "nieuw"
+    "status": "telefonisch",
+    "note": "Geen e-mailadres teruggevonden. Bellen: 06 55 17 80 26."
   }
 }
