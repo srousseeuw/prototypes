@@ -8,7 +8,10 @@ def render(brief: dict) -> str:
     phone = esc(brief.get("phone", ""))
     about = esc(brief.get("about", ""))
     cta = esc(brief.get("cta_text", "Maak een afspraak"))
-    hours_html = build_hours_rows(brief.get("hours", []))
+    hours_note = esc(brief.get("hours_note", ""))
+    hours_html = build_hours_rows(brief.get("hours", [])) if brief.get("hours") else (
+        f'<p class="hours-note-text">{hours_note}</p>' if hours_note else ""
+    )
     highlights_html = build_highlights(brief.get("highlights", []), mark="▸")
     services_html = build_list(brief.get("services", []), item_class="service")
     maps_q = _maps_query(address)
@@ -201,6 +204,7 @@ def render(brief: dict) -> str:
     font-size: 0.94rem;
   }}
   .hours-row.closed span:last-child {{ color: var(--signal); }}
+  .hours-note-text {{ color: rgba(255,255,255,0.78); font-size: 0.98rem; }}
   .contact-block p {{ margin-bottom: 10px; color: rgba(255,255,255,0.8); }}
   .contact-block a.map-link {{
     display: inline-block;
