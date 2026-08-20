@@ -1,0 +1,4 @@
+# Alleen de hoofdpagina wordt doorgestuurd naar ocior.be. De prototypes zelf
+# blijven publiek bereikbaar op /<slug>/ — die links staan in de outreach-mails.
+# Het overzicht met contactstatussen staat op een apart, onraadbaar pad.
+/  https://ocior.be/  302

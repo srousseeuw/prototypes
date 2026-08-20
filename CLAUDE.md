@@ -42,9 +42,15 @@ Wanneer gevraagd wordt "maak een prototype voor [bedrijfsnaam] in Essen":
    ```
    python3 sitegen/build_index.py
    ```
-   Dit genereert `sites/index.html` opnieuw uit alle briefs. Bewerk dat
-   bestand nooit met de hand — draai dit script na elk nieuw of verwijderd
+   Dit genereert het overzicht opnieuw uit alle briefs. Bewerk die pagina
+   nooit met de hand — draai dit script na elk nieuw of verwijderd
    prototype, dan kan het overzicht niet uit sync lopen.
+
+   Let op: het overzicht staat **niet** op de hoofdpagina, maar op het pad
+   in `OVERZICHT_PAD` bovenaan `build_index.py`. Het toont contactstatussen
+   en eigen notities, dus het hoort niet vindbaar te zijn. De hoofdpagina
+   stuurt door naar ocior.be via `sites/_redirects`; de prototypes zelf
+   blijven gewoon publiek op `/<slug>/`.
 
 5. **Committen en pushen**
    ```

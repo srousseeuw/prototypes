@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """
-Bouwt de overzichtspagina sites/index.html uit alle briefs in sitegen/briefs/.
+Bouwt de overzichtspagina uit alle briefs in sitegen/briefs/.
 Gebruik: python3 sitegen/build_index.py
 
 Draai dit na elk nieuw of verwijderd prototype — dan kan het overzicht nooit
-uit sync lopen met de briefs. Bewerk sites/index.html niet met de hand.
+uit sync lopen met de briefs. Bewerk de gegenereerde pagina niet met de hand.
+
+Het bord staat NIET op de hoofdpagina maar op OVERZICHT_PAD hieronder, omdat
+het contactstatussen en eigen notities toont. De hoofdpagina stuurt door naar
+ocior.be (zie sites/_redirects). De prototypes zelf blijven publiek.
 
 OUTREACH BIJHOUDEN
 Zet in de brief van een bedrijf een "outreach" veld; het overzicht toont dan
@@ -21,6 +25,11 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).parent
+
+# Het overzicht staat niet op de hoofdpagina: het toont contactstatussen en
+# eigen notities. Wie de map niet kent, vindt hem niet. Wijzig je dit pad,
+# dan verhuist het bord mee bij de volgende build.
+OVERZICHT_PAD = "overzicht-0pwa3sviu36g"
 
 # Leesbare sectorlabels; onbekende sectoren vallen terug op de sectornaam zelf.
 SECTOR_LABELS = {
@@ -405,7 +414,9 @@ def render(briefs) -> str:
 
 def main():
     briefs = load_briefs()
-    out = ROOT.parent / "sites" / "index.html"
+    map_ = ROOT.parent / "sites" / OVERZICHT_PAD
+    map_.mkdir(parents=True, exist_ok=True)
+    out = map_ / "index.html"
     out.write_text(render(briefs), encoding="utf-8")
     print(f"✓ Overzicht bijgewerkt: {out} ({len(briefs)} prototypes)")
 
