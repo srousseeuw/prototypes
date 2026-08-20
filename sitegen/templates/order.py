@@ -50,11 +50,28 @@ def render(brief: dict, theme: dict = None) -> str:
     van de zaak zelf voor dit live gaat.
   </div>"""
 
+    # Korte promo's blijven pillen; die zijn kort genoeg.
     deals_html = ""
     if deals:
         chips = "\n".join(f'      <span class="deal">{esc(d)}</span>' for d in deals)
         deals_html = f"""  <div class="deals">
 {chips}
+  </div>"""
+
+    # Afhalen/leveren is een zin, geen label — dus een kaartje, geen pil.
+    service_html = ""
+    service = brief.get("order_service", [])
+    if service:
+        kaarten = "\n".join(
+            f"""      <div class="svc-card">
+        <span class="svc-title">{esc(s.get('title', ''))}</span>
+        <span class="svc-detail">{esc(s.get('detail', ''))}</span>
+        {f'<span class="svc-meta">{esc(s["meta"])}</span>' if s.get("meta") else ""}
+      </div>"""
+            for s in service
+        )
+        service_html = f"""  <div class="services">
+{kaarten}
   </div>"""
 
     sections = []
@@ -155,14 +172,40 @@ def render(brief: dict, theme: dict = None) -> str:
     border-radius: 999px;
   }}
 
+  /* Afhalen / leveren: hele zinnen, dus kaartjes in plaats van pillen. */
+  .services {{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+  }}
+  .svc-card {{
+    display: flex; flex-direction: column; gap: 3px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }}
+  .svc-title {{
+    font-size: 0.74rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent);
+  }}
+  .svc-detail {{ font-weight: 600; font-size: 1rem; }}
+  .svc-meta {{ color: var(--ink-soft); font-size: 0.88rem; }}
+
   .catnav {{
     position: sticky; top: 0; z-index: 20;
     background: var(--paper);
     border-bottom: 1px solid var(--line);
     margin-top: 26px;
-    overflow-x: auto;
   }}
-  .catnav .wrap {{ display: flex; gap: 6px; padding-top: 10px; padding-bottom: 10px; }}
+  /* Op een breed scherm past alles: laten afbreken in plaats van schuiven. */
+  .catnav .wrap {{
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding-top: 10px; padding-bottom: 10px;
+  }}
   .catnav a {{
     white-space: nowrap;
     font-size: 0.86rem; font-weight: 600;
@@ -170,8 +213,9 @@ def render(brief: dict, theme: dict = None) -> str:
     padding: 7px 14px;
     border-radius: 999px;
     color: var(--ink-soft);
+    border: 1px solid transparent;
   }}
-  .catnav a:hover {{ background: rgba(20,23,28,0.06); color: var(--ink); }}
+  .catnav a:hover {{ background: rgba(20,23,28,0.06); color: var(--ink); border-color: var(--line); }}
 
   .layout {{ display: grid; grid-template-columns: 1fr 330px; gap: 40px; align-items: start; padding: 30px 0 80px; }}
 
@@ -264,6 +308,29 @@ def render(brief: dict, theme: dict = None) -> str:
     .layout {{ grid-template-columns: 1fr; }}
     .cart {{ position: static; }}
   }}
+
+  /* Op een gsm passen twintig categorieën niet op een paar regels, dus daar
+     wél schuiven — maar met een zichtbare afloop, zodat het bedoeld oogt. */
+  @media (max-width: 700px) {{
+    .catnav {{ position: relative; }}
+    .catnav .wrap {{
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-right: 34px;
+    }}
+    .catnav .wrap::-webkit-scrollbar {{ display: none; }}
+    .catnav a {{ scroll-snap-align: start; }}
+    .catnav::after {{
+      content: "";
+      position: absolute; top: 0; right: 0; bottom: 1px;
+      width: 34px;
+      pointer-events: none;
+      background: linear-gradient(to right, transparent, var(--paper));
+    }}
+  }}
   a:focus-visible, button:focus-visible, select:focus-visible {{ outline: 2px solid var(--accent); outline-offset: 2px; }}
 </style>
 </head>
@@ -286,6 +353,7 @@ def render(brief: dict, theme: dict = None) -> str:
 <div class="wrap">
 {disclaimer}
 {deals_html}
+{service_html}
 </div>
 
 <nav class="catnav">

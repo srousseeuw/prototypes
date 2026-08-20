@@ -1220,9 +1220,17 @@
     }
   ],
   "menu_prices_verified": true,
-  "order_deals": [
-    "Afhalen in de Stationsstraat — ongeveer 40 min",
-    "Leveren in 2910 Essen — ongeveer 30 min, minimum €20"
+  "order_service": [
+    {
+      "title": "Afhalen",
+      "detail": "Stationsstraat 150, Essen",
+      "meta": "Klaar in ongeveer 40 minuten"
+    },
+    {
+      "title": "Leveren",
+      "detail": "In 2910 Essen",
+      "meta": "Ongeveer 30 minuten · minimum €20"
+    }
   ],
   "outreach": {
     "status": "nieuw",
