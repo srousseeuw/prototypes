@@ -51,5 +51,9 @@
   "about": "Een vertrouwd adres in Essen voor wie houdt van bloemen met karakter. Boeketten worden ter plaatse met zorg samengesteld, aangevuld met een mooie keuze kamer- en tuinplanten, en kruiden- en groenteplantjes voor de moestuin. Naast de winkel staat Bloemen Matheusen ook regelmatig op de lokale markten in de streek.",
   "cta_text": "Bestel je boeket",
   "accent_context": "florist_fresh",
-  "email": "bloemenmatheusen@outlook.be"
+  "email": "bloemenmatheusen@outlook.be",
+  "outreach": {
+    "status": "gecontacteerd",
+    "date": "2026-08-20"
+  }
 }
