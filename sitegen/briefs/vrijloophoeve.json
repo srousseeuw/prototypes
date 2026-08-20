@@ -55,7 +55,8 @@
   "cta_text": "Kom zelf je mandje vullen",
   "accent_context": "farm_earthy",
   "outreach": {
-    "status": "telefonisch",
-    "note": "Geen website of e-mailadres. Via Facebook of bellen: 0486 63 50 80."
+    "status": "nieuw",
+    "note": "Geen website of e-mailadres. Via Facebook of bellen: 0486 63 50 80.",
+    "only_phone": true
   }
 }

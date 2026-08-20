@@ -47,7 +47,8 @@
   "accent": "#b5793a",
   "signature_word": "Stamcafé",
   "outreach": {
-    "status": "telefonisch",
-    "note": "Geen website of e-mailadres. Via Facebook of bellen: 03 284 85 45."
+    "status": "nieuw",
+    "note": "Geen website of e-mailadres. Via Facebook of bellen: 03 284 85 45.",
+    "only_phone": true
   }
 }

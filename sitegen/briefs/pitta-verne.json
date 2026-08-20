@@ -1010,7 +1010,8 @@
   ],
   "menu_prices_verified": true,
   "outreach": {
-    "status": "telefonisch",
-    "note": "Geen adres publiek; domein heeft wel mailservers. Gok info@pittaverne.be of bel 03 677 27 77."
+    "status": "nieuw",
+    "note": "Geen adres publiek; domein heeft wel mailservers. Gok info@pittaverne.be of bel 03 677 27 77.",
+    "only_phone": true
   }
 }

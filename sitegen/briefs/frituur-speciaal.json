@@ -47,7 +47,8 @@
   "cta_text": "Kom langs voor een verse portie frieten",
   "accent": "#e07a1f",
   "outreach": {
-    "status": "telefonisch",
-    "note": "Geen e-mailadres publiek. Via Facebook Messenger of bellen: 03 677 06 88."
+    "status": "nieuw",
+    "note": "Geen e-mailadres publiek. Via Facebook Messenger of bellen: 03 677 06 88.",
+    "only_phone": true
   }
 }

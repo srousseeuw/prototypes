@@ -66,7 +66,6 @@ SECTOR_LABELS = {
 STATUSSEN = [
     ("nieuw", "Nog niet benaderd", "#6b7280"),
     ("gepland", "Klaar om te mailen", "#b45309"),
-    ("telefonisch", "Enkel telefonisch", "#0f766e"),
     ("gecontacteerd", "Gecontacteerd", "#2f5fd0"),
     ("gereageerd", "Heeft gereageerd", "#7c3aed"),
     ("klant", "Klant", "#15803d"),
@@ -79,6 +78,13 @@ def esc(s):
     if s is None:
         return ""
     return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+TELEFOON_LABEL = "Enkel telefonisch"
+TELEFOON_KLEUR = "#0f766e"
+
+def enkel_telefonisch(brief):
+    """Kanaal, los van de funnelstatus: is mailen hier geen optie?"""
+    return bool((brief.get("outreach") or {}).get("only_phone"))
 
 def outreach_of(brief):
     """Geeft (status, label, detailtekst) voor een brief."""
@@ -113,17 +119,25 @@ def render(briefs) -> str:
     ordered = sorted(briefs, key=lambda b: b["business_name"].lower())
 
     tally = {key: 0 for key, _, _ in STATUSSEN}
+    tel_aantal = [0]
     cards = []
     for brief in ordered:
         sector = brief.get("sector", "bakery")
         label = esc(SECTOR_LABELS.get(sector, sector.capitalize()))
         status, status_label, detail = outreach_of(brief)
         tally[status] += 1
+        tel = enkel_telefonisch(brief)
+        if tel:
+            tel_aantal[0] += 1
+        tel_badge = f'<span class="badge badge-telefonisch">{TELEFOON_LABEL}</span>' if tel else ""
         detail_html = f'<span class="card-detail">{esc(detail)}</span>' if detail else ""
-        cards.append(f"""      <a class="card" href="/{esc(brief['slug'])}/" data-status="{status}">
+        cards.append(f"""      <a class="card" href="/{esc(brief['slug'])}/" data-status="{status}" data-phone="{'1' if tel else '0'}">
         <span class="card-top">
           <span class="card-sector">{label}</span>
-          <span class="badge badge-{status}">{esc(status_label)}</span>
+          <span class="badges">
+            <span class="badge badge-{status}">{esc(status_label)}</span>
+            {tel_badge}
+          </span>
         </span>
         <span class="card-name">{esc(brief['business_name'])}</span>
         <span class="card-cat">{esc(brief.get('category', ''))}</span>
@@ -138,10 +152,15 @@ def render(briefs) -> str:
                 f'      <button class="filter" type="button" data-filter="{key}">'
                 f'{esc(label)} <span class="filter-n">{tally[key]}</span></button>'
             )
+    if tel_aantal[0]:
+        filters.append(
+            f'      <button class="filter filter-kanaal" type="button" data-filter="telefonisch">'
+            f'{TELEFOON_LABEL} <span class="filter-n">{tel_aantal[0]}</span></button>'
+        )
     badge_css = "\n".join(
         f"  .badge-{key} {{ color: {kleur}; border-color: {kleur}33; background: {kleur}14; }}"
         for key, _, kleur in STATUSSEN
-    )
+    ) + f"\n  .badge-telefonisch {{ color: {TELEFOON_KLEUR}; border-color: {TELEFOON_KLEUR}33; background: {TELEFOON_KLEUR}14; }}"
 
     return f"""<!DOCTYPE html>
 <html lang="nl">
@@ -228,6 +247,9 @@ def render(briefs) -> str:
     background: var(--ink); border-color: var(--ink); color: #fff;
   }}
   .filter-n {{ font-family: var(--font-mono); font-size: 0.76rem; opacity: 0.65; margin-left: 3px; }}
+  /* Kanaalfilter staat los van de funnelstatus. */
+  .filter-kanaal {{ border-style: dashed; }}
+  .filter-kanaal.is-active {{ border-style: solid; }}
 
   main {{ padding: 20px 0 72px; }}
   .grid {{
@@ -254,9 +276,10 @@ def render(briefs) -> str:
   }}
   .card.is-hidden {{ display: none; }}
   .card-top {{
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: flex-start; justify-content: space-between;
     gap: 10px; margin-bottom: 6px;
   }}
+  .badges {{ display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; }}
   .card-sector {{
     font-family: var(--font-mono);
     font-size: 0.68rem;
@@ -335,7 +358,11 @@ def render(briefs) -> str:
       knoppen.forEach((k) => k.classList.toggle('is-active', k === knop));
       let zichtbaar = 0;
       kaarten.forEach((kaart) => {{
-        const toon = filter === 'alles' || kaart.dataset.status === filter;
+        // "telefonisch" is een kanaal, geen status: een kaart kan dus in
+        // twee filters tegelijk zitten.
+        const toon = filter === 'alles'
+          || (filter === 'telefonisch' ? kaart.dataset.phone === '1'
+                                       : kaart.dataset.status === filter);
         kaart.classList.toggle('is-hidden', !toon);
         if (toon) zichtbaar++;
       }});

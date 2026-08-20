@@ -55,7 +55,8 @@
   "cta_text": "Kom langs in de winkel",
   "accent": "#c6ff2f",
   "outreach": {
-    "status": "telefonisch",
-    "note": "Domein fietsenkris.be heeft geen DNS meer — mail bouncet. Bellen: 03 677 12 14."
+    "status": "nieuw",
+    "note": "Domein fietsenkris.be heeft geen DNS meer — mail bouncet. Bellen: 03 677 12 14.",
+    "only_phone": true
   }
 }

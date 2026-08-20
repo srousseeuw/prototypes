@@ -83,8 +83,13 @@ waarheid is:
 ```
 
 Statussen: `nieuw` (standaard als het veld ontbreekt), `gepland`,
-`telefonisch` (geen bruikbaar e-mailadres), `gecontacteerd`, `gereageerd`, `klant`, `geen-vervolg`. `date` en `note`
+`gecontacteerd`, `gereageerd`, `klant`, `geen-vervolg`. `date` en `note`
 zijn optioneel en verschijnen klein onderaan de kaart.
+
+Kan een zaak niet gemaild worden? Zet daarnaast `"only_phone": true` in
+hetzelfde outreach-blok. Dat is een **kanaal**, geen fase: de kaart houdt
+haar gewone status en verschijnt daarnaast onder "Enkel telefonisch". Een
+zaak die je opbelde, staat dus tegelijk bij `gecontacteerd` én daar.
 
 Na het aanpassen van een status: `python3 sitegen/build_index.py` draaien,
 dan committen en pushen.

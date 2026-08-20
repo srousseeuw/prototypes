@@ -38,7 +38,8 @@
   "cta_text": "Maak een afspraak voor een oogmeting",
   "hours_note": "Maandag en zondag gesloten",
   "outreach": {
-    "status": "telefonisch",
-    "note": "Site optiekmichiels.be onbereikbaar, geen e-mailadres gevonden. Bellen: 03 667 54 88."
+    "status": "nieuw",
+    "note": "Site optiekmichiels.be onbereikbaar, geen e-mailadres gevonden. Bellen: 03 667 54 88.",
+    "only_phone": true
   }
 }

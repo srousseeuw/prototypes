@@ -131,7 +131,8 @@
   ],
   "booking_prices_verified": false,
   "outreach": {
-    "status": "telefonisch",
-    "note": "Publiceert bewust geen e-mailadres: afspraken enkel telefonisch. Contactformulier of 03 677 03 80."
+    "status": "nieuw",
+    "note": "Publiceert bewust geen e-mailadres: afspraken enkel telefonisch. Contactformulier of 03 677 03 80.",
+    "only_phone": true
   }
 }

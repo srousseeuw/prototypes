@@ -78,7 +78,8 @@
   "email_note": "Geen eigen website of domeinnaam gevonden voor Café De Valk — enkel vermeldingen op directories (telefoonboek.nl, De Telefoongids, Gouden Gids, Drimble, Oozo e.a.) en een Facebookpagina. Geen e-mailadres kunnen terugvinden op een bronpagina zelf; voorlopig enkel telefonisch bereikbaar op 076 597 2364.",
   "note": "Openingsuren (9:00–00:00, woensdag gesloten) komen van directory-aggregators (o.a. openingstijden.com) — niet bevestigd via een eigen site, dus voor de zekerheid navragen. Adres, telefoonnummer en de vermelding uit 1558 zijn wel op meerdere onafhankelijke bronnen consistent teruggevonden. Legale naam op sommige bronnen 'Café-Zaal De Valk VOF'.",
   "outreach": {
-    "status": "telefonisch",
-    "note": "Geen eigen website of domeinnaam gevonden voor Café De Valk — enkel vermeldingen op directories (telefoonboek. Bellen: 076 597 2364."
+    "status": "nieuw",
+    "note": "Geen eigen website of domeinnaam gevonden voor Café De Valk — enkel vermeldingen op directories (telefoonboek. Bellen: 076 597 2364.",
+    "only_phone": true
   }
 }
