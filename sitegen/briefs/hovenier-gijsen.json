@@ -1,0 +1,37 @@
+{
+  "slug": "hovenier-gijsen",
+  "business_name": "Hoveniersbedrijf Toon Gijsen",
+  "sector": "hovenier",
+  "category": "Hovenier — tuinontwerp, aanleg en onderhoud",
+  "tagline": "Zelfstandig hovenier voor Zundert, Achtmaal en omstreken",
+  "address": "Blokenstraat 9, 4885 JH Achtmaal",
+  "phone": "076 598 54 42",
+  "email_note": "Geen (werkend) eigen domein teruggevonden: hovenier-gijsen.nl staat nog in oude bedrijvengidsen vermeld, maar het domein resolvet in deze omgeving niet meer en er is geen Facebookpagina of ander e-mailadres gevonden. Outreach voorlopig enkel telefonisch: 076 598 54 42 (vast) of 06 55 98 22 02 (mobiel).",
+  "service_area": "Achtmaal, Zundert en omstreken",
+  "eyebrow": "Hovenier voor Zundert & Achtmaal e.o.",
+  "stat1_value": "1",
+  "stat1_label": "vakman, persoonlijk aanspreekpunt",
+  "stat2_value": "Zundert",
+  "stat2_label": "en Achtmaal e.o.",
+  "hours_note": "Geen vaste kantooruren bekend — bel voor een afspraak of een vrijblijvende offerte, op het vaste nummer 076 598 54 42 of mobiel 06 55 98 22 02.",
+  "services": [
+    "Tuinontwerp en tuinarchitectuur",
+    "Volledige tuinaanleg",
+    "Regelmatig tuinonderhoud",
+    "Tuinadvies voor particulieren en bedrijven"
+  ],
+  "highlights": [
+    "Zelfstandig hovenier met persoonlijk contact van ontwerp tot oplevering",
+    "Werkt voor zowel particulieren als bedrijven",
+    "Werkgebied Achtmaal, Zundert en omstreken"
+  ],
+  "about": "Hoveniersbedrijf Toon Gijsen is een zelfstandige hovenier uit Achtmaal, actief voor particulieren en bedrijven in Zundert, Achtmaal en omstreken. Van tuinontwerp en volledige tuinaanleg tot regelmatig onderhoud: één vaste hovenier als aanspreekpunt, van eerste schets tot afgewerkte tuin.",
+  "cta_text": "Vraag een offerte aan",
+  "accent_context": "garden_service",
+  "note": "Adres, telefoon (vast en mobiel) en KvK-nummer (20055969, gevestigd als eenmanszaak met 1 medewerker) zijn consistent teruggevonden op meerdere onafhankelijke bedrijvengidsen (Telefoonboek.nl, Oozo.nl, nederlandinbedrijf.nl, hovenier.website, Drimble e.a.), over meerdere jaren. Geen van deze bronnen kon rechtstreeks gefetcht worden — WebFetch naar externe bedrijfs- en gidssites was deze sessie geblokkeerd door het netwerkbeleid (EGRESS_BLOCKED op zowat elk extern domein, inclusief het eigen dode domein en Facebook), dus alle gegevens komen uit WebSearch-samenvattingen die onderling consistent zijn, niet uit rechtstreeks ingeziene paginas. Een los e-mailadres (tuin@hovenier-gijsen.nl) dook op in één samenvatting maar kon niet op een bronpagina zelf bevestigd worden en hoort bovendien bij een domein dat niet meer resolvet — daarom bewust niet als e-mailadres opgenomen. Geen oprichtingsjaar teruggevonden, vandaar geen 'sinds ...' claim. Eén (oude, negatieve) review uit 2016 gevonden op Werkspot; geen aanwijzing dat de zaak inmiddels gestopt of uitgeschreven is, maar dit is niet 100% te bevestigen zonder rechtstreekse KvK-raadpleging.",
+  "outreach": {
+    "status": "nieuw",
+    "note": "Geen bruikbaar e-mailadres gevonden, enkel telefonisch bereikbaar.",
+    "only_phone": true
+  }
+}

@@ -1,53 +1,14 @@
-from .common import esc, build_hours_rows, build_highlights, build_list, maps_query as _maps_query
-
-
-def _build_services(items):
-    lis = [f'<li class="svc"><span class="svc-mark"></span>{esc(i)}</li>' for i in items]
-    return "\n".join(lis)
-
-
-def render(brief: dict) -> str:
-    name = esc(brief["business_name"])
-    category = esc(brief.get("category", ""))
-    tagline = esc(brief.get("tagline", ""))
-    address = esc(brief.get("address", ""))
-    phone = esc(brief.get("phone", ""))
-    email = esc(brief.get("email", ""))
-    about = esc(brief.get("about", ""))
-    cta = esc(brief.get("cta_text", "Vraag een offerte aan"))
-    since = esc(str(brief.get("since", "")))
-    area = esc(brief.get("service_area", ""))
-    hours_note = esc(brief.get("hours_note", ""))
-    hours_html = build_hours_rows(brief.get("hours", [])) if brief.get("hours") else (
-        f'<p class="hours-note-text">{hours_note}</p>' if hours_note else ""
-    )
-    highlights_html = build_highlights(brief.get("highlights", []), mark="✓")
-    services_html = _build_services(brief.get("services", []))
-    maps_q = _maps_query(address)
-
-    eyebrow = esc(brief.get("eyebrow", f"Hovenier in Essen & omstreken · sinds {since}"))
-    stat1_value = esc(str(brief.get("stat1_value", since)))
-    stat1_label = esc(brief.get("stat1_label", "actief in Essen"))
-    stat2_value = esc(brief.get("stat2_value", "20 km"))
-    stat2_label = esc(brief.get("stat2_label", "werkgebied rond Essen"))
-
-    mail_btn = f'<a class="btn btn-ghost" href="mailto:{email}">Mail ons</a>' if email else ""
-    email_row = (
-        f'<div class="info-row"><span>E-mail</span><a href="mailto:{email}">{email}</a></div>'
-        if email else ""
-    )
-
-    return f"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{name} — {category}</title>
-<meta name="description" content="{tagline}. {address}.">
+<title>Hoveniersbedrijf Toon Gijsen — Hovenier — tuinontwerp, aanleg en onderhoud</title>
+<meta name="description" content="Zelfstandig hovenier voor Zundert, Achtmaal en omstreken. Blokenstraat 9, 4885 JH Achtmaal.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {{
+  :root {
     --grass: #2f7d32;
     --grass-deep: #1e5522;
     --grass-bright: #57b34a;
@@ -58,40 +19,40 @@ def render(brief: dict) -> str:
     --line: #d8d2c0;
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
-  }}
-  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-  body {{
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
     font-family: var(--font-body);
     background: var(--sand);
     color: var(--ink);
     line-height: 1.6;
-  }}
-  a {{ color: inherit; }}
-  .wrap {{ max-width: 1040px; margin: 0 auto; padding: 0 24px; }}
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 
   /* diagonal "mown lawn" stripe pattern used as a recurring signature texture */
-  .stripes {{
+  .stripes {
     background-image: repeating-linear-gradient(
       115deg,
       var(--grass) 0px, var(--grass) 34px,
       var(--grass-deep) 34px, var(--grass-deep) 68px
     );
-  }}
+  }
 
-  header.top {{
+  header.top {
     background: var(--grass-deep);
     padding: 16px 0;
-  }}
-  header.top .wrap {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
-  .brand {{
+  }
+  header.top .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .brand {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 1.15rem;
     color: #fff;
     letter-spacing: -0.01em;
-  }}
-  .brand span {{ color: var(--grass-bright); }}
-  .top-cta {{
+  }
+  .brand span { color: var(--grass-bright); }
+  .top-cta {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 0.9rem;
@@ -100,22 +61,22 @@ def render(brief: dict) -> str:
     padding: 9px 18px;
     border-radius: 999px;
     text-decoration: none;
-  }}
+  }
 
-  .hero {{
+  .hero {
     position: relative;
     padding: 64px 0 56px;
     color: #fff;
     overflow: hidden;
-  }}
-  .hero .stripes {{ position: absolute; inset: 0; opacity: 1; }}
-  .hero::after {{
+  }
+  .hero .stripes { position: absolute; inset: 0; opacity: 1; }
+  .hero::after {
     content: "";
     position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(20,40,20,0.35), rgba(15,30,15,0.75));
-  }}
-  .hero .wrap {{ position: relative; z-index: 1; }}
-  .hero .eyebrow {{
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero .eyebrow {
     font-family: var(--font-display);
     text-transform: uppercase;
     letter-spacing: 0.14em;
@@ -123,23 +84,23 @@ def render(brief: dict) -> str:
     color: var(--sand);
     opacity: 0.9;
     margin-bottom: 14px;
-  }}
-  .hero h1 {{
+  }
+  .hero h1 {
     font-family: var(--font-display);
     font-size: clamp(2.1rem, 5vw, 3.2rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     max-width: 18ch;
     margin-bottom: 16px;
-  }}
-  .hero p.tag {{
+  }
+  .hero p.tag {
     font-size: 1.1rem;
     max-width: 46ch;
     color: #eef4e6;
     margin-bottom: 28px;
-  }}
-  .hero-actions {{ display: flex; gap: 12px; flex-wrap: wrap; }}
-  .btn {{
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
     display: inline-block;
     font-family: var(--font-display);
     font-weight: 600;
@@ -147,41 +108,41 @@ def render(brief: dict) -> str:
     padding: 13px 26px;
     border-radius: 6px;
     text-decoration: none;
-  }}
-  .btn-primary {{ background: var(--soil); color: #fff; }}
-  .btn-ghost {{ background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.5); }}
+  }
+  .btn-primary { background: var(--soil); color: #fff; }
+  .btn-ghost { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.5); }
 
-  .stat-strip {{
+  .stat-strip {
     background: var(--soil-deep);
     color: var(--sand);
     padding: 18px 0;
-  }}
-  .stat-strip .wrap {{
+  }
+  .stat-strip .wrap {
     display: flex; gap: 28px; flex-wrap: wrap; justify-content: space-between;
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 0.92rem;
-  }}
-  .stat-strip .stat b {{ color: var(--grass-bright); font-size: 1.1rem; margin-right: 6px; }}
+  }
+  .stat-strip .stat b { color: var(--grass-bright); font-size: 1.1rem; margin-right: 6px; }
 
-  section {{ padding: 56px 0; }}
-  h2 {{
+  section { padding: 56px 0; }
+  h2 {
     font-family: var(--font-display);
     font-size: 1.7rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     margin-bottom: 8px;
     color: var(--grass-deep);
-  }}
-  .section-sub {{ color: #4a5442; margin-bottom: 28px; max-width: 56ch; }}
+  }
+  .section-sub { color: #4a5442; margin-bottom: 28px; max-width: 56ch; }
 
-  .services-grid {{
+  .services-grid {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
-  }}
-  .svc {{
+  }
+  .svc {
     background: #fff;
     border: 1px solid var(--line);
     border-left: 4px solid var(--grass);
@@ -191,39 +152,39 @@ def render(brief: dict) -> str:
     display: flex;
     align-items: center;
     gap: 12px;
-  }}
-  .svc-mark {{
+  }
+  .svc-mark {
     flex-shrink: 0;
     width: 10px; height: 10px;
     border-radius: 2px;
     background: var(--soil);
     transform: rotate(45deg);
-  }}
+  }
 
-  .split {{
+  .split {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 40px;
     align-items: start;
-  }}
-  @media (max-width: 780px) {{ .split {{ grid-template-columns: 1fr; }} }}
+  }
+  @media (max-width: 780px) { .split { grid-template-columns: 1fr; } }
 
-  .about-card {{
+  .about-card {
     background: #fff;
     border: 1px solid var(--line);
     border-radius: 10px;
     padding: 28px;
-  }}
-  .about-card p {{ margin-bottom: 14px; color: #333c2c; }}
-  ul.highlights {{ list-style: none; margin-top: 16px; }}
-  ul.highlights li {{
+  }
+  .about-card p { margin-bottom: 14px; color: #333c2c; }
+  ul.highlights { list-style: none; margin-top: 16px; }
+  ul.highlights li {
     display: flex; gap: 10px; align-items: flex-start;
     padding: 8px 0;
     border-bottom: 1px dashed var(--line);
     font-size: 0.95rem;
-  }}
-  ul.highlights li:last-child {{ border-bottom: none; }}
-  ul.highlights .mark {{
+  }
+  ul.highlights li:last-child { border-bottom: none; }
+  ul.highlights .mark {
     flex-shrink: 0;
     width: 22px; height: 22px;
     border-radius: 50%;
@@ -232,29 +193,29 @@ def render(brief: dict) -> str:
     display: flex; align-items: center; justify-content: center;
     font-size: 0.75rem;
     font-weight: 700;
-  }}
+  }
 
-  .info-card {{
+  .info-card {
     background: var(--grass-deep);
     color: #fff;
     border-radius: 10px;
     padding: 28px;
-  }}
-  .info-card h3 {{
+  }
+  .info-card h3 {
     font-family: var(--font-display);
     font-size: 1.1rem;
     margin-bottom: 14px;
-  }}
-  .info-row {{ display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.92rem; border-bottom: 1px solid rgba(255,255,255,0.14); }}
-  .info-row span:first-child {{ color: #cfe0c6; }}
-  .info-row a {{ text-decoration: none; color: #fff; font-weight: 600; }}
+  }
+  .info-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.92rem; border-bottom: 1px solid rgba(255,255,255,0.14); }
+  .info-row span:first-child { color: #cfe0c6; }
+  .info-row a { text-decoration: none; color: #fff; font-weight: 600; }
 
-  .hours-block {{ margin-top: 18px; }}
-  .hours-row {{ display: flex; justify-content: space-between; font-size: 0.88rem; padding: 4px 0; }}
-  .hours-row.closed {{ opacity: 0.55; }}
-  .hours-note-text {{ font-size: 0.88rem; color: #cfe0c6; }}
+  .hours-block { margin-top: 18px; }
+  .hours-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 4px 0; }
+  .hours-row.closed { opacity: 0.55; }
+  .hours-note-text { font-size: 0.88rem; color: #cfe0c6; }
 
-  .area-strip {{
+  .area-strip {
     background: var(--sand);
     border: 1px dashed var(--soil);
     border-radius: 8px;
@@ -262,52 +223,52 @@ def render(brief: dict) -> str:
     margin-top: 18px;
     font-size: 0.88rem;
     color: var(--soil-deep);
-  }}
+  }
 
-  .cta-band {{
+  .cta-band {
     background: var(--soil-deep);
     color: #fff;
     padding: 48px 0;
     text-align: center;
-  }}
-  .cta-band h2 {{ color: #fff; }}
-  .cta-band .btn-primary {{ background: var(--grass); margin-top: 18px; }}
+  }
+  .cta-band h2 { color: #fff; }
+  .cta-band .btn-primary { background: var(--grass); margin-top: 18px; }
 
-  footer {{
+  footer {
     background: var(--ink);
     color: #b9c2ae;
     padding: 26px 0;
     font-size: 0.82rem;
     text-align: center;
-  }}
-  footer a {{ color: var(--grass-bright); }}
+  }
+  footer a { color: var(--grass-bright); }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <div class="brand">{name.split()[0] if name else ""}<span>{" ".join(name.split()[1:])}</span></div>
-    <a class="top-cta" href="tel:{phone}">Bel voor advies</a>
+    <div class="brand">Hoveniersbedrijf<span>Toon Gijsen</span></div>
+    <a class="top-cta" href="tel:076 598 54 42">Bel voor advies</a>
   </div>
 </header>
 
 <section class="hero stripes">
   <div class="wrap">
-    <div class="eyebrow">{eyebrow}</div>
-    <h1>{name}</h1>
-    <p class="tag">{tagline}</p>
+    <div class="eyebrow">Hovenier voor Zundert &amp; Achtmaal e.o.</div>
+    <h1>Hoveniersbedrijf Toon Gijsen</h1>
+    <p class="tag">Zelfstandig hovenier voor Zundert, Achtmaal en omstreken</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="tel:{phone}">{cta}</a>
-      {mail_btn}
+      <a class="btn btn-primary" href="tel:076 598 54 42">Vraag een offerte aan</a>
+      
     </div>
   </div>
 </section>
 
 <div class="stat-strip">
   <div class="wrap">
-    <div class="stat"><b>{stat1_value}</b>{stat1_label}</div>
-    <div class="stat"><b>{stat2_value}</b>{stat2_label}</div>
+    <div class="stat"><b>1</b>vakman, persoonlijk aanspreekpunt</div>
+    <div class="stat"><b>Zundert</b>en Achtmaal e.o.</div>
     <div class="stat"><b>op maat</b>vrijblijvende offerte</div>
   </div>
 </div>
@@ -317,7 +278,10 @@ def render(brief: dict) -> str:
     <h2>Onze diensten</h2>
     <p class="section-sub">Van eerste aanleg tot regelmatig onderhoud — één aanspreekpunt voor uw hele tuin.</p>
     <ul class="services-grid">
-      {services_html}
+      <li class="svc"><span class="svc-mark"></span>Tuinontwerp en tuinarchitectuur</li>
+<li class="svc"><span class="svc-mark"></span>Volledige tuinaanleg</li>
+<li class="svc"><span class="svc-mark"></span>Regelmatig tuinonderhoud</li>
+<li class="svc"><span class="svc-mark"></span>Tuinadvies voor particulieren en bedrijven</li>
     </ul>
   </div>
 </section>
@@ -325,21 +289,23 @@ def render(brief: dict) -> str:
 <section id="over" style="background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
   <div class="wrap split">
     <div class="about-card">
-      <h2>Over {name}</h2>
-      <p>{about}</p>
+      <h2>Over Hoveniersbedrijf Toon Gijsen</h2>
+      <p>Hoveniersbedrijf Toon Gijsen is een zelfstandige hovenier uit Achtmaal, actief voor particulieren en bedrijven in Zundert, Achtmaal en omstreken. Van tuinontwerp en volledige tuinaanleg tot regelmatig onderhoud: één vaste hovenier als aanspreekpunt, van eerste schets tot afgewerkte tuin.</p>
       <ul class="highlights">
-        {highlights_html}
+        <li><span class="mark">✓</span>Zelfstandig hovenier met persoonlijk contact van ontwerp tot oplevering</li>
+<li><span class="mark">✓</span>Werkt voor zowel particulieren als bedrijven</li>
+<li><span class="mark">✓</span>Werkgebied Achtmaal, Zundert en omstreken</li>
       </ul>
     </div>
     <div class="info-card">
       <h3>Contact &amp; praktisch</h3>
-      <div class="info-row"><span>Adres</span><a href="https://www.google.com/maps/search/?api=1&query={maps_q}" target="_blank" rel="noopener">{address}</a></div>
-      <div class="info-row"><span>Telefoon</span><a href="tel:{phone}">{phone}</a></div>
-      {email_row}
+      <div class="info-row"><span>Adres</span><a href="https://www.google.com/maps/search/?api=1&query=Blokenstraat+9,+4885+JH+Achtmaal" target="_blank" rel="noopener">Blokenstraat 9, 4885 JH Achtmaal</a></div>
+      <div class="info-row"><span>Telefoon</span><a href="tel:076 598 54 42">076 598 54 42</a></div>
+      
       <div class="hours-block">
-        {hours_html}
+        <p class="hours-note-text">Geen vaste kantooruren bekend — bel voor een afspraak of een vrijblijvende offerte, op het vaste nummer 076 598 54 42 of mobiel 06 55 98 22 02.</p>
       </div>
-      <div class="area-strip">Werkgebied: {area}</div>
+      <div class="area-strip">Werkgebied: Achtmaal, Zundert en omstreken</div>
     </div>
   </div>
 </section>
@@ -347,17 +313,16 @@ def render(brief: dict) -> str:
 <section class="cta-band">
   <div class="wrap">
     <h2>Klaar voor een tuin die klopt?</h2>
-    <p style="color:#d9e2cf;">{"Bel of mail ons" if email else "Bel ons"} voor een vrijblijvend bezoek ter plaatse en een eerlijke offerte.</p>
-    <a class="btn btn-primary" href="tel:{phone}">{cta}</a>
+    <p style="color:#d9e2cf;">Bel ons voor een vrijblijvend bezoek ter plaatse en een eerlijke offerte.</p>
+    <a class="btn btn-primary" href="tel:076 598 54 42">Vraag een offerte aan</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    {name} · {address} · <a href="tel:{phone}">{phone}</a>
+    Hoveniersbedrijf Toon Gijsen · Blokenstraat 9, 4885 JH Achtmaal · <a href="tel:076 598 54 42">076 598 54 42</a>
   </div>
 </footer>
 
 </body>
 </html>
-"""
