@@ -121,6 +121,33 @@ zonder iets te deployen:
 node test/lokaal.mjs http://127.0.0.1:8765/
 ```
 
+## Wedstrijdvragen en schiftingsvragen
+
+Veel wedstrijden vragen meer dan je adres. `src/antwoord.js` vult die in:
+
+**Wedstrijdvraag** (één juist antwoord) — in deze volgorde:
+1. het antwoord staat letterlijk op de pagina of in de samenvatting van de
+   overzichtssite ("Antwoord: 1964"); veel van die sites publiceren het erbij;
+2. bij meerkeuze: de optie die duidelijk het vaakst in de wervende tekst
+   voorkomt (het juiste antwoord staat er meestal ook boven, de afleiders niet);
+3. jaartalvragen: het jaartal uit de paginatekst.
+
+Steekt er geen enkel antwoord duidelijk bovenuit, dan wordt er **niet gegokt** —
+de wedstrijd gaat naar "zelf doen". Een fout antwoord maakt je deelname toch
+ongeldig, dus een gok levert niets op.
+
+**Schiftingsvraag** (geen juist antwoord, wie het dichtst zit wint) — daar moet
+je wél iets invullen, want leeg laten kost je de wedstrijd:
+* staat er een aantal in de vraag ("hoeveel van de 500 ballen"), dan schat hij
+  daar iets onder;
+* gaat het over het aantal deelnemers, dan schaalt hij mee met de waarde van de
+  prijs (grotere prijs → meer volk);
+* anders gebruikt hij de getallen op de pagina als anker.
+
+Nooit 0, en nooit een rond getal — die kiest iedereen. Wat er ingevuld werd
+en waarom, staat telkens in de opmerking op de digest, bijvoorbeeld:
+`schifting: "5907" — schatting deelnemers op basis van prijs €450`.
+
 ## Subrequest-limiet
 
 Een Worker mag per uitvoering maar een beperkt aantal keer naar buiten: **50 op

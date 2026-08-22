@@ -76,7 +76,11 @@ async function ronde(env, { dryRun }) {
       continue;
     }
 
-    const { status, opmerking } = await deelnemen(item.url, deelnemer, { dryRun });
+    const { status, opmerking } = await deelnemen(item.url, deelnemer, {
+      dryRun,
+      // Overzichtssites zetten het juiste antwoord vaak in de samenvatting.
+      context: `${item.titel} ${item.samenvatting || ""}`,
+    });
 
     // Budget op: de rest bewaren we voor de volgende ronde in plaats van
     // een reeks valse "mislukt"-regels te produceren.

@@ -3,6 +3,7 @@
 // velden versturen, en bij een captcha stoppen we — dan komt het op de digest.
 import { UA, haal, ontsnap, stripHtml } from "./bronnen.js";
 import { budget } from "./budget.js";
+import { schatSchifting, soortVraag, zoekAntwoord } from "./antwoord.js";
 
 const CAPTCHA_SPOREN = ["recaptcha", "g-recaptcha", "hcaptcha", "h-captcha",
                         "cf-turnstile", "turnstile", "friendlycaptcha", "captcha"];
@@ -46,6 +47,18 @@ export function leesFormulieren(html) {
   for (const [blok, opening] of html.matchAll(/(<form\b[^>]*>)[\s\S]*?<\/form>/gi)) {
     const kop = kenmerken(opening);
     const velden = [];
+    // Keuzes per veldnaam: nodig om een wedstrijdvraag te kunnen beantwoorden.
+    const keuzes = {};
+
+    // <select name="antwoord"><option value="a">Brussel</option>...
+    for (const [blokje, selectTag] of blok.matchAll(/(<select\b[^>]*>[\s\S]*?<\/select>)/gi)) {
+      const naam = kenmerken(selectTag).name;
+      if (!naam) continue;
+      for (const [, waarde, tekst] of blokje.matchAll(/<option[^>]*value=["']([^"']*)["'][^>]*>([\s\S]*?)<\/option>/gi)) {
+        if (!waarde) continue;
+        (keuzes[naam] ||= []).push({ value: waarde, tekst: stripHtml(tekst) });
+      }
+    }
     for (const [, soort, rest] of blok.matchAll(/<(input|select|textarea)\b([^>]*)>/gi)) {
       const k = kenmerken(rest);
       velden.push({
@@ -58,10 +71,20 @@ export function leesFormulieren(html) {
         checked: "checked" in k,
       });
     }
+    // Radiokeuzes: de tekst staat in het <label for="...">.
+    for (const veld of velden) {
+      if (veld.type !== "radio" || !veld.name) continue;
+      (keuzes[veld.name] ||= []).push({
+        value: veld.value || "on",
+        tekst: labels[veld.id] || veld.value || "",
+      });
+    }
+
     formulieren.push({
       action: ontsnap(kop.action || ""),
       method: (kop.method || "get").toLowerCase(),
       velden,
+      keuzes,
     });
   }
   return { formulieren, labels };
@@ -88,9 +111,28 @@ function raadVeld(veld, labels) {
   return null;
 }
 
-export function bouwPayload(formulier, labels, deelnemer) {
+export function bouwPayload(formulier, labels, deelnemer, context = {}) {
   const payload = new URLSearchParams();
   const onbekend = [];
+  const uitleg = [];
+  const keuzes = formulier.keuzes || {};
+
+  // Een wedstrijd- of schiftingsvraag invullen op basis van wat er op de
+  // pagina staat. Lukt dat niet overtuigend, dan blijft het veld onbekend en
+  // gaat de wedstrijd naar "zelf doen" — liever dat dan een gok die je
+  // deelname toch ongeldig maakt.
+  const probeerVraag = (veld, aanwijzing) => {
+    const soort = soortVraag(aanwijzing);
+    if (!soort) return false;
+    const gevonden = soort === "schifting"
+      ? schatSchifting(aanwijzing, context.pagina || "", context.context || "")
+      : zoekAntwoord(aanwijzing, keuzes[veld.name] || [], context.pagina || "", context.context || "");
+    if (!gevonden) return false;
+    payload.set(veld.name, gevonden.waarde);
+    uitleg.push(`${soort === "schifting" ? "schifting" : "wedstrijdvraag"}: ` +
+                `"${gevonden.waarde}" — ${gevonden.reden}`);
+    return true;
+  };
 
   for (const veld of formulier.velden) {
     const naam = veld.name;
@@ -120,9 +162,14 @@ export function bouwPayload(formulier, labels, deelnemer) {
 
     if (veld.type === "radio") {
       if (veld.checked) payload.set(naam, veld.value || "on");
-      else if (veld.required && !payload.has(naam)) onbekend.push(`verplichte keuze (${naam})`);
+      else if (payload.has(naam)) continue;
+      else if (probeerVraag(veld, `${labels[veld.id] || ""} ${naam} ${vraagTekstBij(labels, naam)}`)) continue;
+      else if (veld.required) onbekend.push(`verplichte keuze (${naam})`);
       continue;
     }
+
+    const aanwijzing = [veld.name, veld.id, veld.placeholder, labels[veld.id] || ""].join(" ");
+    if (probeerVraag(veld, aanwijzing)) continue;
 
     const sleutel = raadVeld(veld, labels);
     if (sleutel) {
@@ -136,11 +183,21 @@ export function bouwPayload(formulier, labels, deelnemer) {
     }
   }
 
-  return { payload, onbekend };
+  return { payload, onbekend, uitleg };
+}
+
+// De vraagtekst staat niet altijd in het label van de radio zelf, maar in het
+// label van de groep of in een kop erboven; we plakken alles wat we hebben aan
+// elkaar zodat de herkenning kans maakt.
+function vraagTekstBij(labels, naam) {
+  return Object.entries(labels)
+    .filter(([id]) => id.toLowerCase().includes(naam.toLowerCase()))
+    .map(([, tekst]) => tekst)
+    .join(" ");
 }
 
 export async function deelnemen(url, deelnemer, opties = {}) {
-  const { dryRun = true } = opties;
+  const { dryRun = true, context = "" } = opties;
 
   let html;
   try {
@@ -160,7 +217,11 @@ export async function deelnemen(url, deelnemer, opties = {}) {
   const formulier = kiesFormulier(formulieren);
   if (!formulier) return { status: "handmatig", opmerking: "geen deelnameformulier gevonden" };
 
-  const { payload, onbekend } = bouwPayload(formulier, labels, deelnemer);
+  const { payload, onbekend, uitleg } = bouwPayload(formulier, labels, deelnemer, {
+    pagina: stripHtml(html),
+    context,
+  });
+  const extra = uitleg.length ? ` · ${uitleg.join(" · ")}` : "";
   if (onbekend.length) {
     return { status: "handmatig", opmerking: `niet begrepen: ${onbekend.slice(0, 4).join("; ")}` };
   }
@@ -172,7 +233,7 @@ export async function deelnemen(url, deelnemer, opties = {}) {
   if (dryRun) {
     return {
       status: "proefdraai",
-      opmerking: `zou versturen naar ${doel} met ${[...payload.keys()].length} velden`,
+      opmerking: `zou versturen naar ${doel} met ${[...payload.keys()].length} velden${extra}`,
     };
   }
 
@@ -197,7 +258,7 @@ export async function deelnemen(url, deelnemer, opties = {}) {
 
   const resultaat = stripHtml(await antwoord.text()).toLowerCase();
   if (GELUKT.some((markering) => resultaat.includes(markering))) {
-    return { status: "gedaan", opmerking: `verstuurd naar ${doel}` };
+    return { status: "gedaan", opmerking: `verstuurd naar ${doel}${extra}` };
   }
   return { status: "handmatig", opmerking: "verstuurd, maar geen bevestiging herkend — zelf nakijken" };
 }
