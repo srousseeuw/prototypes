@@ -1,0 +1,10 @@
+{
+  "name": "wedstrijdbot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lijsten": "node scripts/lijsten.mjs",
+    "test": "node test/lokaal.mjs",
+    "deploy": "npm run lijsten && wrangler deploy"
+  }
+}

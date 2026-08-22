@@ -1,0 +1,202 @@
+// Wedstrijdbot als Cloudflare Worker.
+//
+//   cron   → zoekt de bronnen af, kiest wat nuttig is voor het gezin en
+//            schrijft in. Wat al gedaan is, staat in KV en gebeurt geen
+//            tweede keer.
+//   fetch  → de digest op een geheim pad (/<DIGEST_PAD>), zodat je 's ochtends
+//            kan nakijken wat er gebeurd is. Al de rest geeft 404.
+//   email  → als je wedstrijden@ocior.be via Cloudflare Email Routing hierheen
+//            stuurt: bevestigingslinks aanklikken en de rest doorsturen naar je
+//            gewone mailbox.
+import { verzamel } from "./bronnen.js";
+import { kies } from "./selectie.js";
+import { deelnemen } from "./deelnemen.js";
+import { BRONNEN, INSTELLINGEN } from "./config.js";
+import { bouwDigest } from "./digest.js";
+
+const wacht = (ms) => new Promise((klaar) => setTimeout(klaar, ms));
+
+function sleutel(url) {
+  return "gezien:" + url.split("#")[0].replace(/\/+$/, "").toLowerCase();
+}
+
+function deelnemerUit(env) {
+  let rauw = {};
+  try {
+    rauw = JSON.parse(env.DEELNEMER || "{}");
+  } catch {
+    throw new Error("DEELNEMER is geen geldige JSON — zie README");
+  }
+  return {
+    ...rauw,
+    volledigeNaam: [rauw.voornaam, rauw.achternaam].filter(Boolean).join(" "),
+    nieuwsbriefToestaan: rauw.nieuwsbriefToestaan === true,
+  };
+}
+
+async function ronde(env, { dryRun }) {
+  const log = [];
+  const noteer = (regel) => log.push(regel);
+
+  const deelnemer = deelnemerUit(env);
+  const { items, fouten } = await verzamel(BRONNEN, noteer);
+  const keuzes = kies(items);
+
+  // Niets in KV betekent: eerste nacht. Dan halen we in.
+  const eerder = await env.WEDSTRIJDEN.list({ prefix: "gezien:", limit: 1 });
+  const eersteNacht = eerder.keys.length === 0;
+  const plafond = eersteNacht ? INSTELLINGEN.maxEersteNacht : INSTELLINGEN.maxPerNacht;
+  if (eersteNacht) noteer(`eerste ronde: inhaalbeweging, tot ${plafond} deelnames`);
+
+  const resultaten = [];
+  let gedaan = 0;
+
+  for (const item of keuzes) {
+    const kvSleutel = sleutel(item.url);
+    const bekend = await env.WEDSTRIJDEN.get(kvSleutel, "json");
+
+    if (bekend && ["gedaan", "overgeslagen"].includes(bekend.status)) continue;
+    if (bekend && (bekend.pogingen || 0) >= INSTELLINGEN.maxPogingen) continue;
+
+    if (gedaan >= plafond) {
+      resultaten.push({ ...item, status: "overgeslagen", opmerking: "plafond voor vannacht bereikt" });
+      continue;
+    }
+
+    const { status, opmerking } = await deelnemen(item.url, deelnemer, { dryRun });
+    gedaan += 1;
+    noteer(`[${status}] ${item.titel.slice(0, 70)} — ${opmerking}`);
+    resultaten.push({ ...item, status, opmerking });
+
+    await env.WEDSTRIJDEN.put(
+      kvSleutel,
+      JSON.stringify({
+        titel: item.titel,
+        url: item.url,
+        bron: item.bron,
+        score: item.score,
+        status,
+        opmerking,
+        pogingen: (bekend?.pogingen || 0) + 1,
+        tijd: new Date().toISOString(),
+      }),
+      { expirationTtl: INSTELLINGEN.bewaarDagen * 86400 }
+    );
+
+    // Het domein onthouden: alleen daar mag de e-mailkant later op klikken.
+    if (status === "gedaan") {
+      const domein = new URL(item.url).hostname.replace(/^www\./, "");
+      await env.WEDSTRIJDEN.put(`domein:${domein}`, "1", { expirationTtl: 14 * 86400 });
+    }
+
+    if (gedaan < plafond) await wacht(INSTELLINGEN.pauzeMs);
+  }
+
+  const digest = {
+    tijd: new Date().toISOString(),
+    dryRun,
+    eersteNacht,
+    opgehaald: items.length,
+    gekozen: keuzes.length,
+    resultaten,
+    fouten,
+    log,
+  };
+  await env.WEDSTRIJDEN.put("digest:laatste", JSON.stringify(digest), { expirationTtl: 30 * 86400 });
+  return digest;
+}
+
+async function mailDigest(env, digest) {
+  if (!env.RESEND_API_KEY || !env.DIGEST_NAAR || !env.DIGEST_VAN) return false;
+  const nieuw = digest.resultaten.filter((r) => r.status !== "overgeslagen");
+  if (!nieuw.length) return false;   // stille nacht: geen mail
+
+  const antwoord = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: env.DIGEST_VAN,
+      to: [env.DIGEST_NAAR],
+      subject: `[Wedstrijden] ${nieuw.filter((r) => r.status === "gedaan").length} ingeschreven, ` +
+               `${nieuw.filter((r) => r.status === "handmatig").length} zelf te doen`,
+      html: bouwDigest(digest),
+    }),
+  });
+  return antwoord.ok;
+}
+
+export default {
+  async scheduled(event, env, ctx) {
+    const dryRun = String(env.DRY_RUN ?? "true") !== "false";
+    ctx.waitUntil(
+      ronde(env, { dryRun })
+        .then((digest) => mailDigest(env, digest))
+        .catch(async (fout) => {
+          await env.WEDSTRIJDEN.put(
+            "digest:laatste",
+            JSON.stringify({ tijd: new Date().toISOString(), fatale_fout: String(fout), resultaten: [], fouten: [], log: [] }),
+            { expirationTtl: 30 * 86400 }
+          );
+        })
+    );
+  },
+
+  async fetch(verzoek, env) {
+    const pad = new URL(verzoek.url).pathname.replace(/^\/|\/$/g, "");
+    const geheim = (env.DIGEST_PAD || "").replace(/^\/|\/$/g, "");
+
+    if (!geheim || pad !== geheim) {
+      return new Response("Niets te zien hier.", { status: 404 });
+    }
+
+    const digest = await env.WEDSTRIJDEN.get("digest:laatste", "json");
+    if (!digest) return new Response("Nog geen ronde gedraaid.", { status: 200 });
+    return new Response(bouwDigest(digest), {
+      headers: { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex" },
+    });
+  },
+
+  // Cloudflare Email Routing stuurt binnenkomende mail hierheen.
+  async email(bericht, env, ctx) {
+    const doorsturen = env.DIGEST_NAAR;
+    let rauw = "";
+    try {
+      rauw = await new Response(bericht.raw).text();
+    } catch {
+      if (doorsturen) await bericht.forward(doorsturen);
+      return;
+    }
+
+    // Quoted-printable een beetje ontknopen, anders staan links vol =3D.
+    const tekst = rauw.replace(/=\r?\n/g, "").replace(/=3D/gi, "=");
+    const bevestigWoorden = /bevestig|confirm|verifieer|verify|activeer|activate|valideer|opt.?in/i;
+    const rommel = /uitschrijv|unsubscribe|afmeld|privacy|voorwaarden|cookie|facebook\.com|instagram\.com|linkedin\.com/i;
+
+    let geklikt = null;
+    for (const treffer of tekst.matchAll(/https?:\/\/[^\s"'<>()]{10,}/g)) {
+      const url = treffer[0];
+      if (rommel.test(url) || !bevestigWoorden.test(url)) continue;
+      let host;
+      try {
+        host = new URL(url).hostname.replace(/^www\./, "");
+      } catch {
+        continue;
+      }
+      // Alleen klikken op domeinen waar we zelf ingeschreven hebben.
+      if (!(await env.WEDSTRIJDEN.get(`domein:${host}`))) continue;
+      try {
+        await fetch(url, { headers: { "User-Agent": "ocior-wedstrijdbot/1.0" }, signal: AbortSignal.timeout(15000) });
+        geklikt = url;
+        await env.WEDSTRIJDEN.put(`bevestigd:${host}:${Date.now()}`, url, { expirationTtl: 30 * 86400 });
+      } catch {
+        // Niet erg: de mail wordt sowieso doorgestuurd, dan klik je zelf.
+      }
+      break;
+    }
+
+    if (doorsturen && !geklikt) await bericht.forward(doorsturen);
+  },
+};

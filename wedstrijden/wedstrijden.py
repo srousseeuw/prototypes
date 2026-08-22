@@ -36,7 +36,12 @@ def laad_config(pad: Path) -> dict:
         print(f"Geen {pad.name} gevonden.\nKopieer eerst het voorbeeld:\n"
               f"  cp {voorbeeld} {pad}\nen vul je gegevens aan.")
         sys.exit(1)
-    return json.loads(pad.read_text(encoding="utf-8"))
+    config = json.loads(pad.read_text(encoding="utf-8"))
+    # De woordenlijsten staan apart, want de Cloudflare Worker leest dezelfde.
+    # Wie lokaal wil afwijken, zet een eigen "selectie"-blok in config.json.
+    if "selectie" not in config:
+        config["selectie"] = json.loads((HIER / "selectie.json").read_text(encoding="utf-8"))
+    return config
 
 
 def _zoek(config: dict, opslag: Opslag, toon_alles: bool = False):
