@@ -63,3 +63,11 @@ Momenteel draait alles via paden (`prototype.ocior.be/<slug>/`). Wil je
 liever per zaak een eigen subdomein (`bakkerij-van-thillo.prototype.ocior.be`),
 dan is dat mogelijk met een kleine Cloudflare Worker die op basis van de
 hostname doorroutet — laat het weten en die bouwen we erbij.
+
+## Wedstrijdbot (los van de prototypes)
+
+In `wedstrijden/` zit een apart script dat 's nachts gratis wedstrijden zoekt
+die nuttig zijn voor het gezin en er automatisch aan deelneemt. Het heeft niets
+met de sitegenerator te maken en draait op je eigen Mac via cron. Zie
+`wedstrijden/README.md` — lees zeker de waarschuwing bovenaan: het staat
+standaard op proefdraai en verstuurt pas iets als je dat zelf aanzet.

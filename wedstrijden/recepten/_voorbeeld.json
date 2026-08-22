@@ -1,0 +1,39 @@
+{
+  "_uitleg": [
+    "Een recept is een uitzondering voor één site: hoe ziet daar het deelnameformulier eruit.",
+    "Bestanden die met _ beginnen worden overgeslagen. Noem je recept naar het domein,",
+    "bijvoorbeeld recepten/wedstrijden.be.json.",
+    "",
+    "Zonder recept probeert het script het formulier zelf te lezen (velden raden op naam,",
+    "id en label). Lukt dat niet, dan komt de wedstrijd in de digest onder 'Zelf afwerken'.",
+    "Zet config.deelname.alleen_met_recept op false om dat raden ook echt te laten versturen.",
+    "",
+    "In elke waarde mag je {{voornaam}}, {{achternaam}}, {{volledige_naam}}, {{email}},",
+    "{{telefoon}}, {{straat}}, {{huisnummer}}, {{postcode}}, {{gemeente}}, {{land}} en",
+    "{{geboortedatum}} gebruiken."
+  ],
+
+  "domein": "voorbeeld.be",
+  "url_patroon": "voorbeeld\\.be/wedstrijd/",
+
+  "modus": "http",
+  "velden": {
+    "email": "{{email}}",
+    "first_name": "{{voornaam}}",
+    "last_name": "{{achternaam}}",
+    "zip": "{{postcode}}",
+    "antwoord": "b"
+  },
+  "gelukt_indien": ["bedankt voor je deelname", "je doet mee"],
+
+  "_playwright_variant": {
+    "modus": "playwright",
+    "velden": {
+      "input#email": "{{email}}",
+      "input[name='voornaam']": "{{voornaam}}"
+    },
+    "aanvinken": ["input#voorwaarden"],
+    "verzend": "button[type='submit']",
+    "gelukt_indien": ["bedankt"]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "_uitleg": "Kopieer dit naar config.json en vul aan. config.json staat in .gitignore, want het bevat persoonsgegevens.",
+
+  "deelnemer": {
+    "voornaam": "Sebastiaan",
+    "achternaam": "Rousseeuw",
+    "email": "sebastiaan.rousseeuw@gmail.com",
+    "telefoon": "",
+    "straat": "",
+    "huisnummer": "",
+    "postcode": "",
+    "gemeente": "Essen",
+    "land": "België",
+    "geboortedatum": "1980-01-01",
+    "nieuwsbrief_toestaan": false
+  },
+
+  "bronnen": [
+    { "naam": "Wedstrijden.be",     "url": "https://www.wedstrijden.be/wedstrijden", "type": "auto", "actief": true },
+    { "naam": "WinPrijzen.be",      "url": "https://winprijzen.be/",                 "type": "auto", "actief": true },
+    { "naam": "DeWedstrijden.be",   "url": "https://www.dewedstrijden.be/",          "type": "auto", "actief": true },
+    { "naam": "GoGratis.be",        "url": "https://www.gogratis.be/cat/wedstrijden/", "type": "auto", "actief": true },
+    { "naam": "Gratis.be",          "url": "https://gratis.be/alle/gratis-wedstrijden/", "type": "auto", "actief": true },
+    { "naam": "Prijzen-winnen.com", "url": "https://www.prijzen-winnen.com/",        "type": "auto", "actief": true },
+    { "naam": "Tegen de crisis",    "url": "https://www.tegendecrisis.be/category/wedstrijden-belgie/", "type": "auto", "actief": true }
+  ],
+
+  "selectie": {
+    "min_score": 4,
+    "max_per_nacht": 25,
+    "categorieen": {
+      "kinderen": {
+        "gewicht": 4,
+        "woorden": ["kind", "kinderen", "kleuter", "baby", "speelgoed", "lego", "playmobil", "gezin", "familie",
+                    "schoolspullen", "boekentas", "knutsel", "kinderfiets", "kinderboek"]
+      },
+      "uitstap": {
+        "gewicht": 4,
+        "woorden": ["pretpark", "plopsa", "bellewaerde", "walibi", "efteling", "dierentuin", "zoo", "planckendael",
+                    "zwembad", "subtropisch", "museum", "gezinsuitstap", "dagje uit", "tickets", "duotickets"]
+      },
+      "boodschappen": {
+        "gewicht": 5,
+        "woorden": ["waardebon", "cadeaubon", "bon van", "shoptegoed", "colruyt", "delhaize", "albert heijn", "lidl",
+                    "aldi", "carrefour", "boodschappen", "winkelkar", "voedingspakket", "kruidvat"]
+      },
+      "huishouden": {
+        "gewicht": 3,
+        "woorden": ["stofzuiger", "wasmachine", "droogkast", "vaatwas", "airfryer", "koffiemachine", "keukenrobot",
+                    "matras", "beddengoed", "huishoud", "elektro", "koelkast", "oven", "robotstofzuiger"]
+      },
+      "mobiliteit": {
+        "gewicht": 3,
+        "woorden": ["fiets", "elektrische fiets", "e-bike", "bakfiets", "step", "fietshelm", "tankkaart",
+                    "treinticket", "abonnement de lijn"]
+      },
+      "vakantie": {
+        "gewicht": 3,
+        "woorden": ["weekend", "vakantie", "verblijf", "hotel", "vakantiepark", "center parcs", "camping",
+                    "overnachting", "reischeque"]
+      },
+      "energie": {
+        "gewicht": 2,
+        "woorden": ["energiefactuur", "zonnepanelen", "isolatie", "energiecheque", "warmtepomp"]
+      },
+      "vrije_tijd": {
+        "gewicht": 2,
+        "woorden": ["boek", "boekenpakket", "gezelschapsspel", "bordspel", "sportkamp", "zwemles", "bioscoop",
+                    "kinepolis", "concert", "festival"]
+      }
+    },
+    "uitsluiten": [
+      "casino", "gok", "gokken", "wedden", "bookmaker", "bingo", "loterij", "krasl", "sigaret", "tabak", "vape",
+      "sterke drank", "whisky", "wodka", "dating", "crypto", "bitcoin", "beleggen", "lening", "afslank", "botox",
+      "sms", "090", "premium sms", "belspel", "abonnement verplicht", "aankoop verplicht", "enkel voor nederland",
+      "alleen voor nederland", "alleen in nederland", "18+ dating"
+    ],
+    "uitsluiten_gewicht": -20,
+    "gratis_woorden": ["gratis", "geen aankoopverplichting", "gratis deelname"],
+    "gratis_bonus": 2
+  },
+
+  "deelname": {
+    "dry_run": true,
+    "max_per_nacht": 8,
+    "pauze_seconden": 25,
+    "playwright": false,
+    "chromium_pad": "",
+    "timeout_seconden": 30,
+    "alleen_met_recept": true,
+    "max_pogingen": 3
+  },
+
+  "bevestiging": {
+    "actief": false,
+    "imap_server": "imap.gmail.com",
+    "gebruiker": "sebastiaan.rousseeuw@gmail.com",
+    "wachtwoord_env": "GMAIL_APP_WACHTWOORD",
+    "map": "INBOX",
+    "max_uren": 72
+  },
+
+  "digest": {
+    "bestand": "data/digest.html",
+    "mailen": false,
+    "smtp_server": "smtp.gmail.com",
+    "smtp_poort": 587,
+    "smtp_gebruiker": "sebastiaan.rousseeuw@gmail.com",
+    "smtp_wachtwoord_env": "GMAIL_APP_WACHTWOORD",
+    "naar": "sebastiaan.rousseeuw@gmail.com"
+  }
+}

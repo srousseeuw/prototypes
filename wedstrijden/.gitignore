@@ -1,0 +1,4 @@
+config.json
+data/*
+!data/.gitkeep
+__pycache__/
