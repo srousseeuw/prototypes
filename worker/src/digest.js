@@ -33,7 +33,38 @@ function sectie(titel, items, leeg) {
   return `<h2>${ontsnap(titel)} (${items.length})</h2>` + items.map(kaart).join("");
 }
 
-export function bouwDigest(digest) {
+// Het blijvende overzicht: alles waaraan je ooit deelnam, nieuwste eerst.
+// Komt uit één KV-sleutel (index:deelnames), dus de pagina is altijd op te vragen.
+function alleDeelnames(alles) {
+  if (!alles.length) return "";
+
+  const geteld = alles.reduce((op, item) => {
+    op[item.status] = (op[item.status] || 0) + 1;
+    return op;
+  }, {});
+  const samenvatting = Object.entries(geteld)
+    .map(([status, aantal]) => `${aantal}× ${(LABELS[status] || [status])[0].toLowerCase()}`)
+    .join(" · ");
+
+  const regels = alles.map((item) => {
+    const [label, kleur] = LABELS[item.status] || ["", "#6b7280"];
+    const dag = new Date(item.tijd).toLocaleDateString("nl-BE", {
+      day: "2-digit", month: "2-digit", year: "2-digit", timeZone: "Europe/Brussels",
+    });
+    return `<tr>
+  <td class="dag">${ontsnap(dag)}</td>
+  <td><a href="${ontsnap(item.url)}">${ontsnap(item.titel)}</a>
+      <span class="bron">${ontsnap(item.bron || "")}</span></td>
+  <td><span class="badge" style="color:${kleur}">${ontsnap(label)}</span></td>
+</tr>`;
+  }).join("");
+
+  return `<h2>Waar je aan deelnam (${alles.length})</h2>
+<p class="sub">${ontsnap(samenvatting)}</p>
+<table>${regels}</table>`;
+}
+
+export function bouwDigest(digest, alles = []) {
   const perStatus = {};
   for (const item of digest.resultaten || []) {
     (perStatus[item.status] ||= []).push(item);
@@ -83,17 +114,28 @@ h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;
 .score{float:right;font-size:13px;color:#6b7280}
 .leeg{color:#6b7280;font-style:italic}
 .fout{background:#fff5f5;border-color:#fecdca}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:8px 6px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+td a{color:#111827;text-decoration:none;font-weight:600}
+td a:hover{text-decoration:underline}
+.dag{color:#6b7280;white-space:nowrap;width:64px}
+.bron{display:block;color:#6b7280;font-size:12px;margin-top:2px}
+.scheiding{margin-top:40px}
 @media (prefers-color-scheme:dark){
   body{background:#0f1115;color:#e5e7eb}
   .kaart{background:#171a21;border-color:#262b36}
   .kaart a{color:#e5e7eb}
   .badge{background:#232833;color:#cbd5e1}
   .fout{background:#241618;border-color:#5b2326}
+  td{border-color:#262b36} td a{color:#e5e7eb}
 }
 </style></head><body><div class="wrap">
-<h1>Wedstrijden van ${datum}</h1>
-<p class="sub">${ontsnap(digest.opgehaald ?? 0)} gevonden · ${ontsnap(digest.gekozen ?? 0)} geselecteerd ·
-${(digest.resultaten || []).length} behandeld</p>
+<h1>Wedstrijden</h1>
+<p class="sub">Laatste ronde: ${datum} — ${ontsnap(digest.opgehaald ?? 0)} gevonden ·
+${ontsnap(digest.gekozen ?? 0)} geselecteerd · ${(digest.resultaten || []).length} behandeld</p>
+${alleDeelnames(alles)}
+<h2 class="scheiding">Laatste ronde</h2>
+${digest.nogNiets ? '<p class="leeg">Er is nog geen ronde gedraaid.</p>' : ""}
 ${stukken.join("")}
 </div></body></html>`;
 }

@@ -83,6 +83,18 @@ async function ronde(env, { dryRun }) {
       { expirationTtl: INSTELLINGEN.bewaarDagen * 86400 }
     );
 
+    // Bijhouden in één lopende lijst, zodat de overzichtspagina met één
+    // KV-leesbeurt kan tonen waar je overal aan deelgenomen hebt.
+    if (status !== "overgeslagen") {
+      const lijst = (await env.WEDSTRIJDEN.get("index:deelnames", "json")) || [];
+      lijst.unshift({
+        titel: item.titel, url: item.url, bron: item.bron, score: item.score,
+        categorieen: item.categorieen, status, opmerking,
+        tijd: new Date().toISOString(),
+      });
+      await env.WEDSTRIJDEN.put("index:deelnames", JSON.stringify(lijst.slice(0, 500)));
+    }
+
     // Het domein onthouden: alleen daar mag de e-mailkant later op klikken.
     if (status === "gedaan") {
       const domein = new URL(item.url).hostname.replace(/^www\./, "");
@@ -152,9 +164,12 @@ export default {
       return new Response("Niets te zien hier.", { status: 404 });
     }
 
-    const digest = await env.WEDSTRIJDEN.get("digest:laatste", "json");
-    if (!digest) return new Response("Nog geen ronde gedraaid.", { status: 200 });
-    return new Response(bouwDigest(digest), {
+    const digest = (await env.WEDSTRIJDEN.get("digest:laatste", "json")) || {
+      tijd: new Date().toISOString(), resultaten: [], fouten: [], log: [],
+      nogNiets: true,
+    };
+    const alles = (await env.WEDSTRIJDEN.get("index:deelnames", "json")) || [];
+    return new Response(bouwDigest(digest, alles), {
       headers: { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex" },
     });
   },

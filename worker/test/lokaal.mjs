@@ -84,7 +84,8 @@ const env = omgeving(kv2, { DRY_RUN: "false" });
 const goed = await worker.fetch(new Request("https://bot.example/geheim-pad"), env);
 const fout = await worker.fetch(new Request("https://bot.example/"), env);
 console.log(`\n── digestpagina ──`);
-console.log("  /geheim-pad →", goed.status, (await goed.text()).includes("Wedstrijden van") ? "✓ digest" : "✗");
+console.log("  /geheim-pad →", goed.status, await (async () => { const h = await goed.text();
+    return h.includes("Waar je aan deelnam") && h.includes("Laatste ronde") ? "✓ overzicht + laatste ronde" : "✗"; })());
 console.log("  /           →", fout.status, fout.status === 404 ? "✓ verborgen" : "✗");
 
 // 5. E-mailkant: bevestigingslink van een domein waar we inschreven → aanklikken

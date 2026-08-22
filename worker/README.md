@@ -14,7 +14,7 @@ standaard op proefdraai.
 | Trigger | Wat er gebeurt |
 |---|---|
 | **cron** (03:15) | bronnen ophalen → scoren → inschrijven → digest in KV → optioneel mailen |
-| **fetch** | de digest op een geheim pad; al de rest krijgt 404 |
+| **fetch** | op een geheim pad: het volledige overzicht van alles waar je aan deelnam, plus de laatste ronde; al de rest krijgt 404 |
 | **email** | bevestigingsmails ("klik om je deelname te bevestigen") aanklikken en de rest doorsturen naar je gewone mailbox |
 
 De eerste nacht staat er nog niets in KV. Dan doet hij een **inhaalbeweging**:
@@ -49,7 +49,11 @@ npx wrangler secret put DIGEST_PAD      # bv. een willekeurige reeks als "d7f3a9
 npx wrangler deploy
 ```
 
-Digest daarna op `https://wedstrijdbot.<jouw-subdomein>.workers.dev/<DIGEST_PAD>`.
+Die pagina is meteen ook je logboek: bovenaan staat alles waaraan je ooit
+deelnam (nieuwste eerst, met datum, status en link), daaronder wat er de
+laatste nacht gebeurde. Te bekijken op
+`https://wedstrijdbot.<jouw-subdomein>.workers.dev/<DIGEST_PAD>` — zet die
+in je favorieten.
 
 ### Eerst proefdraaien
 
