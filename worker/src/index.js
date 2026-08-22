@@ -13,6 +13,7 @@ import { kies } from "./selectie.js";
 import { deelnemen } from "./deelnemen.js";
 import { BRONNEN, INSTELLINGEN } from "./config.js";
 import { bouwDigest } from "./digest.js";
+import { budget } from "./budget.js";
 
 const wacht = (ms) => new Promise((klaar) => setTimeout(klaar, ms));
 
@@ -38,8 +39,20 @@ async function ronde(env, { dryRun }) {
   const log = [];
   const noteer = (regel) => log.push(regel);
 
+  // Elke fetch telt mee tegen de subrequest-limiet van het Cloudflare-plan
+  // (50 gratis, 1000 betaald). Loopt die vol, dan mislukt alles wat daarna
+  // komt — vandaar dat we zelf tellen en op tijd stoppen.
+  budget.reset(Number(env.MAX_SUBREQUESTS || INSTELLINGEN.maxSubrequests));
+
+  // Onthouden waar de feed van een bron zit, zodat we dat niet elke nacht
+  // opnieuw moeten uitzoeken (scheelt een paar fetches per bron).
+  const feedGeheugen = {
+    get: (url) => env.WEDSTRIJDEN.get(`feed:${url}`),
+    put: (url, waarde) => env.WEDSTRIJDEN.put(`feed:${url}`, waarde, { expirationTtl: 30 * 86400 }),
+  };
+
   const deelnemer = deelnemerUit(env);
-  const { items, fouten } = await verzamel(BRONNEN, noteer);
+  const { items, fouten } = await verzamel(BRONNEN, noteer, feedGeheugen, INSTELLINGEN.reserveVoorDeelnames);
   const keuzes = kies(items);
 
   // Niets in KV betekent: eerste nacht. Dan halen we in.
@@ -64,6 +77,15 @@ async function ronde(env, { dryRun }) {
     }
 
     const { status, opmerking } = await deelnemen(item.url, deelnemer, { dryRun });
+
+    // Budget op: de rest bewaren we voor de volgende ronde in plaats van
+    // een reeks valse "mislukt"-regels te produceren.
+    if (status === "later") {
+      noteer(`— gestopt: ${opmerking}; de rest volgt een volgende ronde`);
+      resultaten.push({ ...item, status: "overgeslagen", opmerking: "budget op, volgende ronde" });
+      break;
+    }
+
     gedaan += 1;
     noteer(`[${status}] ${item.titel.slice(0, 70)} — ${opmerking}`);
     resultaten.push({ ...item, status, opmerking });
@@ -107,6 +129,7 @@ async function ronde(env, { dryRun }) {
   const digest = {
     tijd: new Date().toISOString(),
     dryRun,
+    subrequests: `${budget.gebruikt}/${budget.limiet}`,
     eersteNacht,
     opgehaald: items.length,
     gekozen: keuzes.length,
@@ -166,15 +189,15 @@ export default {
 
     // /<pad>/nu draait meteen een ronde, zodat je niet tot 03:15 moet wachten.
     if (pad === `${geheim}/nu`) {
+      // Afwachten, niet in de achtergrond: werk in waitUntil() wordt door
+      // Cloudflare afgekapt zodra het antwoord verstuurd is.
       const dryRun = String(env.DRY_RUN ?? "true") !== "false";
-      ctx.waitUntil(ronde(env, { dryRun }).then((digest) => mailDigest(env, digest)));
-      return new Response(
-        `<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="45;url=/${geheim}">` +
-        `<p style="font:16px system-ui;padding:24px">Ronde gestart` +
-        `${dryRun ? " (proefdraai — er wordt niets verstuurd)" : ""}. ` +
-        `Deze pagina springt over een halve minuut naar het overzicht.</p>`,
-        { headers: { "Content-Type": "text/html; charset=utf-8" } }
-      );
+      const digest = await ronde(env, { dryRun });
+      ctx.waitUntil(mailDigest(env, digest));
+      const alles = (await env.WEDSTRIJDEN.get("index:deelnames", "json")) || [];
+      return new Response(bouwDigest(digest, alles), {
+        headers: { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex" },
+      });
     }
 
     const digest = (await env.WEDSTRIJDEN.get("digest:laatste", "json")) || {

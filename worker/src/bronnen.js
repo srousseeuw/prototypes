@@ -2,6 +2,8 @@
 // Bewust geen HTMLRewriter: zo draait dezelfde code ook gewoon onder node,
 // en kan de logica lokaal getest worden zonder workerd.
 
+import { budget } from "./budget.js";
+
 export const UA = "ocior-wedstrijdbot/1.0 (+https://ocior.be; persoonlijk gebruik)";
 
 const FEED_PADEN = ["/feed/", "/rss", "/rss.xml", "/feed.xml", "/atom.xml"];
@@ -21,6 +23,7 @@ export function ontsnap(tekst) {
 }
 
 export async function haal(url, timeoutMs = 20000) {
+  budget.neem();
   const stop = AbortSignal.timeout(timeoutMs);
   const antwoord = await fetch(url, {
     signal: stop,
@@ -94,41 +97,66 @@ function feedKandidaten(html, basisUrl) {
     if (href) gevonden.push(new URL(ontsnap(href[1]), basisUrl).toString());
   }
   const basis = new URL(basisUrl);
-  for (const pad of FEED_PADEN) gevonden.push(`${basis.origin}${pad}`);
-  return [...new Set(gevonden)].slice(0, 6);
+  // Alleen gokken als de pagina zelf geen feed aangeeft — en dan hooguit één.
+  if (!gevonden.length) gevonden.push(`${basis.origin}${FEED_PADEN[0]}`);
+  return [...new Set(gevonden)].slice(0, 2);
 }
 
-export async function haalBron(bron) {
+export async function haalBron(bron, geheugen = null) {
   const { url, naam = url, type = "auto" } = bron;
 
   if (type === "rss") return { items: parseFeed(await haal(url), naam), methode: `feed ${url}` };
 
+  // Wat we vorige keer ontdekten, hoeven we niet opnieuw uit te zoeken.
+  const onthouden = geheugen ? await geheugen.get(url) : null;
+  if (onthouden && onthouden !== "html") {
+    try {
+      const inhoud = await haal(onthouden);
+      if (isFeed(inhoud)) {
+        const items = parseFeed(inhoud, naam);
+        if (items.length) return { items, methode: `feed ${onthouden} (onthouden)` };
+      }
+    } catch (fout) {
+      if (fout.name === "BudgetOp") throw fout;
+    }
+  }
+
   const inhoud = await haal(url);
   if (isFeed(inhoud)) return { items: parseFeed(inhoud, naam), methode: `feed ${url}` };
 
-  if (type !== "html") {
+  if (type !== "html" && onthouden !== "html") {
     for (const kandidaat of feedKandidaten(inhoud, url)) {
       try {
         const mogelijk = await haal(kandidaat);
         if (!isFeed(mogelijk)) continue;
         const items = parseFeed(mogelijk, naam);
-        if (items.length) return { items, methode: `feed ${kandidaat}` };
-      } catch {
+        if (items.length) {
+          if (geheugen) await geheugen.put(url, kandidaat);
+          return { items, methode: `feed ${kandidaat}` };
+        }
+      } catch (fout) {
+        if (fout.name === "BudgetOp") throw fout;
         // Feed bestaat niet op dit pad; gewoon verder proberen.
       }
     }
   }
 
+  if (geheugen) await geheugen.put(url, "html");
   return { items: parseHtmlLijst(inhoud, url, naam), methode: `html ${url}` };
 }
 
-export async function verzamel(bronnen, log = () => {}) {
+export async function verzamel(bronnen, log = () => {}, geheugen = null, reserve = 0) {
   const items = [];
   const fouten = [];
   for (const bron of bronnen) {
     if (bron.actief === false) continue;
+    // Genoeg overhouden om ook nog te kunnen inschrijven.
+    if (budget.over() <= reserve) {
+      log(`— ${bron.naam} en volgende overgeslagen: budget bewaard voor deelnames`);
+      break;
+    }
     try {
-      const { items: gevonden, methode } = await haalBron(bron);
+      const { items: gevonden, methode } = await haalBron(bron, geheugen);
       log(`✓ ${bron.naam}: ${gevonden.length} items via ${methode}`);
       items.push(...gevonden);
     } catch (fout) {

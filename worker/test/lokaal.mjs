@@ -94,7 +94,7 @@ const nu = await worker.fetch(new Request("https://bot.example/geheim-pad/nu"), 
 await Promise.all(taken);
 const naNu = await kv2.get("digest:laatste", "json");
 console.log("  /geheim-pad/nu →", nu.status,
-  (await nu.text()).includes("Ronde gestart") && naNu ? "✓ ronde gedraaid" : "✗");
+  (await nu.text()).includes("Laatste ronde") && naNu ? "✓ ronde gedraaid en getoond" : "✗");
 
 // 5. E-mailkant: bevestigingslink van een domein waar we inschreven → aanklikken
 console.log(`\n── bevestigingsmail ──`);

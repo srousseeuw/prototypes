@@ -22,7 +22,13 @@ export const INSTELLINGEN = {
   // Eerste nacht: er staat nog niets in KV, dus alles wat nu online staat is
   // "nieuw". Dan mag hij meer doen dan op een gewone nacht — de inhaalbeweging.
   maxPerNacht: 10,
-  maxEersteNacht: 30,
+  maxEersteNacht: 15,
+  // Gratis plan: 50 subrequests per uitvoering. We houden wat marge.
+  // Zit je op Workers Paid, zet dan MAX_SUBREQUESTS als var op bv. 900.
+  maxSubrequests: 45,
+  // Zoveel fetches houden we opzij voor het inschrijven zelf, zodat het
+  // ophalen van bronnen nooit het hele budget opsoupeert.
+  reserveVoorDeelnames: 25,
   maxPogingen: 3,
   pauzeMs: 2500,
   bewaarDagen: 180,

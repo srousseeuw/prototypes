@@ -2,6 +2,7 @@
 // Zelfde regels als deelnemen.py: nooit gokken bij twijfel, geen lege verplichte
 // velden versturen, en bij een captcha stoppen we — dan komt het op de digest.
 import { UA, haal, ontsnap, stripHtml } from "./bronnen.js";
+import { budget } from "./budget.js";
 
 const CAPTCHA_SPOREN = ["recaptcha", "g-recaptcha", "hcaptcha", "h-captcha",
                         "cf-turnstile", "turnstile", "friendlycaptcha", "captcha"];
@@ -145,6 +146,7 @@ export async function deelnemen(url, deelnemer, opties = {}) {
   try {
     html = await haal(url);
   } catch (fout) {
+    if (fout.name === "BudgetOp") return { status: "later", opmerking: fout.message };
     return { status: "mislukt", opmerking: `pagina niet op te halen: ${fout.message}` };
   }
 
@@ -176,6 +178,7 @@ export async function deelnemen(url, deelnemer, opties = {}) {
 
   let antwoord;
   try {
+    budget.neem();
     antwoord = await fetch(doel, {
       method: "POST",
       body: payload,
@@ -188,6 +191,7 @@ export async function deelnemen(url, deelnemer, opties = {}) {
       },
     });
   } catch (fout) {
+    if (fout.name === "BudgetOp") return { status: "later", opmerking: fout.message };
     return { status: "mislukt", opmerking: `versturen mislukt: ${fout.message}` };
   }
 

@@ -121,6 +121,28 @@ zonder iets te deployen:
 node test/lokaal.mjs http://127.0.0.1:8765/
 ```
 
+## Subrequest-limiet
+
+Een Worker mag per uitvoering maar een beperkt aantal keer naar buiten: **50 op
+het gratis plan**, 1000 op Workers Paid. Bronnen ophalen én inschrijven tellen
+daar allebei in mee. Loopt die teller vol, dan mislukt alles wat erna komt — met
+een reeks misleidende "mislukt"-regels als gevolg.
+
+De Worker telt daarom zelf mee (`maxSubrequests` in `src/config.js`, standaard
+45), houdt 25 fetches opzij voor het inschrijven, en stopt netjes met "budget op,
+volgende ronde" in plaats van te blijven proberen. Wat blijft liggen, komt de
+volgende ronde aan bod. Waar de feed van een bron zit, wordt onthouden in KV, dus
+na de eerste ronde kost elke bron nog één fetch.
+
+Zit je op Workers Paid, zet dan in `wrangler.toml`:
+
+```toml
+[vars]
+MAX_SUBREQUESTS = "900"
+```
+
+Dan doet hij alles in één ronde.
+
 ## Grenzen
 
 * **Geen browser.** Een Worker kan geen JavaScript-formulier bedienen en geen
