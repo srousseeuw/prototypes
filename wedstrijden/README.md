@@ -22,34 +22,57 @@ te versturen. Kijk een week mee, en zet het pas dan echt aan. Een aparte
 mailbox of een `+wedstrijden`-alias (`sebastiaan.rousseeuw+wedstrijden@gmail.com`)
 houdt de gewone mail proper — de meeste sites accepteren dat gewoon.
 
-## Installatie
+## In gang zetten
+
+Eén commando, op de Mac waar het script moet draaien:
+
+```bash
+./wedstrijden/installeer.sh
+```
+
+Dat vraagt je gegevens (naam, adres, telefoon, geboortedatum), of hij echt mag
+inzenden of eerst wil proefdraaien, of hij formulieren zonder recept zelf mag
+proberen, en hoeveel deelnames per nacht maximaal. Daarna test hij de bronnen,
+draait één ronde, en zet zichzelf in cron. Alles wat je invult komt in
+`config.json`; een app-wachtwoord komt in `.env` met rechten 600. Beide blijven
+buiten git.
+
+Opnieuw draaien mag altijd — hij toont je huidige antwoorden tussen `[ ]` en
+zet zichzelf geen tweede keer in cron.
+
+### Of met de hand
 
 ```bash
 cd wedstrijden
-cp config.example.json config.json      # config.json staat in .gitignore
-$EDITOR config.json                     # adres, telefoon, geboortedatum aanvullen
+cp config.example.json config.json
+$EDITOR config.json
 python3 wedstrijden.py bronnen-check    # doen de bronnen het?
 python3 wedstrijden.py zoek --alles     # wat vindt hij, en met welke score?
 ```
+
+En in `crontab -e`:
+
+```
+15 3 * * * /Users/seb/Documents/GitHub/prototypes/wedstrijden/nacht.sh
+```
+
+`nacht.sh` leest `.env` in, draait `wedstrijden.py nacht` en logt naar
+`data/nacht.log`. Cron kent je shell-omgeving niet, dus wachtwoorden horen
+daar in `.env` te staan en niet in je `.zshrc`. Slaapt de Mac om 3u, kies dan
+een uur waarop hij aanstaat; op macOS heeft cron soms "Volledige schijftoegang"
+nodig (Systeeminstellingen → Privacy).
+
+### Eerst kijken, dan pas versturen
 
 `bronnen-check` is niet optioneel: de overzichtssites in `config.example.json`
 zijn echte Belgische wedstrijdsites, maar of ze een bruikbare feed hebben kon
 ik niet testen (de omgeving waarin dit geschreven is, mag niet naar buiten).
 Wat niets oplevert: URL aanpassen of `"actief": false` zetten.
 
-## Elke nacht laten draaien
-
-```bash
-crontab -e
-```
-
-```
-15 3 * * * /Users/seb/Documents/GitHub/prototypes/wedstrijden/nacht.sh
-```
-
-`nacht.sh` draait `wedstrijden.py nacht` en logt naar `data/nacht.log`. Op macOS
-moet Terminal (of cron) eventueel "Volledige schijftoegang" krijgen; slaapt de
-Mac om 3u, kies dan een uur waarop hij aanstaat.
+Kies je bij de installatie voor proefdraai, dan doet het script alles behalve
+versturen en zie je in de digest wat het zou ingediend hebben. Omschakelen kan
+later door `installeer.sh` opnieuw te draaien, of met
+`"dry_run": false` in `config.json`.
 
 ## Wat er 's nachts gebeurt
 
@@ -105,19 +128,19 @@ laten klikken (`pip install playwright && playwright install chromium`).
 ## Wachtwoorden
 
 Bevestigingsmails lezen en de digest mailen vraagt een **app-wachtwoord** van
-Google (niet je gewone wachtwoord; aan te maken via je Google-account →
-Beveiliging → App-wachtwoorden, met 2FA aan). Dat komt in een
-omgevingsvariabele, nooit in `config.json`:
+Google (niet je gewone wachtwoord; via je Google-account → Beveiliging →
+App-wachtwoorden, met 2FA aan). `installeer.sh` vraagt ernaar en zet het in
+`.env`:
 
-```bash
+```
 export GMAIL_APP_WACHTWOORD='xxxx xxxx xxxx xxxx'
 ```
 
-Voor cron zet je die regel in `nacht.sh` boven de python-aanroep.
+`nacht.sh` leest dat bestand in. Het staat in `.gitignore` en heeft rechten 600.
 
 ## Wat er niet in git komt
 
-`config.json` (adres, telefoon) en heel `data/` (wat we gezien hebben, waaraan
+`config.json` (adres, telefoon), `.env` (app-wachtwoord) en heel `data/` (wat we gezien hebben, waaraan
 we deelnamen, de digest). Alleen de code en het voorbeeldbestand worden
 gedeeld.
 

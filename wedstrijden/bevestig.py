@@ -86,7 +86,8 @@ def bevestig(config: dict, opslag, log=print) -> list[dict]:
     bevestigd: list[dict] = []
 
     try:
-        verbinding = imaplib.IMAP4_SSL(instellingen.get("imap_server", "imap.gmail.com"))
+        verbinding = imaplib.IMAP4_SSL(instellingen.get("imap_server", "imap.gmail.com"),
+                                       timeout=30)  # cron mag nooit blijven hangen
         verbinding.login(instellingen["gebruiker"], wachtwoord)
         verbinding.select(instellingen.get("map", "INBOX"), readonly=True)
         _, nummers = verbinding.search(None, f'(SINCE {sinds})')

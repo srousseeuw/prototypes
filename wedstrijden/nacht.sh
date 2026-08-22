@@ -4,6 +4,8 @@
 #   15 3 * * * /Users/seb/Documents/GitHub/prototypes/wedstrijden/nacht.sh
 set -uo pipefail
 HIER="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Wachtwoorden staan in .env (buiten git); cron kent je shell-omgeving niet.
+[ -f "$HIER/.env" ] && . "$HIER/.env"
 mkdir -p "$HIER/data"
 LOG="$HIER/data/nacht.log"
 {

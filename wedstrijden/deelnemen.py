@@ -213,7 +213,13 @@ def bouw_payload(formulier: dict, labels: dict, gegevens: dict,
 
         sleutel = raad_veld(veld, labels)
         if sleutel:
-            payload[naam] = str(gegevens.get(sleutel, ""))
+            waarde = str(gegevens.get(sleutel, "") or "").strip()
+            if waarde:
+                payload[naam] = waarde
+            elif veld["required"]:
+                # Liever niets versturen dan een leeg verplicht veld: dan weet je
+                # meteen welk gegeven nog in config.json ontbreekt.
+                onbekend.append(f"{sleutel} staat niet in config.json ({naam})")
         elif veld["required"]:
             onbekend.append(f"verplicht veld ({naam})")
 

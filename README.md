@@ -68,6 +68,10 @@ hostname doorroutet — laat het weten en die bouwen we erbij.
 
 In `wedstrijden/` zit een apart script dat 's nachts gratis wedstrijden zoekt
 die nuttig zijn voor het gezin en er automatisch aan deelneemt. Het heeft niets
-met de sitegenerator te maken en draait op je eigen Mac via cron. Zie
-`wedstrijden/README.md` — lees zeker de waarschuwing bovenaan: het staat
-standaard op proefdraai en verstuurt pas iets als je dat zelf aanzet.
+met de sitegenerator te maken en draait op je eigen Mac via cron. Opzetten:
+
+```bash
+./wedstrijden/installeer.sh
+```
+
+Zie `wedstrijden/README.md` — lees zeker de waarschuwing bovenaan.

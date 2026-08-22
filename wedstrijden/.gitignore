@@ -2,3 +2,4 @@ config.json
 data/*
 !data/.gitkeep
 __pycache__/
+.env
