@@ -1,0 +1,35 @@
+{
+  "slug": "kapsalon-asia",
+  "business_name": "Kapsalon Asia",
+  "sector": "kapper",
+  "category": "Kapsalon voor dames en heren",
+  "tagline": "Kappen voor dames en heren, zes dagen per week zonder afspraak",
+  "address": "Molenstraat 10E, 4881 CS Zundert",
+  "phone": "06 40 66 45 39",
+  "appointment_note": "Geen afspraak nodig — loop gewoon binnen tijdens openingstijden",
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "10:00 – 18:00"],
+    ["Woensdag", "10:00 – 18:00"],
+    ["Donderdag", "10:00 – 18:00"],
+    ["Vrijdag", "10:00 – 19:00"],
+    ["Zaterdag", "10:00 – 18:00"],
+    ["Zondag", "10:00 – 17:00"]
+  ],
+  "highlights": [
+    "Zes dagen per week open, van dinsdag tot en met zondag",
+    "Geen afspraak nodig: gewoon binnenlopen tijdens openingstijden",
+    "Knipbeurten voor zowel dames als heren",
+    "Centraal gelegen aan de Molenstraat, in het centrum van Zundert"
+  ],
+  "about": "Kapsalon Asia is een laagdrempelige kapperszaak aan de Molenstraat, in het centrum van Zundert. Dames en heren kunnen er zes dagen per week terecht voor een knipbeurt, zonder dat vooraf een afspraak nodig is: gewoon binnenlopen tijdens de openingsuren volstaat.",
+  "cta_text": "Bel of loop binnen",
+  "accent": "#a3423a",
+  "email_note": "Geen e-mailadres teruggevonden. Kapsalon Asia heeft geen eigen website — enkel een Instagram- (@kapsalonasia) en Facebookpagina (facebook.com/kapsalon.asia), naast vermeldingen op telefoonboek.nl, Cylex en andere bedrijvengidsen. Voorlopig alleen telefonisch of via social media bereikbaar.",
+  "note": "Adres wisselt tussen bronnen tussen 'Molenstraat 10-d' en 'Molenstraat 10E'; meerdere onafhankelijke gidsen (telefoonboek.nl, wanderboat.ai, transfirm.nl) komen overeen op 'Molenstraat 10E, 4881 CS Zundert', dus die versie is gebruikt. Telefoonnummer 06 40 66 45 39 komt consistent terug op meerdere bronnen. Openingsuren zijn afkomstig uit de bio van het Instagram-account @kapsalonasia (niet op een eigen website te verifiëren, aangezien die niet bestaat) en komen overeen met een onafhankelijke bedrijvengids — 'geen afspraak nodig' wordt in meerdere bronnen bevestigd.",
+  "outreach": {
+    "status": "nieuw",
+    "note": "Geen e-mailadres teruggevonden. Bellen: 06 40 66 45 39, of via Instagram/Facebook.",
+    "only_phone": true
+  }
+}
