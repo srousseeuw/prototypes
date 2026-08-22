@@ -156,12 +156,25 @@ export default {
     );
   },
 
-  async fetch(verzoek, env) {
+  async fetch(verzoek, env, ctx) {
     const pad = new URL(verzoek.url).pathname.replace(/^\/|\/$/g, "");
     const geheim = (env.DIGEST_PAD || "").replace(/^\/|\/$/g, "");
 
-    if (!geheim || pad !== geheim) {
+    if (!geheim || (pad !== geheim && pad !== `${geheim}/nu`)) {
       return new Response("Niets te zien hier.", { status: 404 });
+    }
+
+    // /<pad>/nu draait meteen een ronde, zodat je niet tot 03:15 moet wachten.
+    if (pad === `${geheim}/nu`) {
+      const dryRun = String(env.DRY_RUN ?? "true") !== "false";
+      ctx.waitUntil(ronde(env, { dryRun }).then((digest) => mailDigest(env, digest)));
+      return new Response(
+        `<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="45;url=/${geheim}">` +
+        `<p style="font:16px system-ui;padding:24px">Ronde gestart` +
+        `${dryRun ? " (proefdraai — er wordt niets verstuurd)" : ""}. ` +
+        `Deze pagina springt over een halve minuut naar het overzicht.</p>`,
+        { headers: { "Content-Type": "text/html; charset=utf-8" } }
+      );
     }
 
     const digest = (await env.WEDSTRIJDEN.get("digest:laatste", "json")) || {

@@ -57,9 +57,16 @@ in je favorieten.
 
 ### Eerst proefdraaien
 
+Je hoeft niet tot 03:15 te wachten: surf naar `<worker-url>/<DIGEST_PAD>/nu`
+en hij draait meteen een ronde, met de instelling die op dat moment geldt
+(dus proefdraai zolang `DRY_RUN = "true"`). Na een halve minuut springt de
+pagina naar het overzicht.
+
+Lokaal kan ook, zonder te deployen:
+
 ```bash
 npx wrangler dev --test-scheduled
-curl "http://localhost:8787/__scheduled"     # draait de nachtelijke ronde nu
+curl "http://localhost:8787/__scheduled"
 ```
 
 Kijk de digest na. Ziet het er goed uit, zet dan `DRY_RUN = "false"` in

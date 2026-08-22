@@ -88,6 +88,14 @@ console.log("  /geheim-pad →", goed.status, await (async () => { const h = awa
     return h.includes("Waar je aan deelnam") && h.includes("Laatste ronde") ? "✓ overzicht + laatste ronde" : "✗"; })());
 console.log("  /           →", fout.status, fout.status === 404 ? "✓ verborgen" : "✗");
 
+// 4b. /<pad>/nu draait meteen een ronde
+taken.length = 0;
+const nu = await worker.fetch(new Request("https://bot.example/geheim-pad/nu"), env, ctx);
+await Promise.all(taken);
+const naNu = await kv2.get("digest:laatste", "json");
+console.log("  /geheim-pad/nu →", nu.status,
+  (await nu.text()).includes("Ronde gestart") && naNu ? "✓ ronde gedraaid" : "✗");
+
 // 5. E-mailkant: bevestigingslink van een domein waar we inschreven → aanklikken
 console.log(`\n── bevestigingsmail ──`);
 const host = new URL(BASIS).hostname.replace(/^www\./, "");
