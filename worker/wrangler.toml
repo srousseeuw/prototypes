@@ -17,6 +17,6 @@ DRY_RUN = "true"
 # en zet het id dat je terugkrijgt hieronder.
 [[kv_namespaces]]
 binding = "WEDSTRIJDEN"
-id = "VUL_IN_NA_KV_NAMESPACE_CREATE"
+id = "10a9d00d322843438e60d5fdbab0ce92"
 
 # E-mail versturen (optioneel) gebeurt via send_email of Resend; zie README.
