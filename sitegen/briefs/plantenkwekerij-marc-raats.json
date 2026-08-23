@@ -1,0 +1,59 @@
+{
+  "slug": "plantenkwekerij-marc-raats",
+  "sector": "tuincentrum",
+  "business_name": "Plantenkwekerij Marc Raats",
+  "category": "Kwekerij & tuinplanten",
+  "tagline": "Tuinplanten rechtstreeks van eigen kwekerij, al 25 jaar",
+  "address": "Bergsebaan 118, 4709 AS Nispen",
+  "phone": "06 16 38 09 41",
+  "hours": [
+    [
+      "Maandag",
+      "9:00 – 17:30"
+    ],
+    [
+      "Dinsdag",
+      "9:00 – 17:30"
+    ],
+    [
+      "Woensdag",
+      "9:00 – 17:30"
+    ],
+    [
+      "Donderdag",
+      "9:00 – 17:30"
+    ],
+    [
+      "Vrijdag",
+      "9:00 – 17:30"
+    ],
+    [
+      "Zaterdag",
+      "9:00 – 17:30"
+    ],
+    [
+      "Zondag",
+      "Gesloten"
+    ]
+  ],
+  "highlights": [
+    "Al 25 jaar eigen kwekerij, rechtstreeks van het veld — zonder tussenhandel",
+    "Ruime keuze zomerbloeiers, een vaste waarde in de grensstreek",
+    "Bekend om de XXL hangmanden, elk jaar zelf samengesteld",
+    "Ook vaste planten, rozen, siergrassen, kruiden en fruitbomen"
+  ],
+  "departments": [
+    "Zomerbloeiers & hangmanden",
+    "Vaste planten & siergrassen",
+    "Rozen, struiken & fruitbomen",
+    "Kruiden- en moestuinplanten"
+  ],
+  "about": "Al meer dan 25 jaar kweekt de familie Raats aan de Bergsebaan in Nispen haar eigen tuinplanten, van stek tot volwassen plant. In het voorjaar en de zomer is de kwekerij een vertrouwd adres in de grensstreek voor de ruime keuze zomerbloeiers en de bekende XXL hangmanden, aangevuld met vaste planten, rozen, siergrassen, kruiden en fruitbomen — rechtstreeks van eigen grond, tegen een scherpe prijs.",
+  "cta_text": "Kom kijken op de kwekerij",
+  "accent_context": "garden_earthy",
+  "email": "marc.raats@belgacom.net",
+  "note": "Huidige website (plantenkwekerijmarcraats.nl) is een oude statische .htm-site zonder responsive design. E-mailadres marc.raats@belgacom.net staat consistent op meerdere onafhankelijke bedrijvengidsen (telefoonboek.nl, bottin.nl, globuya.com) — kon niet rechtstreeks op de bronpagina bevestigd worden (WebFetch was deze sessie niet beschikbaar) en is een persoonlijk Belgacom-adres, geen bedrijfsdomein. Sluitingstijd zaterdag wisselt tussen bronnen (17:00 vs 17:30); 17:30 gekozen als meest voorkomende waarde. MX-check kon niet uitgevoerd worden (dig niet beschikbaar in deze sessie).",
+  "outreach": {
+    "status": "nieuw"
+  }
+}
