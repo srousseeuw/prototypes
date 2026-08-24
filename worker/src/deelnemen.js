@@ -25,6 +25,42 @@ const VELDPATRONEN = [
   [/geboorte|birth|dob/, "geboortedatum"],
 ];
 
+// Overzichtssites tonen een detailpagina met een knop naar de echte wedstrijd.
+// Die hop misten we: we zochten een formulier op een pagina die er geen heeft.
+const DOORKLIK = /deelnem|meedoen|doe\s*mee|naar de (wedstrijd|actie)|win nu|inschrijv|naar de site|bezoek/i;
+
+export function zoekDoorklik(html, basisUrl) {
+  const huidig = new URL(basisUrl);
+  const eigen = huidig.hostname.replace(/^www\./, "");
+  const kandidaten = [];
+
+  for (const [, href, binnenkant] of html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
+    const tekst = stripHtml(binnenkant);
+    if (!DOORKLIK.test(tekst)) continue;
+
+    let doel;
+    try {
+      doel = new URL(ontsnap(href), basisUrl);
+    } catch {
+      continue;
+    }
+    if (!/^https?:$/.test(doel.protocol)) continue;
+    if (doel.toString().split("#")[0] === basisUrl.split("#")[0]) continue;
+
+    const extern = doel.hostname.replace(/^www\./, "") !== eigen;
+    // Een link terug naar de homepage van de overzichtssite is geen wedstrijd.
+    if (!extern && doel.pathname.replace(/\/+$/, "") === "") continue;
+
+    kandidaten.push({ url: doel.toString(), extern });
+  }
+
+  // Extern heeft voorrang (dat is meestal het merk zelf), maar een doorklik
+  // binnen dezelfde site telt ook: sommige overzichtssites hosten het
+  // formulier gewoon zelf.
+  const gekozen = kandidaten.find((k) => k.extern) || kandidaten[0];
+  return gekozen ? gekozen.url : null;
+}
+
 export function bevatCaptcha(html) {
   const laag = html.toLowerCase();
   return CAPTCHA_SPOREN.some((spoor) => laag.includes(spoor));
@@ -213,9 +249,33 @@ export async function deelnemen(url, deelnemer, opties = {}) {
     return { status: "handmatig", opmerking: "lijkt een account of login te vragen" };
   }
 
-  const { formulieren, labels } = leesFormulieren(html);
-  const formulier = kiesFormulier(formulieren);
-  if (!formulier) return { status: "handmatig", opmerking: "geen deelnameformulier gevonden" };
+  let { formulieren, labels } = leesFormulieren(html);
+  let formulier = kiesFormulier(formulieren);
+  let doelPagina = url;
+
+  // Geen formulier? Dan staan we waarschijnlijk op de detailpagina van een
+  // overzichtssite. Volg de knop naar de echte wedstrijd — één keer.
+  if (!formulier) {
+    const door = zoekDoorklik(html, url);
+    if (!door) return { status: "handmatig", opmerking: "geen deelnameformulier en geen doorklik gevonden" };
+    let tweede;
+    try {
+      tweede = await haal(door);
+    } catch (fout) {
+      if (fout.name === "BudgetOp") return { status: "later", opmerking: fout.message };
+      return { status: "mislukt", opmerking: `doorklik ${door} niet op te halen: ${fout.message}` };
+    }
+    if (bevatCaptcha(tweede)) {
+      return { status: "handmatig", opmerking: `captcha op ${new URL(door).hostname}` };
+    }
+    ({ formulieren, labels } = leesFormulieren(tweede));
+    formulier = kiesFormulier(formulieren);
+    doelPagina = door;
+    html = tweede;
+    if (!formulier) {
+      return { status: "handmatig", opmerking: `geen formulier op ${new URL(door).hostname} (waarschijnlijk JavaScript)` };
+    }
+  }
 
   const { payload, onbekend, uitleg } = bouwPayload(formulier, labels, deelnemer, {
     pagina: stripHtml(html),
@@ -229,7 +289,7 @@ export async function deelnemen(url, deelnemer, opties = {}) {
     return { status: "handmatig", opmerking: "geen e-mailveld herkend" };
   }
 
-  const doel = new URL(formulier.action || url, url).toString();
+  const doel = new URL(formulier.action || doelPagina, doelPagina).toString();
   if (dryRun) {
     return {
       status: "proefdraai",
@@ -247,7 +307,7 @@ export async function deelnemen(url, deelnemer, opties = {}) {
       headers: {
         "User-Agent": UA,
         "Content-Type": "application/x-www-form-urlencoded",
-        Referer: url,
+        Referer: doelPagina,
         "Accept-Language": "nl-BE,nl;q=0.9",
       },
     });

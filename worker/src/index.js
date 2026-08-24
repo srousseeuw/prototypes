@@ -14,6 +14,7 @@ import { deelnemen } from "./deelnemen.js";
 import { BRONNEN, INSTELLINGEN } from "./config.js";
 import { bouwDigest } from "./digest.js";
 import { budget } from "./budget.js";
+import { bouwDiagnosePagina, onderzoek } from "./diagnose.js";
 
 const wacht = (ms) => new Promise((klaar) => setTimeout(klaar, ms));
 
@@ -187,8 +188,39 @@ export default {
     const pad = new URL(verzoek.url).pathname.replace(/^\/|\/$/g, "");
     const geheim = (env.DIGEST_PAD || "").replace(/^\/|\/$/g, "");
 
-    if (!geheim || (pad !== geheim && pad !== `${geheim}/nu`)) {
+    if (!geheim || ![geheim, `${geheim}/nu`, `${geheim}/diagnose`].includes(pad)) {
       return new Response("Niets te zien hier.", { status: 404 });
+    }
+
+    // Diagnose: toont per wedstrijd wat er gebeurt, zonder iets te versturen.
+    if (pad === `${geheim}/diagnose`) {
+      budget.reset(Number(env.MAX_SUBREQUESTS || INSTELLINGEN.maxSubrequests));
+      const deelnemer = deelnemerUit(env);
+      const losseUrl = new URL(verzoek.url).searchParams.get("url");
+
+      let items;
+      let kop;
+      if (losseUrl) {
+        items = [{ url: losseUrl, titel: "", samenvatting: "" }];
+        kop = `Eén wedstrijd onderzocht: ${losseUrl}`;
+      } else {
+        const feedGeheugen = {
+          get: (u) => env.WEDSTRIJDEN.get(`feed:${u}`),
+          put: (u, w) => env.WEDSTRIJDEN.put(`feed:${u}`, w, { expirationTtl: 30 * 86400 }),
+        };
+        const { items: rauw } = await verzamel(BRONNEN, () => {}, feedGeheugen, 20);
+        items = kies(rauw).slice(0, 6);
+        kop = `${rauw.length} items opgehaald, ${items.length} onderzocht (subrequests ${budget.gebruikt}/${budget.limiet})`;
+      }
+
+      const bevindingen = [];
+      for (const item of items) {
+        if (budget.over() < 3) break;
+        bevindingen.push(await onderzoek(item.url, deelnemer, `${item.titel || ""} ${item.samenvatting || ""}`));
+      }
+      return new Response(bouwDiagnosePagina(bevindingen, kop), {
+        headers: { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex" },
+      });
     }
 
     // /<pad>/nu draait meteen een ronde, zodat je niet tot 03:15 moet wachten.

@@ -121,6 +121,35 @@ zonder iets te deployen:
 node test/lokaal.mjs http://127.0.0.1:8765/
 ```
 
+## Diagnose: werkt het echt?
+
+Deze code is geschreven in een omgeving die de echte wedstrijdsites niet mag
+bereiken, en dus getest tegen een zelfgemaakte testsite. Dat bewijst dat de
+logica doet wat ze moet doen, maar niets over de werkelijkheid. Vandaar:
+
+```
+<worker-url>/<DIGEST_PAD>/diagnose
+```
+
+Die pagina haalt de bovenste zes wedstrijden op en toont per stuk wat er
+gebeurt — HTTP-status, aantal formulieren, of er een captcha staat, hoeveel
+scripts (JavaScript-formulieren zijn niet te bedienen), of er doorgeklikt kon
+worden naar het merk, en welke velden ingevuld zouden worden. **Er wordt niets
+verstuurd.**
+
+Eén specifieke wedstrijd nakijken kan ook:
+
+```
+<worker-url>/<DIGEST_PAD>/diagnose?url=https://...
+```
+
+### De doorklik
+
+Overzichtssites tonen een detailpagina met een knop "Deelnemen" die pas naar
+het formulier van het merk leidt. Zonder die extra stap zoekt de bot een
+formulier op een pagina die er nooit één had, en belandt alles op "zelf doen".
+`zoekDoorklik()` volgt die knop één keer, bij voorkeur naar een ander domein.
+
 ## Wedstrijdvragen en schiftingsvragen
 
 Veel wedstrijden vragen meer dan je adres. `src/antwoord.js` vult die in:
