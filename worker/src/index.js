@@ -231,7 +231,7 @@ export default {
       const digest = await ronde(env, { dryRun });
       ctx.waitUntil(mailDigest(env, digest));
       const alles = (await env.WEDSTRIJDEN.get("index:deelnames", "json")) || [];
-      return new Response(bouwDigest(digest, alles), {
+      return new Response(bouwDigest(digest, alles, geheim), {
         headers: { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex" },
       });
     }
@@ -241,7 +241,7 @@ export default {
       nogNiets: true,
     };
     const alles = (await env.WEDSTRIJDEN.get("index:deelnames", "json")) || [];
-    return new Response(bouwDigest(digest, alles), {
+    return new Response(bouwDigest(digest, alles, geheim), {
       headers: { "Content-Type": "text/html; charset=utf-8", "X-Robots-Tag": "noindex" },
     });
   },

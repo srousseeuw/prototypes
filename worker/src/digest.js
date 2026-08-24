@@ -64,7 +64,7 @@ function alleDeelnames(alles) {
 <table>${regels}</table>`;
 }
 
-export function bouwDigest(digest, alles = []) {
+export function bouwDigest(digest, alles = [], pad = "") {
   const perStatus = {};
   for (const item of digest.resultaten || []) {
     (perStatus[item.status] ||= []).push(item);
@@ -121,6 +121,9 @@ td a:hover{text-decoration:underline}
 .dag{color:#6b7280;white-space:nowrap;width:64px}
 .bron{display:block;color:#6b7280;font-size:12px;margin-top:2px}
 .scheiding{margin-top:40px}
+.knoppen{margin:0 0 18px;display:flex;gap:8px;flex-wrap:wrap}
+.knoppen a{font:600 13px system-ui;text-decoration:none;color:#0b62c4;
+  border:1px solid #cbd5e1;border-radius:999px;padding:6px 12px;background:#fff}
 @media (prefers-color-scheme:dark){
   body{background:#0f1115;color:#e5e7eb}
   .kaart{background:#171a21;border-color:#262b36}
@@ -128,9 +131,13 @@ td a:hover{text-decoration:underline}
   .badge{background:#232833;color:#cbd5e1}
   .fout{background:#241618;border-color:#5b2326}
   td{border-color:#262b36} td a{color:#e5e7eb}
+  .knoppen a{background:#171a21;border-color:#262b36;color:#60a5fa}
 }
 </style></head><body><div class="wrap">
 <h1>Wedstrijden</h1>
+${pad ? `<p class="knoppen"><a href="/${pad}/nu">Ronde nu draaien</a>
+<a href="/${pad}/diagnose">Diagnose (verstuurt niets)</a>
+<a href="/${pad}">Vernieuwen</a></p>` : ""}
 <p class="sub">Laatste ronde: ${datum} — ${ontsnap(digest.opgehaald ?? 0)} gevonden ·
 ${ontsnap(digest.gekozen ?? 0)} geselecteerd · ${(digest.resultaten || []).length} behandeld</p>
 ${alleDeelnames(alles)}
