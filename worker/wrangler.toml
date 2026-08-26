@@ -1,0 +1,22 @@
+name = "wedstrijdbot"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+# 03:15 Belgische zomertijd (cron staat in UTC; in de winter wordt dat 04:15
+# lokaal — pas gerust aan, het uur maakt weinig uit).
+[triggers]
+crons = ["15 1 * * *"]
+
+[vars]
+# Op "true" doet hij alles behalve versturen. Zet op "false" als de eerste
+# proefdraai er goed uitziet:  npx wrangler deploy  na het wijzigen.
+DRY_RUN = "false"
+
+# Waar de "al gedaan"-lijst in leeft. Maak de namespace aan met
+#   npx wrangler kv namespace create WEDSTRIJDEN
+# en zet het id dat je terugkrijgt hieronder.
+[[kv_namespaces]]
+binding = "WEDSTRIJDEN"
+id = "10a9d00d322843438e60d5fdbab0ce92"
+
+# E-mail versturen (optioneel) gebeurt via send_email of Resend; zie README.

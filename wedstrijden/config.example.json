@@ -1,0 +1,88 @@
+{
+  "_uitleg": "Kopieer dit naar config.json en vul aan. config.json staat in .gitignore, want het bevat persoonsgegevens.",
+  "deelnemer": {
+    "voornaam": "Sebastiaan",
+    "achternaam": "Rousseeuw",
+    "email": "sebastiaan.rousseeuw@gmail.com",
+    "telefoon": "",
+    "straat": "",
+    "huisnummer": "",
+    "postcode": "",
+    "gemeente": "Essen",
+    "land": "België",
+    "geboortedatum": "1980-01-01",
+    "nieuwsbrief_toestaan": false
+  },
+  "_selectie": "Woorden en gewichten staan in selectie.json (gedeeld met de Worker).",
+  "bronnen": [
+    {
+      "naam": "Wedstrijden.be",
+      "url": "https://www.wedstrijden.be/wedstrijden",
+      "type": "auto",
+      "actief": true
+    },
+    {
+      "naam": "WinPrijzen.be",
+      "url": "https://winprijzen.be/",
+      "type": "auto",
+      "actief": true
+    },
+    {
+      "naam": "DeWedstrijden.be",
+      "url": "https://www.dewedstrijden.be/",
+      "type": "auto",
+      "actief": true
+    },
+    {
+      "naam": "GoGratis.be",
+      "url": "https://www.gogratis.be/cat/wedstrijden/",
+      "type": "auto",
+      "actief": true
+    },
+    {
+      "naam": "Gratis.be",
+      "url": "https://gratis.be/alle/gratis-wedstrijden/",
+      "type": "auto",
+      "actief": true
+    },
+    {
+      "naam": "Prijzen-winnen.com",
+      "url": "https://www.prijzen-winnen.com/",
+      "type": "auto",
+      "actief": true
+    },
+    {
+      "naam": "Tegen de crisis",
+      "url": "https://www.tegendecrisis.be/category/wedstrijden-belgie/",
+      "type": "auto",
+      "actief": true
+    }
+  ],
+  "deelname": {
+    "dry_run": true,
+    "max_per_nacht": 8,
+    "pauze_seconden": 25,
+    "playwright": false,
+    "chromium_pad": "",
+    "timeout_seconden": 30,
+    "alleen_met_recept": true,
+    "max_pogingen": 3
+  },
+  "bevestiging": {
+    "actief": false,
+    "imap_server": "imap.gmail.com",
+    "gebruiker": "sebastiaan.rousseeuw@gmail.com",
+    "wachtwoord_env": "GMAIL_APP_WACHTWOORD",
+    "map": "INBOX",
+    "max_uren": 72
+  },
+  "digest": {
+    "bestand": "data/digest.html",
+    "mailen": false,
+    "smtp_server": "smtp.gmail.com",
+    "smtp_poort": 587,
+    "smtp_gebruiker": "sebastiaan.rousseeuw@gmail.com",
+    "smtp_wachtwoord_env": "GMAIL_APP_WACHTWOORD",
+    "naar": "sebastiaan.rousseeuw@gmail.com"
+  }
+}

@@ -1,0 +1,178 @@
+// GEGENEREERD — niet met de hand bewerken.
+// Bron: wedstrijden/selectie.json  ·  opnieuw maken: npm run lijsten
+export default {
+  "min_score": 4,
+  "max_per_nacht": 25,
+  "categorieen": {
+    "kinderen": {
+      "gewicht": 4,
+      "woorden": [
+        "kind",
+        "kinderen",
+        "kleuter",
+        "baby",
+        "speelgoed",
+        "lego",
+        "playmobil",
+        "gezin",
+        "familie",
+        "schoolspullen",
+        "boekentas",
+        "knutsel",
+        "kinderfiets",
+        "kinderboek"
+      ]
+    },
+    "uitstap": {
+      "gewicht": 4,
+      "woorden": [
+        "pretpark",
+        "plopsa",
+        "bellewaerde",
+        "walibi",
+        "efteling",
+        "dierentuin",
+        "zoo",
+        "planckendael",
+        "zwembad",
+        "subtropisch",
+        "museum",
+        "gezinsuitstap",
+        "dagje uit",
+        "tickets",
+        "duotickets"
+      ]
+    },
+    "boodschappen": {
+      "gewicht": 5,
+      "woorden": [
+        "waardebon",
+        "cadeaubon",
+        "bon van",
+        "shoptegoed",
+        "colruyt",
+        "delhaize",
+        "albert heijn",
+        "lidl",
+        "aldi",
+        "carrefour",
+        "boodschappen",
+        "winkelkar",
+        "voedingspakket",
+        "kruidvat"
+      ]
+    },
+    "huishouden": {
+      "gewicht": 3,
+      "woorden": [
+        "stofzuiger",
+        "wasmachine",
+        "droogkast",
+        "vaatwas",
+        "airfryer",
+        "koffiemachine",
+        "keukenrobot",
+        "matras",
+        "beddengoed",
+        "huishoud",
+        "elektro",
+        "koelkast",
+        "oven",
+        "robotstofzuiger"
+      ]
+    },
+    "mobiliteit": {
+      "gewicht": 3,
+      "woorden": [
+        "fiets",
+        "elektrische fiets",
+        "e-bike",
+        "bakfiets",
+        "step",
+        "fietshelm",
+        "tankkaart",
+        "treinticket",
+        "abonnement de lijn"
+      ]
+    },
+    "vakantie": {
+      "gewicht": 3,
+      "woorden": [
+        "weekend",
+        "vakantie",
+        "verblijf",
+        "hotel",
+        "vakantiepark",
+        "center parcs",
+        "camping",
+        "overnachting",
+        "reischeque"
+      ]
+    },
+    "energie": {
+      "gewicht": 2,
+      "woorden": [
+        "energiefactuur",
+        "zonnepanelen",
+        "isolatie",
+        "energiecheque",
+        "warmtepomp"
+      ]
+    },
+    "vrije_tijd": {
+      "gewicht": 2,
+      "woorden": [
+        "boek",
+        "boekenpakket",
+        "gezelschapsspel",
+        "bordspel",
+        "sportkamp",
+        "zwemles",
+        "bioscoop",
+        "kinepolis",
+        "concert",
+        "festival"
+      ]
+    }
+  },
+  "uitsluiten": [
+    "casino",
+    "gok",
+    "gokken",
+    "wedden",
+    "bookmaker",
+    "bingo",
+    "loterij",
+    "krasl",
+    "sigaret",
+    "tabak",
+    "vape",
+    "sterke drank",
+    "whisky",
+    "wodka",
+    "dating",
+    "crypto",
+    "bitcoin",
+    "beleggen",
+    "lening",
+    "afslank",
+    "botox",
+    "sms",
+    "090",
+    "premium sms",
+    "belspel",
+    "abonnement verplicht",
+    "aankoop verplicht",
+    "enkel voor nederland",
+    "alleen voor nederland",
+    "alleen in nederland",
+    "18+ dating"
+  ],
+  "uitsluiten_gewicht": -20,
+  "gratis_woorden": [
+    "gratis",
+    "geen aankoopverplichting",
+    "gratis deelname"
+  ],
+  "gratis_bonus": 2
+};
