@@ -1,2 +1,5 @@
 name = "prototypes"
-pages_build_output_dir = "sites"
+compatibility_date = "2026-08-25"
+
+[assets]
+directory = "./sites"
