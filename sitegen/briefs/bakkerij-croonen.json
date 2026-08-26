@@ -1,0 +1,34 @@
+{
+  "slug": "bakkerij-croonen",
+  "business_name": "Bakkerij Croonen",
+  "sector": "bakery",
+  "category": "Brood- en banketbakkerij",
+  "tagline": "De vertrouwde bakker van Wouw",
+  "address": "Kloosterstraat 4, 4724 EE Wouw",
+  "phone": "0165 30 35 55",
+  "founded": "1925",
+  "about": "Een echte buurtbakker in het hart van Wouw. De zaak heeft een lange familiegeschiedenis: ze is ontstaan uit een touwslagerij die begin vorige eeuw overschakelde op broodbakken, en kwam in 1979 in handen van de familie Croonen. Vandaag bakt de bakkerij dagelijks vers brood, koek en gebak, met een tweede winkel in Roosendaal.",
+  "cta_text": "Bekijk de openingsuren",
+  "highlights": [
+    "Brood en banket dagelijks vers gebakken, van volkoren tot krentenbrood",
+    "Familiebedrijf met wortels die teruggaan tot het begin van de vorige eeuw",
+    "Ook een vestiging in Roosendaal, naast de winkel in Wouw",
+    "Zes dagen per week open, op dinsdag enkel in de ochtend",
+    "Bekend om koek en saucijzenbroodjes naast het dagelijkse brood"
+  ],
+  "hours": [
+    ["Maandag", "7:00 – 17:30"],
+    ["Dinsdag", "7:00 – 13:00"],
+    ["Woensdag", "7:00 – 17:30"],
+    ["Donderdag", "7:00 – 17:30"],
+    ["Vrijdag", "7:00 – 17:30"],
+    ["Zaterdag", "7:00 – 16:00"],
+    ["Zondag", "Gesloten"]
+  ],
+  "email_note": "Geen werkend e-mailadres gevonden. Het oude domein bakkerijcroonen.nl is niet meer in bezit van de bakkerij — het herleidt volledig (ook de /about-us-pagina) naar een onverwante zonnepanelenzaak, hasolar.nl. Op een lokale bedrijvengids (roosendaal0165.nl) staat nog een Cloudflare-versleuteld adres bij het domein bakkerijcroonen.com, maar dat domein bestaat niet meer (geen DNS/MX, NXDOMAIN) — dat adres is dus niet bruikbaar. Voorlopig enkel telefonisch bereikbaar op 0165 30 35 55, of via de Facebookpagina 'Bakkerij Croonen'.",
+  "note": "Familiegeschiedenis (touwslager → bakker Stols → familie Croonen vanaf 1979) komt uit zoekresultaten/cache van de verdwenen eigen website, niet rechtstreeks van een nog bestaande pagina — daarom bewust vaag gehouden over jaartallen na 1979. Adres, telefoonnummer en het algemene openingsurenpatroon (dinsdag- en zaterdagmiddag korter) zijn wel consistent teruggevonden op meerdere onafhankelijke, actuele bronnen (roosendaal0165.nl, Yelp — bijgewerkt juli 2026 — en infoisinfo.nl). Eén sterk verouderde bron uit 2012 vermeldde 8:00 als openingstijd i.p.v. 7:00; de recentere bronnen zijn aangehouden, maar navragen bij eerste contact blijft aan te raden. Er is ook een gelijknamige, gelieerde bakkerij Croonen aan de Hulsdonksestraat 48 in Roosendaal (dezelfde familie) — deze site gaat over de winkel in Wouw.",
+  "outreach": {
+    "status": "nieuw",
+    "only_phone": true
+  }
+}
