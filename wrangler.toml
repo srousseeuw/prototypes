@@ -1,3 +1,18 @@
+# De statische prototypes-site (prototype.ocior.be).
+#
+# Dit is een Worker met statische assets, geen Pages-project: de repo hangt aan
+# Workers Builds, en die draait `wrangler deploy`. Vandaar "[assets]" en niet
+# "pages_build_output_dir" — die laatste hoort bij Pages en `wrangler pages
+# deploy`. Verwissel je die twee, dan faalt de build met:
+#
+#   ✘ Missing entry-point to Worker script or to assets directory
+#
+# Er valt niets te bouwen: sites/ bevat kant-en-klare HTML. sites/_redirects
+# wordt hier gewoon ondersteund (Workers met assets kent _redirects en _headers,
+# net als Pages).
+#
+# Let op: worker/wrangler.toml is een ándere Worker (de wedstrijdbot), met een
+# eigen naam, cron en KV. Die twee staan los van elkaar.
 name = "prototypes"
 compatibility_date = "2026-08-25"
 
