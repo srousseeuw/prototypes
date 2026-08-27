@@ -1,0 +1,33 @@
+{
+  "slug": "pedicuresalon-suzanne",
+  "business_name": "Pedicuresalon Suzanne",
+  "sector": "pedicure",
+  "category": "Pedicuresalon",
+  "tagline": "Vakkundige voetverzorging in een vertrouwde, kleinschalige salon",
+  "address": "Flamingostraat 4, 4709 BH Nispen",
+  "phone": "0165 326084",
+  "specialisaties": [
+    "Reguliere voetverzorging",
+    "Nagelverzorging",
+    "Eeltverwijdering",
+    "Voetmassage"
+  ],
+  "certifications": [],
+  "appointment_note": "Op afspraak",
+  "hours_note": "Openingstijden niet online teruggevonden — bel voor een afspraak op een moment dat u past.",
+  "highlights": [
+    "Al sinds 2015 een vertrouwd adres voor voetverzorging in Nispen",
+    "Persoonlijke aandacht in een kleine, eenmanssalon",
+    "Reguliere voetverzorging, nagelverzorging en voetmassage",
+    "Vlakbij, midden in het dorp"
+  ],
+  "about": "Pedicuresalon Suzanne is een kleinschalige pedicurepraktijk aan de Flamingostraat in Nispen, al sinds 2015 actief als eenmanszaak. Voor reguliere voetverzorging, nagelverzorging en een ontspannende voetmassage kunt u er terecht op afspraak.",
+  "cta_text": "Bel voor een afspraak",
+  "email_note": "Geen e-mailadres teruggevonden. Geen eigen website, enkel vermeldingen op telefoonboek.nl, De Telefoongids, Oozo en vergelijkbare bedrijvengidsen. Voorlopig enkel telefonisch bereikbaar.",
+  "note": "Adres en telefoonnummer consistent teruggevonden op meerdere onafhankelijke bedrijvengidsen (telefoonboek.nl, De Telefoongids, Oozo, Goudengids) en bevestigd via het KvK-nummer (64177343) op pedicures.online. Openingstijden nergens vermeld. Certificeringen (ProVoet/Stipezo/KRP) kwamen wel voor als algemene branche-informatie in zoekresultaten, maar konden niet specifiek aan deze salon bevestigd worden — daarom niet opgenomen.",
+  "outreach": {
+    "status": "nieuw",
+    "note": "Geen e-mailadres teruggevonden. Bellen: 0165 326084.",
+    "only_phone": true
+  }
+}
