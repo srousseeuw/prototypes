@@ -18,9 +18,20 @@ def render(brief: dict) -> str:
     appointment_note = esc(brief.get("appointment_note", "Uitsluitend op afspraak"))
     hours_note = esc(brief.get("hours_note", ""))
     specialisaties_html = _build_pills(brief.get("specialisaties", []), cls="pill")
-    certifications_html = _build_pills(brief.get("certifications", []), cls="cert-pill")
+    certifications = brief.get("certifications", [])
+    certifications_html = _build_pills(certifications, cls="cert-pill")
     highlights_html = build_highlights(brief.get("highlights", []), mark="✓")
     maps_q = _maps_query(address)
+    certs_section = (
+        f"""<section class="certs">
+  <div class="wrap">
+    <span class="certs-label">Erkenningen</span>
+    {certifications_html}
+  </div>
+</section>"""
+        if certifications
+        else ""
+    )
 
     return f"""<!DOCTYPE html>
 <html lang="nl">
@@ -308,13 +319,7 @@ def render(brief: dict) -> str:
   </div>
 </section>
 
-<section class="certs">
-  <div class="wrap">
-    <span class="certs-label">Erkenningen</span>
-    {certifications_html}
-  </div>
-</section>
-
+{certs_section}
 <section class="about">
   <div class="wrap">
     <div>
