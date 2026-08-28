@@ -1,0 +1,27 @@
+{
+  "slug": "kapsalon-pascal",
+  "business_name": "Kapsalon Pascal",
+  "sector": "kapper",
+  "category": "Dames- en herenkapper",
+  "tagline": "De vertrouwde familiekapper van Huijbergen",
+  "address": "Bergsestraat 3, 4635 BS Huijbergen",
+  "phone": "0164 643080",
+  "appointment_note": "Bel gerust voor een afspraak",
+  "highlights": [
+    "Een echte familiezaak: jong en oud lopen er al jaren binnen",
+    "Knipbeurten voor zowel dames als heren",
+    "Persoonlijk advies over knipbeurt, kleur en haarverzorging",
+    "Ook verkoop van haarverzorgingsproducten zoals shampoo en gel"
+  ],
+  "about": "Kapsalon Pascal is een vertrouwde familiekapper aan de Bergsestraat in Huijbergen. Dames en heren, jong en oud, komen er al jaren voor een knipbeurt en persoonlijk advies. Naast complete haarverzorging vindt u er ook een klein assortiment haarverzorgingsproducten, zoals shampoo en gel.",
+  "cta_text": "Bel voor een afspraak",
+  "accent": "#b8863f",
+  "hours_note": "Openingsuren niet online teruggevonden — bel even om te checken wanneer de zaak open is.",
+  "email_note": "Geen e-mailadres teruggevonden. Kapsalon Pascal heeft geen eigen website, enkel een Facebookpagina ('Kapsalon Pascal', Huijbergen) naast vermeldingen op telefoonboek.nl, kappersalons.nl en de KvK-registratie. Voorlopig alleen telefonisch bereikbaar op 0164 643080.",
+  "note": "Adres (Bergsestraat 3, 4635 BS Huijbergen) en telefoonnummer (0164 643080) komen consistent terug op meerdere onafhankelijke bronnen (haar.expert, kappersalons.nl, en zoekresultaten die ook telefoonboek.nl noemen). De KvK-registratie (nr. 20103206, via companyinfo.nl) bevestigt de omschrijving 'heren- en dameskapper; verkoop van haarproducten'. Geen enkele bron vermeldt actuele openingsuren, dus die zijn bewust weggelaten in plaats van gegokt. Let op: er bestaat een gelijknamige, geheel andere 'Kapsalon Pascal' in Destelbergen (België) — dit is niet dezelfde zaak.",
+  "outreach": {
+    "status": "nieuw",
+    "note": "Geen e-mailadres teruggevonden. Bellen: 0164 643080, of via Facebook.",
+    "only_phone": true
+  }
+}
