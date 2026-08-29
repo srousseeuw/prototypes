@@ -1,0 +1,37 @@
+{
+  "slug": "karwei-ad-dockx",
+  "business_name": "Karwei- en Onderhoudsbedrijf Ad Dockx",
+  "sector": "klusbedrijf",
+  "category": "Karwei- en onderhoudswerk aan woningen · Schijf",
+  "tagline": "Eén vakman voor karwei- en onderhoudswerk, in en om Schijf",
+  "address": "Hoge Aard 1, 4721 AG Schijf",
+  "phone": "0165 34 30 34",
+  "gemeente": "Schijf",
+  "eyebrow": "Karweibedrijf in Schijf en omstreken",
+  "service_area": "Schijf, Rucphen en de regio Roosendaal",
+  "stat1_value": "1",
+  "stat1_label": "vakman, rechtstreeks aanspreekpunt",
+  "stat2_value": "Schijf",
+  "stat2_label": "en de regio Roosendaal",
+  "hours_note": "Geen vaste openingstijden bekend — bel gerust voor een afspraak of vrijblijvend advies.",
+  "services": [
+    "Kleine en grote klussen in en om de woning",
+    "Onderhoud aan woningen, van dak tot deur",
+    "Herstel- en verbouwwerkzaamheden op maat",
+    "Persoonlijk advies vooraf, geen klus te gek"
+  ],
+  "highlights": [
+    "Eén vaste vakman als aanspreekpunt, van kleine reparatie tot groter karwei",
+    "Karwei- en onderhoudswerk aan woningen in de ruimste zin van het woord",
+    "Werkzaam in Schijf en de wijde omgeving"
+  ],
+  "about": "Karwei- en Onderhoudsbedrijf Ad Dockx is een zelfstandig vakman uit Schijf. De zaak neemt karwei- en onderhoudswerk aan woningen in de ruimste zin van het woord voor zijn rekening: van een kleine reparatie tot groter onderhoud. Persoonlijk contact en één vaste aanspreekpunt, van eerste telefoontje tot afgewerkte klus.",
+  "cta_text": "Bel voor een afspraak",
+  "email_note": "Geen e-mailadres teruggevonden: geen eigen website en geen vindbare Facebook- of Instagrampagina voor deze zaak. Voorlopig enkel telefonisch bereikbaar op 0165 34 30 34.",
+  "note": "Adres en telefoonnummer komen consistent terug op meerdere onafhankelijke bedrijvengidsen (Telefoonboek.nl, en de omschrijving 'karwei- en onderhoudswerk aan woningen in de ruimste zin van het woord' is letterlijk de categorie-omschrijving van die gids, hier vertaald naar losse diensten in plaats van overgenomen). Rechtstreeks bezoeken van telefoonboek.nl gaf een 403-foutmelding in deze sessie; de gegevens komen dus uit zoekresultaten-samenvattingen die onderling consistent waren over meerdere zoekopdrachten, niet uit een rechtstreeks ingeziene pagina. Geen KvK-nummer, oprichtingsjaar of website gevonden — vandaar geen 'sinds ...'-claim. Geen aanwijzing gevonden dat de zaak gestopt is, maar dit kon niet rechtstreeks bij de KvK bevestigd worden. Bij eerste contact de gegevens best nog eens verifiëren.",
+  "outreach": {
+    "status": "nieuw",
+    "note": "Geen e-mailadres gevonden, enkel telefonisch bereikbaar.",
+    "only_phone": true
+  }
+}

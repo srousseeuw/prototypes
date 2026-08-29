@@ -49,6 +49,7 @@ SECTOR_LABELS = {
     "juwelier": "Juwelier",
     "kapper": "Kapsalon",
     "keukenstudio": "Interieur & keukens",
+    "klusbedrijf": "Karwei & onderhoud",
     "kinderopvang": "Kinderopvang",
     "kringloopwinkel": "Kringloop",
     "opticien": "Optiek",
