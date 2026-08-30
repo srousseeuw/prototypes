@@ -54,6 +54,7 @@ SECTOR_LABELS = {
     "opticien": "Optiek",
     "pedicure": "Pedicure & voetverzorging",
     "pizzeria": "Pizzeria & Italiaans",
+    "schoonheidssalon": "Schoonheidssalon",
     "app": "App",
     "boekhouding": "Boekhouding",
     "metaal": "Metaal & bouw",
