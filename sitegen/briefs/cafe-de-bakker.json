@@ -1,0 +1,60 @@
+{
+  "slug": "cafe-de-bakker",
+  "sector": "cafe",
+  "business_name": "Café De Bakker",
+  "category": "Dorpscafé in Moerstraten",
+  "tagline": "Het vaste adres van Moerstraten voor een pint en een goed gesprek",
+  "address": "Moerstraatseweg 94, 4727 SP Moerstraten",
+  "phone": "0165 300 041",
+  "email": "cafedebakker@hotmail.com",
+  "accent": "#b5793a",
+  "signature_word": "Biljart & live muziek",
+  "about": "Midden in het gehucht Moerstraten, tussen Roosendaal en Wouw, staat Café De Bakker al jaren bekend als hét dorpscafé van de buurt. Vaste klanten komen er voor een pint aan de toog, een partijtje op de biljarttafel of gewoon voor de gezelligheid. Met regelmaat schuift er een lokale band of zanger aan voor een live optreden, en de zaak leent zich uitstekend voor een verjaardag, jubileum of ander feestje in eigen kring.",
+  "cta_text": "Bel voor reservering",
+  "highlights": [
+    "Dorpscafé met een vaste stamtafel en een echte toog",
+    "Eigen biljarttafel voor een partijtje tussendoor",
+    "Regelmatig live muziek van lokale bands en zangers",
+    "Zaal te huur voor verjaardagen, jubilea en themafeesten",
+    "Terras voor als het weer meezit"
+  ],
+  "hours": [
+    ["Maandag", "Gesloten"],
+    ["Dinsdag", "15:00 – 00:00"],
+    ["Woensdag", "15:00 – 00:00"],
+    ["Donderdag", "15:00 – 00:00"],
+    ["Vrijdag", "14:00 – 02:00"],
+    ["Zaterdag", "14:00 – 02:00"],
+    ["Zondag", "14:00 – 22:00"]
+  ],
+  "room_booking": {
+    "intro": "Café De Bakker verhuurt de zaak ook voor een verjaardag, jubileum of themafeest. Geef door wat je in gedachten hebt, dan wordt er meegedacht over de mogelijkheden.",
+    "capacity_note": "De juiste capaciteit en tarieven vullen we samen met het café in — die staan nog niet vast in dit prototype.",
+    "occasions": [
+      "Verjaardag",
+      "Jubileum",
+      "Themafeest",
+      "Verenigingsavond",
+      "Condoleance of koffietafel"
+    ],
+    "extras": [
+      {
+        "name": "Live muziek erbij boeken",
+        "desc": "In overleg met het café te regelen"
+      },
+      {
+        "name": "Drankarrangement",
+        "desc": "Vast bedrag per persoon in plaats van per consumptie"
+      },
+      {
+        "name": "Gebruik van het biljart",
+        "desc": "Voor gasten die tussendoor een partijtje willen spelen"
+      }
+    ],
+    "response_note": "In de echte versie komt deze aanvraag rechtstreeks bij het café terecht, en krijg je binnen een paar dagen antwoord."
+  },
+  "note": "Adres en telefoonnummer komen overeen op meerdere onafhankelijke bronnen (inroosendaal.nl, oozo.nl, uitagenda.nl e.a.). Openingsuren staan letterlijk zo op de eigen website van het café (cafedebakkermoerstraten.nl). Die eigen website is gemaakt met een gratis websitebouwer (JouwWeb) en bevat onopgevulde placeholders zoals '[[emailadres]]' bij Contact en '[[naam klant]]' bij een testimonial — vandaar dat deze zaak in aanmerking komt als 'duidelijk verouderd/onaf'. Het e-mailadres (cafedebakker@hotmail.com) staat wel als werkende mailto-link op diezelfde site, dus dat is wél betrouwbaar. Geen aanbod van specifieke evenementen of prijzen gevonden — vandaar geen agenda_events in dit prototype, enkel de algemene zaalverhuur-tekst die het café zelf ook voert.",
+  "outreach": {
+    "status": "nieuw"
+  }
+}
