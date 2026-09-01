@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De Pardijn Schilderwerken — Schilder- en glaszetbedrijf</title>
+<meta name="description" content="Vakwerk voor binnen en buiten, al sinds 2008 in Huijbergen. Kapeldreef 13, 4635 AB Huijbergen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #faf8f3;
+    --ink: #1b1b1f;
+    --ink-soft: #55565f;
+    --line: #e2ddd0;
+    --blue: #2954c8;
+    --blue-deep: #1c3a94;
+    --ochre: #e2a63b;
+    --card: #ffffff;
+    --font-display: 'Archivo', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* Signature element: een waaier van verfstalen, als een echte kleurenkaart. */
+  .fan-strip {
+    display: flex;
+    height: 14px;
+  }
+  .fan-strip span { flex: 1; }
+
+  header.top {
+    background: var(--ink);
+    padding: 16px 0;
+  }
+  header.top .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .brand span { color: var(--ochre); }
+  .top-cta {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--ink);
+    background: var(--ochre);
+    padding: 9px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .hero {
+    position: relative;
+    padding: 68px 0 56px;
+    background: var(--blue);
+    color: #fff;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    right: -10%;
+    top: -30%;
+    width: 60%;
+    height: 160%;
+    background: var(--blue-deep);
+    transform: rotate(14deg);
+    opacity: 0.55;
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero .eyebrow {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.76rem;
+    color: var(--ochre);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    max-width: 18ch;
+    margin-bottom: 16px;
+  }
+  .hero p.tag {
+    font-size: 1.1rem;
+    max-width: 46ch;
+    color: #e8edfb;
+    margin-bottom: 28px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 13px 26px;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  .btn-primary { background: var(--ochre); color: var(--ink); }
+  .btn-ghost { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.5); }
+
+  section { padding: 56px 0; }
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    color: var(--blue-deep);
+  }
+  .section-sub { color: var(--ink-soft); margin-bottom: 28px; max-width: 56ch; }
+
+  .swatch-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .swatch-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+  }
+  .swatch-chip {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 6px;
+  }
+  .swatch-label { font-weight: 600; }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 780px) { .split { grid-template-columns: 1fr; } }
+
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px;
+  }
+  .about-card p { margin-bottom: 14px; color: #333333; }
+  ul.highlights { list-style: none; margin-top: 16px; }
+  ul.highlights li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 0.95rem;
+  }
+  ul.highlights li:last-child { border-bottom: none; }
+  ul.highlights .mark {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .info-card {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 28px;
+  }
+  .info-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+  }
+  .info-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 0.92rem; border-bottom: 1px solid rgba(255,255,255,0.14); }
+  .info-row span:first-child { color: #c8cbe0; }
+  .info-row a { text-decoration: none; color: #fff; font-weight: 600; }
+
+  .hours-block { margin-top: 18px; }
+  .hours-note-text { font-size: 0.88rem; color: #d8dcf0; }
+
+  .area-strip {
+    background: rgba(255,255,255,0.08);
+    border: 1px dashed var(--ochre);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 18px;
+    font-size: 0.88rem;
+    color: #f1f2fa;
+  }
+
+  .cta-band {
+    background: var(--blue-deep);
+    color: #fff;
+    padding: 48px 0;
+    text-align: center;
+  }
+  .cta-band h2 { color: #fff; }
+  .cta-band .btn-primary { margin-top: 18px; }
+
+  footer {
+    background: var(--ink);
+    color: #b9bccb;
+    padding: 26px 0;
+    font-size: 0.82rem;
+    text-align: center;
+  }
+  footer a { color: var(--ochre); }
+</style>
+</head>
+<body>
+
+<div class="fan-strip">
+  <span style="background:#2954c8"></span><span style="background:#e2a63b"></span>
+  <span style="background:#c8483f"></span><span style="background:#3f8f5f"></span>
+  <span style="background:#7a5ac2"></span><span style="background:#1b1b1f"></span>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">De<span> Pardijn Schilderwerken</span></div>
+    <a class="top-cta" href="tel:0164 64 35 89">Bel voor advies</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Schilder- en glaszetbedrijf · sinds 2008</div>
+    <h1>De Pardijn Schilderwerken</h1>
+    <p class="tag">Vakwerk voor binnen en buiten, al sinds 2008 in Huijbergen</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="tel:0164 64 35 89">Vraag een offerte aan</a>
+      
+    </div>
+  </div>
+</section>
+
+<section id="diensten">
+  <div class="wrap">
+    <h2>Onze diensten</h2>
+    <p class="section-sub">Eén vakman voor de hele klus — van eerste kwast tot laatste likje verf.</p>
+    <ul class="swatch-grid">
+      <li class="swatch-card"><span class="swatch-chip" style="background:#2954c8"></span><span class="swatch-label">Binnenschilderwerk</span></li>
+<li class="swatch-card"><span class="swatch-chip" style="background:#e2a63b"></span><span class="swatch-label">Buitenschilderwerk</span></li>
+<li class="swatch-card"><span class="swatch-chip" style="background:#c8483f"></span><span class="swatch-label">Onderhoudsschilderwerk</span></li>
+<li class="swatch-card"><span class="swatch-chip" style="background:#3f8f5f"></span><span class="swatch-label">Glaszetten</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="over" style="background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap split">
+    <div class="about-card">
+      <h2>Over De Pardijn Schilderwerken</h2>
+      <p>De Pardijn Schilderwerken is een eenmanszaak uit Huijbergen die al sinds 2008 bij de Kamer van Koophandel staat ingeschreven voor schilder- en glaszetwerk. Als kleine, zelfstandige onderneming werkt de baas rechtstreeks met de klant: geen tussenpersonen, één vast aanspreekpunt van offerte tot oplevering.</p>
+      <ul class="highlights">
+        <li><span class="mark">✓</span>Actief sinds 2008 als schilders- en glaszetbedrijf</li>
+<li><span class="mark">✓</span>Eenmanszaak: dezelfde vakman van eerste bezoek tot oplevering</li>
+<li><span class="mark">✓</span>Schilderwerk binnen en buiten, plus glaszetten</li>
+<li><span class="mark">✓</span>Gevestigd in Huijbergen, vlak bij de grens met Essen</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>Contact &amp; praktisch</h3>
+      <div class="info-row"><span>Adres</span><a href="https://www.google.com/maps/search/?api=1&query=Kapeldreef+13,+4635+AB+Huijbergen" target="_blank" rel="noopener">Kapeldreef 13, 4635 AB Huijbergen</a></div>
+      <div class="info-row"><span>Telefoon</span><a href="tel:0164 64 35 89">0164 64 35 89</a></div>
+      
+      <div class="hours-block">
+        <p class="hours-note-text">Werkt op afspraak — bel voor een vrijblijvende offerte.</p>
+      </div>
+      <div class="area-strip">Werkgebied: Huijbergen, Woensdrecht en de dorpen rond de Belgische grens</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Toe aan een frisse muur of nieuw kozijn?</h2>
+    <p style="color:#dbe1f7;">Bel voor een vrijblijvende offerte op maat.</p>
+    <a class="btn btn-primary" href="tel:0164 64 35 89">Vraag een offerte aan</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    De Pardijn Schilderwerken · Kapeldreef 13, 4635 AB Huijbergen · <a href="tel:0164 64 35 89">0164 64 35 89</a>
+  </div>
+</footer>
+
+</body>
+</html>
