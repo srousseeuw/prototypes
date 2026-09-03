@@ -90,6 +90,59 @@ TWEEDE_KLIK = re.compile(
     r"claim|win|verzilver|activeer", re.I)
 
 
+# Cookiemuren liggen over de hele pagina en houden de inhoud tegen: een site
+# als kruidvat.be toont dan nul formulieren. Eerst wegklikken dus.
+# Weigeren heeft voorrang op accepteren — dat scheelt trackers en werkt even goed.
+CONSENT_WEIGEREN = re.compile(
+    r"alleen noodzakelijk|enkel noodzakelijk|noodzakelijke cookies|weigeren|afwijzen|"
+    r"reject all|decline|essentiële cookies", re.I)
+
+CONSENT_ACCEPTEREN = re.compile(
+    r"alles accepteren|accepteer alles|alle cookies|alles toestaan|ik ga akkoord|"
+    r"akkoord|accepteren|accept all|allow all|agree", re.I)
+
+
+def _weg_met_cookiemuur(pagina) -> str | None:
+    """Klikt een cookiedialoog weg. Geeft de aangeklikte knoptekst terug."""
+    for patroon in (CONSENT_WEIGEREN, CONSENT_ACCEPTEREN):
+        # Ook in iframes kijken: de meeste consent-tools draaien er in één.
+        for frame in pagina.frames:
+            try:
+                elementen = frame.query_selector_all(
+                    "button, a[role=button], div[role=button], input[type=button]")
+            except Exception:
+                continue
+            for element in (elementen or [])[:60]:
+                try:
+                    tekst = (element.inner_text() or "").strip()
+                except Exception:
+                    continue
+                if not tekst or len(tekst) > 45 or not patroon.search(tekst):
+                    continue
+                try:
+                    element.click(timeout=4000)
+                    pagina.wait_for_timeout(2000)
+                    return tekst
+                except Exception:
+                    continue
+    return None
+
+
+def _pagina_beschrijving(pagina) -> str:
+    """Titel plus het begin van de zichtbare tekst — zo zie je op welke pagina
+    de bot echt beland is (inhoud, cookiemuur of blokkeerpagina)."""
+    try:
+        titel = (pagina.title() or "").strip()[:60]
+    except Exception:
+        titel = ""
+    try:
+        tekst = (pagina.inner_text("body") or "").strip()
+        tekst = " ".join(tekst.split())[:110]
+    except Exception:
+        tekst = ""
+    return f'"{titel}" — {tekst}' if titel or tekst else "(pagina leeg)"
+
+
 def _formulier_in_frames(pagina):
     """Zoekt het deelnameformulier in de pagina én in alle iframes.
 
@@ -211,6 +264,10 @@ def deelnemen_browser(item: dict, gegevens: dict, opties: dict) -> tuple[str, st
             except Exception:
                 pass
 
+            weggeklikt = _weg_met_cookiemuur(pagina)
+            if weggeklikt:
+                pagina.wait_for_timeout(1500)
+
             html = pagina.content()
             if bevat_captcha(html):
                 return "handmatig", "captcha op de pagina", plaatjes
@@ -240,6 +297,16 @@ def deelnemen_browser(item: dict, gegevens: dict, opties: dict) -> tuple[str, st
                 except Exception:
                     pass
 
+                muur = _weg_met_cookiemuur(pagina)
+                if muur:
+                    pagina.wait_for_timeout(2000)
+                    plaatje = map_pad / f"{sleutel}-2b.png"
+                    try:
+                        pagina.screenshot(path=str(plaatje), full_page=False)
+                        plaatjes.append(plaatje.name)
+                    except Exception:
+                        pass
+
                 html = pagina.content()
                 if bevat_captcha(html):
                     return "handmatig", f"captcha op {door.split('/')[2]}", plaatjes
@@ -266,9 +333,11 @@ def deelnemen_browser(item: dict, gegevens: dict, opties: dict) -> tuple[str, st
                         html = frame_html
 
                 if formulier is None:
+                    muur_tekst = f", cookiemuur weggeklikt via '{muur}'" if muur else ""
                     return ("handmatig",
-                            f"doorgeklikt naar {door.split('/')[2]}, geen deelnameformulier "
-                            f"({_waarom_geen_formulier(pagina, html)})",
+                            f"doorgeklikt naar {door.split('/')[2]}{muur_tekst}, geen "
+                            f"deelnameformulier ({_waarom_geen_formulier(pagina, html)}) "
+                            f"· {_pagina_beschrijving(pagina)}",
                             plaatjes)
 
             if any(v["type"] == "password" for v in formulier["velden"]):
