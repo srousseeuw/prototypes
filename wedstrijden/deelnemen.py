@@ -34,7 +34,20 @@ from bronnen import UA, BronFout, haal, strip_html
 CAPTCHA_SPOREN = ("recaptcha", "g-recaptcha", "hcaptcha", "h-captcha", "cf-turnstile",
                   "turnstile", "friendlycaptcha", "captcha")
 
-LOGIN_SPOREN = ("wachtwoord", "password", "inloggen om deel te nemen", "log in om")
+# Formulieren die géén deelnameformulier zijn. Zonder deze filter kiest de bot
+# op elke WordPress-site het reactieformulier (dat heeft ook een e-mailveld) en
+# plaatst hij je naam en adres publiek onder een blogartikel.
+GEEN_DEELNAME_ACTIE = re.compile(
+    r"wp-comments-post|/comment|#comment|/search|/zoek|list-manage\.com|"
+    r"mailchimp|newsletter|nieuwsbrief|/login|/inloggen|/account", re.I)
+
+GEEN_DEELNAME_VELDEN = (
+    {"comment", "author"},        # WordPress-reacties
+    {"comment", "email"},
+    {"bericht", "naam"},          # contactformulier
+)
+
+ZOEKVELDEN = ({"s"}, {"q"}, {"search"}, {"zoek"}, {"s", "submit"}, {"q", "submit"})
 
 GELUKT_STANDAARD = ("bedankt", "je deelname", "uw deelname", "deelname geregistreerd",
                     "succesvol", "gelukt", "bevestigingsmail", "thank you", "veel succes")
@@ -156,14 +169,33 @@ def raad_veld(veld: dict, labels: dict) -> str | None:
     return None
 
 
+def is_deelnameformulier(formulier: dict) -> bool:
+    """Zeef reactie-, zoek-, nieuwsbrief- en loginformulieren eruit."""
+    if GEEN_DEELNAME_ACTIE.search(formulier.get("action", "")):
+        return False
+
+    namen = {(v.get("name") or "").lower() for v in formulier["velden"] if v.get("name")}
+    if any(kern <= namen for kern in GEEN_DEELNAME_VELDEN):
+        return False
+    if any(namen == zoek for zoek in ZOEKVELDEN):
+        return False
+
+    invulbaar = [v for v in formulier["velden"]
+                 if v["type"] not in ("hidden", "submit", "button", "image")]
+    # Eén enkel e-mailveld is een nieuwsbriefinschrijving, geen wedstrijd.
+    if len(invulbaar) <= 1:
+        return False
+    return True
+
+
 def kies_formulier(formulieren: list[dict]) -> dict | None:
-    """Het formulier met de meeste ingevulde-kunnen-worden velden en een e-mailveld."""
+    """Het deelnameformulier: heeft een e-mailveld, en is er ook echt één."""
     kandidaten = []
     for formulier in formulieren:
         velden = formulier["velden"]
         heeft_email = any(v["type"] == "email" or re.search(r"e.?mail", v.get("name", ""), re.I) for v in velden)
         zichtbaar = [v for v in velden if v["type"] not in ("hidden", "submit", "button", "image")]
-        if heeft_email and zichtbaar:
+        if heeft_email and zichtbaar and is_deelnameformulier(formulier):
             kandidaten.append((len(zichtbaar), formulier))
     if not kandidaten:
         return None
@@ -249,14 +281,17 @@ def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
 
     if bevat_captcha(html):
         return "handmatig", "captcha op de pagina"
-    if any(spoor in html.lower() for spoor in LOGIN_SPOREN):
-        return "handmatig", "lijkt een account of login te vragen"
 
     parser = FormulierParser()
     parser.feed(html)
     formulier = kies_formulier(parser.formulieren)
     if formulier is None:
         return "handmatig", "geen deelnameformulier gevonden op de pagina"
+
+    # Login herkennen we aan een wachtwoordveld ín dit formulier. Op het hele
+    # document zoeken sloeg aan op de inlogknop in elke sitenavigatie.
+    if any(v["type"] == "password" for v in formulier["velden"]):
+        return "handmatig", "het formulier vraagt een account (wachtwoordveld)"
 
     payload, onbekend = bouw_payload(formulier, parser.labels, gegevens, recept)
     if onbekend:

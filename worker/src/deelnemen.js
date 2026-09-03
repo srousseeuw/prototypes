@@ -7,7 +7,19 @@ import { schatSchifting, soortVraag, zoekAntwoord } from "./antwoord.js";
 
 const CAPTCHA_SPOREN = ["recaptcha", "g-recaptcha", "hcaptcha", "h-captcha",
                         "cf-turnstile", "turnstile", "friendlycaptcha", "captcha"];
-const LOGIN_SPOREN = ["wachtwoord", "password", "inloggen om deel te nemen", "log in om"];
+// Formulieren die géén deelnameformulier zijn. Zonder deze filter kiest de bot
+// op elke WordPress-site het reactieformulier (dat heeft ook een e-mailveld) en
+// plaatst hij je naam en e-mailadres publiek onder een blogartikel.
+const GEEN_DEELNAME_ACTIE =
+  /wp-comments-post|\/comment|#comment|\/search|\/zoek|list-manage\.com|mailchimp|newsletter|nieuwsbrief|\/login|\/inloggen|\/account/i;
+
+const GEEN_DEELNAME_VELDEN = [
+  ["comment", "author"],   // WordPress-reacties
+  ["comment", "email"],
+  ["bericht", "naam"],     // contactformulier
+];
+
+const ZOEKVELDEN = [["s"], ["q"], ["search"], ["zoek"], ["s", "submit"], ["q", "submit"]];
 const GELUKT = ["bedankt", "je deelname", "uw deelname", "deelname geregistreerd",
                 "succesvol", "gelukt", "bevestigingsmail", "thank you", "veel succes"];
 
@@ -126,13 +138,29 @@ export function leesFormulieren(html) {
   return { formulieren, labels };
 }
 
+/** Zeeft reactie-, zoek-, nieuwsbrief- en loginformulieren eruit. */
+export function isDeelnameFormulier(formulier) {
+  if (GEEN_DEELNAME_ACTIE.test(formulier.action || "")) return false;
+
+  const namen = new Set(formulier.velden.map((v) => (v.name || "").toLowerCase()).filter(Boolean));
+  if (GEEN_DEELNAME_VELDEN.some((kern) => kern.every((n) => namen.has(n)))) return false;
+  if (ZOEKVELDEN.some((zoek) => zoek.length === namen.size && zoek.every((n) => namen.has(n)))) return false;
+
+  const invulbaar = formulier.velden.filter(
+    (v) => !["hidden", "submit", "button", "image"].includes(v.type));
+  // Eén enkel e-mailveld is een nieuwsbriefinschrijving, geen wedstrijd.
+  if (invulbaar.length <= 1) return false;
+
+  return true;
+}
+
 export function kiesFormulier(formulieren) {
   let beste = null;
   for (const formulier of formulieren) {
     const heeftEmail = formulier.velden.some((v) => v.type === "email" || /e.?mail/i.test(v.name));
     const zichtbaar = formulier.velden.filter(
       (v) => !["hidden", "submit", "button", "image"].includes(v.type));
-    if (!heeftEmail || !zichtbaar.length) continue;
+    if (!heeftEmail || !zichtbaar.length || !isDeelnameFormulier(formulier)) continue;
     if (!beste || zichtbaar.length > beste.aantal) beste = { formulier, aantal: zichtbaar.length };
   }
   return beste ? beste.formulier : null;
@@ -244,10 +272,6 @@ export async function deelnemen(url, deelnemer, opties = {}) {
   }
 
   if (bevatCaptcha(html)) return { status: "handmatig", opmerking: "captcha op de pagina" };
-  const laag = html.toLowerCase();
-  if (LOGIN_SPOREN.some((spoor) => laag.includes(spoor))) {
-    return { status: "handmatig", opmerking: "lijkt een account of login te vragen" };
-  }
 
   let { formulieren, labels } = leesFormulieren(html);
   let formulier = kiesFormulier(formulieren);
@@ -275,6 +299,12 @@ export async function deelnemen(url, deelnemer, opties = {}) {
     if (!formulier) {
       return { status: "handmatig", opmerking: `geen formulier op ${new URL(door).hostname} (waarschijnlijk JavaScript)` };
     }
+  }
+
+  // Login herkennen we aan een wachtwoordveld ín dit formulier. Op het hele
+  // document zoeken sloeg aan op de inlogknop in elke sitenavigatie.
+  if (formulier.velden.some((v) => v.type === "password")) {
+    return { status: "handmatig", opmerking: "het formulier vraagt een account (wachtwoordveld)" };
   }
 
   const { payload, onbekend, uitleg } = bouwPayload(formulier, labels, deelnemer, {
