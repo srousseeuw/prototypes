@@ -100,8 +100,21 @@ def opdracht_deelnemen(config, opslag, args, keuzes=None, fouten=None):
         print("Niets om aan deel te nemen.")
         return []
     modus = "PROEFDRAAI" if config["deelname"].get("dry_run", True) else "ECHT VERSTUREN"
-    print(f"\nDeelnemen ({modus}, max {config['deelname'].get('max_per_nacht', 8)}):")
-    resultaten = deelnemen_mod.doe_mee(te_doen, config, opslag)
+    met_browser = bool(config["deelname"].get("browser", False))
+    print(f"\nDeelnemen ({modus}{' · browser' if met_browser else ''}, "
+          f"max {config['deelname'].get('max_per_nacht', 8)}):")
+
+    # Met browser: de enige manier om voorbij de JavaScript-doorklik van de
+    # overzichtssites te raken. Zonder: de snelle HTTP-modus.
+    if met_browser:
+        import browser as browser_mod
+        try:
+            resultaten = browser_mod.doe_mee_met_browser(te_doen, config, opslag)
+        except browser_mod.GeenBrowser as fout:
+            print(f"  ! {fout}")
+            resultaten = []
+    else:
+        resultaten = deelnemen_mod.doe_mee(te_doen, config, opslag)
     opslag.bewaar()
     return resultaten
 

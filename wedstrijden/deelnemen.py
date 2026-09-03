@@ -29,6 +29,7 @@ import urllib.request
 from html.parser import HTMLParser
 from pathlib import Path
 
+import antwoord
 from bronnen import UA, BronFout, haal, strip_html
 
 CAPTCHA_SPOREN = ("recaptcha", "g-recaptcha", "hcaptcha", "h-captcha", "cf-turnstile",
@@ -202,12 +203,50 @@ def kies_formulier(formulieren: list[dict]) -> dict | None:
     return max(kandidaten, key=lambda p: p[0])[1]
 
 
+def keuzes_per_veld(formulier: dict, labels: dict) -> dict[str, list[dict]]:
+    """Radiokeuzes per veldnaam, nodig om een meerkeuzevraag te beantwoorden."""
+    keuzes: dict[str, list[dict]] = {}
+    for veld in formulier["velden"]:
+        if veld["type"] != "radio" or not veld.get("name"):
+            continue
+        keuzes.setdefault(veld["name"], []).append({
+            "value": veld.get("value") or "on",
+            "tekst": labels.get(veld.get("id", ""), "") or veld.get("value", ""),
+        })
+    return keuzes
+
+
 def bouw_payload(formulier: dict, labels: dict, gegevens: dict,
-                 recept: dict | None) -> tuple[dict, list[str]]:
-    """Bouwt de POST-gegevens. Tweede return: velden die we niet begrepen."""
+                 recept: dict | None, context: dict | None = None) -> tuple[dict, list[str], list[str]]:
+    """Bouwt de POST-gegevens.
+
+    Returns (payload, niet-begrepen velden, uitleg over ingevulde vragen).
+    """
     payload: dict[str, str] = {}
     onbekend: list[str] = []
+    uitleg: list[str] = []
     vaste_velden = (recept or {}).get("velden", {})
+    context = context or {}
+    keuzes = keuzes_per_veld(formulier, labels)
+
+    def probeer_vraag(veld: dict, aanwijzing: str) -> bool:
+        """Een wedstrijd- of schiftingsvraag invullen op basis van de pagina."""
+        soort = antwoord.soort_vraag(aanwijzing)
+        if not soort:
+            return False
+        naam = veld["name"]
+        if soort == "schifting":
+            gevonden = antwoord.schat_schifting(aanwijzing, context.get("pagina", ""),
+                                                context.get("context", ""))
+        else:
+            gevonden = antwoord.zoek_antwoord(aanwijzing, keuzes.get(naam, []),
+                                              context.get("pagina", ""), context.get("context", ""))
+        if not gevonden:
+            return False
+        payload[naam] = gevonden["waarde"]
+        label = "schifting" if soort == "schifting" else "wedstrijdvraag"
+        uitleg.append(f'{label}: "{gevonden["waarde"]}" — {gevonden["reden"]}')
+        return True
 
     for veld in formulier["velden"]:
         naam = veld.get("name")
@@ -239,8 +278,17 @@ def bouw_payload(formulier: dict, labels: dict, gegevens: dict,
         if veld["type"] == "radio":
             if veld.get("checked"):
                 payload[naam] = veld.get("value", "on")
-            elif veld["required"] and naam not in payload:
+            elif naam in payload:
+                pass
+            elif probeer_vraag(veld, f'{labels.get(veld.get("id", ""), "")} {naam}'):
+                pass
+            elif veld["required"]:
                 onbekend.append(f"verplichte keuze ({naam})")
+            continue
+
+        aanwijzing = " ".join([naam, veld.get("id", ""), veld.get("placeholder", ""),
+                               labels.get(veld.get("id", ""), "")])
+        if probeer_vraag(veld, aanwijzing):
             continue
 
         sleutel = raad_veld(veld, labels)
@@ -255,7 +303,7 @@ def bouw_payload(formulier: dict, labels: dict, gegevens: dict,
         elif veld["required"]:
             onbekend.append(f"verplicht veld ({naam})")
 
-    return payload, onbekend
+    return payload, onbekend, uitleg
 
 
 def bevat_captcha(html: str) -> bool:
@@ -272,7 +320,7 @@ def gelukt(html: str, recept: dict | None) -> bool:
 # --------------------------------------------------------------------------- uitvoeren
 
 def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
-                   dry_run: bool, timeout: int) -> tuple[str, str]:
+                   dry_run: bool, timeout: int, context: str = "") -> tuple[str, str]:
     """Geeft (status, opmerking) terug."""
     try:
         html = haal(url, timeout)
@@ -293,16 +341,20 @@ def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
     if any(v["type"] == "password" for v in formulier["velden"]):
         return "handmatig", "het formulier vraagt een account (wachtwoordveld)"
 
-    payload, onbekend = bouw_payload(formulier, parser.labels, gegevens, recept)
+    payload, onbekend, uitleg = bouw_payload(
+        formulier, parser.labels, gegevens, recept,
+        {"pagina": strip_html(html), "context": context})
     if onbekend:
         return "handmatig", "niet begrepen: " + "; ".join(onbekend[:4])
     if not any(re.search(r"e.?mail", naam, re.I) for naam in payload):
         return "handmatig", "geen e-mailveld herkend"
 
+    extra = (" · " + " · ".join(uitleg)) if uitleg else ""
     doel = urllib.parse.urljoin(url, formulier["action"] or url)
     if dry_run:
         kort = {k: v for k, v in payload.items() if v}
-        return "proefdraai", f"zou POST'en naar {doel} met {len(kort)} velden: {', '.join(sorted(kort)[:8])}"
+        return "proefdraai", (f"zou POST'en naar {doel} met {len(kort)} velden: "
+                              f"{', '.join(sorted(kort)[:8])}{extra}")
 
     data = urllib.parse.urlencode(payload).encode("utf-8")
     verzoek = urllib.request.Request(doel, data=data, headers={
@@ -312,13 +364,13 @@ def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
         "Accept-Language": "nl-BE,nl;q=0.9",
     })
     try:
-        with urllib.request.urlopen(verzoek, timeout=timeout) as antwoord:
-            resultaat = antwoord.read().decode("utf-8", errors="replace")
+        with urllib.request.urlopen(verzoek, timeout=timeout) as respons:
+            resultaat = respons.read().decode("utf-8", errors="replace")
     except Exception as fout:  # netwerk, HTTP-fout, time-out
         return "mislukt", f"versturen mislukt: {fout}"
 
     if gelukt(resultaat, recept):
-        return "gedaan", f"verstuurd naar {doel}"
+        return "gedaan", f"verstuurd naar {doel}{extra}"
     return "handmatig", "verstuurd, maar geen bevestiging herkend — zelf nakijken"
 
 
