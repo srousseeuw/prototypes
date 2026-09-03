@@ -85,6 +85,79 @@ def zoek_doorklik(pagina, basis_url: str, html: str) -> str | None:
     return (extern or intern or [None])[0]
 
 
+TWEEDE_KLIK = re.compile(
+    r"deelnem|doe mee|meedoen|ik doe mee|inschrijv|start|vraag (het |je )?aan|"
+    r"claim|win|verzilver|activeer", re.I)
+
+
+def _formulier_in_frames(pagina):
+    """Zoekt het deelnameformulier in de pagina én in alle iframes.
+
+    Wedstrijdformulieren zitten vaak in een iframe van een externe partij
+    (Typeform, Formstack, een campagnetool). page.content() toont die niet.
+    """
+    for frame in pagina.frames:
+        try:
+            html = frame.content()
+        except Exception:
+            continue
+        parser = FormulierParser()
+        parser.feed(html)
+        formulier = kies_formulier(parser.formulieren)
+        if formulier is not None:
+            return formulier, parser, html, frame
+    return None, None, "", None
+
+
+def _probeer_tweede_klik(pagina, timeout: int) -> bool:
+    """Klikt op een 'Doe mee'-knop op de bestemming; sommige sites tonen het
+    formulier pas daarna. True als er iets aangeklikt is."""
+    for selector in ("a", "button"):
+        try:
+            elementen = pagina.query_selector_all(selector)
+        except Exception:
+            continue
+        for element in elementen[:60]:
+            try:
+                tekst = (element.inner_text() or "").strip()
+            except Exception:
+                continue
+            if not tekst or len(tekst) > 40 or not TWEEDE_KLIK.search(tekst):
+                continue
+            try:
+                element.click(timeout=5000)
+                pagina.wait_for_timeout(3000)
+                return True
+            except Exception:
+                continue
+    return False
+
+
+def _waarom_geen_formulier(pagina, html: str) -> str:
+    """Korte diagnose voor in de log: wat stond er dan wél op die pagina?"""
+    parser = FormulierParser()
+    parser.feed(html)
+    aantal = len(parser.formulieren)
+    try:
+        frames = len(pagina.frames) - 1
+    except Exception:
+        frames = 0
+    knoppen = []
+    try:
+        for element in (pagina.query_selector_all("a, button") or [])[:80]:
+            tekst = (element.inner_text() or "").strip()
+            if tekst and len(tekst) <= 30 and TWEEDE_KLIK.search(tekst):
+                knoppen.append(tekst)
+    except Exception:
+        pass
+    delen = [f"{aantal} formulier(en)", f"{frames} iframe(s)"]
+    if knoppen:
+        delen.append("knoppen: " + ", ".join(dict.fromkeys(knoppen))[:60])
+    if "inloggen" in html.lower() or "aanmelden" in html.lower():
+        delen.append("pagina noemt inloggen")
+    return " · ".join(delen)
+
+
 def _vul_formulier(pagina, formulier, payload) -> None:
     """Zet de gevonden waarden in de echte velden van de pagina."""
     for naam, waarde in payload.items():
@@ -146,6 +219,7 @@ def deelnemen_browser(item: dict, gegevens: dict, opties: dict) -> tuple[str, st
             parser.feed(html)
             formulier = kies_formulier(parser.formulieren)
             bron_url = item["url"]
+            doel_frame = pagina          # waar het formulier staat: pagina of iframe
 
             # Geen formulier: doorklikken naar de echte wedstrijd.
             if formulier is None:
@@ -169,12 +243,32 @@ def deelnemen_browser(item: dict, gegevens: dict, opties: dict) -> tuple[str, st
                 html = pagina.content()
                 if bevat_captcha(html):
                     return "handmatig", f"captcha op {door.split('/')[2]}", plaatjes
-                parser = FormulierParser()
-                parser.feed(html)
-                formulier = kies_formulier(parser.formulieren)
+
+                # Ook in iframes kijken: campagneformulieren staan er vaak in.
+                formulier, parser, frame_html, doel_frame = _formulier_in_frames(pagina)
+                if formulier is not None:
+                    html = frame_html
+
+                # Nog niets? Sommige sites tonen het formulier pas na een klik
+                # op "Doe mee". Eén keer proberen, dan opnieuw kijken.
+                if formulier is None and _probeer_tweede_klik(pagina, timeout):
+                    plaatje = map_pad / f"{sleutel}-3.png"
+                    try:
+                        pagina.screenshot(path=str(plaatje), full_page=False)
+                        plaatjes.append(plaatje.name)
+                    except Exception:
+                        pass
+                    html = pagina.content()
+                    if bevat_captcha(html):
+                        return "handmatig", f"captcha na doorklik op {door.split('/')[2]}", plaatjes
+                    formulier, parser, frame_html, doel_frame = _formulier_in_frames(pagina)
+                    if formulier is not None:
+                        html = frame_html
+
                 if formulier is None:
                     return ("handmatig",
-                            f"doorgeklikt naar {door.split('/')[2]}, maar geen deelnameformulier",
+                            f"doorgeklikt naar {door.split('/')[2]}, geen deelnameformulier "
+                            f"({_waarom_geen_formulier(pagina, html)})",
                             plaatjes)
 
             if any(v["type"] == "password" for v in formulier["velden"]):
@@ -191,7 +285,7 @@ def deelnemen_browser(item: dict, gegevens: dict, opties: dict) -> tuple[str, st
             if not any(re.search(r"e.?mail", naam, re.I) for naam in payload):
                 return "handmatig", "geen e-mailveld herkend", plaatjes
 
-            _vul_formulier(pagina, formulier, payload)
+            _vul_formulier(doel_frame or pagina, formulier, payload)
             plaatje = map_pad / f"{sleutel}-ingevuld.png"
             try:
                 pagina.screenshot(path=str(plaatje), full_page=False)
@@ -205,7 +299,8 @@ def deelnemen_browser(item: dict, gegevens: dict, opties: dict) -> tuple[str, st
                         f"niet verstuurd{extra}", plaatjes)
 
             try:
-                pagina.click('button[type="submit"], input[type="submit"]', timeout=8000)
+                (doel_frame or pagina).click(
+                    'button[type="submit"], input[type="submit"]', timeout=8000)
                 pagina.wait_for_timeout(4000)
             except Exception:
                 return "handmatig", "geen verzendknop gevonden" + extra, plaatjes
