@@ -21,6 +21,8 @@ Bewust ingebouwde remmen:
     maar doorschuiven naar "handmatig"
   * per wedstrijd maar één keer (zie opslag.py) — dat is meestal ook de regel
 """
+from __future__ import annotations
+
 import json
 import re
 import time

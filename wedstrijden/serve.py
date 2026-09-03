@@ -13,6 +13,8 @@ Draait alleen op je eigen machine (localhost) — niets hiervan staat op het
 internet, en er zit bewust geen wachtwoord op omdat er ook niets van buiten bij
 kan.
 """
+from __future__ import annotations
+
 import json
 import sys
 import threading
@@ -281,6 +283,10 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
+    if sys.version_info < (3, 9):
+        print(f"Python {sys.version_info.major}.{sys.version_info.minor} is te oud; "
+              "3.9 of nieuwer is nodig.\nOp de Mac: brew install python3")
+        return 1
     if not (HIER / "config.json").exists():
         print("Geen config.json — draai eerst ./wedstrijden/installeer.sh")
         return 1

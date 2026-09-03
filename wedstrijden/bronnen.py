@@ -10,6 +10,8 @@ Per bron proberen we in deze volgorde:
 Een feed is altijd te verkiezen: minder verkeer, propere titels en datums.
 Alles hier is stdlib — geen dependencies, zoals de rest van deze repo.
 """
+from __future__ import annotations
+
 import gzip
 import re
 import urllib.error

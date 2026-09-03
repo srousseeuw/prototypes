@@ -14,6 +14,8 @@ echte browser werkt.
                     laten kost je de wedstrijd, dus schatten we — nooit 0 en
                     nooit een rond getal, want ronde getallen kiest iedereen.
 """
+from __future__ import annotations
+
 import re
 
 SCHIFTING = re.compile(

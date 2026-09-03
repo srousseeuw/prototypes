@@ -21,6 +21,8 @@ Wat er per wedstrijd gebeurt:
 Installeren (eenmalig, op de Mac):
     pip3 install playwright && python3 -m playwright install chromium
 """
+from __future__ import annotations
+
 import re
 from pathlib import Path
 

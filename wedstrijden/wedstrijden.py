@@ -14,6 +14,8 @@ Standaard staat dry_run aan: er wordt niets echt verstuurd. Zet dat pas af in
 config.json als je de proefdraai-uitvoer hebt nagekeken (--echt forceert het
 voor één keer, --proef zet het net weer aan).
 """
+from __future__ import annotations
+
 import argparse
 import json
 import sys

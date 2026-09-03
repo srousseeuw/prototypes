@@ -12,6 +12,8 @@ zomaar aangeklikt.
 Staat standaard uit (config.bevestiging.actief). Aanzetten vraagt een
 app-wachtwoord van Google in een omgevingsvariabele — nooit in config.json.
 """
+from __future__ import annotations
+
 import email
 import imaplib
 import os
