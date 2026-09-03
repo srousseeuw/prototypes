@@ -1,0 +1,41 @@
+{
+  "slug": "slagerij-snepvangers",
+  "business_name": "Slagerij Angelo Snepvangers",
+  "sector": "slager",
+  "category": "Ambachtelijke slagerij",
+  "tagline": "Vertrouwde buurtslager in Sint-Willebrord",
+  "address": "Poppestraat 43, 4711 EW Sint-Willebrord",
+  "phone": "0165 385658",
+  "hours": [
+    ["Maandag", "8:00 – 12:30"],
+    ["Dinsdag", "8:00 – 17:00"],
+    ["Woensdag", "8:00 – 17:00"],
+    ["Donderdag", "8:00 – 17:00"],
+    ["Vrijdag", "8:00 – 17:00"],
+    ["Zaterdag", "8:00 – 15:00"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Vers rund-, kalfs- en varkensvlees, dagelijks bijgesneden",
+    "Huisbereide vleeswaren en charcuterie",
+    "Kant-en-klare maaltijden voor onderweg",
+    "Barbecuepakketten en buffetten op bestelling"
+  ],
+  "specialties": [
+    "Rundvlees",
+    "Varkensvlees",
+    "Lamsvlees",
+    "Vleeswaren en charcuterie",
+    "Barbecue-assortiment",
+    "Buffetten en schotels op bestelling",
+    "Dagverse maaltijden"
+  ],
+  "about": "Een buurtslager in Sint-Willebrord waar je nog gewoon binnenloopt voor een goed stuk vlees en persoonlijk advies. Naast het dagelijkse rund-, varkens- en lamsvlees staan er huisbereide vleeswaren, kant-en-klare maaltijden en een ruim barbecue-assortiment. Voor feesten en bijeenkomsten stelt de slagerij ook buffetten en schotels op maat samen.",
+  "cta_text": "Kom langs in de winkel",
+  "email_note": "Geen eigen website of e-mailadres gevonden — de zaak is enkel bereikbaar via telefoon en een Facebook-pagina (facebook.com/SlagerijSnepvangers). Het domein snepvangers.nl bleek bij controle niet van deze slagerij te zijn (los te koop aangeboden domein), dus geen mailadres op basis daarvan gegokt.",
+  "note": "Openingsuren en telefoonnummer bevestigd via meerdere onafhankelijke bedrijvengidsen (verseslager.nl, bedrijvenopdekaart.nl); geen eigen website om tegen te controleren.",
+  "outreach": {
+    "status": "nieuw",
+    "only_phone": true
+  }
+}

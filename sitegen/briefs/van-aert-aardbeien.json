@@ -1,0 +1,38 @@
+{
+  "slug": "van-aert-aardbeien",
+  "sector": "hoevewinkel",
+  "business_name": "Van Aert Aardbeien & Asperges",
+  "category": "Aardbeien- en aspergeteelt, zelfbediening",
+  "tagline": "Vers van het veld, dag en nacht uit de automaat",
+  "address": "Bergsebaan 138, 4709 RT Nispen",
+  "phone": "06 55867493",
+  "hours": [
+    ["Maandag", "7:00 – 21:00"],
+    ["Dinsdag", "7:00 – 21:00"],
+    ["Woensdag", "7:00 – 21:00"],
+    ["Donderdag", "7:00 – 21:00"],
+    ["Vrijdag", "7:00 – 21:00"],
+    ["Zaterdag", "7:00 – 19:00"],
+    ["Zondag", "7:00 – 19:00"]
+  ],
+  "highlights": [
+    "Een van de eerste kwekers in Nederland met zelfbedieningsautomaten voor aardbeien en asperges",
+    "Zelfde dag van het veld geplukt en in de automaat aangevuld",
+    "Geen fysieke winkel nodig — pinnen aan de automaat, ook buiten de gewone winkeluren",
+    "Aardbeienteelt sinds 1999, later uitgebreid met eigen asperges"
+  ],
+  "products": [
+    "Verse aardbeien",
+    "Asperges (in het seizoen)"
+  ],
+  "about": "Aan de Bergsebaan in Nispen teelt de familie Van Aert al sinds 1999 aardbeien, later aangevuld met eigen asperges. Een fysieke winkel openen was geen optie, dus koos Robert van Aert voor moderne verkoopautomaten: de eerste in Nederland uitgerust met het Lockblox-systeem. Wie langsrijdt vindt zo dag en nacht een automaat met aardbeien en, in het seizoen, asperges — vers geplukt en dezelfde dag nog aangevuld, zonder tussenkomst van een winkelbediende.",
+  "cta_text": "Rijd langs de automaat",
+  "accent_context": "farm_earthy",
+  "email_note": "Geen bedrijfswebsite of e-mailadres teruggevonden. Telefoonnummer (06 55867493) komt consistent terug op meerdere onafhankelijke bedrijvengidsen (telefoonboek.nl, oozo.nl), maar kon niet rechtstreeks op een bronpagina zelf bevestigd worden (die pagina's blokkeerden het ophalen). Enkel telefonisch bereikbaar, of eventueel via het privé-Facebookprofiel van eigenaar Robert van Aert.",
+  "note": "Bedrijf staat bij de Kamer van Koophandel ingeschreven onder twee vermoedelijk verwante entiteiten op hetzelfde adres: Van Aert Aardbeien Nispen B.V. (KVK 20095028, sinds 1999) en Van Aert Agro B.V. (KVK 65800419, sinds 2016) — de klantvriendelijke naam 'Van Aert Aardbeien en Asperges' wordt gebruikt in lokale bedrijvenoverzichten en boerderijwinkelroutes. Openingstijden komen uit een bron uit 2021 en zijn mogelijk gewijzigd; niet rechtstreeks bevestigd.",
+  "outreach": {
+    "status": "nieuw",
+    "note": "Geen website of e-mailadres — enkel telefonisch bereikbaar.",
+    "only_phone": true
+  }
+}
