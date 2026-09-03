@@ -1,7 +1,7 @@
 // Het deelnameformulier lezen, invullen en versturen.
 // Zelfde regels als deelnemen.py: nooit gokken bij twijfel, geen lege verplichte
 // velden versturen, en bij een captcha stoppen we — dan komt het op de digest.
-import { UA, haal, ontsnap, stripHtml } from "./bronnen.js";
+import { UA, haal, linksUit, ontsnap, stripHtml } from "./bronnen.js";
 import { budget } from "./budget.js";
 import { schatSchifting, soortVraag, zoekAntwoord } from "./antwoord.js";
 
@@ -39,17 +39,19 @@ const VELDPATRONEN = [
 
 // Overzichtssites tonen een detailpagina met een knop naar de echte wedstrijd.
 // Die hop misten we: we zochten een formulier op een pagina die er geen heeft.
-const DOORKLIK = /deelnem|meedoen|doe\s*mee|naar de (wedstrijd|actie)|win nu|inschrijv|naar de site|bezoek/i;
+const DOORKLIK =
+  /deelnem|meedoen|doe\s*mee|ga naar|naar de (actie|wedstrijd|site)|win nu|inschrijv|bezoek|aanvragen|vraag aan|claim|profiteer|bekijk (de )?(actie|aanbieding)|hier/i;
+
+const ROMMEL_LINK =
+  /facebook|twitter|x\.com|instagram|pinterest|whatsapp|linkedin|w3\.org|schema\.org|wordpress|gravatar|googleapis|gstatic|cookiedatabase|\/tag\/|\/category\/|\/feed/i;
 
 export function zoekDoorklik(html, basisUrl) {
-  const huidig = new URL(basisUrl);
-  const eigen = huidig.hostname.replace(/^www\./, "");
-  const kandidaten = [];
+  const eigen = new URL(basisUrl).hostname.replace(/^www\./, "");
+  const metTekst = [];
+  const zonderTekst = [];
+  const zelfdeSite = [];
 
-  for (const [, href, binnenkant] of html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
-    const tekst = stripHtml(binnenkant);
-    if (!DOORKLIK.test(tekst)) continue;
-
+  for (const { href, binnenkant } of linksUit(html)) {
     let doel;
     try {
       doel = new URL(ontsnap(href), basisUrl);
@@ -57,20 +59,30 @@ export function zoekDoorklik(html, basisUrl) {
       continue;
     }
     if (!/^https?:$/.test(doel.protocol)) continue;
+    if (ROMMEL_LINK.test(doel.toString())) continue;
     if (doel.toString().split("#")[0] === basisUrl.split("#")[0]) continue;
 
-    const extern = doel.hostname.replace(/^www\./, "") !== eigen;
-    // Een link terug naar de homepage van de overzichtssite is geen wedstrijd.
-    if (!extern && doel.pathname.replace(/\/+$/, "") === "") continue;
+    const domein = doel.hostname.replace(/^www\./, "");
+    if (!domein) continue;
 
-    kandidaten.push({ url: doel.toString(), extern });
+    const tekst = stripHtml(binnenkant);
+    if (domein === eigen) {
+      // Sommige overzichtssites hosten het formulier zelf; alleen volgen als de
+      // link er ook echt naar verwijst, en nooit naar de homepage.
+      if (DOORKLIK.test(tekst) && doel.pathname.replace(/^\/|\/$/g, "")) {
+        zelfdeSite.push(doel.toString());
+      }
+      continue;
+    }
+    (DOORKLIK.test(tekst) ? metTekst : zonderTekst).push(doel.toString());
   }
 
-  // Extern heeft voorrang (dat is meestal het merk zelf), maar een doorklik
-  // binnen dezelfde site telt ook: sommige overzichtssites hosten het
-  // formulier gewoon zelf.
-  const gekozen = kandidaten.find((k) => k.extern) || kandidaten[0];
-  return gekozen ? gekozen.url : null;
+  if (metTekst.length) return metTekst[0];
+  // De knop is vaak een afbeelding zonder tekst. Staat er precies één extern
+  // domein in het artikel, dan is dat de wedstrijd; bij meerdere gokken we niet.
+  const domeinen = new Set(zonderTekst.map((u) => new URL(u).hostname));
+  if (zonderTekst.length && domeinen.size === 1) return zonderTekst[0];
+  return zelfdeSite.length ? zelfdeSite[0] : null;
 }
 
 export function bevatCaptcha(html) {

@@ -26,6 +26,7 @@ from pathlib import Path
 
 import antwoord  # noqa: F401  (gedeeld met deelnemen.py)
 from bronnen import strip_html
+import deelnemen as deelnemen_mod
 from deelnemen import (bevat_captcha, bouw_payload, gelukt, kies_formulier,
                        FormulierParser, waarden)
 
@@ -52,8 +53,17 @@ def _speler():
     return sync_playwright
 
 
-def zoek_doorklik(pagina, basis_url: str) -> str | None:
-    """De knop die naar de echte wedstrijd leidt, ná het uitvoeren van JavaScript."""
+def zoek_doorklik(pagina, basis_url: str, html: str) -> str | None:
+    """De knop die naar de echte wedstrijd leidt.
+
+    Eerst dezelfde logica als de HTTP-modus op de gerenderde HTML — die is tegen
+    echte sites getest. Levert dat niets op, dan nog eens via de DOM: daar staan
+    ook links die pas door JavaScript zijn toegevoegd.
+    """
+    gevonden = deelnemen_mod.zoek_doorklik(html, basis_url)
+    if gevonden:
+        return gevonden
+
     eigen = re.sub(r"^www\.", "", basis_url.split("/")[2]) if "//" in basis_url else ""
     try:
         links = pagina.eval_on_selector_all(
@@ -69,11 +79,7 @@ def zoek_doorklik(pagina, basis_url: str) -> str | None:
             continue
         if not DOORKLIK.search(tekst):
             continue
-        if eigen and eigen in href:
-            intern.append(href)
-        else:
-            extern.append(href)
-    # Extern eerst: dat is doorgaans het merk zelf.
+        (intern if eigen and eigen in href else extern).append(href)
     return (extern or intern or [None])[0]
 
 
@@ -141,7 +147,7 @@ def deelnemen_browser(item: dict, gegevens: dict, opties: dict) -> tuple[str, st
 
             # Geen formulier: doorklikken naar de echte wedstrijd.
             if formulier is None:
-                door = zoek_doorklik(pagina, item["url"])
+                door = zoek_doorklik(pagina, item["url"], html)
                 if not door:
                     return "handmatig", "geen formulier en geen doorklikknop gevonden", plaatjes
                 try:

@@ -30,7 +30,17 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 import antwoord
-from bronnen import UA, BronFout, haal, strip_html
+from bronnen import UA, BronFout, haal, strip_html, verzamel_links
+
+# Overzichtssites tonen een detailpagina met een knop naar de echte wedstrijd.
+# Zonder die stap zoeken we een formulier op een pagina die er geen heeft.
+DOORKLIK = re.compile(
+    r"deelnem|meedoen|doe\s*mee|ga naar|naar de (actie|wedstrijd|site)|win nu|"
+    r"aanvragen|vraag aan|claim|profiteer|bekijk (de )?(actie|aanbieding)|hier", re.I)
+
+ROMMEL_LINK = re.compile(
+    r"facebook|twitter|x\.com|instagram|pinterest|whatsapp|linkedin|w3\.org|schema\.org|"
+    r"wordpress|gravatar|googleapis|gstatic|cookiedatabase|/tag/|/category/|/feed", re.I)
 
 CAPTCHA_SPOREN = ("recaptcha", "g-recaptcha", "hcaptcha", "h-captcha", "cf-turnstile",
                   "turnstile", "friendlycaptcha", "captcha")
@@ -306,6 +316,41 @@ def bouw_payload(formulier: dict, labels: dict, gegevens: dict,
     return payload, onbekend, uitleg
 
 
+def zoek_doorklik(html: str, basis_url: str) -> str | None:
+    """De link naar de echte wedstrijd op de site van het merk.
+
+    Voorkeur voor een externe link met een deelneem-achtige tekst; anders de
+    eerste externe link in de artikeltekst. Bij twijfel None: dan gaat de
+    wedstrijd naar "zelf doen" in plaats van naar een willekeurige pagina.
+    """
+    eigen = urllib.parse.urlsplit(basis_url).netloc.lower().removeprefix("www.")
+    met_tekst, zonder_tekst, zelfde_site = [], [], []
+
+    for url, tekst in verzamel_links(html, basis_url):
+        if ROMMEL_LINK.search(url) or url.split("#")[0] == basis_url.split("#")[0]:
+            continue
+        stuk = urllib.parse.urlsplit(url)
+        domein = stuk.netloc.lower().removeprefix("www.")
+        if not domein:
+            continue
+        if domein == eigen:
+            # Sommige overzichtssites hosten het formulier zelf; alleen volgen
+            # als de link er ook echt naar verwijst, en nooit naar de homepage.
+            if DOORKLIK.search(tekst) and stuk.path.strip("/"):
+                zelfde_site.append(url)
+            continue
+        (met_tekst if DOORKLIK.search(tekst) else zonder_tekst).append(url)
+
+    if met_tekst:
+        return met_tekst[0]
+    # De knop is vaak een afbeelding zonder tekst. Staat er precies één extern
+    # domein in het artikel, dan is dat de wedstrijd; bij meerdere gokken we niet.
+    domeinen = {urllib.parse.urlsplit(u).netloc for u in zonder_tekst}
+    if zonder_tekst and len(domeinen) == 1:
+        return zonder_tekst[0]
+    return zelfde_site[0] if zelfde_site else None
+
+
 def bevat_captcha(html: str) -> bool:
     lage = html.lower()
     return any(spoor in lage for spoor in CAPTCHA_SPOREN)
@@ -333,8 +378,30 @@ def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
     parser = FormulierParser()
     parser.feed(html)
     formulier = kies_formulier(parser.formulieren)
+    doel_url = url
+
+    # Geen formulier? Dan staan we op de detailpagina van een overzichtssite.
+    # Volg de knop naar het merk — één keer.
     if formulier is None:
-        return "handmatig", "geen deelnameformulier gevonden op de pagina"
+        door = zoek_doorklik(html, url)
+        if not door:
+            return "handmatig", "geen deelnameformulier en geen doorklik gevonden"
+        try:
+            html = haal(door, timeout)
+        except BronFout as fout:
+            return "mislukt", f"doorklik {door} niet op te halen: {fout}"
+
+        doel_url = door
+        if bevat_captcha(html):
+            return "handmatig", f"captcha op {urllib.parse.urlsplit(door).netloc}"
+
+        parser = FormulierParser()
+        parser.feed(html)
+        formulier = kies_formulier(parser.formulieren)
+        if formulier is None:
+            return ("handmatig",
+                    f"doorgeklikt naar {urllib.parse.urlsplit(door).netloc}, "
+                    f"maar geen deelnameformulier")
 
     # Login herkennen we aan een wachtwoordveld ín dit formulier. Op het hele
     # document zoeken sloeg aan op de inlogknop in elke sitenavigatie.
@@ -350,7 +417,7 @@ def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
         return "handmatig", "geen e-mailveld herkend"
 
     extra = (" · " + " · ".join(uitleg)) if uitleg else ""
-    doel = urllib.parse.urljoin(url, formulier["action"] or url)
+    doel = urllib.parse.urljoin(doel_url, formulier["action"] or doel_url)
     if dry_run:
         kort = {k: v for k, v in payload.items() if v}
         return "proefdraai", (f"zou POST'en naar {doel} met {len(kort)} velden: "
@@ -360,7 +427,7 @@ def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
     verzoek = urllib.request.Request(doel, data=data, headers={
         "User-Agent": UA,
         "Content-Type": "application/x-www-form-urlencoded",
-        "Referer": url,
+        "Referer": doel_url,
         "Accept-Language": "nl-BE,nl;q=0.9",
     })
     try:

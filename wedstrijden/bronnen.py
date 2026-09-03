@@ -160,6 +160,29 @@ def normaliseer_datum(rauw: str) -> str:
 
 # --------------------------------------------------------------------------- html
 
+def verzamel_links(html: str, basis_url: str) -> list[tuple[str, str]]:
+    """Alle links met hun zichtbare tekst, als (absolute url, tekst).
+
+    Via de HTML-parser en niet met een regex: veel sites serveren geminificeerde
+    HTML waarin attributen geen aanhalingstekens hebben (<a href=https://... >).
+    Een regex die quotes verwacht, mist precies de doorklik naar de wedstrijd.
+    """
+    verzamelaar = _LinkVerzamelaar()
+    try:
+        verzamelaar.feed(html)
+    except Exception:
+        pass
+    links = []
+    for href, tekst in verzamelaar.links:
+        try:
+            url = urllib.parse.urljoin(basis_url, unescape(href)).split("#")[0]
+        except ValueError:
+            continue
+        if url.startswith(("http://", "https://")):
+            links.append((url, tekst))
+    return links
+
+
 class _LinkVerzamelaar(HTMLParser):
     """Verzamelt <a href> met hun zichtbare tekst."""
 
