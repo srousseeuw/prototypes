@@ -1,0 +1,338 @@
+from .common import esc, build_highlights, build_list, maps_query as _maps_query
+
+
+def render(brief: dict) -> str:
+    name = esc(brief["business_name"])
+    category = esc(brief.get("category", ""))
+    tagline = esc(brief.get("tagline", ""))
+    address = esc(brief.get("address", ""))
+    phone = esc(brief.get("phone", ""))
+    phone_href = esc(brief.get("phone", "").replace(" ", "").replace("/", ""))
+    about = esc(brief.get("about", ""))
+    cta = esc(brief.get("cta_text", "Bel voor een afspraak"))
+    appointment_note = esc(brief.get("appointment_note", "Uitsluitend op afspraak"))
+    hours_note = esc(brief.get("hours_note", ""))
+    behandelingen_html = build_list(brief.get("behandelingen", []), item_class="treat-item")
+    highlights_html = build_highlights(brief.get("highlights", []), mark="✦")
+    maps_q = _maps_query(address)
+
+    return f"""<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{name} — {category}</title>
+<meta name="description" content="{tagline}. {address}.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {{
+    --lav: #6b5b7a;
+    --lav-deep: #453a52;
+    --gold: #b6935a;
+    --ivory: #faf7f1;
+    --panel: #f1eaf4;
+    --ink: #372f42;
+    --ink-soft: #766a82;
+    --line: #e2d7ea;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Jost', sans-serif;
+  }}
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
+    font-family: var(--font-body);
+    background: var(--ivory);
+    color: var(--ink);
+    line-height: 1.65;
+  }}
+  a {{ color: inherit; }}
+  .wrap {{ max-width: 1060px; margin: 0 auto; padding: 0 24px; }}
+
+  header.top {{ padding: 22px 0; border-bottom: 1px solid var(--line); }}
+  header.top .wrap {{ display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }}
+  .brand {{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: 0.03em;
+    color: var(--lav-deep);
+  }}
+  .top-cta {{
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    background: var(--lav-deep);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 2px;
+    text-decoration: none;
+  }}
+
+  .hero {{ background: var(--panel); padding: 72px 0 60px; }}
+  .hero .wrap {{
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 52px;
+    align-items: center;
+  }}
+  .eyebrow {{
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }}
+  h1 {{
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 4.8vw, 3.4rem);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.18;
+    color: var(--lav-deep);
+    margin-bottom: 20px;
+  }}
+  .tagline {{ font-size: 1.04rem; color: var(--ink-soft); max-width: 44ch; margin-bottom: 24px; }}
+  .appointment-note {{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin-bottom: 26px;
+  }}
+  .hero-actions {{ display: flex; flex-wrap: wrap; gap: 12px; }}
+  .hero-cta {{
+    display: inline-block;
+    background: var(--lav-deep);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 0.95rem;
+  }}
+  .hero-cta.ghost {{
+    background: transparent;
+    color: var(--lav-deep);
+    border: 1px solid var(--lav-deep);
+  }}
+
+  /* signature element: een minimalistische handspiegel, opgebouwd uit cirkels/lijnen */
+  .mirror {{ position: relative; width: 210px; height: 260px; justify-self: end; }}
+  .mirror .lens {{
+    position: absolute;
+    left: 15px; top: 0;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: #fff;
+    border: 10px solid var(--lav);
+  }}
+  .mirror .lens::after {{
+    content: "";
+    position: absolute;
+    inset: 26px;
+    border-radius: 50%;
+    background: var(--panel);
+  }}
+  .mirror .glint {{
+    position: absolute;
+    left: 68px; top: 44px;
+    width: 34px; height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.75);
+    transform: rotate(-18deg);
+  }}
+  .mirror .neck {{
+    position: absolute;
+    left: 96px; top: 176px;
+    width: 18px; height: 56px;
+    background: var(--lav);
+    border-radius: 4px;
+  }}
+  .mirror .base {{
+    position: absolute;
+    left: 65px; top: 226px;
+    width: 80px; height: 12px;
+    background: var(--lav-deep);
+    border-radius: 6px;
+  }}
+  .mirror .dot {{
+    position: absolute;
+    border-radius: 50%;
+    background: var(--gold);
+  }}
+  .mirror .dot-1 {{ width: 14px; height: 14px; left: 8px; top: 96px; }}
+  .mirror .dot-2 {{ width: 9px; height: 9px; left: 188px; top: 40px; }}
+  .mirror .dot-3 {{ width: 11px; height: 11px; left: 176px; top: 150px; }}
+
+  section {{ padding: 60px 0; }}
+
+  .treat {{ border-bottom: 1px solid var(--line); }}
+  .treat .wrap {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }}
+  h2 {{
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--lav-deep);
+    margin-bottom: 18px;
+  }}
+  ul.treat-list {{ list-style: none; }}
+  li.treat-item {{
+    padding: 13px 0 13px 26px;
+    border-bottom: 1px solid var(--line);
+    font-size: 1rem;
+    position: relative;
+  }}
+  li.treat-item::before {{
+    content: "";
+    position: absolute;
+    left: 0; top: 22px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+  }}
+  .about-text {{ color: var(--ink-soft); font-size: 1.02rem; }}
+
+  .highlights-section {{ background: var(--lav-deep); }}
+  .highlights-section h2 {{ color: #fff; }}
+  ul.highlights {{ list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 32px; }}
+  ul.highlights li {{
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px 0;
+    color: rgba(255,255,255,0.88);
+    font-size: 0.96rem;
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+  }}
+  .mark {{ color: var(--gold); font-weight: 700; }}
+
+  .info {{ background: var(--panel); }}
+  .info .wrap {{ display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }}
+  .hours-note {{
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 18px 20px;
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+  }}
+  .contact-block p {{ margin-bottom: 10px; color: var(--ink); }}
+  .contact-block a.phone-link {{
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--lav-deep);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 10px;
+  }}
+  .contact-block a.map-link {{
+    display: inline-block;
+    margin-top: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }}
+
+  footer {{ padding: 30px 0; text-align: center; font-size: 0.82rem; color: var(--ink-soft); }}
+
+  @media (max-width: 760px) {{
+    .hero .wrap, .treat .wrap, .info .wrap {{ grid-template-columns: 1fr; }}
+    ul.highlights {{ grid-template-columns: 1fr; }}
+    .mirror {{ justify-self: start; margin-top: 8px; width: 160px; height: 200px; transform: scale(0.8); transform-origin: left top; }}
+  }}
+
+  a:focus-visible, .hero-cta:focus-visible, .top-cta:focus-visible {{ outline: 2px solid var(--gold); outline-offset: 3px; }}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">{name}</div>
+    <a class="top-cta" href="tel:{phone_href}">{cta}</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">{category}</div>
+      <h1>{tagline}</h1>
+      <p class="tagline">{about}</p>
+      <div class="appointment-note">✦ {appointment_note}</div>
+      <div class="hero-actions">
+        <a class="hero-cta" href="tel:{phone_href}">{cta}</a>
+        <a class="hero-cta ghost" href="#info">Adres &amp; contact</a>
+      </div>
+    </div>
+    <div class="mirror" aria-hidden="true">
+      <span class="lens"></span>
+      <span class="glint"></span>
+      <span class="neck"></span>
+      <span class="base"></span>
+      <span class="dot dot-1"></span>
+      <span class="dot dot-2"></span>
+      <span class="dot dot-3"></span>
+    </div>
+  </div>
+</section>
+
+<section class="treat">
+  <div class="wrap">
+    <div>
+      <h2>Behandelingen</h2>
+      <ul class="treat-list">
+        {behandelingen_html}
+      </ul>
+    </div>
+    <div>
+      <h2>Over {name}</h2>
+      <p class="about-text">{about}</p>
+    </div>
+  </div>
+</section>
+
+<section class="highlights-section">
+  <div class="wrap">
+    <h2>Waarom klanten terugkomen</h2>
+    <ul class="highlights">
+      {highlights_html}
+    </ul>
+  </div>
+</section>
+
+<section class="info" id="info">
+  <div class="wrap">
+    <div>
+      <h2>Openingstijden</h2>
+      <div class="hours-note">{hours_note}</div>
+    </div>
+    <div class="contact-block">
+      <h2>Maak een afspraak</h2>
+      <a class="phone-link" href="tel:{phone_href}">{phone}</a>
+      <p>{address}</p>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query={maps_q}" target="_blank" rel="noopener">Bekijk op kaart →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Prototype gebouwd voor {name} · <a href="https://ocior.be" target="_blank" rel="noopener">ocior.be</a>
+</footer>
+
+</body>
+</html>
+"""

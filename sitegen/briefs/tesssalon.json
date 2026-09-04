@@ -1,0 +1,33 @@
+{
+  "slug": "tesssalon",
+  "business_name": "TessSalon",
+  "sector": "schoonheidssalon",
+  "category": "Schoonheidssalon — pedicure, manicure & massage",
+  "tagline": "Persoonlijke verzorging in een kleinschalige salon in Nispen",
+  "address": "Dorpsstraat 78, 4709 AD Nispen",
+  "phone": "0165 527070",
+  "behandelingen": [
+    "Schoonheidsverzorging",
+    "Pedicure",
+    "Manicure",
+    "Ontspanningsmassage"
+  ],
+  "highlights": [
+    "Kleinschalige salon aan de Dorpsstraat, midden in Nispen",
+    "Persoonlijke aandacht: één behandelaar, één klant tegelijk",
+    "Naast schoonheidsverzorging ook pedicure, manicure en massage",
+    "Al jarenlang een vertrouwd adres voor het dorp"
+  ],
+  "appointment_note": "Uitsluitend op afspraak",
+  "hours_note": "Geen vaste openingsuren teruggevonden. TessSalon werkt op afspraak — bel voor een moment dat u past, of stuur een bericht via de Facebookpagina.",
+  "about": "TessSalon is de schoonheidssalon van Tess, gevestigd aan de Dorpsstraat in het hart van Nispen. Naast schoonheidsverzorging kan je er ook terecht voor pedicure, manicure en een ontspanningsmassage. Alles gebeurt op afspraak, in een kleine salon met persoonlijke aandacht voor iedere klant.",
+  "cta_text": "Bel voor een afspraak",
+  "email_note": "Geen e-mailadres teruggevonden. TessSalon heeft geen eigen website — enkel een Facebookpagina en vermeldingen op telefoonboek.nl en oozo.nl (KvK-gegevens). Voor outreach voorlopig alleen telefonisch of via Facebook bereikbaar.",
+  "note": "Huisnummer is niet eenduidig: telefoonboek.nl en enkele overnemende gidsen vermelden Dorpsstraat 74, maar oozo.nl (dat KvK-registergegevens toont, KvK 20123728) vermeldt Dorpsstraat 78 — hiervoor gekozen als meest gezaghebbende bron. Telefoonnummer 0165 527070 is wel consistent teruggevonden. Het startjaar loopt uiteen (sommige gidsen noemen 2006, het KvK-vestigingsjaar is 2013) en is daarom niet in de tekst opgenomen. Openingstijden niet teruggevonden.",
+  "outreach": {
+    "status": "nieuw",
+    "note": "Geen e-mailadres teruggevonden. Bellen: 0165 527070, of via Facebook.",
+    "only_phone": true
+  },
+  "generated": true
+}

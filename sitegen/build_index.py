@@ -66,6 +66,7 @@ SECTOR_LABELS = {
     "politiek": "Politiek",
     "schilder": "Schilderwerken",
     "restaurant": "Restaurant",
+    "schoonheidssalon": "Schoonheidssalon",
     "slager": "Slagerij",
     "sportclub": "Sport & vereniging",
     "tuincentrum": "Tuincentrum",
