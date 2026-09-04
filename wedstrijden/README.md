@@ -22,6 +22,44 @@ te versturen. Kijk een week mee, en zet het pas dan echt aan. Een aparte
 mailbox of een `+wedstrijden`-alias (`sebastiaan.rousseeuw+wedstrijden@gmail.com`)
 houdt de gewone mail proper — de meeste sites accepteren dat gewoon.
 
+## Met de hand draaien, vanuit je browser
+
+```bash
+python3 wedstrijden/serve.py
+```
+
+Open dan **http://localhost:8900**. Vier knoppen:
+
+| Knop | Wat het doet |
+|---|---|
+| Alleen zoeken | bronnen ophalen en scoren, verstuurt niets |
+| Diagnose met browser | opent de bovenste wedstrijden in een echte browser, klikt door, vult in — maar verstuurt niets |
+| Proefdraai | zelfde, voor alle geselecteerde wedstrijden |
+| Echt deelnemen | vult in én verstuurt, met je echte naam en adres |
+
+De log loopt live mee. Daaronder staat het logboek van alles waar je ooit aan
+deelnam, en de **schermafbeeldingen** die de browser onderweg maakte — zo zie je
+precies wat de bot zag en waar hij vastliep.
+
+Draait alleen op je eigen machine; er staat niets van dit alles op het internet.
+
+### Waarom een echte browser
+
+Gemeten op de echte sites: via een gewone HTTP-fetch komen 12 van de 12
+wedstrijden uit op "geen deelnameformulier gevonden". De overzichtssites laden
+hun "ga naar de wedstrijd"-knop met JavaScript in, en het formulier staat op de
+site van het merk. Een browser voert dat JavaScript uit en kan doorklikken.
+
+Eenmalig installeren:
+
+```bash
+pip3 install playwright && python3 -m playwright install chromium
+```
+
+Zet `"browser": true` in `config.json` (staat standaard aan in het voorbeeld) en
+ook de nachtelijke ronde gebruikt de browser. Wil je meekijken terwijl hij
+werkt, zet dan `"headless": false` — dan zie je het venster.
+
 ## In gang zetten
 
 Eén commando, op de Mac waar het script moet draaien:

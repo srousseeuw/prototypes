@@ -69,11 +69,24 @@ export function parseFeed(xml, bron) {
   return items;
 }
 
+// Veel sites serveren geminificeerde HTML waarin attributen geen aanhalingstekens
+// hebben: <a href=https://... target=_blank>. Een regex die quotes eist, mist
+// precies die links — en dus ook de doorklik naar de wedstrijd.
+const LINK = /<a\b[^>]*\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))[^>]*>([\s\S]*?)<\/a>/gi;
+
+export function linksUit(html) {
+  const uit = [];
+  for (const treffer of html.matchAll(LINK)) {
+    const href = treffer[1] ?? treffer[2] ?? treffer[3] ?? "";
+    if (href) uit.push({ href, binnenkant: treffer[4] || "" });
+  }
+  return uit;
+}
+
 export function parseHtmlLijst(html, basisUrl, bron) {
   const items = [];
   const gezien = new Set();
-  const links = html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi);
-  for (const [, href, binnenkant] of links) {
+  for (const { href, binnenkant } of linksUit(html)) {
     const tekst = stripHtml(binnenkant);
     if (tekst.length < 15 || tekst.split(/\s+/).length < 3 || ROMMEL.test(tekst)) continue;
     let url;

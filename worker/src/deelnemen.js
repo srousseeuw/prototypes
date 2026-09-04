@@ -1,13 +1,25 @@
 // Het deelnameformulier lezen, invullen en versturen.
 // Zelfde regels als deelnemen.py: nooit gokken bij twijfel, geen lege verplichte
 // velden versturen, en bij een captcha stoppen we — dan komt het op de digest.
-import { UA, haal, ontsnap, stripHtml } from "./bronnen.js";
+import { UA, haal, linksUit, ontsnap, stripHtml } from "./bronnen.js";
 import { budget } from "./budget.js";
 import { schatSchifting, soortVraag, zoekAntwoord } from "./antwoord.js";
 
 const CAPTCHA_SPOREN = ["recaptcha", "g-recaptcha", "hcaptcha", "h-captcha",
                         "cf-turnstile", "turnstile", "friendlycaptcha", "captcha"];
-const LOGIN_SPOREN = ["wachtwoord", "password", "inloggen om deel te nemen", "log in om"];
+// Formulieren die géén deelnameformulier zijn. Zonder deze filter kiest de bot
+// op elke WordPress-site het reactieformulier (dat heeft ook een e-mailveld) en
+// plaatst hij je naam en e-mailadres publiek onder een blogartikel.
+const GEEN_DEELNAME_ACTIE =
+  /wp-comments-post|\/comment|#comment|\/search|\/zoek|list-manage\.com|mailchimp|newsletter|nieuwsbrief|\/login|\/inloggen|\/account/i;
+
+const GEEN_DEELNAME_VELDEN = [
+  ["comment", "author"],   // WordPress-reacties
+  ["comment", "email"],
+  ["bericht", "naam"],     // contactformulier
+];
+
+const ZOEKVELDEN = [["s"], ["q"], ["search"], ["zoek"], ["s", "submit"], ["q", "submit"]];
 const GELUKT = ["bedankt", "je deelname", "uw deelname", "deelname geregistreerd",
                 "succesvol", "gelukt", "bevestigingsmail", "thank you", "veel succes"];
 
@@ -27,17 +39,19 @@ const VELDPATRONEN = [
 
 // Overzichtssites tonen een detailpagina met een knop naar de echte wedstrijd.
 // Die hop misten we: we zochten een formulier op een pagina die er geen heeft.
-const DOORKLIK = /deelnem|meedoen|doe\s*mee|naar de (wedstrijd|actie)|win nu|inschrijv|naar de site|bezoek/i;
+const DOORKLIK =
+  /deelnem|meedoen|doe\s*mee|ga naar|naar de (actie|wedstrijd|site)|win nu|inschrijv|bezoek|aanvragen|vraag aan|claim|profiteer|bekijk (de )?(actie|aanbieding)|hier/i;
+
+const ROMMEL_LINK =
+  /facebook|twitter|x\.com|instagram|pinterest|whatsapp|linkedin|w3\.org|schema\.org|wordpress|gravatar|googleapis|gstatic|cookiedatabase|\/tag\/|\/category\/|\/feed/i;
 
 export function zoekDoorklik(html, basisUrl) {
-  const huidig = new URL(basisUrl);
-  const eigen = huidig.hostname.replace(/^www\./, "");
-  const kandidaten = [];
+  const eigen = new URL(basisUrl).hostname.replace(/^www\./, "");
+  const metTekst = [];
+  const zonderTekst = [];
+  const zelfdeSite = [];
 
-  for (const [, href, binnenkant] of html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
-    const tekst = stripHtml(binnenkant);
-    if (!DOORKLIK.test(tekst)) continue;
-
+  for (const { href, binnenkant } of linksUit(html)) {
     let doel;
     try {
       doel = new URL(ontsnap(href), basisUrl);
@@ -45,20 +59,30 @@ export function zoekDoorklik(html, basisUrl) {
       continue;
     }
     if (!/^https?:$/.test(doel.protocol)) continue;
+    if (ROMMEL_LINK.test(doel.toString())) continue;
     if (doel.toString().split("#")[0] === basisUrl.split("#")[0]) continue;
 
-    const extern = doel.hostname.replace(/^www\./, "") !== eigen;
-    // Een link terug naar de homepage van de overzichtssite is geen wedstrijd.
-    if (!extern && doel.pathname.replace(/\/+$/, "") === "") continue;
+    const domein = doel.hostname.replace(/^www\./, "");
+    if (!domein) continue;
 
-    kandidaten.push({ url: doel.toString(), extern });
+    const tekst = stripHtml(binnenkant);
+    if (domein === eigen) {
+      // Sommige overzichtssites hosten het formulier zelf; alleen volgen als de
+      // link er ook echt naar verwijst, en nooit naar de homepage.
+      if (DOORKLIK.test(tekst) && doel.pathname.replace(/^\/|\/$/g, "")) {
+        zelfdeSite.push(doel.toString());
+      }
+      continue;
+    }
+    (DOORKLIK.test(tekst) ? metTekst : zonderTekst).push(doel.toString());
   }
 
-  // Extern heeft voorrang (dat is meestal het merk zelf), maar een doorklik
-  // binnen dezelfde site telt ook: sommige overzichtssites hosten het
-  // formulier gewoon zelf.
-  const gekozen = kandidaten.find((k) => k.extern) || kandidaten[0];
-  return gekozen ? gekozen.url : null;
+  if (metTekst.length) return metTekst[0];
+  // De knop is vaak een afbeelding zonder tekst. Staat er precies één extern
+  // domein in het artikel, dan is dat de wedstrijd; bij meerdere gokken we niet.
+  const domeinen = new Set(zonderTekst.map((u) => new URL(u).hostname));
+  if (zonderTekst.length && domeinen.size === 1) return zonderTekst[0];
+  return zelfdeSite.length ? zelfdeSite[0] : null;
 }
 
 export function bevatCaptcha(html) {
@@ -126,13 +150,29 @@ export function leesFormulieren(html) {
   return { formulieren, labels };
 }
 
+/** Zeeft reactie-, zoek-, nieuwsbrief- en loginformulieren eruit. */
+export function isDeelnameFormulier(formulier) {
+  if (GEEN_DEELNAME_ACTIE.test(formulier.action || "")) return false;
+
+  const namen = new Set(formulier.velden.map((v) => (v.name || "").toLowerCase()).filter(Boolean));
+  if (GEEN_DEELNAME_VELDEN.some((kern) => kern.every((n) => namen.has(n)))) return false;
+  if (ZOEKVELDEN.some((zoek) => zoek.length === namen.size && zoek.every((n) => namen.has(n)))) return false;
+
+  const invulbaar = formulier.velden.filter(
+    (v) => !["hidden", "submit", "button", "image"].includes(v.type));
+  // Eén enkel e-mailveld is een nieuwsbriefinschrijving, geen wedstrijd.
+  if (invulbaar.length <= 1) return false;
+
+  return true;
+}
+
 export function kiesFormulier(formulieren) {
   let beste = null;
   for (const formulier of formulieren) {
     const heeftEmail = formulier.velden.some((v) => v.type === "email" || /e.?mail/i.test(v.name));
     const zichtbaar = formulier.velden.filter(
       (v) => !["hidden", "submit", "button", "image"].includes(v.type));
-    if (!heeftEmail || !zichtbaar.length) continue;
+    if (!heeftEmail || !zichtbaar.length || !isDeelnameFormulier(formulier)) continue;
     if (!beste || zichtbaar.length > beste.aantal) beste = { formulier, aantal: zichtbaar.length };
   }
   return beste ? beste.formulier : null;
@@ -244,10 +284,6 @@ export async function deelnemen(url, deelnemer, opties = {}) {
   }
 
   if (bevatCaptcha(html)) return { status: "handmatig", opmerking: "captcha op de pagina" };
-  const laag = html.toLowerCase();
-  if (LOGIN_SPOREN.some((spoor) => laag.includes(spoor))) {
-    return { status: "handmatig", opmerking: "lijkt een account of login te vragen" };
-  }
 
   let { formulieren, labels } = leesFormulieren(html);
   let formulier = kiesFormulier(formulieren);
@@ -275,6 +311,12 @@ export async function deelnemen(url, deelnemer, opties = {}) {
     if (!formulier) {
       return { status: "handmatig", opmerking: `geen formulier op ${new URL(door).hostname} (waarschijnlijk JavaScript)` };
     }
+  }
+
+  // Login herkennen we aan een wachtwoordveld ín dit formulier. Op het hele
+  // document zoeken sloeg aan op de inlogknop in elke sitenavigatie.
+  if (formulier.velden.some((v) => v.type === "password")) {
+    return { status: "handmatig", opmerking: "het formulier vraagt een account (wachtwoordveld)" };
   }
 
   const { payload, onbekend, uitleg } = bouwPayload(formulier, labels, deelnemer, {
