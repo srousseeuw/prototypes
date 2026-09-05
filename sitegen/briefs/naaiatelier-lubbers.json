@@ -1,0 +1,46 @@
+{
+  "slug": "naaiatelier-lubbers",
+  "business_name": "Naaiatelier Angélique Lubbers",
+  "sector": "naaiatelier",
+  "category": "Naaiatelier — stoffering & maatwerk voor in en om het huis",
+  "tagline": "Maatwerk in stof, met de hand gemaakt in Wernhout",
+  "address": "Kleine Heistraat 16, 4884 ME Wernhout",
+  "phone": "06 10385917",
+  "email": "info@angelique-lubbers.nl",
+  "founded": "2011",
+  "intro": "Van afritsbare kussenhoezen voor de tuinstoelen tot gordijnen, sprei en een bekleed hemelbed: Angélique Lubbers maakt het op maat, in haar atelier in Wernhout.",
+  "about": "Angélique Lubbers runt sinds 2011 haar eigen naaiatelier vanuit Wernhout, vlakbij de grens met Essen en Zundert. Ze maakt kleine en grote naaiwerken van stof voor in en om het huis: van een afritsbare kussenhoes voor op de tuinstoel tot een volledig bekleed hemelbed. Haar specialiteit is het maken van stoel- en bankhoezen op maat — inclusief hoezen voor bestaande meubels die nieuw leven verdienen. Elke opdracht is anders, en dat is precies waar ze goed in is: meedenken met een idee tot het werkelijkheid wordt.",
+  "cta_text": "Vraag een offerte aan",
+  "appointment_note": "Werkt op afspraak, na een gesprek over de mogelijkheden. Bereikbaar per telefoon of e-mail, ook vanuit België.",
+  "highlights": [
+    "Stoel- en bankhoezen op maat — haar specialiteit",
+    "Afritsbare kussenhoezen voor tuinmeubelen",
+    "Gordijnen, sprei en bekleding voor de slaapkamer",
+    "Bekleed hemelbed en andere maatwerkstoffering",
+    "Elke opdracht op maat van de klant, groot of klein",
+    "Vanuit Wernhout ook goed bereikbaar vanuit Essen en Zundert"
+  ],
+  "assortment": [
+    {
+      "title": "Stoel- en bankhoezen",
+      "desc": "Hoezen op maat voor bestaande stoelen en zetels, zodat een meubel een tweede leven krijgt zonder het weg te doen."
+    },
+    {
+      "title": "Buiten & tuin",
+      "desc": "Afritsbare kussenhoezen voor tuinstoelen en -banken, gemaakt om tegen een stootje te kunnen."
+    },
+    {
+      "title": "Slaapkamer",
+      "desc": "Gordijnen, sprei en bekleding voor het bed, tot en met een volledig bekleed hemelbed."
+    },
+    {
+      "title": "Maatwerk op idee",
+      "desc": "Heeft u zelf een idee voor een naaiwerk in en om het huis? Denkt ze graag mee over wat mogelijk is."
+    }
+  ],
+  "hours": [],
+  "outreach": {
+    "status": "nieuw",
+    "note": "Site (angelique-lubbers.nl) is een oude iWeb-pagina uit 2017, niet mobielvriendelijk. Huisnummer wisselt tussen bronnen: eigen site en directories noemen zowel 16-344 als 16-388 — hier neutraal als 'Kleine Heistraat 16' vermeld."
+  }
+}

@@ -51,6 +51,7 @@ SECTOR_LABELS = {
     "keukenstudio": "Interieur & keukens",
     "kinderopvang": "Kinderopvang",
     "kringloopwinkel": "Kringloop",
+    "naaiatelier": "Naaiatelier & stoffering",
     "opticien": "Optiek",
     "pedicure": "Pedicure & voetverzorging",
     "pizzeria": "Pizzeria & Italiaans",
