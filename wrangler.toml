@@ -11,10 +11,24 @@
 # wordt hier gewoon ondersteund (Workers met assets kent _redirects en _headers,
 # net als Pages).
 #
+# Sinds de U7-trainingsplanner (sites/training/) is er wél een klein stukje
+# Worker-code: api/index.js beantwoordt /api/training/* en bewaart de
+# trainingen in de KV-namespace hieronder. Alle andere paden blijven gewone
+# statische assets (run_worker_first beperkt de Worker tot /api/*).
+#
 # Let op: worker/wrangler.toml is een ándere Worker (de wedstrijdbot), met een
 # eigen naam, cron en KV. Die twee staan los van elkaar.
 name = "prototypes"
+main = "api/index.js"
 compatibility_date = "2026-08-25"
 
 [assets]
 directory = "./sites"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+# Gedeelde opslag van de trainingsplanner. Aangemaakt met
+#   npx wrangler kv namespace create TRAINING
+[[kv_namespaces]]
+binding = "TRAINING"
+id = "a11333ca7fa344c092acdff5d3f6165c"

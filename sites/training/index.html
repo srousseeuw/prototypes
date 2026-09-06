@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1e6b3a">
+<title>U7 Trainingsplanner</title>
+<style>
+:root{
+  --pitch:#1e6b3a; --pitch-2:#2a8a4a; --pitch-3:#17552e; --line:#ffffff;
+  --cone:#ff7a1a; --yellow:#ffd23f; --blue:#2f6fdb; --coral:#e5484d; --purple:#7c4dff;
+  --ink:#14281d; --muted:#5d6f63; --bg:#f1f6f0; --card:#ffffff; --edge:#d8e4d9;
+  --radius:14px; --shadow:0 1px 2px rgba(20,40,29,.08),0 4px 14px rgba(20,40,29,.06);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+a{color:var(--pitch)}
+h1,h2,h3{margin:0;line-height:1.2}
+.sr{position:absolute;left:-9999px}
+
+/* ---------- top bar ---------- */
+.top{background:var(--pitch);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.top .in{max-width:900px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:10px;min-height:56px}
+.top .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:800;letter-spacing:.2px;flex:1;min-width:0}
+.top .brand .ball{width:30px;height:30px;border-radius:50%;background:#fff;position:relative;flex:none;box-shadow:inset -4px -4px 0 rgba(0,0,0,.12)}
+.top .brand .ball:after{content:"";position:absolute;inset:8px;background:var(--ink);clip-path:polygon(50% 0,100% 38%,81% 100%,19% 100%,0 38%)}
+.top .brand small{display:block;font-weight:500;font-size:12px;opacity:.85}
+.top .brand span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top nav{display:flex;gap:4px}
+.top nav a,.top nav button{background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:10px;padding:8px 11px;text-decoration:none;font-weight:600;font-size:14px;min-height:40px;display:inline-flex;align-items:center;gap:6px}
+.top nav a.active{background:#fff;color:var(--pitch)}
+@media(max-width:560px){.top .brand span{display:none}.top .brand{flex:0 0 auto}.top nav{flex:1;justify-content:flex-end}}
+.lines{position:absolute;inset:0;pointer-events:none;opacity:.12;background:
+ radial-gradient(circle at 50% 50%, transparent 46px, #fff 46px, #fff 48px, transparent 48px),
+ linear-gradient(#fff,#fff) center/2px 100% no-repeat;}
+
+main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
+.wrap-print{display:none}
+
+/* ---------- generic ---------- */
+.card{background:var(--card);border:1px solid var(--edge);border-radius:var(--radius);box-shadow:var(--shadow)}
+.btn{border:1px solid var(--edge);background:#fff;border-radius:12px;padding:10px 14px;font-weight:600;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--pitch);border-color:var(--pitch);color:#fff}
+.btn.cone{background:var(--cone);border-color:var(--cone);color:#fff}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--pitch)}
+.btn.danger{color:var(--coral)}
+.btn.sm{min-height:36px;padding:6px 10px;font-size:14px;border-radius:10px}
+.btn.icon{width:44px;padding:0}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.field{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600;color:var(--muted)}
+.field input,.field select,.field textarea{border:1px solid var(--edge);border-radius:10px;padding:10px 12px;background:#fff;font-size:16px;font-weight:500;color:var(--ink);min-height:44px;width:100%}
+.field textarea{min-height:80px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--pitch-2);outline-offset:1px;border-color:var(--pitch-2)}
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;color:#fff;background:var(--muted);white-space:nowrap}
+.badge.warm{background:var(--cone)}.badge.fit{background:#d9a400}.badge.dribbel{background:var(--pitch-2)}.badge.schiet{background:var(--coral)}.badge.v1{background:var(--blue)}.badge.partij{background:var(--purple)}.badge.overig{background:#7b8a80}
+.badge.eigen{background:#fff;color:var(--pitch);border:1px solid var(--pitch)}
+.empty{text-align:center;padding:40px 16px;color:var(--muted)}
+.empty .big{font-size:44px;margin-bottom:8px}
+.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;opacity:0;transition:.25s;z-index:60;max-width:92vw;text-align:center;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.err{background:var(--coral)}
+.pagehead{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.pagehead h1{font-size:22px;flex:1;min-width:0}
+.status{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.status i{width:8px;height:8px;border-radius:50%;background:#9ab3a0;display:inline-block}
+.status.saving i{background:var(--yellow)}.status.ok i{background:var(--pitch-2)}.status.err i{background:var(--coral)}
+
+/* ---------- home list ---------- */
+.tlist{display:grid;gap:10px}
+.titem{display:flex;gap:12px;align-items:center;padding:12px 14px;text-decoration:none;color:inherit}
+.titem .date{flex:none;width:58px;text-align:center;background:var(--bg);border-radius:10px;padding:6px 4px;line-height:1.1}
+.titem .date b{display:block;font-size:20px}
+.titem .date span{font-size:11px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.titem h3{font-size:16px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.titem .chev{color:var(--muted);font-size:22px}
+.minutes{font-weight:800;color:var(--pitch)}
+.minutes.over{color:var(--coral)}
+
+/* ---------- editor ---------- */
+.head{padding:14px;display:grid;gap:10px}
+.head .title{font-size:20px;font-weight:800;border:0;border-bottom:2px dashed var(--edge);padding:6px 2px;background:transparent;width:100%;min-height:44px}
+.head .title:focus{outline:0;border-bottom-color:var(--pitch-2)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.timeline{margin-top:14px;display:flex;flex-direction:column;gap:10px;position:relative}
+.block{display:flex;gap:0;overflow:hidden;position:relative;transition:box-shadow .15s}
+.block.dragging{opacity:.75;box-shadow:0 10px 24px rgba(0,0,0,.2);z-index:5}
+.block .tcol{flex:none;width:64px;background:var(--pitch);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:10px 4px;text-align:center}
+.block .tcol b{font-size:15px;line-height:1.1}
+.block .tcol span{font-size:11px;opacity:.85}
+.block .tcol .handle{margin-top:6px;width:36px;height:30px;border-radius:8px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;font-size:18px;letter-spacing:1px}
+.block .body{flex:1;min-width:0;padding:10px 12px;display:grid;gap:8px}
+.block .name{display:flex;align-items:flex-start;gap:8px}
+.block .name h3{font-size:17px;flex:1;min-width:0;cursor:pointer}
+.block .name h3 small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.block .ctrls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.dur{display:inline-flex;align-items:center;border:1px solid var(--edge);border-radius:10px;overflow:hidden;background:#fff}
+.dur button{border:0;background:transparent;width:38px;height:40px;font-size:20px;font-weight:700;color:var(--pitch)}
+.dur input{width:48px;border:0;text-align:center;font-weight:800;font-size:16px;-moz-appearance:textfield;height:40px}
+.dur input::-webkit-inner-spin-button{-webkit-appearance:none}
+.dur span{padding-right:8px;color:var(--muted);font-size:13px}
+.coach{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--edge);border-radius:10px;padding:0 8px;height:40px;background:#fff;max-width:100%}
+.coach select{border:0;background:transparent;font-weight:600;max-width:150px;height:38px}
+.coach .ico{color:var(--muted)}
+.mini{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid var(--edge);background:#fff;font-size:16px}
+.mini.del{color:var(--coral)}
+.stations{display:grid;gap:6px;border-left:3px solid var(--purple);padding-left:10px}
+.station{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.station .lbl{flex:none;width:26px;height:26px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.station .sname{flex:1;min-width:140px;font-weight:600;cursor:pointer;text-align:left;background:transparent;border:0;padding:4px 0}
+.station .sname.empty{color:var(--muted);font-weight:500;font-style:italic}
+.note{border:1px dashed var(--edge);border-radius:10px;padding:8px 10px;font-size:14px;width:100%;background:#fbfdfb;min-height:38px;resize:vertical}
+.note:focus{outline:2px solid var(--pitch-2)}
+.rot{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.rot input{width:18px;height:18px}
+.addrow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+
+.sumbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--edge);padding:8px 14px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.sumbar .in{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.sumbar .bar{flex:1;min-width:0}
+.sumbar .bar .lbl{display:flex;justify-content:space-between;font-size:13px;font-weight:700}
+.sumbar .track{height:8px;background:var(--bg);border-radius:6px;overflow:hidden;margin-top:4px}
+.sumbar .fill{height:100%;background:var(--pitch-2);width:0;transition:width .2s}
+.sumbar .fill.over{background:var(--coral)}
+.sumbar .fill.near{background:var(--cone)}
+
+/* ---------- sheet (modal / bottom sheet) ---------- */
+.veil{position:fixed;inset:0;background:rgba(10,30,18,.45);z-index:40;display:none}
+.veil.open{display:block}
+.sheet{position:fixed;left:0;right:0;bottom:0;max-height:92vh;background:#fff;border-radius:18px 18px 0 0;z-index:50;display:none;flex-direction:column;box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.sheet.open{display:flex}
+.sheet .sh{padding:12px 16px;border-bottom:1px solid var(--edge);display:flex;align-items:center;gap:10px}
+.sheet .sh h2{font-size:18px;flex:1}
+.sheet .sh:before{content:"";position:absolute;top:6px;left:50%;width:40px;height:4px;border-radius:2px;background:var(--edge);transform:translateX(-50%)}
+.sheet .sb{overflow:auto;padding:12px 16px calc(16px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
+.sheet .sf{padding:10px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--edge);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+@media(min-width:720px){.sheet{left:50%;right:auto;bottom:auto;top:50%;transform:translate(-50%,-50%);width:640px;max-height:86vh;border-radius:18px}.sheet .sh:before{display:none}}
+.chips{display:flex;gap:6px;overflow:auto;padding:2px 0 8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--edge);background:#fff;border-radius:999px;padding:6px 12px;font-weight:600;font-size:14px;min-height:36px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.search{width:100%;border:1px solid var(--edge);border-radius:12px;padding:10px 12px;font-size:16px;min-height:44px;margin-bottom:8px}
+.exlist{display:grid;gap:8px}
+.exrow{display:flex;gap:10px;align-items:center;padding:10px 12px;text-align:left;width:100%;background:#fff}
+.exrow .cat{flex:none;width:10px;align-self:stretch;border-radius:6px;background:var(--muted)}
+.exrow .cat.warm{background:var(--cone)}.exrow .cat.fit{background:#d9a400}.exrow .cat.dribbel{background:var(--pitch-2)}.exrow .cat.schiet{background:var(--coral)}.exrow .cat.v1{background:var(--blue)}.exrow .cat.partij{background:var(--purple)}.exrow .cat.overig{background:#7b8a80}
+.exrow .t{flex:1;min-width:0}
+.exrow .t b{display:block;font-size:15px}
+.exrow .t span{font-size:13px;color:var(--muted)}
+.exrow .info{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--edge);background:#fff;font-weight:800;color:var(--pitch)}
+.detail h3{font-size:14px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin:14px 0 4px}
+.detail ul{margin:0;padding-left:20px}
+.detail li{margin:3px 0}
+.detail .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.detail .meta span{background:var(--bg);border-radius:8px;padding:4px 10px;font-size:13px;font-weight:600}
+.form{display:grid;gap:10px}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ---------- library page ---------- */
+.libgrid{display:grid;gap:8px}
+
+/* ---------- overview / print ---------- */
+.ov{padding:16px}
+.ov h1{font-size:22px}
+.ov table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+.ov th,.ov td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--edge);vertical-align:top}
+.ov th{font-size:12px;text-transform:uppercase;color:var(--muted);letter-spacing:.3px}
+.ov td.t{white-space:nowrap;font-weight:700;color:var(--pitch)}
+.ov .st{display:block;padding-left:10px;border-left:2px solid var(--purple);margin:2px 0}
+.ov .st b{color:var(--purple)}
+.ov .exd{margin-top:18px;page-break-inside:avoid;border-top:1px solid var(--edge);padding-top:10px}
+.ov .exd h3{font-size:15px}
+.ov .exd ul{margin:4px 0 0;padding-left:18px;font-size:14px}
+.ov .exd p{margin:4px 0;font-size:13px;color:var(--muted)}
+@media print{
+  body{background:#fff;padding:0}
+  .top,.sumbar,.noprint,.toast{display:none!important}
+  main{padding:0;max-width:none}
+  .card{box-shadow:none;border:0}
+  .ov{padding:0}
+  a{color:inherit;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="lines"></div>
+  <div class="in">
+    <a class="brand" href="#/"><i class="ball"></i><span id="brandTxt">U7 Trainingsplanner<small id="brandSub">60 minuten, kwartveld</small></span></a>
+    <nav>
+      <a href="#/" id="navHome">Trainingen</a>
+      <a href="#/oefeningen" id="navLib">Oefeningen</a>
+      <button type="button" id="navSettings" title="Instellingen" aria-label="Instellingen">⚙︎</button>
+    </nav>
+  </div>
+</header>
+<main id="app"><div class="empty"><div class="big">⚽</div>Laden…</div></main>
+<div class="veil" id="veil"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   OEFENINGENBANK — U7 (6-jarigen), kwartveld, 10 à 15 spelers, 3 trainers.
+   Geïnspireerd op de oefenstof van KNVB Rinus (rinus.knvb.nl), in eigen
+   woorden herschreven en ingekort tot wat je op het veld nodig hebt.
+   dur = realistische duur in minuten incl. uitleg, players = [min, max].
+   ===================================================================== */
+const CATS = {
+  warm:  {label:'Warming-up & tikspel', short:'Warming-up'},
+  fit:   {label:'Voetbalfit (kracht, balans, springen)', short:'Voetbalfit'},
+  dribbel:{label:'Dribbelen', short:'Dribbelen'},
+  schiet:{label:'Schieten & mikken', short:'Schieten'},
+  v1:    {label:'1 tegen 1', short:'1 tegen 1'},
+  partij:{label:'Partijvormen', short:'Partij'},
+  overig:{label:'Pauze & organisatie', short:'Overig'},
+};
+const RINUS = id => 'https://rinus.knvb.nl/nl/exercise/id/' + id;
+const LIB = [
+/* ---- warming-up & tikspelen ---- */
+{id:'welkom',cat:'overig',name:'Verwelkoming in de kring',dur:3,players:[4,20],org:'Iedereen in een kring rond de trainer.',desc:['Kort overlopen wat we vandaag gaan doen (2 of 3 dingen, niet meer).','Vraag wie er een goede week had of iets wil vertellen: 1 minuut.','Afspraak herhalen: fluitsignaal = stoppen met voet op de bal.'],mat:'—'},
+{id:'vliegtuigen',cat:'warm',name:'Vliegtuigen (fantasiespel)',dur:5,players:[4,16],org:'Vak van ±25×15 m, zonder bal.',desc:['Vertel een kort avontuur: de kinderen zijn vliegtuigen die door het vak vliegen.','Bij een fluitsignaal landen ze (stilstaan), bij het volgende stijgen ze weer op.','Wie buiten het vak vliegt: even stoppen en samen kijken waar het vak stopt.','Ideale allereerste minuten: iedereen beweegt meteen, geen uitleg nodig.'],mat:'8 hoedjes',rinus:36523},
+{id:'stadion',cat:'warm',name:'Stadionspel',dur:8,players:[6,16],org:'Groot vak met in elke hoek een klein vak (een "stadion"). Geef elk stadion een naam die de kinderen kennen.',desc:['Iedereen dribbelt met een eigen bal. De trainer roept een stadion, iedereen dribbelt er samen naartoe.','Wissel af: traag, snel, met de andere voet, stoppen op fluitsignaal.','Laat af en toe een kind het volgende stadion kiezen.'],mat:'1 bal per kind, 16 hoedjes',easier:'Stadions dichter bij elkaar.',harder:'Twee stadions na elkaar roepen, of een tikker toevoegen.',rinus:36629},
+{id:'dribbeltik',cat:'warm',name:'Dribbeltikkertje',dur:8,players:[6,15],org:'Vak van ±15×12 m. Iedereen heeft een bal, de tikkers dragen een hesje.',desc:['Twee tikkers dribbelen mee met hun bal en proberen in 45 seconden zoveel mogelijk spelers te tikken.','Wie met zijn bal buiten het vak gaat, is ook een punt voor de tikkers.','Na elke ronde twee nieuwe tikkers. Welk duo haalt de meeste punten?'],mat:'1 bal per kind, 4 hoedjes, 2 hesjes',easier:'Kleiner vak, of tikkers zonder bal.',harder:'Groter vak.',rinus:33893},
+{id:'slangentik',cat:'warm',name:'Slangentikkertje',dur:6,players:[6,15],org:'Vak van ±15×15 m. Iedereen dribbelt, één slang zonder bal.',desc:['De slang probeert dribbelaars te tikken. Wie getikt is, legt zijn bal opzij en geeft de slang een hand.','Zo groeit de slang; de spelers aan de uiteinden mogen tikken.','Ronde stopt na 90 seconden of als iedereen aan de slang hangt. Nieuwe slang.'],mat:'1 bal per kind, 8 hoedjes, 1 hesje',easier:'Start met twee aparte slangen.',harder:'Groter vak.',rinus:1485105},
+{id:'poorttik',cat:'warm',name:'Poorttikkertje',dur:6,players:[6,15],org:'Vak van ±15×15 m, één tikker met hesje.',desc:['Wie getikt wordt, gaat met de benen wijd staan (een poortje).','Vrije spelers bevrijden door tussen de benen door te kruipen.','Wissel de tikker na 1 minuut. Haalt de tikker iedereen? Dan wint de tikker.'],mat:'8 hoedjes, 1 hesje',easier:'Extra tikker.',harder:'Iedereen dribbelt met een bal; bevrijden = bal door het poortje passen.',rinus:47421},
+{id:'lionking',cat:'warm',name:'Lion King (leeuwenkuil)',dur:10,players:[8,14],org:'Vak van ±20×15 m met in één hoek een klein vakje: de leeuwenkuil. Iedereen heeft een bal, behalve twee leeuwen.',desc:['Eén leeuw jaagt 45 seconden en tikt dribbelaars. Wie getikt is, brengt zijn bal naar de leeuwenkuil.','De tweede leeuw bewaakt de kuil. Getikte spelers mogen hun bal terug stelen: er ongetikt mee uitdribbelen.','Wie na de ronde de meeste ballen heeft veroverd, is de Lion King. Nieuwe leeuwen.'],mat:'1 bal per kind, 12 hoedjes, 2 hesjes',easier:'Kleiner vak, kleinere kuil.',harder:'Groter vak.',rinus:36011},
+{id:'krokodil',cat:'warm',name:'Krokodillenspel',dur:8,players:[6,15],org:'Vak van ±16×16 m met in het midden een strook van 4 m: de rivier. Daarin staat de krokodil.',desc:['Iedereen dribbelt aan één kant. De trainer roept een lichaamsdeel (knie, elleboog, neus…): raak je bal ermee aan.','Daarna zo snel mogelijk de rivier oversteken zonder getikt te worden door de krokodil.','Na 1 minuut een nieuwe krokodil. Wie tikt er het meest?'],mat:'1 bal per kind, 12 hoedjes, 1 hesje',easier:'Smallere rivier.',harder:'Bredere rivier, of twee krokodillen.',rinus:1480049},
+{id:'stoelendans',cat:'warm',name:'Voetbal-stoelendans',dur:6,players:[6,14],org:'Vak van ±10×10 m met in het midden ballen: één minder dan het aantal kinderen.',desc:['De kinderen bewegen rond het vak: zijwaarts, huppelen, kruipen, achteruit…','Bij "BAL!" rent iedereen naar een bal en zet er een voet op. Wie een bal heeft: 1 punt.','Niemand valt af. Varieer: linkervoet op de bal, bal boven het hoofd, gaan zitten op de bal.'],mat:'ballen, 4 hoedjes',easier:'Groter vak.',harder:'Twee ballen minder.',rinus:1485052},
+{id:'katmuis',cat:'warm',name:'Hesjes roven (kat en muis)',dur:5,players:[6,15],org:'Vak van ±15×15 m. Iedereen steekt een hesje achteraan in de broek.',desc:['Iedereen probeert bij elkaar het hesje uit de broek te trekken: 1 punt per hesje.','Je mag je hesje niet met de handen beschermen. Hesje kwijt? Buiten het vak opnieuw insteken en verder spelen.','Wie heeft er eerst 5 hesjes gepakt?'],mat:'1 hesje per kind, 8 hoedjes',harder:'Iedereen dribbelt ondertussen met een bal.',rinus:1485830},
+{id:'hertenwolf',cat:'warm',name:'Herten en wolf',dur:10,players:[5,10],org:'Startlijn, een schietvak op ±6 m van twee kleine doeltjes. De wolf staat tussen schietvak en doeltjes.',desc:['De herten dribbelen naar het schietvak en schieten van daaruit op een van de twee doeltjes.','De wolf mag stoppen met handen en voeten en speelt de bal daarna opzij.','Na het schot: bal halen en via de zijkant terug naar de start. Wissel de wolf na 1 minuut.'],mat:'1 bal per kind, 2 kleine doeltjes, 12 hoedjes, 1 hesje',easier:'Schietvak verder weg, doeltjes dichter bij elkaar.',harder:'Schietvak dichter bij, doeltjes verder uit elkaar.',rinus:1478981},
+
+/* ---- voetbalfit ---- */
+{id:'chinees',cat:'fit',name:'Chinees boksen',dur:5,players:[4,15],org:'Tweetallen tegenover elkaar, elk met een bal tussen de enkels of knieën geklemd.',desc:['Handpalmen tegen elkaar. Duw elkaar uit balans: enkel vooruit en achteruit duwen.','Laat je de bal vallen of zet je een voet weg? Punt voor de ander.','Maak duo\'s van ongeveer even grote kinderen.'],mat:'1 bal per kind',easier:'Zonder bal.',harder:'Op één been, of handen mogen ook opzij.',rinus:47431},
+{id:'flamingo',cat:'fit',name:'Flamingo stoeien',dur:5,players:[4,15],org:'Tweetallen, elk met een voet op de eigen bal.',desc:['Duw elkaar met de handen op het bovenlichaam uit balans.','Rolt de voet van de bal: punt voor de ander. Om de 30 seconden van been wisselen.','Even grote kinderen bij elkaar.'],mat:'1 bal per kind',harder:'Samen één bal.',rinus:47401},
+{id:'troon',cat:'fit',name:'Zitten op de troon / hesje is lava',dur:5,players:[4,15],org:'Tweetallen houden elkaar vast bij de polsen. Tussen hen ligt een hesje.',desc:['Troon: wie het eerst op het hesje kan gaan zitten, wint het punt. Je moet elkaar altijd vasthouden.','Lava: net omgekeerd, wie de ander op het hesje trekt, wint.','Speel 20 seconden per ronde, dan wisselen van partner.'],mat:'1 hesje per duo',easier:'Twee hesjes leggen.',harder:'Met drie spelen.',rinus:47411},
+{id:'kikker',cat:'fit',name:'Kikkersprongen met bal',dur:5,players:[4,15],org:'Twee lijnen op ±10 m van elkaar.',desc:['Kikkersprongen naar de overkant met de bal in de handen.','Terugweg: dribbelen met de bal aan de voet.','Twee of drie keer heen en terug, daarna hetzelfde met krabloop of bokkensprongen.'],mat:'1 bal per kind, 6 hoedjes',easier:'Zonder bal.',harder:'Zijwaarts springen.',rinus:47427},
+{id:'stuiter',cat:'fit',name:'Stuiter- en dribbelestafette',dur:8,players:[6,12],org:'Per groepje van 3 een rij van 4 hoedjes op 3 m van elkaar en een klein doeltje op het einde.',desc:['Hoedje 1 naar 2: bal stuiteren met de rechterhand. 2 naar 3: linkerhand. 3 naar 4: dribbelen met de voet.','Vanaf hoedje 4 mikken op het doeltje, bal halen, terug dribbelen en de volgende aantikken.','Welk groepje scoort het eerst 6 keer?'],mat:'1 bal per groepje, 8 hoedjes, 2 kleine doeltjes',easier:'Hoedjes verder uit elkaar, doeltje dichter bij.',harder:'Kortere afstanden, minder keer scoren om te winnen.',rinus:47389},
+{id:'bokje',cat:'fit',name:'Bokje springen (estafette)',dur:5,players:[6,12],org:'Groepjes van 3 of 4 in een rij, hoedjes om de 3 m.',desc:['De eerste staat als bokje. De tweede springt erover en gaat bij het volgende hoedje ook als bokje staan.','Als iedereen staat, springt de achterste over alle bokjes. Zo schuift de rij vooruit.','Wie is het eerst voorbij het laatste hoedje?'],mat:'10 hoedjes',easier:'Eerst oefenen zonder wedstrijd.',harder:'Afwisselen: springen over een bokje, kruipen door een poortje.',rinus:47395},
+{id:'ballenrace',cat:'fit',name:'Ballenrace rond de cirkel',dur:5,players:[6,12],org:'Cirkel van hoedjes (of de middencirkel). Tweetallen aan de buitenkant, elk duo bij een hoedje.',desc:['Op het signaal dribbelt één van elk duo rond de cirkel tot bij zijn partner.','Daar kruipt hij met de bal door de benen van de partner naar het midden.','Wie legt zijn bal het eerst stil in het midden? Niet duwen of trekken.'],mat:'1 bal per duo, 8 hoedjes',easier:'Dribbelen naar het midden in plaats van kruipen.',harder:'De trainer roept de richting (links of rechts).',rinus:47387},
+{id:'paardruiter',cat:'fit',name:'Paard en ruiter',dur:5,players:[7,14],org:'Vak van ±10×10 m, één tikker.',desc:['Spring je bij iemand op de rug, dan ben je paard en ruiter en kan je niet getikt worden.','Maximaal 5 seconden blijven zitten, en niet twee keer na elkaar bij dezelfde.','De tikker mag niet blijven wachten bij een paard. Wissel na 1 minuut.'],mat:'4 hoedjes, 1 hesje',easier:'Groter vak.',harder:'Twee tikkers.',rinus:47397},
+{id:'tikrugby',cat:'fit',name:'Tik-rugby',dur:8,players:[8,15],org:'Veld van ±25×15 m met aan beide kanten een eindvak van 3 m. Twee teams.',desc:['Scoren = met de bal in de handen in het eindvak van de tegenpartij lopen.','Je mag lopen met de bal of gooien. Word je getikt met bal in de hand? Bal voor de ander.','Bal op de grond? Ook voor de tegenpartij.'],mat:'1 bal, 12 hoedjes, hesjes',easier:'Groter veld.',harder:'Enkel achterwaarts gooien.',rinus:47415},
+{id:'kruipvoetbal',cat:'fit',name:'Kruipvoetbal',dur:6,players:[6,12],org:'Veldje van ±20×15 m met twee kleine doeltjes.',desc:['Iedereen kruipt op handen en knieën. De bal wordt gespeeld met handen en knieën, over de grond.','Scoren in het doeltje van de tegenpartij. Bal uit? De trainer rolt een nieuwe bal in.','Kort en intens: 2 rondes van 2 minuten.'],mat:'ballen, 2 kleine doeltjes, 6 hoedjes, hesjes',easier:'Bredere doeltjes.',harder:'Smallere doeltjes.',rinus:47385},
+{id:'spiegel',cat:'fit',name:'Spiegelen met bal',dur:5,players:[4,15],org:'Tweetallen tegenover elkaar op 1 m, één heeft een bal.',desc:['De speler zonder bal beweegt alle kanten op in het vakje; de speler met bal volgt dribbelend als een spiegel.','Om de 30 seconden wisselen van rol.'],mat:'1 bal per duo, 4 hoedjes per duo',easier:'Enkel vooruit/achteruit.',harder:'Stuiteren met de hand in plaats van dribbelen.',rinus:47391},
+{id:'rattenraven',cat:'fit',name:'Ratten en raven',dur:6,players:[4,14],org:'Twee rijen tegenover elkaar in het midden, ieder met een partner. Achter elke rij een lijn op ±7 m.',desc:['De trainer roept "ratten" of "raven". De geroepen rij sprint naar de eigen lijn, de andere probeert te tikken.','Punt als je veilig over de lijn bent of als je je partner tikt.','Maak het spannend: "ra… ra… raven!"'],mat:'12 hoedjes, hesjes',easier:'Lijn verder weg.',harder:'Iedereen dribbelt met een bal.',rinus:47419},
+
+/* ---- dribbelen ---- */
+{id:'oversteek1',cat:'dribbel',name:'Oversteekspel (1 verdediger)',dur:10,players:[6,14],org:'Veld van ±20×12 m. Langs de zijkant een "slootje" om terug te keren. Eén verdediger in het veld.',desc:['Alle spelers starten met bal aan één kant en dribbelen naar de overkant: over de lijn = 1 punt.','De verdediger probeert de bal af te pakken of weg te tikken: 1 punt voor hem.','Terug via het slootje. Wissel de verdediger om de 90 seconden. Wie heeft de meeste punten?'],mat:'1 bal per kind, 10 hoedjes, 1 hesje',easier:'Smaller veld, of maximum 4 spelers tegelijk laten starten.',harder:'Breder veld, of twee verdedigers.',rinus:35709},
+{id:'oversteek2',cat:'dribbel',name:'Oversteekspel (2 verdedigers)',dur:10,players:[6,14],org:'Zoals het oversteekspel, met twee verdedigers die samenwerken.',desc:['4 tot 6 spelers steken tegelijk over met bal. Overkant halen = 1 punt.','Verdedigers krijgen een punt per veroverde bal. Bal buiten het veld = ook een punt voor hen.','Wissel de verdedigers om de 90 seconden.'],mat:'1 bal per kind, 10 hoedjes, 2 hesjes',easier:'Smaller veld, maximum 3 tegelijk.',harder:'Breder of langer veld.',rinus:35695},
+{id:'oversteekpoort',cat:'dribbel',name:'Oversteekspel met poortjes',dur:12,players:[6,12],org:'Veld van ±20×15 m. Aan de overkant drie poortjes van hoedjes: links en rechts (1 punt), in het midden (2 punten). Verdedigers mogen enkel voor de poortjes verdedigen.',desc:['Dribbel naar de overkant en door een poortje. Zijkant = 1 punt, midden = 2 punten.','Verdediger verovert de bal (voet erop) of bal buiten = 1 punt voor de verdediger.','Terug via het slootje. Wie haalt het eerst 8 punten?'],mat:'1 bal per kind, 14 hoedjes, 1 à 2 hesjes',easier:'Smaller veld, kleinere poortjes, max. 2 tegelijk.',harder:'Groter veld, bredere poortjes.',rinus:33971},
+{id:'dribbelvak',cat:'dribbel',name:'Dribbelen in vak met poortjes',dur:8,players:[4,14],org:'Vak van ±20×15 m met 4 à 5 poortjes van hoedjes verspreid in het vak.',desc:['Iedereen dribbelt vrij door het vak en scoort door door een poortje te dribbelen.','Niet twee keer na elkaar door hetzelfde poortje. Tel je punten!','Variatie: enkel met links, enkel met de buitenkant, met een stop in elk poortje.'],mat:'1 bal per kind, 14 hoedjes',easier:'Bredere poortjes.',harder:'Een verdediger die ballen wegtikt: wie tikt het meest?',rinus:36699},
+{id:'dribbelkampioen',cat:'dribbel',name:'Dribbelkampioen',dur:8,players:[6,14],org:'Vak van ±20×12 m. Iedereen heeft een bal, behalve 1 (of 2) verdediger(s).',desc:['De verdediger probeert zoveel mogelijk ballen af te pakken of uit het vak te tikken en telt mee.','Bal kwijt? Halen en weer meedoen. Wissel de verdediger om de minuut.','Welke verdediger haalt de meeste punten?'],mat:'1 bal per kind, 6 hoedjes, 1 à 2 hesjes',easier:'Kleiner vak, extra verdediger.',harder:'Groter vak.',rinus:36683},
+{id:'slalom',cat:'dribbel',name:'Dribbelslalom',dur:8,players:[4,12],org:'Per groepje van 3 à 4 een slalom van 6 hoedjes. Zet meerdere slaloms naast elkaar.',desc:['Dribbel om de hoedjes en sluit achteraan aan. De volgende start als de vorige voorbij het laatste hoedje is.','Maak er een estafette van: welk groepje is het eerst rond?','Variatie: enkel linkervoet, enkel buitenkant voet.'],mat:'1 bal per kind, 12 hoedjes',easier:'Hoedjes dichter bij elkaar.',harder:'Hoedjes verder uit elkaar, of met het "verkeerde" been.',rinus:39699},
+{id:'plusvorm',cat:'dribbel',name:'Dribbelen in plusvorm',dur:8,players:[4,12],org:'Vier hoedjes in een vierkant van ±10 m, één hoedje in het midden. Vier spelers, elk bij een hoek.',desc:['Iedereen dribbelt tegelijk naar het midden, maakt daar een actie naar rechts en versnelt naar het volgende hoekhoedje.','Zo gaat iedereen de vier hoeken rond. Daarna dezelfde richting naar links.','Zet meerdere plussen uit voor grotere groepen.'],mat:'1 bal per kind, 5 hoedjes per plus',easier:'Middenhoedje weg: kijken en op elkaar timen.',harder:'Vier hoedjes in het midden zodat er meer ruimte is voor een echte actie.',rinus:39391},
+{id:'ballenbak',cat:'dribbel',name:'Ballenbak',dur:10,players:[5,10],org:'Lang veldje van ±25×12 m in drie stroken: startvak met klein doeltje, twee tussenvakken met elk een verdediger, achteraan een vak vol ballen.',desc:['De spelers rennen naar de ballenbak, nemen een bal en dribbelen terug om die in het doeltje te mikken.','Verdedigers tikken op de heenweg en schieten op de terugweg de bal uit hun vak. Enkel in hun eigen strook.','Getikt? Terug naar de start. Hoeveel ballen haalt de groep in 2 minuten?'],mat:'8 à 10 ballen, 1 klein doeltje, 20 hoedjes, 2 hesjes',easier:'Meer ballen, smallere stroken.',harder:'Bredere stroken, of maar één verdediger.',rinus:1485814},
+{id:'leeuwenkuil',cat:'dribbel',name:'Leeuwenkuil',dur:10,players:[5,10],org:'Vak van ±15×15 m met in het midden een vakje van 6×6 m: de leeuwenkuil. Rondom 4 hoedjes en 2 tot 4 kleine doeltjes.',desc:['Iedereen dribbelt vanaf een hoedje dwars door de leeuwenkuil naar een vrij hoedje en mag dan op een doeltje schieten: 1 punt.','De leeuw verdedigt in de kuil. Pakt hij een bal, dan mag hij zelf scoren.','Wissel de leeuw om de 90 seconden.'],mat:'1 bal per kind, 12 hoedjes, 2 à 4 kleine doeltjes, 1 hesje',easier:'Kleinere kuil, doeltjes verder weg.',harder:'Grotere kuil, doeltjes dichterbij.',rinus:1485816},
+{id:'vissen',cat:'dribbel',name:'Vissen verzamelen',dur:10,players:[5,10],org:'Wit vak (±12×8 m) met daarachter de vijver (oranje vak) vol pionnen (de vissen). Eén wachter in het witte vak.',desc:['De vissers dribbelen door het witte vak naar de vijver. Gelukt? Neem een vis (pion) mee in de hand via het slootje terug.','Vis thuis = 1 punt. De wachter pakt ballen af en schiet die in een doeltje aan de zijkant voor een punt.','Wissel de wachter na 2 minuten.'],mat:'1 bal per kind, 15 hoedjes, 6 pionnen, 2 kleine doeltjes, 1 hesje',easier:'Smaller vak, extra wachter.',harder:'Breder vak.',rinus:1485961},
+{id:'zevenbal',cat:'dribbel',name:'7-bal (ballen stelen)',dur:8,players:[4,10],org:'Vier vakjes van 4×4 m in een vierkant, 8 m uit elkaar. In het midden 7 ballen. Vier spelers, elk een vakje; de rest aan de zijkant wisselt in.',desc:['Op het signaal halen de spelers ballen uit het midden en dribbelen die naar hun eigen vak. Eén bal per keer.','Midden leeg? Dan mag je bij de anderen stelen. Elkaar niet hinderen.','Wie heeft het eerst 3 ballen in zijn vak?'],mat:'7 ballen, 16 hoedjes',easier:'Vakken verder uit elkaar, 6 ballen.',harder:'Vakken dichterbij.',rinus:1485043},
+{id:'ballenraceteams',cat:'dribbel',name:'Ballenrace (2 teams)',dur:8,players:[4,10],org:'Twee startvakken, op 10 m een vak met 10 ballen. Twee teams.',desc:['Op het signaal halen de teams om beurt ballen (één per keer) en dribbelen die naar hun eigen vak.','Je mag ook stelen uit het vak van de ander: eerst rond het witte hoedje lopen. Stelen mag je niet tegenhouden.','Wie heeft eerst 6 ballen?'],mat:'10 ballen, 12 hoedjes, hesjes',easier:'7 ballen nodig om te winnen.',harder:'Iedereen mag tegelijk lopen.',rinus:1485940},
+{id:'cars',cat:'dribbel',name:'Cars (verkeerslichten)',dur:6,players:[4,15],org:'Vak van ±20×15 m, iedereen met bal.',desc:['Iedereen is een auto en dribbelt door het vak zonder te botsen.','Trainer als verkeerslicht: groen = dribbelen, oranje = traag, rood = stop met voet op de bal.','Extra: "achteruit parkeren" = bal met de zool achteruit trekken, "tanken" = 5× tippen.'],mat:'1 bal per kind, 4 hoedjes',easier:'Groter vak.',harder:'Kleiner vak, sneller wisselen van kleur.',rinus:36715},
+{id:'balbeschermen',cat:'dribbel',name:'Bal beschermen, ballen wegschieten',dur:6,players:[6,14],org:'Vak van ±15×10 m, iedereen met bal.',desc:['Bescherm je eigen bal en probeer ondertussen de bal van een ander uit het vak te schieten: 1 punt.','Bal buiten? Halen, terug dribbelen en verder spelen.','Twee rondes van 90 seconden.'],mat:'1 bal per kind, 4 hoedjes',easier:'Groter vak.',harder:'Eén speler zonder bal die enkel wegschiet.',rinus:511290},
+
+/* ---- schieten & mikken ---- */
+{id:'doelschietkeeper',cat:'schiet',name:'Doelschietspel met keeper (kampioenslijn)',dur:12,players:[4,8],org:'Pupillendoel met keeper. Drie lijnen van hoedjes op 6, 8 en 10 m. Slootje aan de zijkant om terug te keren.',desc:['Bal stilleggen op de eerste lijn en scoren. Twee keer na elkaar gescoord? Naar de volgende lijn.','Twee keer gemist? Eén lijn dichterbij. Wie scoort het eerst 3 keer vanaf de kampioenslijn?','Punt telt enkel als je via het slootje terug naar de start dribbelt. Wissel de keeper om de 2 minuten; keeper telt zijn reddingen.'],mat:'1 bal per kind, 1 pupillendoel, 9 hoedjes, 1 hesje',easier:'Lijnen dichterbij, schieten uit dribbel.',harder:'Lijnen verder, schuin schieten, met het andere been.',rinus:33743},
+{id:'doelschietpion',cat:'schiet',name:'Doelschietspel: hoeken mikken',dur:12,players:[4,8],org:'Pupillendoel met in het midden een pion. Lijnen op 5, 7 en 10 m.',desc:['Scoren links of rechts van de pion = 3 punten, in het midden = 1 punt.','5 punten? Naar de volgende lijn. Twee keer gemist? Eén lijn terug.','Wie scoort het eerst 3 keer vanaf de kampioenslijn is de Lion King. Terug via het slootje.'],mat:'1 bal per kind, 1 pupillendoel, 1 pion, 9 hoedjes',easier:'Pion meer in het midden (hoeken groter), lijnen dichterbij.',harder:'Twee pionnen, lijnen verder.',rinus:33819},
+{id:'pionnenschieten',cat:'schiet',name:'Pionnen omschieten (2 teams)',dur:10,players:[4,10],org:'Twee vakken tegenover elkaar, ertussen op 4 m van elke kant een rij pionnen (op hun kop).',desc:['Beide teams schieten vanuit hun eigen vak zoveel mogelijk pionnen om.','Pion om? Ophalen en op je eigen achterlijn leggen. Enkel ballen in je eigen vak oprapen.','Wie heeft na 2 minuten de meeste pionnen? Nieuwe teams.'],mat:'6 à 8 ballen, 8 pionnen, 14 hoedjes, hesjes',easier:'Pionnen verder, verder uit elkaar.',harder:'Pionnen dichter, ook gooien mag.',rinus:1480759},
+{id:'bowling',cat:'schiet',name:'Voetbalbowling',dur:8,players:[4,10],org:'Twee rijen. Op 8 m een schiethoedje, daarachter op 4 m een groepje pionnen.',desc:['Dribbel naar het schiethoedje en schiet zoveel mogelijk pionnen om. 1 punt per pion.','Bal halen, achteraan aansluiten; de trainer zet de pionnen recht.','Variant: welk team krijgt het eerst álle pionnen om?'],mat:'2 ballen, 12 pionnen, 4 hoedjes',easier:'Afstand groter.',harder:'Afstand kleiner, kiezen tussen schieten en gooien.',rinus:1485753},
+{id:'stenen',cat:'schiet',name:'Stenen mikken (tweetallen)',dur:8,players:[4,10],org:'Per duo een strook van 12×4 m; in het midden 5 pionnen op hun kop. Spelers op de achterlijnen tegenover elkaar, samen één bal.',desc:['Om beurten mikken op de pionnen. Pion geraakt? Die is voor jou, leg hem op je achterlijn.','Wie heeft de meeste pionnen als ze allemaal om zijn?','Winnaars schuiven door naar het volgende veldje (koning van het veld).'],mat:'1 bal per duo, 5 pionnen per duo, 6 hoedjes per duo',easier:'Langere strook, pionnen verder uit elkaar.',harder:'Kortere strook.',rinus:1485852},
+{id:'poortschiet',cat:'schiet',name:'Poortschietspel (passen door het poortje)',dur:8,players:[4,10],org:'Tweetallen tegenover elkaar op ±6 m, tussen hen een poortje van 2 hoedjes.',desc:['Pas over de grond door het poortje naar je partner: 1 punt per gelukte pas.','Eerst de bal aannemen (stoppen) voor je terugspeelt, anders telt het punt niet.','Wie heeft eerst 10 punten? Daarna poortje smaller of afstand groter.'],mat:'1 bal per duo, 4 hoedjes per duo',easier:'Breder poortje, dichterbij.',harder:'Smaller poortje, verder, met het andere been.',rinus:34059},
+{id:'dribbelschiet',cat:'schiet',name:'Dribbelschietspel met 2 doeltjes',dur:12,players:[4,10],org:'Veldje van ±20×12 m. Middenvak van hoedjes, daarachter twee kleine doeltjes. Eén verdediger.',desc:['Twee spelers starten tegelijk en dribbelen naar het middenvak. Van daaruit mikken op een doeltje: 1 punt.','De verdediger probeert onderweg de bal af te pakken: 1 punt voor hem.','Bal halen, via het slootje terug. Wissel de verdediger om de 2 minuten.'],mat:'1 bal per kind, 2 kleine doeltjes, 12 hoedjes, 1 hesje',easier:'Smaller veld, middenvak verder van de doeltjes.',harder:'Extra aanvaller tegelijk, middenvak dichter bij.',rinus:35917},
+{id:'vliegendekeeper',cat:'schiet',name:'Vliegende keeper',dur:8,players:[4,10],org:'Dribbelvak van ±8×16 m, daarachter op 6 m twee kleine doeltjes. Eén keeper ertussen.',desc:['Dribbel het vak in en schiet vóór het einde van het vak op een van de doeltjes. Uit de dribbel of eerst stilleggen.','De keeper mag stoppen met alles. Schutter scoort = punt, keeper redt = punt voor de keeper.','Bal halen en via de buitenkant terug. Wissel de keeper om de 90 seconden.'],mat:'1 bal per kind, 2 kleine doeltjes, 8 hoedjes, 1 hesje',easier:'Doeltjes verder, twee keepers.',harder:'Doeltjes dichter, een derde doeltje in het midden.',rinus:1485749},
+{id:'paleis',cat:'schiet',name:'Paleisbewakers',dur:10,players:[4,10],org:'Twee vakken van ±8×14 m met een slootje van 4 m ertussen. In elk vak twee kleine doeltjes (het paleis). Twee teams, elk 2 ballen.',desc:['Schiet vanuit je eigen vak op de doeltjes van de tegenpartij. Je eigen paleis bewaak je met handen en voeten.','Bal in het slootje? De trainer zegt wie hem mag halen.','Vijf keer gescoord = het paleis van de ander stort in. Nieuwe teams.'],mat:'4 ballen, 4 kleine doeltjes, 12 hoedjes, hesjes',easier:'Breder slootje, 7 keer scoren.',harder:'Smaller slootje.',rinus:1485942},
+{id:'pionnenvoetbal',cat:'schiet',name:'Pionnenvoetbal (bescherm je pion)',dur:8,players:[4,10],org:'Vak van ±16×16 m. Iedereen zet een eigen pion (op zijn kop) ergens in het vak.',desc:['Twee ballen in het spel. Schiet de pionnen van de anderen om en bescherm je eigen pion.','Pion om? Je bent af, maar mag nog helpen om andere pionnen om te schieten.','Wie houdt zijn pion het langst recht?'],mat:'2 à 3 ballen, 1 pion per kind, 4 hoedjes',easier:'Pionnen rechtop, 3 ballen.',harder:'Pion terug rechtzetten mag, tel omgeschoten pionnen.',rinus:1485766},
+{id:'schiettik',cat:'schiet',name:'Schiet-tikkertje',dur:8,players:[4,10],org:'Startlijn, een oranje lijn op ±8 m en een witte lijn verder. Eén tikker achter de oranje lijn.',desc:['Op het signaal schiet iedereen zijn bal het veld in (voorbij de oranje lijn), rent erachter en dribbelt terug naar de start.','Ongetikt terug = 1 punt; bal voorbij de witte lijn en ongetikt terug = 2 punten.','De tikker scoort per tik. Na 3 rondes een nieuwe tikker.'],mat:'1 bal per kind, 8 hoedjes, 1 hesje',easier:'Lijnen verder, extra tikker.',harder:'Lijnen dichterbij.',rinus:1485922},
+{id:'sprinkhaan',cat:'schiet',name:'Sprinkhanenspel',dur:6,players:[4,10],org:'Per duo een rij van 3 hoedjes dicht bij elkaar, dan een hoedje op 3 m en een klein doeltje op 4 m.',desc:['Met twee voeten samen over de drie hoedjes springen met de bal in de handen.','Bal neerleggen en schieten op het doeltje. Raak? Terug naar de start en bal doorgeven aan je partner. Mis? Opnieuw proberen tot het lukt.','Welk duo scoort het eerst 5 keer?'],mat:'1 bal per duo, 5 hoedjes per duo, kleine doeltjes',easier:'Extra hoedje, doeltje verder weg.',harder:'Doeltje dichterbij, landen op één been.',rinus:1480963},
+
+/* ---- 1 tegen 1 ---- */
+{id:'v1doeltjes',cat:'v1',name:'1 tegen 1 op 2 kleine doeltjes',dur:10,players:[4,8],org:'Veldje van ±15×10 m met aan elke kant een klein doeltje. Twee rijen, elk achter een doeltje.',desc:['De eerste van elke rij speelt 1 tegen 1. Beide spelers kunnen scoren op het doeltje van de ander.','Bal uit of doelpunt? Nieuw duo. Om beurten starten met de bal.','Zet twee of drie veldjes naast elkaar zodat niemand lang wacht.'],mat:'ballen, 2 kleine doeltjes per veldje, 4 hoedjes, hesjes',easier:'Kleiner veldje.',harder:'Groter veldje.',rinus:35637},
+{id:'v1vier',cat:'v1',name:'1 tegen 1 met 4 doeltjes',dur:10,players:[4,8],org:'Veldje van ±16×12 m met twee kleine doeltjes aan elke kant (6 m uit elkaar).',desc:['Je kan scoren in een van de twee doeltjes van de tegenstander: kijken en kiezen!','Bal uit of doelpunt? Nieuw duo. Drie keer start oranje, dan drie keer blauw.','Welk team scoort het meest? Daarna nieuwe teams.'],mat:'ballen, 4 kleine doeltjes, 8 hoedjes, hesjes',easier:'Doeltjes dichter bij elkaar.',harder:'Doeltjes verder uit elkaar.',rinus:35617},
+{id:'kipkuiken',cat:'v1',name:'Kip en kuiken',dur:10,players:[4,8],org:'Vak van ±12×12 m met twee kleine doeltjes. Kuikens starten met bal bij het oranje hoedje, kippen 4 m verder bij het witte hoedje.',desc:['Het kuiken dribbelt en probeert te scoren op een van de twee doeltjes.','De kip start tegelijk en probeert de bal af te pakken en zelf te scoren.','Doelpunt of bal uit = volgende duo. Welk team heeft eerst 5 punten?'],mat:'ballen, 2 kleine doeltjes, 8 hoedjes, hesjes',easier:'Kip start verder weg.',harder:'Kip start dichterbij.',rinus:1485786},
+{id:'v1kleuren',cat:'v1',name:'1 tegen 1 kleurenspel',dur:10,players:[4,8],org:'Veldje van ±10×10 m met twee kleine doeltjes. Drie gekleurde hoedjes in het veld. Twee rijen, achter elk doeltje.',desc:['De trainer roept een kleur. De eerste van elke rij sprint naar dat hoedje en tikt het aan.','De snelste krijgt de bal ingespeeld en probeert te scoren; de ander verdedigt en mag na verovering zelf scoren.','Doelpunt of bal uit = volgende duo.'],mat:'ballen, 2 kleine doeltjes, gekleurde hoedjes, hesjes',easier:'Kleur tonen in plaats van roepen.',harder:'Groter veld, hoedjes dichterbij (minder voorsprong).',rinus:1485016},
+{id:'v1commando',cat:'v1',name:'1 tegen 1 na commando',dur:10,players:[4,10],org:'Vak van ±20×20 m met poortjes van hoedjes langs de buitenkant. Tweetallen tegenover elkaar, samen één bal.',desc:['De duo\'s passen naar elkaar. Roept de trainer "START!", dan is wie de bal heeft de aanvaller.','Scoren door door een poortje aan de buitenkant te dribbelen. Eén speler per poortje.','Als alle duo\'s klaar zijn, nieuwe ronde. Na 3 rondes wisselen van partner.'],mat:'1 bal per duo, 16 hoedjes',easier:'Bredere poortjes, kleiner vak.',harder:'Smallere poortjes.',rinus:44189},
+{id:'v1achteren',cat:'v1',name:'1 tegen 1, tegenstander van achteren',dur:10,players:[4,8],org:'Veldje van ±20×12 m. Aanvaller start met bal bij een klein doeltje, verdediger start 2 m achter hem. Aan de overkant een pupillendoel (met keeper).',desc:['De aanvaller dribbelt richting het pupillendoel en probeert te scoren; de verdediger mag hem inhalen en de bal afpakken.','Verovert de verdediger de bal, dan mag hij scoren op het kleine doeltje.','Daarna wisselen van rol. Terug via het slootje.'],mat:'ballen, 1 pupillendoel, 1 klein doeltje, 10 hoedjes, hesjes',easier:'Verdediger start verder achter.',harder:'Verdediger start naast de aanvaller.',rinus:35673},
+{id:'voetbalfeest',cat:'v1',name:'Voetbalfeest (1v1 → 2v2 → 3v3)',dur:12,players:[6,8],org:'Veldje van ±20×15 m met twee kleine doeltjes. Twee teams, elk bij een doeltje.',desc:['Eén speler per team start: 1 tegen 1. Na een doelpunt of bal uit komt er van elk team een speler bij: 2 tegen 2, dan 3 tegen 3.','De trainer speelt telkens de bal in. Daarna opnieuw vanaf 1 tegen 1, nu start het andere team.','Wie telt het meeste doelpunten?'],mat:'ballen, 2 kleine doeltjes, 6 hoedjes, hesjes',easier:'Spelers dribbelen zelf in.',harder:'Groter veld.',rinus:1485826},
+
+/* ---- partijvormen ---- */
+{id:'p2v2',cat:'partij',name:'2 tegen 2 op kleine doeltjes',dur:12,players:[4,8],org:'Veldje van ±20×12 m met twee kleine doeltjes. Bij meer kinderen: twee veldjes.',desc:['Vrij spel, scoren in het doeltje van de ander. Bal uit? Indribbelen.','Na 2 minuten wisselen van tegenstander. Geen keepers.','Coach vooral: "kijk waar het doeltje is", "probeer het zelf".'],mat:'ballen, 2 kleine doeltjes per veldje, 4 hoedjes, hesjes',easier:'Kleiner veldje.',harder:'Groter veldje.',rinus:35479},
+{id:'p3v3vier',cat:'partij',name:'3 tegen 3 met 4 doeltjes',dur:15,players:[6,8],org:'Veldje van ±25×15 m met twee kleine doeltjes aan elke kant.',desc:['Scoren mag in een van de twee doeltjes van de tegenpartij: kijken waar het vrij is.','Bal uit? Indribbelen of inpassen. Korte partijtjes van 3 minuten, dan nieuwe teams.','Oneven aantal? Eén team met een extra speler, halverwege wisselen.'],mat:'ballen, 4 kleine doeltjes, 8 hoedjes, hesjes',easier:'Doeltjes dichter bij elkaar.',harder:'Doeltjes verder uit elkaar.',rinus:35211},
+{id:'p3v3lijn',cat:'partij',name:'3 tegen 3 lijnvoetbal',dur:12,players:[6,8],org:'Veldje van ±25×15 m met aan elke kant een eindvak van 5 m.',desc:['Scoren = met de bal aan de voet in het eindvak van de tegenpartij dribbelen en de bal stilleggen.','Bal uit aan de zijkant? Indribbelen. Achterlijn? De ander start bij zijn eigen achterlijn.','Korte partijtjes van 2 minuten, dan nieuwe teams.'],mat:'ballen, 16 hoedjes, hesjes',easier:'Groter eindvak.',harder:'Kleiner eindvak.',rinus:1485938},
+{id:'p4v4',cat:'partij',name:'4 tegen 4 op pupillendoelen',dur:15,players:[8,10],org:'Veldje van ±30×20 m met twee pupillendoelen, zonder keepers (of vliegende keeper).',desc:['Gewoon voetballen zoals op zaterdag. Bal uit? Indribbelen, hoekschop = indribbelen vanaf de hoek.','Na een doelpunt start de verdedigende ploeg bij het eigen doel.','Twee helften van 6 à 7 minuten, tussenin kort drinken.'],mat:'ballen, 2 pupillendoelen, 4 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:48035},
+{id:'boeven',cat:'partij',name:'Boevenvoetbal (3 teams)',dur:12,players:[6,8],org:'Vak van ±16×16 m met drie kleine doeltjes langs de randen. Drie tweetallen, elk met een eigen doeltje. In elk doeltje 3 gekleurde hoedjes.',desc:['Iedereen tegen iedereen: scoor in het doeltje van een ander duo en verdien een hoedje van hun kleur.','Wie eerst alle kleuren verzameld heeft, wint. Bal uit? De trainer speelt een nieuwe in.','Nieuwe duo\'s na elke ronde.'],mat:'ballen, 3 kleine doeltjes, gekleurde hoedjes, hesjes in 3 kleuren',easier:'Kleiner vak, extra bal in het spel.',harder:'Groter vak.',rinus:1485918},
+{id:'p2kv2k',cat:'partij',name:'2+K tegen 2+K',dur:12,players:[6,8],org:'Veldje van ±25×15 m met twee pupillendoelen. Elk team 2 veldspelers en 1 keeper.',desc:['Scoren op het pupillendoel. Keeper wisselt om de 2 minuten zodat iedereen keept.','Bal uit? Indribbelen of inpassen.','Ook met 3+K tegen 3+K speelbaar op een iets groter veld.'],mat:'ballen, 2 pupillendoelen, 10 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:1485812},
+{id:'p3v2',cat:'partij',name:'3 tegen 2 met keeper (overtal)',dur:12,players:[8,10],org:'Veldje van ±25×15 m met één pupillendoel en keeper. Drie aanvallers tegen twee verdedigers.',desc:['Op het signaal vallen de drie aan en proberen te scoren. Bal veroverd of uit? Aanval voorbij.','Twee nieuwe verdedigers staan klaar; één aanvaller blijft, twee nieuwe komen erbij.','Na 5 minuten wisselen de teams van rol. Tel de doelpunten.'],mat:'ballen, 1 pupillendoel, 8 hoedjes, hesjes',easier:'Verdedigers starten verder weg.',harder:'Verdedigers starten dichterbij.',rinus:48023},
+{id:'vrijspelen',cat:'partij',name:'Vrij spelen',dur:8,players:[4,15],org:'Een hoek van het veld met wat losse materialen: ballen, hoedjes, een doeltje.',desc:['De kinderen bedenken zelf wat ze doen: samen, alleen, met welk materiaal dan ook.','De trainer moedigt aan, complimenteert originele ideeën en bemoeit zich zo weinig mogelijk.','Handig als de andere groep nog bezig is of als het einde nadert.'],mat:'ballen, hoedjes, klein doeltje',rinus:1480060},
+
+/* ---- pauze & organisatie ---- */
+{id:'drink',cat:'overig',name:'Drinkpauze',dur:3,players:[4,20],org:'Drinkbussen op één plek naast het veld.',desc:['Iedereen drinkt, trainers zetten ondertussen het volgende deel klaar.','Zeg vooraf waar ze zich daarna verzamelen.'],mat:'—'},
+{id:'materiaal',cat:'overig',name:'Materiaal verzetten',dur:2,players:[4,20],org:'',desc:['Tijd om doeltjes en hoedjes te verplaatsen tussen twee oefeningen.','Laat de kinderen helpen: hoedjes rapen is ook een wedstrijdje.'],mat:'—'},
+{id:'penaltys',cat:'overig',name:'Penalty\'s als afsluiter',dur:5,players:[4,15],org:'Pupillendoel, een trainer of kind in het doel, een rij op ±6 m.',desc:['Iedereen mag om beurt schieten; juichen bij elk doelpunt.','Sluit af met de "trainer-penalty": de trainer moet scoren tegen alle kinderen samen in het doel.'],mat:'ballen, 1 pupillendoel',},
+{id:'afsluiting',cat:'overig',name:'Afsluiting in de kring',dur:3,players:[4,20],org:'Kring rond de trainer.',desc:['Kort terugblikken: wat was leuk, wie deed iets heel goed (noem namen).','Samen een yell of high five, drinkbussen en jassen meenemen.'],mat:'—'},
+];
+
+/* Aanvulling tot de volledige Rinus-set O6/O7 op kwartveld (varianten en
+   verwante vormen). Kort samengevat; de tekening staat via de Rinus-link. */
+LIB.push(
+/* --- 1 tegen 1 --- */
+{id:'v1lijn',cat:'v1',name:'1 tegen 1 lijnvoetbal (toernooivorm)',dur:12,players:[6,10],org:'Meerdere veldjes van ±15×10 m naast elkaar. Twee teams, per veldje één duel.',desc:['Scoren = de bal aan de voet over de achterlijn van de ander dribbelen. Bal veroverd? Meteen andersom.','Rondes van 1 minuut, dan schuift één rij een veldje op zodat iedereen een nieuwe tegenstander krijgt.','Team met de meeste doelpunten wint. Na 5 rondes kort drinken.'],mat:'1 bal per veldje, 24 hoedjes, hesjes in 2 kleuren',easier:'Kleinere veldjes.',harder:'Grotere veldjes.',rinus:48015},
+{id:'v1groot',cat:'v1',name:'1 tegen 1 op 2 pupillendoelen',dur:10,players:[4,8],org:'Veldje van ±20×12 m met een pupillendoel aan elke kant, geen keepers.',desc:['Beide spelers mogen scoren op het doel van de ander. Bal uit, achterbal of hoekschop? Indribbelen.','Doelpunt of bal uit = volgend duo. Om beurten starten met de bal.'],mat:'ballen, 2 pupillendoelen, 4 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:35561},
+{id:'v1pionnen',cat:'v1',name:'1 tegen 1 met pionnen als doel',dur:10,players:[4,8],org:'Veldje van ±15×12 m met aan elke kant 2 à 3 pionnen op de achterlijn.',desc:['Scoren = een pion van de tegenstander raken met een pass of schot.','Bal uit? Indribbelen. Doelpunt of bal uit = volgend duo.','Tel per team: welk team raakt het meest?'],mat:'ballen, 6 pionnen, 4 hoedjes, hesjes',easier:'Meer pionnen.',harder:'Minder pionnen, groter veld.',rinus:35517},
+{id:'v1opzij',cat:'v1',name:'1 tegen 1, tegenstander van opzij',dur:10,players:[4,8],org:'Veldje van ±20×12 m. Aanvaller start met bal bij een klein doeltje, verdediger start opzij op dezelfde hoogte. Aan de overkant een pupillendoel met keeper.',desc:['De aanvaller dribbelt naar het pupillendoel en probeert te scoren; de verdediger komt van opzij en mag de bal afpakken.','Verovert de verdediger de bal, dan scoort hij op het kleine doeltje.','Na het schot wisselen van rol, terug via het slootje.'],mat:'ballen, 1 pupillendoel, 1 klein doeltje, 10 hoedjes, hesjes',easier:'Verdediger start verder van het doel.',harder:'Verdediger start dichter bij de aanvaller.',rinus:35667},
+{id:'v1vierks',cat:'v1',name:'1 tegen 1 met 4 doeltjes (teamversie)',dur:10,players:[4,8],org:'Veldje van ±16×12 m, twee kleine doeltjes aan elke kant. Twee teams wachten tussen hun doeltjes.',desc:['Eén speler per team in het veld. Scoren mag in een van de twee doeltjes van de ander.','Doelpunt of bal uit = nieuw duo. Drie keer start het ene team, dan drie keer het andere.','Ronde klaar als iedereen eens met de bal startte: welk team heeft het meest gescoord?'],mat:'ballen, 4 kleine doeltjes, 14 hoedjes, hesjes',easier:'Doeltjes dichter bij elkaar (4 m).',harder:'Doeltjes verder uit elkaar (8 m).',rinus:1485911},
+{id:'memphis',cat:'v1',name:'Scoren als Memphis (1+K tegen 1+K)',dur:12,players:[4,8],org:'Lang veldje van ±30×12 m met een pupillendoel en keeper aan elke kant.',desc:['1 tegen 1 met een keeper achter elke speler. Keepers mogen op hun eigen helft meevoetballen.','Na doelpunt, achterbal of hoekschop start de bal bij de eigen keeper. Bal uit? Indribbelen; derde keer uit = wisselen.','Wissel van rol na elk doelpunt zodat iedereen keept en aanvalt.'],mat:'ballen, 2 pupillendoelen, 10 hoedjes, hesjes',easier:'Korter veld.',harder:'Langer veld.',rinus:511294},
+/* --- onder-/overtal --- */
+{id:'oversteek6v2',cat:'dribbel',name:'6 tegen 2 oversteekspel',dur:10,players:[8,10],org:'Veld van ±20×12 m, twee verdedigers in het midden.',desc:['Zes dribbelaars steken tegelijk over. Overkant halen = 1 punt.','Verdedigers krijgen een punt per veroverde bal of bal buiten het veld. Bij 3 punten komen er nieuwe verdedigers.'],mat:'6 ballen, 10 hoedjes, 2 hesjes',easier:'Smaller veld, maximum 3 tegelijk.',harder:'Breder veld.',rinus:38655},
+{id:'steven',cat:'partij',name:'Passen als Steven (3 tegen 2 + keepers)',dur:12,players:[7,10],org:'Veldje van ±30×15 m met twee pupillendoelen en keepers. Drie aanvallers tegen twee verdedigers.',desc:['Beide teams scoren op een pupillendoel. Het drietal mag inpassen of indribbelen, het tweetal enkel indribbelen.','Na doelpunt, achterbal of hoekschop start de bal bij de keeper van het tweetal.','Wissel na een tijdje van rol: wie was het beste drietal?'],mat:'ballen, 2 pupillendoelen, 14 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Verdedigers starten op de middenlijn (meer tijd voor de aanval).',rinus:511296},
+{id:'shoutout',cat:'partij',name:'Shout-out: 2 tegen 1 met keeper',dur:12,players:[8,10],org:'Veldje van ±20×15 m, één pupillendoel met keeper en een klein doeltje aan de overkant.',desc:['Twee aanvallers proberen op teken de verdediger uit te spelen en te scoren. Verovert de verdediger de bal, dan mag hij op het kleine doeltje scoren.','Aanval voorbij? Nieuwe verdediger snel op zijn plek (voorbij de middenlijn), dan starten twee nieuwe aanvallers.','Na 5 minuten wisselen de teams van rol. Doelpunten tellen.'],mat:'ballen, 1 pupillendoel, 1 klein doeltje, 12 hoedjes, hesjes',easier:'Verdediger start verder weg.',harder:'Verdediger start dichterbij.',rinus:48031},
+/* --- partijvormen --- */
+{id:'p2v2groot',cat:'partij',name:'2 tegen 2 op pupillendoelen',dur:12,players:[4,8],org:'Veldje van ±20×15 m met twee pupillendoelen, geen keepers.',desc:['Vrij spel, scoren op het doel van de ander. Bal uit, achterbal, hoekschop? Indribbelen.','Wissel om de 2 minuten van tegenstander.'],mat:'ballen, 2 pupillendoelen, 10 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:35387},
+{id:'p2v2vier',cat:'partij',name:'2 tegen 2 met 4 doeltjes',dur:12,players:[4,8],org:'Breed veldje van ±15×20 m met twee kleine doeltjes aan elke kant.',desc:['Scoren mag in een van de twee doeltjes van de tegenpartij: kijk waar het vrij is en kies.','Bal uit? Indribbelen. Om de minuut doordraaien van duo\'s.'],mat:'ballen, 4 kleine doeltjes, 12 hoedjes, hesjes',easier:'Doeltjes dichter bij elkaar.',harder:'Doeltjes verder uit elkaar.',rinus:35439},
+{id:'p2v2pion',cat:'partij',name:'2 tegen 2 met pionnen',dur:12,players:[4,8],org:'Veldje van ±15×20 m met aan elke kant enkele pionnen als doel.',desc:['Scoren = een pion van de tegenpartij raken met een pass of schot (mikken).','Bal uit, achterbal, hoekschop? Indribbelen.'],mat:'ballen, 8 pionnen, hoedjes, hesjes',easier:'Meer pionnen.',harder:'Minder pionnen, groter veld.',rinus:35349},
+{id:'p3v3groot',cat:'partij',name:'3 tegen 3 op pupillendoelen',dur:15,players:[6,10],org:'Veldje van ±30×20 m met twee pupillendoelen, zonder keepers.',desc:['Gewoon partij: scoren op het doel van de ander. Bal uit, achterbal, hoekschop? Indribbelen.','Twee helften van 6 minuten, kort drinken tussendoor.'],mat:'ballen, 2 pupillendoelen, 10 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:35163},
+{id:'p3v3twee',cat:'partij',name:'3 tegen 3 op 2 kleine doeltjes',dur:15,players:[6,10],org:'Veldje van ±30×20 m met een klein doeltje aan elke kant.',desc:['Scoren in het doeltje van de ander. Zonder keepers, dus kort en laag mikken.','Bal uit, achterbal, hoekschop? Indribbelen. Nieuwe teams na 5 minuten.'],mat:'ballen, 2 kleine doeltjes, 8 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:35303},
+{id:'p3v3pion',cat:'partij',name:'3 tegen 3 met pionnen',dur:15,players:[6,10],org:'Breed veldje van ±20×30 m met aan elke kant pionnen als doel.',desc:['Scoren = een pion van de tegenpartij raken. Bal uit? Indribbelen.','Tel per team: welk team raakt het meest in 4 minuten?'],mat:'ballen, 8 pionnen, hoedjes, hesjes',easier:'Meer pionnen.',harder:'Minder pionnen.',rinus:35111},
+{id:'p3v3vierks',cat:'partij',name:'3 tegen 3 met 4 doeltjes (korte potjes)',dur:12,players:[6,8],org:'Veldje van ±25×15 m met twee kleine doeltjes aan elke kant.',desc:['Scoren in een van de twee doeltjes van de tegenpartij. Bal uit? Indribbelen of inpassen.','Potjes van 3 minuten, dan nieuwe teams. Oneven? Eén team speelt met een extra speler en wisselt halverwege.'],mat:'ballen, 4 kleine doeltjes, 8 hoedjes, hesjes',easier:'Doeltjes dichter bij elkaar.',harder:'Doeltjes verder uit elkaar.',rinus:1485956},
+{id:'p4v4basis',cat:'partij',name:'4 tegen 4 basisvorm (wedstrijdje)',dur:15,players:[8,10],org:'Veld van ±40×20 m met twee kleine doeltjes. Twee teams met eigen hesjeskleur.',desc:['Zoals een echte wedstrijd: 2 × 7 minuten. Uitballen en hoekschoppen worden ingetrapt over de grond.','Na doelpunt of achterbal dribbelt een verdediger in vanaf de achterlijn.','De trainer begeleidt, coacht en houdt de stand bij.'],mat:'ballen, 2 kleine doeltjes, 14 hoedjes, hesjes',rinus:48011},
+{id:'p4v4lijn',cat:'partij',name:'4 tegen 4 lijnvoetbal',dur:15,players:[8,10],org:'Breed veld van ±20×40 m, scoren over de achterlijn.',desc:['Scoren = de bal aan de voet over de achterlijn van de ander dribbelen. Uitballen worden ingetrapt over de grond.','Na een doelpunt of achterbal indribbelen vanaf de eigen achterlijn.','2 × 7 minuten.'],mat:'ballen, 16 hoedjes, hesjes',rinus:48027},
+{id:'p4v4twee',cat:'partij',name:'4 tegen 4 op 2 kleine doeltjes',dur:15,players:[8,10],org:'Veld van ±35×20 m met een klein doeltje aan elke kant.',desc:['Scoren door de bal in het doeltje van de ander te passen of te schieten.','Bal uit, achterbal, hoekschop? Indribbelen.'],mat:'ballen, 2 kleine doeltjes, 6 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:38167},
+{id:'p4v4vier',cat:'partij',name:'4 tegen 4 met 4 doeltjes',dur:15,players:[8,10],org:'Breed veld van ±20×35 m met twee kleine doeltjes aan elke kant.',desc:['Scoren mag in een van de twee doeltjes van de tegenpartij: leer kijken en omschakelen naar de vrije kant.','Bal uit, achterbal, hoekschop? Indribbelen.'],mat:'ballen, 4 kleine doeltjes, 6 hoedjes, hesjes',easier:'Doeltjes dichter bij elkaar.',harder:'Doeltjes verder uit elkaar.',rinus:38679},
+{id:'p4v4pion',cat:'partij',name:'4 tegen 4 met pionnen',dur:15,players:[8,10],org:'Breed veld van ±20×35 m met aan elke kant pionnen als doel.',desc:['Scoren = een pion van de tegenpartij raken. Bal uit? Indribbelen.','Tel per team.'],mat:'ballen, 8 pionnen, hoedjes, hesjes',easier:'Meer pionnen.',harder:'Minder pionnen.',rinus:38719},
+{id:'jacky',cat:'partij',name:'Passen als Jacky (4 tegen 4, 2 doeltjes)',dur:15,players:[8,10],org:'Veld van ±35×20 m met een klein doeltje aan elke kant. Thema: samenspelen.',desc:['Scoren door in het doeltje te passen. Coach op samenspelen: "kijk wie vrij staat".','Bal uit, achterbal, hoekschop? Indribbelen.'],mat:'ballen, 2 kleine doeltjes, 6 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:48165},
+{id:'frenkie',cat:'partij',name:'Spelen als Frenkie (4 tegen 4, 4 doeltjes)',dur:15,players:[8,10],org:'Breed veld van ±20×35 m met twee kleine doeltjes aan elke kant. Thema: de vrije kant zoeken.',desc:['Scoren in een van de twee doeltjes van de tegenpartij. Is de ene kant dicht, dan draai je naar de andere.','Bal uit? Indribbelen.'],mat:'ballen, 4 kleine doeltjes, 6 hoedjes, hesjes',easier:'Doeltjes dichter bij elkaar.',harder:'Doeltjes verder uit elkaar.',rinus:48169},
+{id:'virgil',cat:'partij',name:'Verdedigen als Virgil (6 tegen 6 op grote doelen)',dur:15,players:[10,12],org:'Groot veld van ±35×40 m met twee pupillendoelen en keepers.',desc:['Grote partij met keepers. Na doelpunt, achterbal of hoekschop start de bal bij de eigen keeper.','Bal uit? Indribbelen. Thema: samen verdedigen, niet allemaal naar de bal.'],mat:'ballen, 2 pupillendoelen, 16 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:511298},
+{id:'partijspel',cat:'partij',name:'Voetbalpartijtje (2v2 tot 4v4)',dur:10,players:[4,8],org:'2v2: 20×10 m, 3v3: 30×15 m, 4v4: 40×20 m. Twee kleine doeltjes.',desc:['Maak twee teams van wie er is. Bal uit? Indribbelen of inpassen.','Oneven? Eén team in overtal, halverwege iemand wisselen.','Korte potjes van 3 minuten, dan nieuwe teams.'],mat:'ballen, 2 kleine doeltjes, 10 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:1485078},
+{id:'wu2v2lijn',cat:'partij',name:'2 tegen 2 lijnvoetbal (wedstrijd-opwarming)',dur:10,players:[4,8],org:'Veldje van ±20×15 m met aan elke kant een lijn en een klein verdedigingsvak.',desc:['Scoren = over de lijn van de ander dribbelen en de bal controleren. In het eigen verdedigingsvak mag je niet verdedigen.','Bal uit? Indribbelen; derde keer uit = wisselen. Na een doelpunt start je in het midden van je eigen lijn.'],mat:'ballen, 14 hoedjes, hesjes',easier:'Kleinere lijn om over te dribbelen.',harder:'Verdedigers starten halverwege.',rinus:474985},
+{id:'wu3v3lijn',cat:'partij',name:'3 tegen 3 lijnvoetbal (wedstrijd-opwarming)',dur:10,players:[6,6],org:'Breed veldje van ±20×30 m.',desc:['Scoren = de bal over de achterlijn van de ander dribbelen en in het vak controleren.','Bal uit? Indribbelen. Zet meerdere veldjes uit bij meer kinderen.'],mat:'ballen, 14 hoedjes, hesjes',easier:'Kleiner scoorvak.',harder:'Groter veld.',rinus:475008},
+{id:'wu4v3lijn',cat:'partij',name:'4 tegen 3 lijnvoetbal (overtal)',dur:10,players:[7,10],org:'Breed veldje van ±20×35 m.',desc:['Scoren = over de achterlijn van de ander dribbelen en de bal controleren. Het viertal is in overtal.','Achterbal of hoekschop? Het viertal start in het midden van de eigen lijn. Wissel na een tijdje van rol.'],mat:'ballen, 16 hoedjes, hesjes',easier:'Kleiner veld.',harder:'Groter veld.',rinus:474998},
+{id:'wu5v2',cat:'partij',name:'5 tegen 2 positiespel',dur:10,players:[7,10],org:'Vak van ±25×12 m. Vijf spelers houden de bal, twee verdedigers jagen.',desc:['Tien keer overspelen zonder verlies = 1 punt voor het vijftal.','Verdedigers veroveren (voet op de bal) of bal uit = punt voor hen. Bij 3 punten twee nieuwe verdedigers.'],mat:'ballen, 10 hoedjes, hesjes',easier:'Kleiner vak (voor de verdedigers), of groter vak (voor het vijftal).',harder:'Minder overspelen nodig.',rinus:475004},
+/* --- startvormen: schieten --- */
+{id:'doelschiethooglaag',cat:'schiet',name:'Doelschietspel hoog/laag',dur:12,players:[4,6],org:'Pupillendoel met een lint of hesje halverwege als lijn. Lijnen op 8, 10 en 12 m.',desc:['Bal stilleggen en schieten: hoog boven de lijn = 3 punten, laag eronder = 1 punt.','5 punten? Naar de volgende lijn. Twee keer gemist? Eén lijn terug. Wie scoort eerst 5 punten op de kampioenslijn?','Punt telt enkel na terugdribbelen via het slootje.'],mat:'1 bal per kind, 1 pupillendoel, 9 hoedjes, 1 lint',easier:'Lijnen dichterbij.',harder:'Lijnen verder, andere voet.',rinus:33745},
+{id:'doelschietkeeper2',cat:'schiet',name:'Doelschietspel met keeper, niveau 2 (hoog/laag)',dur:12,players:[4,8],org:'Pupillendoel met keeper, lijnen op 8, 10 en 12 m.',desc:['Hoog in het doel = 3 punten, laag = 1 punt. Bij 5 punten naar de volgende lijn, twee missers = één lijn terug.','Wie scoort eerst 5 keer vanaf de kampioenslijn? Keeper telt zijn reddingen; wissel om de 2 minuten.'],mat:'1 bal per kind, 1 pupillendoel, 9 hoedjes, 1 hesje',easier:'Lijnen dichterbij, schieten uit de dribbel.',harder:'Lijnen verder, schuin schieten.',rinus:33789},
+{id:'doelschietpion2',cat:'schiet',name:'Doelschietspel hoeken mikken, niveau 2',dur:12,players:[4,6],org:'Pupillendoel met een pion in het midden, lijnen op 8, 10 en 12 m.',desc:['Hoek = 3 punten, midden = 1 punt. Bij 5 punten opschuiven, twee missers = terug.','Wie scoort eerst 3 keer vanaf de kampioenslijn is de Lion King. Terug via het slootje.'],mat:'1 bal per kind, 1 pupillendoel, 1 pion, 9 hoedjes',easier:'Lijnen dichterbij.',harder:'Twee pionnen in het doel.',rinus:33861},
+{id:'teun',cat:'schiet',name:'Schieten als Teun (kampioenslijn)',dur:12,players:[4,8],org:'Pupillendoel met keeper, lijnen op 8, 10 en 12 m.',desc:['Twee keer na elkaar scoren = naar de volgende lijn. Twee keer missen = één lijn terug.','Wie scoort eerst 3 keer vanaf de kampioenslijn? Keepers wisselen om de 2 minuten.'],mat:'1 bal per kind, 1 pupillendoel, 9 hoedjes, 1 hesje',easier:'Lijnen dichterbij.',harder:'Lijnen verder, andere voet.',rinus:511292},
+{id:'wudoelschiet',cat:'schiet',name:'Doelschietspel met keeper (wedstrijd-opwarming)',dur:10,players:[4,8],org:'Pupillendoel met keeper, lijnen op 8, 10 en 12 m.',desc:['Hoog = 3 punten, laag = 1 punt. Bij 5 punten naar de volgende lijn.','Wie scoort eerst 5 keer vanaf de kampioenslijn? Handig als korte opwarming voor de wedstrijd.'],mat:'1 bal per kind, 1 pupillendoel, 9 hoedjes',easier:'Lijnen dichterbij.',harder:'Lijnen verder.',rinus:474982},
+{id:'dubbeldoelschiet',cat:'schiet',name:'Dubbel doelschietspel (2 kleine doeltjes)',dur:10,players:[4,6],org:'Twee kleine doeltjes naast elkaar, lijnen op 8, 10 en 12 m.',desc:['Bal stilleggen en mikken op een van de twee doeltjes. Twee keer raak = naar de volgende lijn, twee keer mis = terug.','Wie scoort eerst 3 keer vanaf de kampioenslijn? Om beurten iemand laten keepen.'],mat:'1 bal per kind, 2 kleine doeltjes, 9 hoedjes',easier:'Doeltjes dichter bij elkaar, lijnen dichterbij.',harder:'Doeltjes verder uit elkaar.',rinus:33929},
+{id:'pionschiet',cat:'schiet',name:'Pionschietspel op vaste afstand (duo)',dur:8,players:[2,10],org:'Tweetallen tegenover elkaar op ±6 m, tussen hen een rij pionnen.',desc:['Pion raken = 1 punt, pion omschieten = 3 punten. Eerst de bal aannemen op de lijn, dan terugspelen.','Wie heeft na 2 minuten de meeste punten? Nieuwe duo\'s.'],mat:'1 bal per duo, 5 pionnen per duo, hoedjes',easier:'Grotere afstand, of van een rollende bal.',harder:'Pionnen dichter bij elkaar, andere voet.',rinus:34033},
+{id:'poortschietkeeper',cat:'schiet',name:'Poortschietspel met keeper',dur:10,players:[6,12],org:'Tweetallen tegenover elkaar, elk in een vak, met een poortje van hoedjes ertussen. In het poortje een keeper of verdediger.',desc:['Duo scoort door de bal over de grond door het poortje naar elkaar te passen. Eerst aannemen in je vak, anders geen punt.','De keeper houdt tegen en telt zijn punten. Wie heeft eerst 10 punten?','Keeper wisselt regelmatig met een wachtende speler.'],mat:'1 bal per duo, hoedjes, hesjes',easier:'Keeper mag handen gebruiken, kleiner poortje.',harder:'Keeper enkel met de voet, groter poortje.',rinus:34041},
+{id:'poortschietvar',cat:'schiet',name:'Poortschietspel met oplopende afstand',dur:8,players:[4,8],org:'Tweetallen, poortje van hoedjes tussen hen, lijnen op 3, 5 en 7 m.',desc:['Drie keer door het poortje gepast vanaf 3 m? Naar 5 m. Dan naar de kampioenslijn op 7 m.','Twee keer na elkaar gemist? Eén lijn dichterbij. Wie haalt eerst 3 punten op de kampioenslijn?'],mat:'1 bal per duo, hoedjes',easier:'Groter poortje.',harder:'Kleiner poortje, andere voet.',rinus:34081},
+{id:'dribbelpionschiet',cat:'schiet',name:'Dribbel-pionschietspel met verdedigers',dur:12,players:[6,10],org:'Veld van ±20×15 m. Op 10 m een schietlijn, daarachter een rij pionnen. Twee verdedigers tussen lijn en pionnen.',desc:['Dribbel naar de lijn en schiet langs de verdedigers op een pion: raken = 1 punt, omver = 2 punten.','Verdedigers krijgen een punt per gestopte bal. Maximum 3 dribbelaars tegelijk.','Na het schot achter de pionnen aansluiten en via het slootje terug. Wissel de verdedigers vaak.'],mat:'1 bal per kind, 9 pionnen, 8 hoedjes, 2 hesjes',easier:'Minder pionnen, verder weg, één verdediger.',harder:'Meer pionnen dichter bij, afstand kleiner.',rinus:33761},
+{id:'dribbelpionschiet2',cat:'schiet',name:'Dribbel-pionschietspel met verdedigers, niveau 2',dur:12,players:[6,10],org:'Zoals niveau 1, met minder ruimte en dichter op de verdedigers.',desc:['Dribbel naar de lijn en schiet op een pion: raken = 1 punt, omver = 2 punten. Verdedigers scoren per gestopte bal.','Wie heeft eerst 10 punten? Wissel de verdedigers regelmatig.'],mat:'1 bal per kind, 9 pionnen, 8 hoedjes, 2 hesjes',easier:'Afstand groter, één verdediger.',harder:'Pionnen dichter bij elkaar.',rinus:33759},
+{id:'dribbelschietgroot1',cat:'schiet',name:'Dribbelschietspel op pupillendoel (1 aanvaller + 1 verdediger)',dur:12,players:[4,10],org:'Veldje van ±20×12 m met een middenvak en een pupillendoel. Eén verdediger.',desc:['Eén speler dribbelt naar het middenvak en schiet van daaruit op het pupillendoel.','De verdediger probeert onderweg de bal af te pakken: 1 punt voor hem.','Bal halen, via het slootje terug. Wissel de verdediger om de 2 minuten.'],mat:'1 bal per kind, 1 pupillendoel, 12 hoedjes, 1 hesje',easier:'Middenvak verder van het doel, smaller veld.',harder:'Middenvak dichter bij het doel.',rinus:35827},
+{id:'dribbelschietgroot2',cat:'schiet',name:'Dribbelschietspel op pupillendoel (2 aanvallers, verdediger + keeper)',dur:12,players:[6,10],org:'Veldje van ±20×12 m met middenvak, pupillendoel en keeper. Eén verdediger.',desc:['Twee spelers dribbelen tegelijk naar het middenvak en schieten op het doel met keeper.','Verdediger pakt af = 1 punt. Keeper telt zijn reddingen.','Terug via het slootje. Wissel verdediger en keeper om de 2 minuten.'],mat:'1 bal per kind, 1 pupillendoel, 12 hoedjes, 2 hesjes',easier:'Middenvak verder van het doel.',harder:'Middenvak dichter bij het doel.',rinus:35797},
+{id:'wudribbelschiet',cat:'schiet',name:'Dribbelschietspel met keeper (wedstrijd-opwarming)',dur:10,players:[6,10],org:'Veldje van ±20×12 m met middenvak, pupillendoel met keeper en één verdediger.',desc:['Twee dribbelaars tegelijk naar het middenvak, dan schieten op het doel.','Verdediger pakt af = punt. Terug via het slootje, wissel om de 2 minuten.'],mat:'1 bal per kind, 1 pupillendoel, 12 hoedjes, 2 hesjes',easier:'Middenvak verder van het doel.',harder:'Middenvak dichter bij het doel.',rinus:475005},
+{id:'dribbelschiet2v',cat:'schiet',name:'Dribbelschietspel met 2 doeltjes (2 verdedigers)',dur:12,players:[5,10],org:'Veldje van ±20×12 m met middenvak en twee kleine doeltjes. Twee verdedigers.',desc:['Drie spelers dribbelen tegelijk naar het middenvak en mikken op een doeltje: 1 punt.','Verdedigers scoren per veroverde bal. Terug via het slootje. Wissel om de 2 minuten.'],mat:'1 bal per kind, 2 kleine doeltjes, 12 hoedjes, 2 hesjes',easier:'Smaller veld, extra verdediger.',harder:'Breder veld, extra aanvaller.',rinus:35895},
+{id:'dribbelschietpion1',cat:'schiet',name:'Dribbelschietspel met pionnen (1 verdediger)',dur:12,players:[4,10],org:'Veldje van ±20×12 m met middenvak en een rij pionnen achteraan. Eén verdediger.',desc:['Drie dribbelaars tegelijk naar het middenvak, dan mikken op een pion: raak = 1 punt.','Verdediger pakt af = punt voor hem. Terug via het slootje. Wissel om de 2 minuten.'],mat:'1 bal per kind, 7 pionnen, 12 hoedjes, 1 hesje',easier:'Minder pionnen, middenvak verder.',harder:'Meer pionnen, middenvak dichterbij.',rinus:35781},
+{id:'dribbelschietpion2',cat:'schiet',name:'Dribbelschietspel met pionnen (2 verdedigers)',dur:12,players:[5,10],org:'Zoals met 1 verdediger, maar met twee verdedigers die samenwerken.',desc:['Drie dribbelaars tegelijk naar het middenvak, dan mikken op een pion.','Verdedigers scoren per veroverde bal. Terug via het slootje.'],mat:'1 bal per kind, 7 pionnen, 12 hoedjes, 2 hesjes',easier:'Minder pionnen, middenvak verder.',harder:'Meer pionnen, middenvak dichterbij.',rinus:35747},
+{id:'superstars',cat:'schiet',name:'Super stars (parcours)',dur:10,players:[4,8],org:'Twee identieke parcours: startpion, klein doeltje om over te gooien, rij hoedjes voor de slalom, schietlijn en een doel met pionnen erin.',desc:['Ren met de bal in de hand naar het doeltje, gooi hem erover, loop erom en vang.','Leg de bal neer, slalom door de hoedjes en mik vanaf de lijn op de pionnen in het doel: in het doel = 1 punt, pion geraakt = 2 punten.','Team met de meeste punten na 5 minuten wint.'],mat:'6 ballen, 2 kleine doeltjes, 2 pupillendoelen, 6 pionnen, 14 hoedjes',easier:'Bal mag één keer stuiteren, schietlijn verder.',harder:'Schietlijn dichterbij, extra pionnen.',rinus:1485828},
+/* --- startvormen: dribbelen --- */
+{id:'dribbelvakverd',cat:'dribbel',name:'Dribbelen in vak met poortjes en verdediger',dur:8,players:[4,14],org:'Vak van ±20×15 m met 4 à 5 poortjes van hoedjes. Eén verdediger.',desc:['Iedereen dribbelt en scoort door door een poortje te gaan (niet twee keer hetzelfde na elkaar).','De verdediger tikt ballen weg en telt. Wissel om de minuut.'],mat:'1 bal per kind, 14 hoedjes, 1 hesje',easier:'Groter vak, bredere poortjes.',harder:'Kleiner vak, smallere poortjes.',rinus:36707},
+{id:'dribbelkampioen4',cat:'dribbel',name:'Dribbelkampioen met 4 verdedigers',dur:8,players:[8,12],org:'Vak van ±20×15 m. De helft heeft een bal, de andere helft niet.',desc:['Wie geen bal heeft, probeert er een te veroveren. Wie zijn bal kwijt is, gaat er zelf weer een pakken.','Fluitsignaal na 60 seconden: wie heeft dan een bal?'],mat:'ballen voor de helft, 6 hoedjes, hesjes',easier:'Kleiner vak.',harder:'Groter vak.',rinus:36665},
+{id:'slalom2',cat:'dribbel',name:'Dribbelslalom, niveau 2',dur:8,players:[4,12],org:'Slalom van 6 hoedjes, verder uit elkaar. Groepjes van 4.',desc:['Slalom rond de hoedjes, achteraan aansluiten. De volgende start als de vorige voorbij het laatste hoedje is.','Maak er een estafette van tussen de groepjes.'],mat:'1 bal per kind, 12 hoedjes',easier:'Hoedjes dichter bij elkaar.',harder:'Enkel met het "verkeerde" been.',rinus:39479},
+{id:'piondribbel',cat:'dribbel',name:'Pion-dribbelspel (duel naar het poortje)',dur:8,players:[4,8],org:'Baan van ±20×10 m: in het midden drie pionnen, aan het einde een poortje. Vier spelers, twee aan elke kant.',desc:['Spelers 1 en 3 dribbelen tegelijk op de middelste pionnen af, maken daar een actie en versnellen naar het poortje.','Wie is het eerst door het poortje? Dan starten 2 en 4.'],mat:'2 ballen, 3 pionnen, 12 hoedjes',easier:'Breder poortje.',harder:'Pionnen weg: recht op elkaar af.',rinus:39671},
+{id:'oversteeklijn1',cat:'dribbel',name:'Oversteekspel, 1 verdediger (over de lijn)',dur:10,players:[4,6],org:'Veld van ±20×12 m, één verdediger, slootje aan de zijkant.',desc:['3 à 4 spelers dribbelen naar de overkant; punt enkel als je over de lijn dribbelt én via het slootje terugkomt.','Verdediger verovert (voet op de bal) of bal buiten = 1 punt voor hem.','Wie haalt eerst 5 punten? Verdediger wisselt om de 2 minuten.'],mat:'1 bal per kind, 9 hoedjes, 1 hesje',easier:'Smaller veld, max. 2 tegelijk.',harder:'Groter veld.',rinus:34011},
+{id:'oversteekpoort1',cat:'dribbel',name:'Oversteekspel, 1 verdediger en poortjes',dur:10,players:[4,6],org:'Veld van ±20×12 m met drie poortjes aan de overkant. De verdediger mag enkel voor de poortjes verdedigen.',desc:['Door een poortje aan de zijkant = 1 punt, door het middelste = 2 punten. Terug via het slootje.','Verdediger verovert of bal buiten = 1 punt voor hem. Wie haalt eerst 8 punten?'],mat:'1 bal per kind, 14 hoedjes, 1 hesje',easier:'Kleinere poortjes, max. 2 tegelijk.',harder:'Grotere poortjes, groter veld.',rinus:33969},
+{id:'oversteekpion1',cat:'dribbel',name:'Oversteekspel met poortjes (1 verdediger, doorlopend)',dur:10,players:[5,10],org:'Veld van ±20×12 m met drie poortjes van pionnen in het midden. Eén verdediger.',desc:['4 tot 6 spelers steken tegelijk over en moeten door een van de drie poortjes. Overkant = 1 punt.','Verdediger verovert = 1 punt. Terug via het slootje en meteen opnieuw.'],mat:'1 bal per kind, 6 pionnen, 6 hoedjes, 1 hesje',easier:'Smaller veld, smallere poortjes.',harder:'Breder veld, bredere poortjes.',rinus:35687},
+{id:'oversteekpion2',cat:'dribbel',name:'Oversteekspel met poortjes (2 verdedigers, doorlopend)',dur:10,players:[6,10],org:'Zoals de versie met 1 verdediger, nu met twee verdedigers.',desc:['4 tot 6 spelers steken tegelijk over via een van de drie poortjes. Overkant = 1 punt.','Verdedigers scoren per veroverde bal. Terug via het slootje.'],mat:'1 bal per kind, pionnen, hoedjes, 2 hesjes',easier:'Smaller veld, max. 3 tegelijk.',harder:'Breder veld.',rinus:35679},
+{id:'wuoversteek2',cat:'dribbel',name:'Oversteekspel, 2 verdedigers (wedstrijd-opwarming)',dur:10,players:[8,10],org:'Veld van ±20×15 m, twee verdedigers, slootje aan de zijkant.',desc:['Zes spelers dribbelen naar de overkant; punt als je over de lijn komt en via het slootje terugkeert.','Verdedigers scoren per veroverde bal of bal buiten. Wie haalt eerst 5 punten?'],mat:'1 bal per kind, 9 hoedjes, 2 hesjes',easier:'Smaller veld, max. 3 tegelijk.',harder:'Groter veld.',rinus:474972},
+{id:'krokodilvijver',cat:'dribbel',name:'Krokodillenspel (de vijver)',dur:10,players:[5,10],org:'Vak van ±30×20 m met in het midden een kleiner vak: de vijver. Iedere speler start bij een eigen pion aan de rand.',desc:['Dribbel van je pion naar de vijver en terug zonder dat de krokodil je bal raakt. Gelukt? Leg een hoedje op je pion.','Bal geraakt? Eerst terug naar je pion. Wie heeft eerst 5 hoedjes?','Wissel de krokodil om de 90 seconden.'],mat:'1 bal per kind, pionnen, hoedjes, 1 hesje',easier:'Kleinere vijver.',harder:'Grotere vijver.',rinus:36639},
+{id:'lionkingdoeltjes',cat:'dribbel',name:'Lion King met kleine doeltjes',dur:10,players:[5,7],org:'Vak van ±30×20 m met in het midden de leeuwenkuil, twee kleine doeltjes aan de zijkant.',desc:['Dribbel van je pion naar de kuil en terug. Gelukt zonder aanraking? Hoedje op je pion. Eerst 5 hoedjes wint.','De leeuw pakt ballen af en scoort ermee in een doeltje. Wissel de leeuw om de 90 seconden.'],mat:'1 bal per kind, 2 kleine doeltjes, pionnen, hoedjes, 1 hesje',easier:'Kleinere kuil.',harder:'Grotere kuil.',rinus:43873},
+{id:'regenboog',cat:'dribbel',name:'Regenboograce',dur:8,players:[4,8],org:'Per team: startpion, een hoedje op 7 m en daarachter een halve cirkel van hoedjes (5 m verder).',desc:['Dribbel naar het gele hoedje, neem de bal in de handen, ren naar de halve cirkel en leg de bal op een hoedje.','Terug naar de start, high five aan de volgende. Welk team heeft eerst op elk hoedje een bal?'],mat:'10 ballen, 14 hoedjes',easier:'Afstanden groter; extra hoedjes voor een slalom.',harder:'Afstanden kleiner.',rinus:1480030},
+{id:'kickdribbeltik',cat:'warm',name:'Dribbeltikkertje (één tikker, 45 s)',dur:6,players:[4,10],org:'Vierkant van ±15×15 m, iedereen met bal. Eén tikker die ook dribbelt.',desc:['De tikker scoort per getikte speler en per speler die met zijn bal buiten het vak gaat.','Tikker zonder bal in het vak? Dan telt de tik niet. Na 45 seconden een nieuwe tikker: wie scoort het meest?'],mat:'1 bal per kind, 8 hoedjes, 1 hesje',easier:'Kleiner vak, twee tikkers.',harder:'Groter vak.',rinus:1485958},
+{id:'kickpoorttik',cat:'warm',name:'Poorttikkertje met ballen (bevrijden door het poortje)',dur:6,players:[4,10],org:'Vak van ±15×15 m, ballen op hoedjes rond het vak. Eén tikker.',desc:['Getikt? Benen wijd. Een vrije speler haalt een bal van buiten en passt of gooit die door je benen: bevrijd.','Na één minuut wisselen. Iedereen getikt binnen de minuut? Tikker wint.'],mat:'6 ballen, 8 hoedjes, 1 hesje',easier:'Kleiner vak, extra tikker.',harder:'Groter vak.',rinus:1480793},
+{id:'duotik',cat:'warm',name:'Duo-tikkertje (bevriezen)',dur:6,players:[4,10],org:'Vak van ±15×15 m. Twee tikkers houden elkaars hand vast. In elke hoek een bal op een hoedje, twee kleine doeltjes buiten het vak.',desc:['Wie getikt wordt, bevriest. Schiet een vrije speler een hoekbal in een doeltje, dan is iedereen weer vrij.','Ronde stopt na 90 seconden of als iedereen bevroren is. Twee nieuwe tikkers.'],mat:'4 ballen, 2 kleine doeltjes, 6 hoedjes, 2 hesjes',easier:'Kleiner vak, doeltjes verder weg.',harder:'Groter vak.',rinus:1485859},
+{id:'sociaaltik',cat:'warm',name:'Sociaal tikkertje (bal in de hand = veilig)',dur:6,players:[6,10],org:'Vak van ±15×15 m, één tikker, twee ballen in het spel.',desc:['Wie een bal in de handen heeft, kan niet getikt worden. Maximum 10 seconden vasthouden, dan doorgeven aan wie in nood is.','Na 1 minuut wisselen van tikker. Welke tikker scoort het meest?'],mat:'2 à 3 ballen, 8 hoedjes, 1 hesje',easier:'Kleiner vak, passen met de voet.',harder:'Groter vak, derde bal.',rinus:1485802},
+{id:'tikkers',cat:'warm',name:'Tikspel met 2 tot 4 tikkers (bevrijden door te kruipen)',dur:6,players:[6,12],org:'Vak van ±30×20 m, geen bal. 2 tot 4 tikkers met hesje.',desc:['Getikt? Benen wijd. Een vrije speler bevrijdt je door onder je door te kruipen.','Wissel de tikkers om de minuut.'],mat:'10 hoedjes, hesjes',easier:'Kleiner vak, extra tikker.',harder:'Groter vak, één tikker.',rinus:36565},
+{id:'kickrattenraven',cat:'fit',name:'Ratten en raven met doeltjes',dur:8,players:[4,8],org:'Per duo een strook van 20×5 m, elk met een bal. Achter elke achterlijn een klein doeltje op 5 m.',desc:['De trainer roept "ratten" of "raven". De geroepenen dribbelen naar hun achterlijn en schieten op hun doeltje; de ander probeert eerst te tikken.','Punt voor een doelpunt zonder getikt te worden, of voor een tik. Na 5 potjes doordraaien.'],mat:'1 bal per kind, 2 kleine doeltjes, 12 hoedjes',easier:'Langere strook.',harder:'Kortere strook, zonder bal.',rinus:1485855},
+{id:'kickstuiter',cat:'fit',name:'Stuiter- en dribbelestafette (2 teams)',dur:8,players:[4,8],org:'Twee banen van 4 hoedjes op 4 m van elkaar, elk met een klein doeltje op het einde.',desc:['Hoedje 1→2 stuiteren met rechts, 2→3 met links, 3→4 dribbelen met de voet, dan schieten op het doeltje.','Bal halen en doorgeven aan de volgende. Welk team scoort eerst 6 keer?'],mat:'2 ballen, 2 kleine doeltjes, 10 hoedjes',easier:'Afstanden groter.',harder:'Afstanden korter, 4 keer scoren volstaat.',rinus:1485804},
+{id:'panda',cat:'fit',name:'Panda stoeien (voet op de bal)',dur:5,players:[4,8],org:'Tweetallen tegenover elkaar, elk met één voet op de eigen bal.',desc:['Handpalmen tegen elkaar. Duw de ander uit balans tot zijn voet van de bal gaat: 1 punt.','Wissel van been na elke ronde.'],mat:'1 bal per kind',easier:'Op één been zonder bal.',harder:'Punt enkel als de voet de grond raakt.',rinus:1485111},
+{id:'balkruip',cat:'fit',name:'Bal beschermen in kruiphouding',dur:5,players:[4,12],org:'Tweetallen met samen één bal.',desc:['Eén speler klemt de bal onder zich in kruiphouding (tussen knieën en ellebogen). De ander probeert hem in 10 seconden te veroveren door te duwen, rollen en trekken.','Bal veroverd = punt voor de aanvaller, 10 seconden gehouden = punt voor de beschermer. Wissel van rol.'],mat:'1 bal per duo',easier:'Kortere tijd.',harder:'Langere tijd.',rinus:47409},
+{id:'lat',cat:'fit',name:'Bal gooien tegen de lat',dur:5,players:[4,12],org:'Pupillendoel, tweetallen op een paar meter ervoor.',desc:['Eén speler gooit vanaf de pion tegen de lat, zijn partner probeert de bal te vangen: punt voor het team.','Welk team heeft eerst 3 punten?'],mat:'4 ballen, 1 pupillendoel, 2 hoedjes',easier:'Dichter bij het doel.',harder:'Eerst op de knie aannemen, dan vangen.',rinus:47435},
+{id:'balanceren',cat:'fit',name:'Balanceren op de bal',dur:5,players:[4,12],org:'Tweetallen met één bal.',desc:['Eén speler gaat met beide voeten op de bal staan, de partner houdt zijn handen vast.','Hoe lang blijf je staan? Dan wisselen.'],mat:'1 bal per duo',harder:'Handen loslaten.',rinus:47437},
+{id:'chineesbeen',cat:'fit',name:'Chinees boksen op één been',dur:5,players:[4,12],org:'Tweetallen tegenover elkaar, elk met een bal tussen bil en hiel geklemd, op één been.',desc:['Handpalmen tegen elkaar en duwen. Wie zijn bal laat vallen, geeft de ander een punt.','Even grote kinderen bij elkaar; wissel van been.'],mat:'1 bal per kind',easier:'Zonder bal, wel op één been.',harder:'Bal aan de andere kant.',rinus:47405},
+{id:'duiken',cat:'fit',name:'Duiken op de bal',dur:5,players:[6,12],org:'Tweetallen achter elkaar, de voorste met de benen wijd, de achterste met de bal aan de voet.',desc:['De achterste passt de bal door de benen van de voorste, die niet mag omkijken en er dan op duikt.','Na 5 keer wisselen. Leuk als keepertraining voor iedereen.'],mat:'1 bal per duo',easier:'Rollen met de hand.',harder:'Bal mag ook naast de speler gespeeld worden.',rinus:47407},
+{id:'hesjeroven',cat:'fit',name:'Hesje roven (duel in een vakje)',dur:5,players:[4,12],org:'Per duo een vakje van 5×5 m. Beiden een hesje achteraan in de broek.',desc:['Wie eerst het hesje van de ander uit de broek trekt, wint. Handen niet afweren.','Beste van 5, dan wisselen van partner.'],mat:'1 hesje per kind, hoedjes',easier:'Eén rover, één beschermer.',harder:'Met 3 of 4 in één vakje.',rinus:47441},
+{id:'hinkel',cat:'fit',name:'Hinkelestafette met bal',dur:5,players:[6,12],org:'Groepjes van 2 à 3 in een rij, een pion op ±8 m.',desc:['Hinkel op één been naar de pion met de bal onder je andere voet. Aan de pion de bal terugpassen naar de volgende.','Andere been op de terugweg.'],mat:'1 bal per groepje, hoedjes',easier:'Pion dichterbij.',harder:'Bal stuiteren in plaats van meenemen.',rinus:47393},
+{id:'katmuisvak',cat:'fit',name:'Kat- en muisspel (hesjes in een vak)',dur:5,players:[5,10],org:'Vak van ±15×10 m, iedereen een hesje achteraan in de broek.',desc:['Trek hesjes bij elkaar uit de broek: punt. Gepakt hesje meteen teruggeven en verder spelen.','Handen niet gebruiken om te verdedigen.'],mat:'1 hesje per kind, hoedjes',easier:'Groter vak.',harder:'Iedereen dribbelt met een bal.',rinus:47417},
+{id:'krab',cat:'fit',name:'Krabloop met bal',dur:5,players:[4,12],org:'Twee lijnen op ±10 m.',desc:['Beweeg als een krab (buik omhoog) naar de overkant en neem de bal mee met handen of voeten.','Terugweg dribbelen.'],mat:'1 bal per kind, hoedjes',easier:'Om de 3 stappen even rusten.',harder:'Bal op de buik balanceren.',rinus:47383},
+{id:'overrollen',cat:'fit',name:'Overrollen op één been',dur:5,players:[4,12],org:'Tweetallen tegenover elkaar op ±3 m met één bal.',desc:['Rol de bal met de zool naar elkaar terwijl je op één been blijft staan.','Om de 30 seconden van been wisselen.'],mat:'1 bal per duo',easier:'Kort de grond raken mag.',harder:'Grotere afstand.',rinus:47433},
+{id:'springenbal',cat:'fit',name:'Springen met de bal over hoedjes',dur:5,players:[4,12],org:'Tweetallen, drie hoedjes op een rij, samen één bal.',desc:['Spring met twee voeten samen over de drie hoedjes met de bal in je handen, draai om en gooi de bal naar je partner.','Wie de bal krijgt, mag springen.'],mat:'1 bal per duo, 6 hoedjes per duo',easier:'Eén hoedje minder.',harder:'Met een kwartdraai springen, of terugpassen met de voet.',rinus:47423},
+{id:'springenover',cat:'fit',name:'Springen over de bal',dur:5,players:[6,12],org:'Tweetallen, de bal ligt stil op de grond.',desc:['Eén speler springt over de bal: links, rechts of vooruit, zoals zijn partner roept. Met twee voeten tegelijk.','Na 20 seconden wisselen.'],mat:'1 bal per duo',easier:'Over een hesje in plaats van een bal.',rinus:47399},
+{id:'tiptop',cat:'fit',name:'Tip top (bal tippen)',dur:3,players:[4,15],org:'Iedereen met een bal in het vak.',desc:['Op het signaal tip je de bal zo vaak mogelijk met de zool, afwisselend links en rechts.','Wie haalt 20? Dan vooruit tippend, dan achteruit.'],mat:'1 bal per kind',harder:'Vooruit of achteruit tippen.',rinus:47403},
+{id:'hopestafette',cat:'fit',name:'Tweebenige hop-estafette',dur:5,players:[4,12],org:'Groepjes van 2 à 3, een pion op ±8 m.',desc:['Hop met twee voeten samen naar de pion met de bal in de handen, pass hem daar terug naar de volgende.','Wie is het eerst klaar?'],mat:'1 bal per groepje, hoedjes',easier:'Heen hoppen, terug dribbelen.',harder:'Achteruit hoppen.',rinus:47425},
+{id:'verspringen',cat:'fit',name:'Verspringen met het team',dur:5,players:[6,12],org:'Teams van 3 à 4 achter een startlijn.',desc:['De eerste maakt drie loopsprongen en blijft staan. Vanaf daar springt de volgende.','Welk team komt het verst?'],mat:'hoedjes',easier:'Twee sprongen.',harder:'Met bal in de hand, doorgeven.',rinus:47429},
+{id:'zwaard',cat:'fit',name:'Zwaardtikkertje',dur:5,players:[4,12],org:'Tweetallen houden elkaars rechterhand vast, duimen omhoog.',desc:['De wijsvinger is het zwaard: prik de ander op het lichaam (niet op hoofd of onderarm).','Even grote kinderen bij elkaar; wissel van hand.'],mat:'hoedjes',easier:'Enkel het bovenlichaam als doel.',harder:'Afwisselen links en rechts.',rinus:47443},
+{id:'piraten',cat:'dribbel',name:'Piraten (ballen kapen)',dur:6,players:[6,12],org:'Vak van ±15×10 m, iedereen met bal.',desc:['Bescherm je eigen schat (bal) en schiet ondertussen de ballen van de andere piraten uit het vak: 1 punt.','Bal buiten? Halen en terug meedoen.'],mat:'1 bal per kind, 4 hoedjes',easier:'Groter vak.',harder:'Eén piraat zonder bal die enkel kaapt.',rinus:475012},
+{id:'virgildribbel',cat:'dribbel',name:'Dribbelen als Virgil (bal beschermen)',dur:6,players:[6,12],org:'Vak van ±15×10 m, iedereen met bal.',desc:['Bescherm je bal met je lichaam en schiet ondertussen andermans bal uit het vak.','Twee rondes van 90 seconden; tel je punten.'],mat:'1 bal per kind, 4 hoedjes',easier:'Groter vak.',harder:'Eén speler zonder bal.',rinus:48161},
+{id:'lava',cat:'fit',name:'Hesje is lava',dur:5,players:[4,12],org:'Per duo een vakje van 5×5 m met een hesje in het midden. Vasthouden bij de bovenarmen of polsen.',desc:['Trek de ander op het hesje (de lava): punt.','Beste van 5, dan wisselen van partner.'],mat:'1 hesje per duo, hoedjes',easier:'Eén aanvaller, één verdediger.',harder:'Meerdere hesjes.',rinus:47413}
+);
+
+/* ===================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const API = '/api/training';
+const state = { lib: {version:0, exercises:[], trainers:[], settings:{}}, list:null, t:null, tid:null, dirty:false, saving:false, pendingSave:false, poll:null, tab:'', q:'' };
+
+const NL_DAYS = ['zo','ma','di','wo','do','vr','za'];
+const NL_MONTHS = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+function fmtDate(iso){ if(!iso) return {d:'—',m:'',w:''}; const d=new Date(iso+'T00:00:00'); if(isNaN(d)) return {d:'—',m:'',w:''}; return {d:d.getDate(), m:NL_MONTHS[d.getMonth()], w:NL_DAYS[d.getDay()]}; }
+function fmtDateLong(iso){ if(!iso) return ''; const d=new Date(iso+'T00:00:00'); if(isNaN(d)) return iso; return ['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'][d.getDay()]+' '+d.getDate()+' '+['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'][d.getMonth()]+' '+d.getFullYear(); }
+function addMin(hhmm, min){ const [h,m]=hhmm.split(':').map(Number); const t=h*60+m+min; return String(Math.floor(t/60)%24).padStart(2,'0')+':'+String(t%60).padStart(2,'0'); }
+
+let toastTimer;
+function toast(msg, err){ const t=$('#toast'); t.textContent=msg; t.className='toast show'+(err?' err':''); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.className='toast',2600); }
+
+async function api(path, opt={}){
+  const r = await fetch(API+path, {headers:{'content-type':'application/json'}, ...opt, body: opt.body!==undefined ? JSON.stringify(opt.body) : undefined});
+  const data = await r.json().catch(()=>({}));
+  if(!r.ok){ const e=new Error(data.error||('HTTP '+r.status)); e.status=r.status; e.data=data; throw e; }
+  return data;
+}
+
+/* ---------- oefeningen ---------- */
+function allEx(){ return LIB.concat(state.lib.exercises||[]); }
+function getEx(id){ return allEx().find(e=>e.id===id); }
+function exName(item){ if(!item) return ''; if(item.title) return item.title; const e=getEx(item.ex); return e?e.name:'(oefening verwijderd)'; }
+function trainers(){ return (state.lib.trainers||[]).filter(Boolean); }
+
+/* ---------- bibliotheek opslaan ---------- */
+let libSaveTimer;
+async function saveLib(){
+  clearTimeout(libSaveTimer);
+  try{
+    const r = await api('/library',{method:'PUT',body:{baseVersion:state.lib.version, exercises:state.lib.exercises, trainers:state.lib.trainers, settings:state.lib.settings}});
+    state.lib = r;
+  }catch(e){
+    if(e.status===409){ state.lib=e.data.current; toast('Bibliotheek was intussen aangepast, opnieuw geladen',true); render(); }
+    else toast('Opslaan mislukt: '+e.message,true);
+  }
+}
+
+/* ---------- training opslaan (debounce + optimistic lock) ---------- */
+let saveTimer;
+function setStatus(cls, txt){ const s=$('#saveStatus'); if(s){ s.className='status '+cls; s.lastChild.textContent=txt; } }
+function mutate(fn, opts={}){
+  if(!state.t) return;
+  fn(state.t);
+  state.dirty=true;
+  if(!opts.noRender) render(); else renderSummary();
+  setStatus('saving','wijzigingen…');
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(saveTraining, 700);
+}
+async function saveTraining(){
+  if(!state.t||!state.tid) return;
+  if(state.saving){ state.pendingSave=true; return; }
+  state.saving=true; state.dirty=false;
+  const {id, version, updatedAt, ...doc} = state.t;
+  try{
+    const r = await api('/trainings/'+state.tid,{method:'PUT',body:{baseVersion:state.t.version||0, doc}});
+    state.t.version=r.version; state.t.updatedAt=r.updatedAt;
+    setStatus('ok','opgeslagen');
+  }catch(e){
+    if(e.status===409){
+      state.t=e.data.current; state.dirty=false;
+      toast('Iemand anders heeft deze training net aangepast. Nieuwste versie geladen.',true);
+      render();
+    }else{ setStatus('err','niet opgeslagen'); toast('Opslaan mislukt: '+e.message,true); state.dirty=true; }
+  }finally{
+    state.saving=false;
+    if(state.pendingSave||state.dirty){ state.pendingSave=false; saveTraining(); }
+  }
+}
+function startPoll(){
+  stopPoll();
+  state.poll=setInterval(async()=>{
+    if(!state.tid||state.dirty||state.saving||document.hidden) return;
+    const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+    try{ const r=await api('/trainings/'+state.tid); if(r.version!==state.t.version){ state.t=r; render(); toast('Training bijgewerkt door een collega'); } }catch(e){}
+  }, 12000);
+}
+function stopPoll(){ if(state.poll){ clearInterval(state.poll); state.poll=null; } }
+
+/* ---------- sjablonen ---------- */
+function blankTraining(){
+  const s=state.lib.settings||{};
+  return {title:'', date:new Date().toISOString().slice(0,10), time:s.defaultTime||'', players: s.defaultPlayers||12, target: s.defaultTarget||60, notes:'', blocks:[]};
+}
+function single(ex, coach, dur){ const e=getEx(ex); return {id:uid(), kind:'single', duration:dur||(e?e.dur:10), items:[{ex, coach:coach||''}], note:''}; }
+function stationsBlock(exIds, dur){ return {id:uid(), kind:'stations', duration:dur, rotate:true, items:exIds.map(ex=>({ex, coach:''})), note:''}; }
+function templateStandard(){
+  const t=blankTraining(); const tr=trainers();
+  t.title='Training U7';
+  t.blocks=[
+    single('welkom', tr[0], 3),
+    single('dribbeltik', tr[0], 8),
+    single('chinees', tr[1], 5),
+    stationsBlock(['oversteek1','doelschietkeeper','v1doeltjes'], 24),
+    single('drink', '', 3),
+    single('p4v4', tr[2]||tr[0], 14),
+    single('afsluiting', tr[0], 3),
+  ];
+  t.blocks[3].items.forEach((it,i)=>it.coach=tr[i]||'');
+  return t;
+}
+
+/* ---------- router ---------- */
+window.addEventListener('hashchange', route);
+async function route(){
+  const h=location.hash||'#/';
+  document.querySelectorAll('.top nav a').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===h.split('/').slice(0,2).join('/')));
+  closeSheet();
+  const m=h.match(/^#\/t\/([a-z0-9]+)(\/print)?$/);
+  if(m){
+    if(state.tid!==m[1]||!state.t){ state.tid=m[1]; state.t=null; render(); try{ state.t=await api('/trainings/'+m[1]); }catch(e){ state.t=null; state.tid=null; toast('Training niet gevonden',true); location.hash='#/'; return; } }
+    state.view=m[2]?'print':'edit'; render(); startPoll(); return;
+  }
+  stopPoll(); state.tid=null; state.t=null;
+  if(h.startsWith('#/oefeningen')){ state.view='lib'; render(); return; }
+  state.view='home'; render();
+  try{ state.list=(await api('/trainings')).trainings; }catch(e){ state.list=[]; toast('Kon trainingen niet laden: '+e.message,true); }
+  render();
+}
+
+/* ---------- render ---------- */
+function render(){
+  const app=$('#app');
+  const s=state.lib.settings||{};
+  $('#brandSub').textContent = s.club ? s.club+' · U7' : '60 minuten, kwartveld';
+  if(state.view==='home') return renderHome(app);
+  if(state.view==='lib') return renderLib(app);
+  if(state.view==='edit') return renderEdit(app);
+  if(state.view==='print') return renderPrint(app);
+}
+
+function renderHome(app){
+  const list=state.list;
+  let html=`<div class="pagehead"><h1>Trainingen</h1><button class="btn primary" id="btnNew">＋ Nieuwe training</button></div>`;
+  if(!trainers().length) html+=`<div class="card" style="padding:12px 14px;margin-bottom:12px" class="small"><b>Tip:</b> zet eerst de namen van de trainers in <button class="btn ghost sm" id="tipSettings">⚙︎ Instellingen</button>, dan kan je per oefening kiezen wie uitlegt.</div>`;
+  if(list===null) html+=`<div class="empty">Laden…</div>`;
+  else if(!list.length) html+=`<div class="empty"><div class="big">📋</div>Nog geen trainingen.<br>Maak de eerste aan, iedereen met de link ziet ze meteen.</div>`;
+  else html+=`<div class="tlist">`+list.map(t=>{const d=fmtDate(t.date); const over=(t.minutes||0)>60; return `<a class="card titem" href="#/t/${t.id}"><div class="date"><span>${d.w}</span><b>${d.d}</b><span>${d.m}</span></div><div class="grow"><h3>${esc(t.title||'Training')}</h3><div class="small muted">${t.time?esc(t.time)+' · ':''}<span class="minutes${over?' over':''}">${t.minutes||0} min</span> · ${t.blocks||0} onderdelen</div></div><span class="chev">›</span></a>`;}).join('')+`</div>`;
+  app.innerHTML=html;
+  $('#btnNew').onclick=openNewSheet;
+  const ts=$('#tipSettings'); if(ts) ts.onclick=openSettings;
+}
+
+function openNewSheet(){
+  sheet(`<h2>Nieuwe training</h2>`,`
+    <div class="exlist">
+      <button class="card exrow" data-tpl="std"><div class="cat dribbel"></div><div class="t"><b>Standaardopbouw U7 (60 min)</b><span>Kring · tikspel · voetbalfit · 3 stations (8' elk) · drinken · 4 tegen 4 · afsluiting</span></div></button>
+      <button class="card exrow" data-tpl="blank"><div class="cat overig"></div><div class="t"><b>Leeg beginnen</b><span>Zelf onderdelen toevoegen</span></div></button>
+    </div>`,'');
+  document.querySelectorAll('[data-tpl]').forEach(b=>b.onclick=async()=>{
+    const doc=b.dataset.tpl==='std'?templateStandard():blankTraining();
+    closeSheet();
+    try{ const r=await api('/trainings',{method:'POST',body:{doc}}); location.hash='#/t/'+r.id; }catch(e){ toast('Aanmaken mislukt: '+e.message,true); }
+  });
+}
+
+function totals(t){ return (t.blocks||[]).reduce((s,b)=>s+(Number(b.duration)||0),0); }
+
+function renderSummary(){
+  const t=state.t; if(!t) return;
+  const tot=totals(t), target=Number(t.target)||60;
+  const el=$('#sumMin'); if(el){ el.textContent=tot+' / '+target+' min'; el.className='minutes'+(tot>target?' over':''); }
+  const fill=$('#sumFill'); if(fill){ fill.style.width=Math.min(100,tot/target*100)+'%'; fill.className='fill'+(tot>target?' over':tot>=target-3?' near':''); }
+  const rest=$('#sumRest'); if(rest) rest.textContent= tot>target ? (tot-target)+' min te veel' : tot===target ? 'perfect op tijd' : (target-tot)+' min over';
+  // starttijden
+  let cur=0; document.querySelectorAll('.block').forEach(el=>{ const b=t.blocks.find(x=>x.id===el.dataset.id); if(!b) return; const tc=el.querySelector('.tcol b'); const ts=el.querySelector('.tcol span'); if(tc) tc.textContent=t.time?addMin(t.time,cur):(cur+"'"); if(ts) ts.textContent=(b.duration||0)+' min'; cur+=Number(b.duration)||0; });
+}
+
+function coachSelect(val, attrs){
+  const tr=trainers();
+  const opts=['<option value="">— wie legt uit?</option>'].concat(tr.map(n=>`<option value="${esc(n)}"${n===val?' selected':''}>${esc(n)}</option>`));
+  if(val&&!tr.includes(val)) opts.push(`<option value="${esc(val)}" selected>${esc(val)}</option>`);
+  return `<label class="coach"><span class="ico">🗣</span><select ${attrs}>${opts.join('')}</select></label>`;
+}
+
+function renderEdit(app){
+  const t=state.t;
+  if(!t){ app.innerHTML='<div class="empty">Laden…</div>'; return; }
+  const tr=trainers();
+  const groupsHint=n=>{ const p=Number(t.players)||0; if(!p||!n) return ''; const lo=Math.floor(p/n), hi=Math.ceil(p/n); return `${n} groepen van ${lo===hi?lo:lo+'–'+hi}`; };
+  let cur=0;
+  const blocks=(t.blocks||[]).map((b,i)=>{
+    const start=t.time?addMin(t.time,cur):(cur+"'"); cur+=Number(b.duration)||0;
+    let body;
+    if(b.kind==='stations'){
+      const per=b.rotate&&b.items.length?Math.round((b.duration||0)/b.items.length):null;
+      body=`<div class="name"><h3>Stations <small>${groupsHint(b.items.length)}${per?` · ${b.rotate?'doorschuiven om de '+per+' min':''}`:''}</small></h3></div>
+      <div class="stations">${b.items.map((it,j)=>`<div class="station"><span class="lbl">${String.fromCharCode(65+j)}</span><button class="sname${it.ex||it.title?'':' empty'}" data-pick="${b.id}:${j}">${esc(exName(it))||'kies een oefening…'}</button>${coachSelect(it.coach,`data-coach="${b.id}:${j}"`)}<button class="mini" data-info="${b.id}:${j}" title="Details" ${it.ex||it.title?'':'disabled'}>ℹ︎</button><button class="mini del" data-delst="${b.id}:${j}" title="Station verwijderen">✕</button></div>`).join('')}
+      ${b.items.length<4?`<button class="btn ghost sm" data-addst="${b.id}" style="justify-self:start">＋ station</button>`:''}</div>
+      <label class="rot"><input type="checkbox" data-rot="${b.id}" ${b.rotate?'checked':''}> groepen schuiven door (elke groep doet elk station)</label>`;
+    }else{
+      const it=b.items[0]||{}; const e=getEx(it.ex);
+      body=`<div class="name"><h3 data-info="${b.id}:0">${esc(exName(it))||'(geen oefening)'}<small>${e?esc(CATS[e.cat].short)+' · '+e.players[0]+'–'+e.players[1]+' spelers':(it.title?'eigen tekst':'')}</small></h3><button class="mini" data-info="${b.id}:0" title="Details">ℹ︎</button></div>
+      <div class="ctrls">${coachSelect(it.coach,`data-coach="${b.id}:0"`)}</div>`;
+    }
+    return `<div class="card block" data-id="${b.id}">
+      <div class="tcol"><b>${start}</b><span>${b.duration||0} min</span><div class="handle" title="Sleep om te verplaatsen">⋮⋮</div></div>
+      <div class="body">${body}
+        <div class="ctrls">
+          <span class="dur"><button data-dur="${b.id}:-1" aria-label="min 1 minuut">−</button><input type="number" inputmode="numeric" min="1" max="60" value="${b.duration||0}" data-durin="${b.id}"><span>min</span><button data-dur="${b.id}:1" aria-label="plus 1 minuut">+</button></span>
+          <button class="mini" data-move="${b.id}:-1" title="Omhoog" ${i===0?'disabled':''}>↑</button>
+          <button class="mini" data-move="${b.id}:1" title="Omlaag" ${i===t.blocks.length-1?'disabled':''}>↓</button>
+          <button class="mini del" data-del="${b.id}" title="Verwijderen">🗑</button>
+        </div>
+        <textarea class="note" placeholder="Notitie (bv. wie zet klaar, aandachtspunt)…" data-note="${b.id}" rows="1">${esc(b.note||'')}</textarea>
+      </div></div>`;
+  }).join('');
+
+  app.innerHTML=`
+  <div class="pagehead noprint"><a class="btn sm" href="#/">‹ Trainingen</a><span class="grow"></span><span class="status ok" id="saveStatus"><i></i><span>opgeslagen</span></span><a class="btn sm" href="#/t/${state.tid}/print">📄 Overzicht</a></div>
+  <div class="card head">
+    <input class="title" placeholder="Naam van de training (bv. Dribbelen & scoren)" value="${esc(t.title||'')}" data-f="title">
+    <div class="grid3">
+      <label class="field">Datum<input type="date" value="${esc(t.date||'')}" data-f="date"></label>
+      <label class="field">Startuur<input type="time" value="${esc(t.time||'')}" data-f="time"></label>
+      <label class="field">Spelers<input type="number" inputmode="numeric" min="1" max="30" value="${esc(t.players||'')}" data-f="players"></label>
+      <label class="field">Doel (min)<input type="number" inputmode="numeric" min="10" max="180" value="${esc(t.target||60)}" data-f="target"></label>
+    </div>
+    <div class="field">Aanwezige trainers${tr.length?'':' <span class="muted">(nog geen ingesteld · ⚙︎)</span>'}<div class="row" style="gap:6px">${tr.map(n=>`<label class="chip${(t.present||tr).includes(n)?' on':''}" style="cursor:pointer"><input type="checkbox" class="sr" data-present="${esc(n)}" ${(t.present||tr).includes(n)?'checked':''}>${esc(n)}</label>`).join('')||'<span class="muted small">Voeg trainers toe via het tandwiel rechtsboven.</span>'}</div></div>
+    <textarea class="note" placeholder="Algemene notities (thema, materiaal, wie zet het veld klaar…)" data-f="notes" rows="2">${esc(t.notes||'')}</textarea>
+  </div>
+  <div class="timeline" id="timeline">${blocks||'<div class="empty">Nog geen onderdelen. Voeg een oefening of stations toe.</div>'}</div>
+  <div class="addrow noprint"><button class="btn primary" id="addSingle">＋ Oefening</button><button class="btn" id="addStations" style="border-color:var(--purple);color:var(--purple)">＋ Stations (groepen)</button><button class="btn" id="addText">＋ Vrije tekst</button></div>
+  <div class="sumbar noprint"><div class="in"><div class="bar"><div class="lbl"><span id="sumMin" class="minutes"></span><span id="sumRest" class="muted"></span></div><div class="track"><div class="fill" id="sumFill"></div></div></div><button class="btn primary" id="addSingle2">＋ Oefening</button></div></div>`;
+
+  renderSummary();
+  // header fields
+  app.querySelectorAll('[data-f]').forEach(el=>{
+    const f=el.dataset.f;
+    el.addEventListener('input',()=>{ mutate(t=>{ t[f]=(f==='players'||f==='target')?Number(el.value):el.value; },{noRender:true}); });
+    if(f==='time'||f==='players'||f==='target') el.addEventListener('change',()=>render());
+  });
+  app.querySelectorAll('[data-present]').forEach(cb=>cb.onchange=()=>{ mutate(t=>{ const cur=new Set(t.present||trainers()); cb.checked?cur.add(cb.dataset.present):cur.delete(cb.dataset.present); t.present=trainers().filter(n=>cur.has(n)); }); });
+  // blocks
+  const findB=id=>t.blocks.find(b=>b.id===id);
+  app.querySelectorAll('[data-dur]').forEach(b=>b.onclick=()=>{ const [id,d]=b.dataset.dur.split(':'); mutate(t=>{ const bl=findB(id); bl.duration=Math.max(1,(Number(bl.duration)||0)+Number(d)); }); });
+  app.querySelectorAll('[data-durin]').forEach(inp=>{ inp.oninput=()=>{ const v=Number(inp.value); if(v>0) mutate(t=>{ findB(inp.dataset.durin).duration=v; },{noRender:true}); }; inp.onchange=()=>render(); });
+  app.querySelectorAll('[data-move]').forEach(b=>b.onclick=()=>{ const [id,d]=b.dataset.move.split(':'); mutate(t=>{ const i=t.blocks.findIndex(x=>x.id===id), j=i+Number(d); if(j<0||j>=t.blocks.length) return; [t.blocks[i],t.blocks[j]]=[t.blocks[j],t.blocks[i]]; }); });
+  app.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{ const bl=findB(b.dataset.del); if(confirm('"'+(bl.kind==='stations'?'Stations':exName(bl.items[0]))+'" verwijderen?')) mutate(t=>{ t.blocks=t.blocks.filter(x=>x.id!==b.dataset.del); }); });
+  app.querySelectorAll('[data-note]').forEach(ta=>{ ta.oninput=()=>{ autosize(ta); mutate(t=>{ findB(ta.dataset.note).note=ta.value; },{noRender:true}); }; autosize(ta); });
+  app.querySelectorAll('[data-coach]').forEach(sel=>sel.onchange=()=>{ const [id,j]=sel.dataset.coach.split(':'); mutate(t=>{ findB(id).items[Number(j)].coach=sel.value; },{noRender:true}); });
+  app.querySelectorAll('[data-rot]').forEach(cb=>cb.onchange=()=>mutate(t=>{ findB(cb.dataset.rot).rotate=cb.checked; }));
+  app.querySelectorAll('[data-addst]').forEach(b=>b.onclick=()=>mutate(t=>{ findB(b.dataset.addst).items.push({ex:null,coach:''}); }));
+  app.querySelectorAll('[data-delst]').forEach(b=>b.onclick=()=>{ const [id,j]=b.dataset.delst.split(':'); mutate(t=>{ const bl=findB(id); bl.items.splice(Number(j),1); if(!bl.items.length) t.blocks=t.blocks.filter(x=>x.id!==id); }); });
+  app.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{ const [id,j]=b.dataset.pick.split(':'); openPicker(ex=>mutate(t=>{ const it=findB(id).items[Number(j)]; it.ex=ex.id; delete it.title; })); });
+  app.querySelectorAll('[data-info]').forEach(b=>b.onclick=()=>{ const [id,j]=b.dataset.info.split(':'); const bl=findB(id); const it=bl.items[Number(j)]; if(it.ex&&getEx(it.ex)) openDetail(getEx(it.ex), {onSwap:ex=>mutate(t=>{ it.ex=ex.id; delete it.title; })}); else openTextEdit(bl, it); });
+  const addS=()=>openPicker(ex=>mutate(t=>{ const tr=trainers(); t.blocks.push(single(ex.id, '', ex.dur)); }));
+  $('#addSingle').onclick=addS; $('#addSingle2').onclick=addS;
+  $('#addStations').onclick=()=>mutate(t=>{ const b=stationsBlock([null,null,null],24); b.items.forEach((it,i)=>it.coach=trainers()[i]||''); t.blocks.push(b); });
+  $('#addText').onclick=()=>openTextEdit(null,null);
+  initDrag();
+}
+function autosize(ta){ ta.style.height='auto'; ta.style.height=(ta.scrollHeight+2)+'px'; }
+
+/* ---------- drag & drop (pointer events: werkt met muis en vinger) ---------- */
+function initDrag(){
+  const tl=$('#timeline'); if(!tl) return;
+  let drag=null;
+  tl.querySelectorAll('.handle').forEach(h=>{
+    h.addEventListener('pointerdown',e=>{
+      const el=h.closest('.block'); drag={el, y:e.clientY}; el.classList.add('dragging'); h.setPointerCapture(e.pointerId); e.preventDefault();
+    });
+    h.addEventListener('pointermove',e=>{
+      if(!drag) return;
+      const els=document.elementsFromPoint(e.clientX,e.clientY); const over=els.map(x=>x.closest&&x.closest('.block')).find(x=>x&&x!==drag.el); if(!over) return;
+      const r=over.getBoundingClientRect(); const before=e.clientY<r.top+r.height/2;
+      if(before) tl.insertBefore(drag.el,over); else tl.insertBefore(drag.el,over.nextSibling);
+      // scroll bij randen
+      if(e.clientY<80) window.scrollBy(0,-8); else if(e.clientY>window.innerHeight-120) window.scrollBy(0,8);
+    });
+    const end=()=>{ if(!drag) return; drag.el.classList.remove('dragging'); const order=[...tl.querySelectorAll('.block')].map(x=>x.dataset.id); drag=null; const cur=state.t.blocks.map(b=>b.id).join(); if(order.join()!==cur) mutate(t=>{ t.blocks=order.map(id=>t.blocks.find(b=>b.id===id)); }); };
+    h.addEventListener('pointerup',end); h.addEventListener('pointercancel',end);
+  });
+}
+
+/* ---------- sheet helpers ---------- */
+function sheet(head, body, foot){
+  $('#veil').className='veil open';
+  const s=$('#sheet'); s.className='sheet open';
+  s.innerHTML=`<div class="sh">${head}<button class="btn icon sm" id="sheetClose" aria-label="Sluiten">✕</button></div><div class="sb">${body}</div>${foot!==''?`<div class="sf">${foot||''}</div>`:''}`;
+  $('#sheetClose').onclick=closeSheet; $('#veil').onclick=closeSheet;
+  document.body.style.overflow='hidden';
+}
+function closeSheet(){ $('#veil').className='veil'; const s=$('#sheet'); s.className='sheet'; s.innerHTML=''; document.body.style.overflow=''; }
+
+/* ---------- oefening kiezen ---------- */
+function exRow(e, extra){ return `<button class="card exrow" data-ex="${esc(e.id)}"><div class="cat ${e.cat}"></div><div class="t"><b>${esc(e.name)}${e.custom?' <span class="badge eigen">eigen</span>':''}</b><span>${esc(CATS[e.cat]?CATS[e.cat].short:e.cat)} · ${e.dur} min · ${e.players?e.players[0]+'–'+e.players[1]:'?'} spelers</span></div>${extra||''}</button>`; }
+function filterEx(){
+  const q=state.q.trim().toLowerCase();
+  return allEx().filter(e=>(!state.tab||e.cat===state.tab)&&(!q||(e.name+' '+(e.desc||[]).join(' ')+' '+(e.org||'')).toLowerCase().includes(q)));
+}
+function openPicker(onPick){
+  const chips=`<div class="chips"><button class="chip${!state.tab?' on':''}" data-tab="">Alles</button>${Object.entries(CATS).map(([k,v])=>`<button class="chip${state.tab===k?' on':''}" data-tab="${k}">${v.short}</button>`).join('')}</div>`;
+  sheet(`<h2>Oefening kiezen</h2>`,`<input class="search" id="exq" placeholder="Zoek (bv. tikkertje, doeltjes, 1 tegen 1)…" value="${esc(state.q)}">${chips}<div class="exlist" id="exlist"></div>`,
+    `<button class="btn" id="newCustom">＋ Eigen oefening schrijven</button>`);
+  const draw=()=>{ const list=filterEx(); $('#exlist').innerHTML=list.map(e=>exRow(e,`<button class="info" data-info="${esc(e.id)}" aria-label="Details">i</button>`)).join('')||'<div class="empty">Niets gevonden.</div>';
+    $('#exlist').querySelectorAll('[data-ex]').forEach(b=>b.onclick=ev=>{ if(ev.target.closest('[data-info]')) return; const e=getEx(b.dataset.ex); closeSheet(); onPick(e); });
+    $('#exlist').querySelectorAll('[data-info]').forEach(b=>b.onclick=ev=>{ ev.stopPropagation(); openDetail(getEx(b.dataset.info),{onPick, back:()=>openPicker(onPick)}); }); };
+  $('#exq').oninput=e=>{ state.q=e.target.value; draw(); };
+  document.querySelectorAll('[data-tab]').forEach(c=>c.onclick=()=>{ state.tab=c.dataset.tab; document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===c)); draw(); });
+  $('#newCustom').onclick=()=>openCustomForm(null, e=>{ onPick(e); });
+  draw();
+}
+
+function detailHtml(e){
+  return `<div class="detail">
+    <div class="meta"><span class="badge ${e.cat}">${esc(CATS[e.cat]?CATS[e.cat].short:e.cat)}</span><span>⏱ ${e.dur} min</span><span>👥 ${e.players?e.players[0]+'–'+e.players[1]:'?'} spelers</span></div>
+    ${e.org?`<h3>Opstelling</h3><p style="margin:0">${esc(e.org)}</p>`:''}
+    ${(e.desc||[]).length?`<h3>Zo speel je het</h3><ul>${e.desc.map(d=>`<li>${esc(d)}</li>`).join('')}</ul>`:''}
+    ${e.mat?`<h3>Materiaal</h3><p style="margin:0">${esc(e.mat)}</p>`:''}
+    ${e.easier||e.harder?`<h3>Aanpassen</h3><ul>${e.easier?`<li><b>Makkelijker:</b> ${esc(e.easier)}</li>`:''}${e.harder?`<li><b>Moeilijker:</b> ${esc(e.harder)}</li>`:''}</ul>`:''}
+    ${e.rinus?`<p class="small muted" style="margin-top:14px">Gebaseerd op <a href="${RINUS(e.rinus)}" target="_blank" rel="noopener">KNVB Rinus (tekening + video)</a></p>`:''}
+  </div>`;
+}
+function openDetail(e, opts={}){
+  if(!e) return;
+  const foot=[
+    opts.back?`<button class="btn" id="dBack">‹ Terug</button>`:'',
+    e.custom?`<button class="btn" id="dEdit">✎ Bewerken</button>`:`<button class="btn" id="dCopy">⎘ Kopie als eigen oefening</button>`,
+    opts.onPick?`<button class="btn primary" id="dPick">Toevoegen</button>`:'',
+    opts.onSwap?`<button class="btn primary" id="dSwap">Vervangen door andere…</button>`:'',
+  ].join('');
+  sheet(`<h2>${esc(e.name)}</h2>`, detailHtml(e), foot);
+  const q=id=>document.getElementById(id);
+  if(q('dBack')) q('dBack').onclick=opts.back;
+  if(q('dPick')) q('dPick').onclick=()=>{ closeSheet(); opts.onPick(e); };
+  if(q('dSwap')) q('dSwap').onclick=()=>openPicker(opts.onSwap);
+  if(q('dEdit')) q('dEdit').onclick=()=>openCustomForm(e, ()=>{ render(); });
+  if(q('dCopy')) q('dCopy').onclick=()=>openCustomForm({...e, id:undefined, name:e.name+' (aangepast)', custom:true}, ne=>{ if(opts.onPick){ opts.onPick(ne); } else render(); });
+}
+
+/* ---------- eigen oefening ---------- */
+function openCustomForm(e, done){
+  const isEdit=!!(e&&e.id&&e.custom);
+  e=e||{};
+  sheet(`<h2>${isEdit?'Oefening bewerken':'Eigen oefening'}</h2>`,`<div class="form">
+    <label class="field">Naam<input id="cName" value="${esc(e.name||'')}" placeholder="bv. Schatkist-dribbel"></label>
+    <div class="two">
+      <label class="field">Categorie<select id="cCat">${Object.entries(CATS).map(([k,v])=>`<option value="${k}"${(e.cat||'dribbel')===k?' selected':''}>${v.short}</option>`).join('')}</select></label>
+      <label class="field">Duur (min)<input id="cDur" type="number" inputmode="numeric" min="1" max="60" value="${e.dur||10}"></label>
+    </div>
+    <div class="two">
+      <label class="field">Min. spelers<input id="cMin" type="number" inputmode="numeric" min="1" value="${e.players?e.players[0]:4}"></label>
+      <label class="field">Max. spelers<input id="cMax" type="number" inputmode="numeric" min="1" value="${e.players?e.players[1]:15}"></label>
+    </div>
+    <label class="field">Opstelling<textarea id="cOrg" placeholder="Veld, doeltjes, hoedjes, waar staat wie…">${esc(e.org||'')}</textarea></label>
+    <label class="field">Zo speel je het (één regel per stap)<textarea id="cDesc" rows="5" placeholder="Stap 1…&#10;Stap 2…">${esc((e.desc||[]).join('\n'))}</textarea></label>
+    <label class="field">Materiaal<input id="cMat" value="${esc(e.mat||'')}" placeholder="bv. 1 bal per kind, 8 hoedjes, 2 doeltjes"></label>
+    <div class="two">
+      <label class="field">Makkelijker<input id="cEasy" value="${esc(e.easier||'')}"></label>
+      <label class="field">Moeilijker<input id="cHard" value="${esc(e.harder||'')}"></label>
+    </div>
+  </div>`,`${isEdit?`<button class="btn danger" id="cDel">Verwijderen</button>`:''}<span class="grow"></span><button class="btn primary" id="cSave">${isEdit?'Opslaan':'Opslaan en gebruiken'}</button>`);
+  $('#cSave').onclick=async()=>{
+    const name=$('#cName').value.trim(); if(!name){ $('#cName').focus(); return; }
+    const ne={id:isEdit?e.id:'c_'+uid(), custom:true, name, cat:$('#cCat').value, dur:Math.max(1,Number($('#cDur').value)||10), players:[Number($('#cMin').value)||1, Number($('#cMax').value)||15], org:$('#cOrg').value.trim(), desc:$('#cDesc').value.split('\n').map(s=>s.trim()).filter(Boolean), mat:$('#cMat').value.trim(), easier:$('#cEasy').value.trim(), harder:$('#cHard').value.trim()};
+    const list=state.lib.exercises||(state.lib.exercises=[]);
+    const i=list.findIndex(x=>x.id===ne.id); if(i>=0) list[i]=ne; else list.push(ne);
+    closeSheet(); await saveLib(); toast(isEdit?'Oefening bijgewerkt':'Oefening toegevoegd aan de bibliotheek'); done&&done(ne);
+  };
+  const del=$('#cDel'); if(del) del.onclick=async()=>{ if(!confirm('"'+e.name+'" verwijderen uit de bibliotheek? Trainingen die ze gebruiken tonen dan "(oefening verwijderd)".')) return; state.lib.exercises=state.lib.exercises.filter(x=>x.id!==e.id); closeSheet(); await saveLib(); render(); };
+  setTimeout(()=>$('#cName').focus(),50);
+}
+
+/* ---------- vrije tekst in een blok ---------- */
+function openTextEdit(block, item){
+  const isNew=!block;
+  const it=item||{};
+  sheet(`<h2>${isNew?'Vrije tekst':'Onderdeel bewerken'}</h2>`,`<div class="form">
+    <label class="field">Titel<input id="tTitle" value="${esc(it.title||'')}" placeholder="bv. Verjaardag Lucas: zingen"></label>
+    ${isNew?`<label class="field">Duur (min)<input id="tDur" type="number" inputmode="numeric" min="1" value="5"></label>`:''}
+    <p class="small muted" style="margin:0">Tip: wil je de oefening ook een volgende keer gebruiken? Maak ze dan aan als <b>eigen oefening</b> in de kiezer.</p>
+  </div>`,`<button class="btn primary" id="tSave">Opslaan</button>`);
+  $('#tSave').onclick=()=>{ const title=$('#tTitle').value.trim(); if(!title) return; closeSheet();
+    if(isNew) mutate(t=>{ t.blocks.push({id:uid(), kind:'single', duration:Math.max(1,Number($('#tDur').value)||5), items:[{ex:null, title, coach:''}], note:''}); });
+    else mutate(t=>{ it.title=title; it.ex=null; }); };
+  setTimeout(()=>$('#tTitle').focus(),50);
+}
+
+/* ---------- instellingen ---------- */
+function openSettings(){
+  const s=state.lib.settings||{};
+  sheet(`<h2>Instellingen</h2>`,`<div class="form">
+    <label class="field">Trainers (één per regel)<textarea id="sTrainers" rows="4" placeholder="Seb&#10;Tom&#10;An">${esc(trainers().join('\n'))}</textarea></label>
+    <label class="field">Clubnaam / ploeg (optioneel)<input id="sClub" value="${esc(s.club||'')}" placeholder="bv. KFC Essen U7"></label>
+    <div class="two">
+      <label class="field">Standaard startuur<input id="sTime" type="time" value="${esc(s.defaultTime||'')}"></label>
+      <label class="field">Standaard aantal spelers<input id="sPlayers" type="number" inputmode="numeric" value="${esc(s.defaultPlayers||12)}"></label>
+    </div>
+    <p class="small muted" style="margin:0">Deze instellingen gelden voor iedereen die de link gebruikt. Er is geen login: deel de link enkel met de trainers.</p>
+  </div>`,`<button class="btn primary" id="sSave">Opslaan</button>`);
+  $('#sSave').onclick=async()=>{
+    state.lib.trainers=$('#sTrainers').value.split('\n').map(x=>x.trim()).filter(Boolean);
+    state.lib.settings={...s, club:$('#sClub').value.trim(), defaultTime:$('#sTime').value, defaultPlayers:Number($('#sPlayers').value)||12, defaultTarget:60};
+    closeSheet(); await saveLib(); toast('Instellingen opgeslagen'); render();
+  };
+}
+$('#navSettings').onclick=openSettings;
+
+/* ---------- bibliotheekpagina ---------- */
+function renderLib(app){
+  const chips=`<div class="chips"><button class="chip${!state.tab?' on':''}" data-tab="">Alles</button>${Object.entries(CATS).map(([k,v])=>`<button class="chip${state.tab===k?' on':''}" data-tab="${k}">${v.short}</button>`).join('')}</div>`;
+  app.innerHTML=`<div class="pagehead"><h1>Oefeningen</h1><button class="btn primary" id="libNew">＋ Eigen oefening</button></div>
+  <input class="search" id="libq" placeholder="Zoeken…" value="${esc(state.q)}">${chips}<div class="libgrid" id="libList"></div>
+  <p class="small muted" style="margin-top:16px">De basisoefeningen zijn geïnspireerd op de KNVB Rinus-oefenstof voor O6/O7 op een kwartveld en in eigen woorden samengevat. Elke oefening linkt naar de originele tekening en video. Eigen oefeningen (label "eigen") zijn voor iedereen met de link zichtbaar en aanpasbaar.</p>`;
+  const draw=()=>{ const list=filterEx(); $('#libList').innerHTML=list.map(e=>exRow(e)).join('')||'<div class="empty">Niets gevonden.</div>'; $('#libList').querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>openDetail(getEx(b.dataset.ex))); };
+  $('#libq').oninput=e=>{ state.q=e.target.value; draw(); };
+  app.querySelectorAll('[data-tab]').forEach(c=>c.onclick=()=>{ state.tab=c.dataset.tab; app.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===c)); draw(); });
+  $('#libNew').onclick=()=>openCustomForm(null, ()=>render());
+  draw();
+}
+
+/* ---------- overzicht / print ---------- */
+function renderPrint(app){
+  const t=state.t; if(!t){ app.innerHTML='<div class="empty">Laden…</div>'; return; }
+  let cur=0; const used=new Map();
+  const rows=(t.blocks||[]).map(b=>{
+    const start=t.time?addMin(t.time,cur):(cur+"'"); const end=t.time?addMin(t.time,cur+(Number(b.duration)||0)):((cur+(Number(b.duration)||0))+"'"); cur+=Number(b.duration)||0;
+    b.items.forEach(it=>{ const e=it.ex&&getEx(it.ex); if(e&&!used.has(e.id)) used.set(e.id,e); });
+    let what, who;
+    if(b.kind==='stations'){
+      const per=b.rotate&&b.items.length?Math.round((b.duration||0)/b.items.length):null;
+      what=`<b>Stations</b>${per?` <span class="muted small">(doorschuiven om de ${per} min)</span>`:''}${b.items.map((it,j)=>`<span class="st"><b>${String.fromCharCode(65+j)}</b> ${esc(exName(it))||'—'}${it.coach?` <span class="muted">· ${esc(it.coach)}</span>`:''}</span>`).join('')}`;
+      who=b.items.map(it=>it.coach).filter(Boolean).join(', ');
+    }else{ what=`<b>${esc(exName(b.items[0]))}</b>`; who=b.items[0].coach||''; }
+    return `<tr><td class="t">${start}<br><span class="muted small">${end}</span></td><td>${what}${b.note?`<div class="small muted">${esc(b.note)}</div>`:''}</td><td>${b.duration||0}'</td><td>${esc(who)}</td></tr>`;
+  }).join('');
+  const tot=totals(t);
+  app.innerHTML=`<div class="pagehead noprint"><a class="btn sm" href="#/t/${state.tid}">‹ Bewerken</a><span class="grow"></span><button class="btn sm" onclick="window.print()">🖨 Afdrukken / PDF</button><button class="btn sm" id="shareBtn">↗ Delen</button></div>
+  <div class="card ov">
+    <h1>${esc(t.title||'Training')}</h1>
+    <div class="muted">${esc(fmtDateLong(t.date))}${t.time?' · '+esc(t.time):''} · ${t.players||'?'} spelers · <b class="minutes${tot>(t.target||60)?' over':''}">${tot} min</b>${(t.present||trainers()).length?' · trainers: '+esc((t.present||trainers()).join(', ')):''}</div>
+    ${t.notes?`<p style="margin:8px 0 0">${esc(t.notes)}</p>`:''}
+    <table><thead><tr><th>Tijd</th><th>Onderdeel</th><th>Duur</th><th>Uitleg</th></tr></thead><tbody>${rows||'<tr><td colspan="4" class="muted">Nog geen onderdelen.</td></tr>'}</tbody></table>
+    ${used.size?`<h2 style="font-size:16px;margin-top:22px">Oefeningen in het kort</h2>`+[...used.values()].map(e=>`<div class="exd"><h3>${esc(e.name)} <span class="muted small">· ${e.dur} min · ${e.players?e.players[0]+'–'+e.players[1]:'?'} sp.</span></h3>${e.org?`<p>${esc(e.org)}</p>`:''}<ul>${(e.desc||[]).map(d=>`<li>${esc(d)}</li>`).join('')}</ul>${e.mat?`<p>Materiaal: ${esc(e.mat)}</p>`:''}</div>`).join(''):''}
+  </div>`;
+  $('#shareBtn').onclick=async()=>{ const url=location.href.replace(/\/print$/,''); try{ if(navigator.share) await navigator.share({title:t.title||'Training U7', url}); else { await navigator.clipboard.writeText(url); toast('Link gekopieerd'); } }catch(e){} };
+}
+
+/* ---------- start ---------- */
+(async function init(){
+  try{ state.lib=await api('/library'); }catch(e){ toast('Bibliotheek laden mislukt: '+e.message,true); }
+  route();
+  document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&state.view==='home') route(); });
+})();
+</script>
+</body>
+</html>

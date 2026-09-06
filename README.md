@@ -64,6 +64,17 @@ liever per zaak een eigen subdomein (`bakkerij-van-thillo.prototype.ocior.be`),
 dan is dat mogelijk met een kleine Cloudflare Worker die op basis van de
 hostname doorroutet — laat het weten en die bouwen we erbij.
 
+## U7-trainingsplanner (los van de prototypes)
+
+`sites/training/` is een kleine webapp waarmee de U7-trainers samen een
+training van 60 minuten samenstellen: oefeningen kiezen uit een vaste bank
+(gebaseerd op KNVB Rinus, O6/O7 op kwartveld), duur en volgorde aanpassen,
+stations voor meerdere groepen, wie wat uitlegt, en een printbaar overzicht.
+Geen login: iedereen met de link kan bewerken. De data staat in de
+KV-namespace `TRAINING`, bediend door `api/index.js` (zie `wrangler.toml`).
+
+Live: `https://prototype.ocior.be/training/`
+
 ## Wedstrijdbot (los van de prototypes)
 
 In `wedstrijden/` zit een apart script dat 's nachts gratis wedstrijden zoekt

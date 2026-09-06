@@ -100,6 +100,25 @@ zaak die je opbelde, staat dus tegelijk bij `gecontacteerd` én daar.
 Na het aanpassen van een status: `python3 sitegen/build_index.py` draaien,
 dan committen en pushen.
 
+## U7-trainingsplanner (geen prototype)
+
+`sites/training/` is een eigen webapp, geen ondernemersprototype: er hoort
+**geen brief** bij en hij staat niet op het overzicht. Live op
+`https://prototype.ocior.be/training/`.
+
+- Frontend: één self-contained `sites/training/index.html` met een vaste
+  oefeningenbank (149 KNVB Rinus-oefeningen O6/O7 kwartveld, in eigen
+  woorden herschreven, plus een paar organisatie-items). Nieuwe oefeningen
+  daarin toevoegen = de `LIB`-array aanpassen; eigen oefeningen van de
+  trainers zitten niet in de code maar in KV.
+- Backend: `api/index.js` (Worker, `/api/training/*`) met KV-namespace
+  `TRAINING` (zie root `wrangler.toml`). Geen login: iedereen met de link
+  kan lezen en schrijven; conflicten worden opgevangen met een versienummer
+  per training (409 → client herlaadt).
+- Lokaal testen: `npx wrangler dev --port 8787 --local`, dan
+  `http://localhost:8787/training/`. Lokale KV staat in `.wrangler/`
+  (genegeerd door git).
+
 ## Belangrijke regels
 
 - **Geen reviews of externe teksten woordelijk kopiëren** — auteursrecht.
