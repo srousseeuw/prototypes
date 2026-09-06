@@ -66,8 +66,9 @@ hostname doorroutet — laat het weten en die bouwen we erbij.
 
 ## U7-trainingsplanner (los van de prototypes)
 
-`sites/training/` is een kleine webapp waarmee de U7-trainers samen een
-training van 60 minuten samenstellen: oefeningen kiezen uit een vaste bank
+`sites/training/` is een kleine webapp waarmee de U7-trainers van KSV
+Wildert samen de eerstvolgende training (woensdag 18u-19u) samenstellen:
+één dashboard, geen archief. Oefeningen kiezen uit een vaste bank
 (gebaseerd op KNVB Rinus, O6/O7 op kwartveld), duur en volgorde aanpassen,
 stations voor meerdere groepen, wie wat uitlegt, en een printbaar overzicht.
 Geen login: iedereen met de link kan bewerken. De data staat in de

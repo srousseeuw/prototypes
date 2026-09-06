@@ -111,10 +111,14 @@ dan committen en pushen.
   woorden herschreven, plus een paar organisatie-items). Nieuwe oefeningen
   daarin toevoegen = de `LIB`-array aanpassen; eigen oefeningen van de
   trainers zitten niet in de code maar in KV.
+- Er is bewust maar **één training** (KV-key `t:huidige`): het dashboard
+  toont altijd de eerstvolgende trainingsdag uit de instellingen (KSV
+  Wildert, woensdag 18u) en de trainers passen die ene opbouw week na week
+  aan. Geen lijst, geen archief.
 - Backend: `api/index.js` (Worker, `/api/training/*`) met KV-namespace
   `TRAINING` (zie root `wrangler.toml`). Geen login: iedereen met de link
   kan lezen en schrijven; conflicten worden opgevangen met een versienummer
-  per training (409 → client herlaadt).
+  (409 → client herlaadt).
 - Lokaal testen: `npx wrangler dev --port 8787 --local`, dan
   `http://localhost:8787/training/`. Lokale KV staat in `.wrangler/`
   (genegeerd door git).

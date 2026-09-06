@@ -196,7 +196,7 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
   <div class="in">
     <a class="brand" href="#/"><i class="ball"></i><span id="brandTxt">U7 Trainingsplanner<small id="brandSub">60 minuten, kwartveld</small></span></a>
     <nav>
-      <a href="#/" id="navHome">Trainingen</a>
+      <a href="#/" id="navHome">Training</a>
       <a href="#/oefeningen" id="navLib">Oefeningen</a>
       <button type="button" id="navSettings" title="Instellingen" aria-label="Instellingen">⚙︎</button>
     </nav>
@@ -489,12 +489,26 @@ function startPoll(){
 function stopPoll(){ if(state.poll){ clearInterval(state.poll); state.poll=null; } }
 
 /* ---------- sjablonen ---------- */
+/* Eén training: het dashboard toont altijd de eerstvolgende trainingsdag
+   (uit de instellingen). Is die dag voorbij (na het einduur), dan schuift
+   het automatisch een week op; de inhoud blijft staan om aan te passen. */
+const CURRENT_ID='huidige';
+function nextTraining(){
+  const s=state.lib.settings||{};
+  const time=s.defaultTime||'';
+  const target=(state.t&&Number(state.t.target))||s.defaultTarget||60;
+  const now=new Date(); const d=new Date(now); d.setHours(12,0,0,0);
+  const hasWd=s.defaultWeekday!==undefined&&s.defaultWeekday!==''&&s.defaultWeekday!==null;
+  if(hasWd){
+    const wd=Number(s.defaultWeekday); d.setDate(d.getDate()+((wd-now.getDay()+7)%7));
+    if(d.toDateString()===now.toDateString()&&time){ const [h,m]=time.split(':').map(Number); const end=new Date(now); end.setHours(h,m+target,0,0); if(now>end) d.setDate(d.getDate()+7); }
+  }
+  const iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  return {date:hasWd?iso:'', time, end:time?addMin(time,target):'', label:(hasWd?fmtDateLong(iso):'Volgende training')+(time?' · '+time+(time?'–'+addMin(time,target):''):'')};
+}
 function blankTraining(){
   const s=state.lib.settings||{};
-  const d=new Date(); d.setHours(12,0,0,0);
-  if(s.defaultWeekday!==undefined&&s.defaultWeekday!==''&&s.defaultWeekday!==null){ const wd=Number(s.defaultWeekday); d.setDate(d.getDate()+((wd-d.getDay()+7)%7)); }
-  const date=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  return {title:'', date, time:s.defaultTime||'', players: s.defaultPlayers||12, target: s.defaultTarget||60, notes:'', blocks:[]};
+  return {title:'', players: s.defaultPlayers||12, target: s.defaultTarget||60, notes:'', blocks:[]};
 }
 function single(ex, coach, dur){ const e=getEx(ex); return {id:uid(), kind:'single', duration:dur||(e?e.dur:10), items:[{ex, coach:coach||''}], note:''}; }
 function stationsBlock(exIds, dur){ return {id:uid(), kind:'stations', duration:dur, rotate:true, items:exIds.map(ex=>({ex, coach:''})), note:''}; }
@@ -518,18 +532,22 @@ function templateStandard(){
 window.addEventListener('hashchange', route);
 async function route(){
   const h=location.hash||'#/';
-  document.querySelectorAll('.top nav a').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===h.split('/').slice(0,2).join('/')));
+  const lib=h.startsWith('#/oefeningen');
+  $('#navHome').classList.toggle('active',!lib); $('#navLib').classList.toggle('active',lib);
   closeSheet();
-  const m=h.match(/^#\/t\/([a-z0-9]+)(\/print)?$/);
-  if(m){
-    if(state.tid!==m[1]||!state.t){ state.tid=m[1]; state.t=null; render(); try{ state.t=await api('/trainings/'+m[1]); }catch(e){ state.t=null; state.tid=null; toast('Training niet gevonden',true); location.hash='#/'; return; } }
-    state.view=m[2]?'print':'edit'; render(); startPoll(); return;
+  if(h.startsWith('#/oefeningen')){ stopPoll(); state.view='lib'; render(); return; }
+  state.view=h.startsWith('#/print')?'print':'edit';
+  if(!state.t){
+    state.tid=CURRENT_ID; render();
+    try{ state.t=await api('/trainings/'+CURRENT_ID); }
+    catch(e){
+      if(e.status!==404){ toast('Training laden mislukt: '+e.message,true); return; }
+      // Nog geen training in de opslag: start met de standaardopbouw.
+      try{ state.t=await api('/trainings/'+CURRENT_ID,{method:'PUT',body:{doc:templateStandard()}}); }
+      catch(e2){ toast('Aanmaken mislukt: '+e2.message,true); return; }
+    }
   }
-  stopPoll(); state.tid=null; state.t=null;
-  if(h.startsWith('#/oefeningen')){ state.view='lib'; render(); return; }
-  state.view='home'; render();
-  try{ state.list=(await api('/trainings')).trainings; }catch(e){ state.list=[]; toast('Kon trainingen niet laden: '+e.message,true); }
-  render();
+  render(); startPoll();
 }
 
 /* ---------- render ---------- */
@@ -537,34 +555,21 @@ function render(){
   const app=$('#app');
   const s=state.lib.settings||{};
   $('#brandSub').textContent = s.club ? s.club+' · U7' : '60 minuten, kwartveld';
-  if(state.view==='home') return renderHome(app);
   if(state.view==='lib') return renderLib(app);
   if(state.view==='edit') return renderEdit(app);
   if(state.view==='print') return renderPrint(app);
 }
 
-function renderHome(app){
-  const list=state.list;
-  let html=`<div class="pagehead"><h1>Trainingen</h1><button class="btn primary" id="btnNew">＋ Nieuwe training</button></div>`;
-  if(!trainers().length) html+=`<div class="card" style="padding:12px 14px;margin-bottom:12px" class="small"><b>Tip:</b> zet eerst de namen van de trainers in <button class="btn ghost sm" id="tipSettings">⚙︎ Instellingen</button>, dan kan je per oefening kiezen wie uitlegt.</div>`;
-  if(list===null) html+=`<div class="empty">Laden…</div>`;
-  else if(!list.length) html+=`<div class="empty"><div class="big">📋</div>Nog geen trainingen.<br>Maak de eerste aan, iedereen met de link ziet ze meteen.</div>`;
-  else html+=`<div class="tlist">`+list.map(t=>{const d=fmtDate(t.date); const over=(t.minutes||0)>60; return `<a class="card titem" href="#/t/${t.id}"><div class="date"><span>${d.w}</span><b>${d.d}</b><span>${d.m}</span></div><div class="grow"><h3>${esc(t.title||'Training')}</h3><div class="small muted">${t.time?esc(t.time)+' · ':''}<span class="minutes${over?' over':''}">${t.minutes||0} min</span> · ${t.blocks||0} onderdelen</div></div><span class="chev">›</span></a>`;}).join('')+`</div>`;
-  app.innerHTML=html;
-  $('#btnNew').onclick=openNewSheet;
-  const ts=$('#tipSettings'); if(ts) ts.onclick=openSettings;
-}
-
-function openNewSheet(){
-  sheet(`<h2>Nieuwe training</h2>`,`
+function openResetSheet(){
+  sheet(`<h2>Opnieuw beginnen</h2>`,`<p class="muted small" style="margin:0 0 10px">De huidige opbouw wordt vervangen. Dat geldt meteen voor iedereen met de link.</p>
     <div class="exlist">
       <button class="card exrow" data-tpl="std"><div class="cat dribbel"></div><div class="t"><b>Standaardopbouw U7 (60 min)</b><span>Kring · tikspel · voetbalfit · 3 stations (8' elk) · drinken · 4 tegen 4 · afsluiting</span></div></button>
       <button class="card exrow" data-tpl="blank"><div class="cat overig"></div><div class="t"><b>Leeg beginnen</b><span>Zelf onderdelen toevoegen</span></div></button>
     </div>`,'');
-  document.querySelectorAll('[data-tpl]').forEach(b=>b.onclick=async()=>{
-    const doc=b.dataset.tpl==='std'?templateStandard():blankTraining();
+  document.querySelectorAll('[data-tpl]').forEach(b=>b.onclick=()=>{
+    const fresh=b.dataset.tpl==='std'?templateStandard():blankTraining();
     closeSheet();
-    try{ const r=await api('/trainings',{method:'POST',body:{doc}}); location.hash='#/t/'+r.id; }catch(e){ toast('Aanmaken mislukt: '+e.message,true); }
+    mutate(t=>{ t.title=fresh.title; t.notes=''; t.blocks=fresh.blocks; });
   });
 }
 
@@ -577,7 +582,8 @@ function renderSummary(){
   const fill=$('#sumFill'); if(fill){ fill.style.width=Math.min(100,tot/target*100)+'%'; fill.className='fill'+(tot>target?' over':tot>=target-3?' near':''); }
   const rest=$('#sumRest'); if(rest) rest.textContent= tot>target ? (tot-target)+' min te veel' : tot===target ? 'perfect op tijd' : (target-tot)+' min over';
   // starttijden
-  let cur=0; document.querySelectorAll('.block').forEach(el=>{ const b=t.blocks.find(x=>x.id===el.dataset.id); if(!b) return; const tc=el.querySelector('.tcol b'); const ts=el.querySelector('.tcol span'); if(tc) tc.textContent=t.time?addMin(t.time,cur):(cur+"'"); if(ts) ts.textContent=(b.duration||0)+' min'; cur+=Number(b.duration)||0; });
+  const time=nextTraining().time;
+  let cur=0; document.querySelectorAll('.block').forEach(el=>{ const b=t.blocks.find(x=>x.id===el.dataset.id); if(!b) return; const tc=el.querySelector('.tcol b'); const ts=el.querySelector('.tcol span'); if(tc) tc.textContent=time?addMin(time,cur):(cur+"'"); if(ts) ts.textContent=(b.duration||0)+' min'; cur+=Number(b.duration)||0; });
 }
 
 function coachSelect(val, attrs){
@@ -592,9 +598,10 @@ function renderEdit(app){
   if(!t){ app.innerHTML='<div class="empty">Laden…</div>'; return; }
   const tr=trainers();
   const groupsHint=n=>{ const p=Number(t.players)||0; if(!p||!n) return ''; const lo=Math.floor(p/n), hi=Math.ceil(p/n); return `${n} groepen van ${lo===hi?lo:lo+'–'+hi}`; };
+  const nt=nextTraining();
   let cur=0;
   const blocks=(t.blocks||[]).map((b,i)=>{
-    const start=t.time?addMin(t.time,cur):(cur+"'"); cur+=Number(b.duration)||0;
+    const start=nt.time?addMin(nt.time,cur):(cur+"'"); cur+=Number(b.duration)||0;
     let body;
     if(b.kind==='stations'){
       const per=b.rotate&&b.items.length?Math.round((b.duration||0)/b.items.length):null;
@@ -621,12 +628,10 @@ function renderEdit(app){
   }).join('');
 
   app.innerHTML=`
-  <div class="pagehead noprint"><a class="btn sm" href="#/">‹ Trainingen</a><span class="grow"></span><span class="status ok" id="saveStatus"><i></i><span>opgeslagen</span></span><a class="btn sm" href="#/t/${state.tid}/print">📄 Overzicht</a></div>
+  <div class="pagehead noprint"><div class="grow"><h1 style="font-size:18px">${esc(nt.label)}</h1><span class="status ok" id="saveStatus"><i></i><span>opgeslagen</span></span></div><a class="btn sm" href="#/print">📄 Overzicht</a><button class="btn sm" id="btnReset" title="Opnieuw beginnen">↺</button></div>
   <div class="card head">
-    <input class="title" placeholder="Naam van de training (bv. Dribbelen & scoren)" value="${esc(t.title||'')}" data-f="title">
+    <input class="title" placeholder="Thema van deze training (bv. Dribbelen & scoren)" value="${esc(t.title||'')}" data-f="title">
     <div class="grid3">
-      <label class="field">Datum<input type="date" value="${esc(t.date||'')}" data-f="date"></label>
-      <label class="field">Startuur<input type="time" value="${esc(t.time||'')}" data-f="time"></label>
       <label class="field">Spelers<input type="number" inputmode="numeric" min="1" max="30" value="${esc(t.players||'')}" data-f="players"></label>
       <label class="field">Doel (min)<input type="number" inputmode="numeric" min="10" max="180" value="${esc(t.target||60)}" data-f="target"></label>
     </div>
@@ -642,7 +647,7 @@ function renderEdit(app){
   app.querySelectorAll('[data-f]').forEach(el=>{
     const f=el.dataset.f;
     el.addEventListener('input',()=>{ mutate(t=>{ t[f]=(f==='players'||f==='target')?Number(el.value):el.value; },{noRender:true}); });
-    if(f==='time'||f==='players'||f==='target') el.addEventListener('change',()=>render());
+    if(f==='players'||f==='target') el.addEventListener('change',()=>render());
   });
   app.querySelectorAll('[data-present]').forEach(cb=>cb.onchange=()=>{ mutate(t=>{ const cur=new Set(t.present||trainers()); cb.checked?cur.add(cb.dataset.present):cur.delete(cb.dataset.present); t.present=trainers().filter(n=>cur.has(n)); }); });
   // blocks
@@ -662,6 +667,7 @@ function renderEdit(app){
   $('#addSingle').onclick=addS; $('#addSingle2').onclick=addS;
   $('#addStations').onclick=()=>mutate(t=>{ const b=stationsBlock([null,null,null],24); b.items.forEach((it,i)=>it.coach=trainers()[i]||''); t.blocks.push(b); });
   $('#addText').onclick=()=>openTextEdit(null,null);
+  $('#btnReset').onclick=openResetSheet;
   initDrag();
 }
 function autosize(ta){ ta.style.height='auto'; ta.style.height=(ta.scrollHeight+2)+'px'; }
@@ -828,9 +834,10 @@ function renderLib(app){
 /* ---------- overzicht / print ---------- */
 function renderPrint(app){
   const t=state.t; if(!t){ app.innerHTML='<div class="empty">Laden…</div>'; return; }
+  const nt=nextTraining();
   let cur=0; const used=new Map();
   const rows=(t.blocks||[]).map(b=>{
-    const start=t.time?addMin(t.time,cur):(cur+"'"); const end=t.time?addMin(t.time,cur+(Number(b.duration)||0)):((cur+(Number(b.duration)||0))+"'"); cur+=Number(b.duration)||0;
+    const start=nt.time?addMin(nt.time,cur):(cur+"'"); const end=nt.time?addMin(nt.time,cur+(Number(b.duration)||0)):((cur+(Number(b.duration)||0))+"'"); cur+=Number(b.duration)||0;
     b.items.forEach(it=>{ const e=it.ex&&getEx(it.ex); if(e&&!used.has(e.id)) used.set(e.id,e); });
     let what, who;
     if(b.kind==='stations'){
@@ -841,22 +848,24 @@ function renderPrint(app){
     return `<tr><td class="t">${start}<br><span class="muted small">${end}</span></td><td>${what}${b.note?`<div class="small muted">${esc(b.note)}</div>`:''}</td><td>${b.duration||0}'</td><td>${esc(who)}</td></tr>`;
   }).join('');
   const tot=totals(t);
-  app.innerHTML=`<div class="pagehead noprint"><a class="btn sm" href="#/t/${state.tid}">‹ Bewerken</a><span class="grow"></span><button class="btn sm" onclick="window.print()">🖨 Afdrukken / PDF</button><button class="btn sm" id="shareBtn">↗ Delen</button></div>
+  const s=state.lib.settings||{};
+  app.innerHTML=`<div class="pagehead noprint"><a class="btn sm" href="#/">‹ Bewerken</a><span class="grow"></span><button class="btn sm" onclick="window.print()">🖨 Afdrukken / PDF</button><button class="btn sm" id="shareBtn">↗ Delen</button></div>
   <div class="card ov">
-    <h1>${esc(t.title||'Training')}</h1>
-    <div class="muted">${esc(fmtDateLong(t.date))}${t.time?' · '+esc(t.time):''} · ${t.players||'?'} spelers · <b class="minutes${tot>(t.target||60)?' over':''}">${tot} min</b>${(t.present||trainers()).length?' · trainers: '+esc((t.present||trainers()).join(', ')):''}</div>
+    <h1>${esc(t.title||('Training U7'+(s.club?' · '+s.club:'')))}</h1>
+    <div class="muted">${esc(nt.label)} · ${t.players||'?'} spelers · <b class="minutes${tot>(t.target||60)?' over':''}">${tot} min</b>${(t.present||trainers()).length?' · trainers: '+esc((t.present||trainers()).join(', ')):''}</div>
     ${t.notes?`<p style="margin:8px 0 0">${esc(t.notes)}</p>`:''}
     <table><thead><tr><th>Tijd</th><th>Onderdeel</th><th>Duur</th><th>Uitleg</th></tr></thead><tbody>${rows||'<tr><td colspan="4" class="muted">Nog geen onderdelen.</td></tr>'}</tbody></table>
     ${used.size?`<h2 style="font-size:16px;margin-top:22px">Oefeningen in het kort</h2>`+[...used.values()].map(e=>`<div class="exd"><h3>${esc(e.name)} <span class="muted small">· ${e.dur} min · ${e.players?e.players[0]+'–'+e.players[1]:'?'} sp.</span></h3>${e.org?`<p>${esc(e.org)}</p>`:''}<ul>${(e.desc||[]).map(d=>`<li>${esc(d)}</li>`).join('')}</ul>${e.mat?`<p>Materiaal: ${esc(e.mat)}</p>`:''}</div>`).join(''):''}
   </div>`;
-  $('#shareBtn').onclick=async()=>{ const url=location.href.replace(/\/print$/,''); try{ if(navigator.share) await navigator.share({title:t.title||'Training U7', url}); else { await navigator.clipboard.writeText(url); toast('Link gekopieerd'); } }catch(e){} };
+  $('#shareBtn').onclick=async()=>{ const url=location.origin+location.pathname; try{ if(navigator.share) await navigator.share({title:t.title||'Training U7', url}); else { await navigator.clipboard.writeText(url); toast('Link gekopieerd'); } }catch(e){} };
 }
 
 /* ---------- start ---------- */
 (async function init(){
   try{ state.lib=await api('/library'); }catch(e){ toast('Bibliotheek laden mislukt: '+e.message,true); }
   route();
-  document.addEventListener('visibilitychange',()=>{ if(!document.hidden&&state.view==='home') route(); });
+  // Terug in beeld (bv. telefoon ontgrendeld): datum/uur herberekenen en verse versie ophalen.
+  document.addEventListener('visibilitychange',async()=>{ if(document.hidden||!state.t||state.dirty||state.saving) return; try{ const r=await api('/trainings/'+CURRENT_ID); if(r.version!==state.t.version) state.t=r; }catch(e){} render(); });
 })();
 </script>
 </body>
