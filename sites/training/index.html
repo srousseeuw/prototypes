@@ -63,6 +63,15 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 .badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;color:#fff;background:var(--muted);white-space:nowrap}
 .badge.warm{background:var(--cone)}.badge.fit{background:#d9a400}.badge.dribbel{background:var(--green)}.badge.schiet{background:var(--coral)}.badge.v1{background:var(--blue)}.badge.partij{background:var(--purple)}.badge.overig{background:#7b8a80}
 .badge.eigen{background:#fff;color:var(--pitch);border:1px solid var(--pitch)}
+.warn{color:var(--coral)!important}
+.warnnote{display:block;color:var(--coral);font-size:12px;font-weight:700}
+.exrow.bad .t b{color:var(--coral)}
+.exrow.bad .cat{opacity:.4}
+.matcard{padding:12px 14px;margin-top:10px}
+.matcard h2{font-size:13px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.mat{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.mat span{background:var(--bg);border-radius:8px;padding:5px 10px;font-weight:600;font-size:14px}
+.mat span b{color:var(--pitch);margin-right:3px}
 .empty{text-align:center;padding:40px 16px;color:var(--muted)}
 .empty .big{font-size:44px;margin-bottom:8px}
 .toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;opacity:0;transition:.25s;z-index:60;max-width:92vw;text-align:center;pointer-events:none}
@@ -149,7 +158,7 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .search{width:100%;border:1px solid var(--edge);border-radius:12px;padding:10px 12px;font-size:16px;min-height:44px;margin-bottom:8px}
 .exlist{display:grid;gap:8px}
-.exrow{display:flex;gap:10px;align-items:center;padding:10px 12px;text-align:left;width:100%;background:#fff}
+.exrow{display:flex;gap:10px;align-items:center;padding:10px 12px;text-align:left;width:100%;background:#fff;cursor:pointer}
 .exrow .cat{flex:none;width:10px;align-self:stretch;border-radius:6px;background:var(--muted)}
 .exrow .cat.warm{background:var(--cone)}.exrow .cat.fit{background:#d9a400}.exrow .cat.dribbel{background:var(--green)}.exrow .cat.schiet{background:var(--coral)}.exrow .cat.v1{background:var(--blue)}.exrow .cat.partij{background:var(--purple)}.exrow .cat.overig{background:#7b8a80}
 .exrow .t{flex:1;min-width:0}
@@ -433,6 +442,52 @@ function getEx(id){ return allEx().find(e=>e.id===id); }
 function exName(item){ if(!item) return ''; if(item.title) return item.title; const e=getEx(item.ex); return e?e.name:'(oefening verwijderd)'; }
 function trainers(){ return (state.lib.trainers||[]).filter(Boolean); }
 
+/* ---------- past de oefening bij dit aantal spelers? ---------- */
+function fits(e, n){
+  if(!e||!e.players||!n) return null;
+  if(n<e.players[0]) return 'te weinig spelers (minstens '+e.players[0]+')';
+  if(n>e.players[1]) return 'te veel spelers (hoogstens '+e.players[1]+')';
+  return null;
+}
+function playersFor(block, t){ const n=Number(t.players)||0; return block.kind==='stations'&&block.items.length?Math.ceil(n/block.items.length):n; }
+
+/* ---------- materiaal afleiden uit de oefeningen ----------
+   De materiaalvelden zijn vrije tekst ("1 bal per kind, 8 hoedjes, 2 kleine
+   doeltjes"). We lezen aantal + soort, rekenen "per kind/duo/groepje" om naar
+   het aantal spelers, tellen stations (gelijktijdig) op en nemen over de
+   onderdelen heen (na elkaar) het maximum. Een schatting, geen inventaris. */
+const MAT_KEYS=[[/\bbal(len)?\b/,'ballen'],[/hoedje|kegel/,'hoedjes'],[/\bpion/,'pionnen'],[/klein(e)? doel/,'kleine doeltjes'],[/pupillendoel|groot doel|grote doelen/,'pupillendoelen'],[/hesje/,'hesjes']];
+const MAT_ORDER=['ballen','hoedjes','pionnen','kleine doeltjes','pupillendoelen','hesjes'];
+function parseMat(mat, n){
+  const out={}; if(!mat||/^[—\-\s]*$/.test(mat)) return out;
+  mat.split(/,|;/).forEach(tok=>{
+    tok=tok.trim().toLowerCase(); if(!tok) return;
+    const m=tok.match(/^(\d+)(?:\s*(?:à|a|-|–|tot)\s*(\d+))?\s*(.*)$/);
+    let qty=m?Number(m[2]||m[1]):null, name=m?m[3]:tok, per=1;
+    if(/per kind|per speler/.test(name)) per=n;
+    else if(/per duo|per tweetal/.test(name)) per=Math.ceil(n/2);
+    else if(/per groepje|per team|per drietal/.test(name)) per=Math.ceil(n/3);
+    else if(/per veldje|per plus|per station|per slalom|per parcours/.test(name)) per=Math.max(1,Math.ceil(n/4));
+    let key=null; for(const [re,k] of MAT_KEYS){ if(re.test(name)){ key=k; break; } }
+    if(!key) key=name.replace(/\bper .*$/,'').replace(/\(.*?\)/g,'').trim()||'materiaal';
+    if(qty===null){ qty={ballen:Math.max(4,Math.ceil(n/2)),hesjes:n,hoedjes:8,pionnen:6,'kleine doeltjes':2,pupillendoelen:1}[key]||1; per=1; }
+    if(/helft/.test(name)){ qty=Math.ceil(n/2); per=1; }
+    out[key]=(out[key]||0)+qty*per;
+  });
+  return out;
+}
+function materialsFor(t){
+  const need={};
+  (t.blocks||[]).forEach(b=>{
+    const n=playersFor(b,t); const blk={};
+    b.items.forEach(it=>{ const e=it.ex&&getEx(it.ex); if(!e) return; const m=parseMat(e.mat,n); for(const k in m) blk[k]=(blk[k]||0)+m[k]; });
+    for(const k in blk) need[k]=Math.max(need[k]||0,blk[k]);
+  });
+  const keys=Object.keys(need).sort((a,b)=>{ const ia=MAT_ORDER.indexOf(a), ib=MAT_ORDER.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib)||a.localeCompare(b); });
+  return keys.map(k=>({key:k, qty:need[k]}));
+}
+function matHtml(t){ const list=materialsFor(t); if(!list.length) return '<span class="muted small">Nog geen oefeningen gekozen.</span>'; return `<div class="mat">${list.map(m=>`<span><b>${m.qty}</b>${esc(m.key)}</span>`).join('')}</div>`; }
+
 /* ---------- bibliotheek opslaan ---------- */
 let libSaveTimer;
 async function saveLib(){
@@ -606,12 +661,12 @@ function renderEdit(app){
     if(b.kind==='stations'){
       const per=b.rotate&&b.items.length?Math.round((b.duration||0)/b.items.length):null;
       body=`<div class="name"><h3>Stations <small>${groupsHint(b.items.length)}${per?` · ${b.rotate?'doorschuiven om de '+per+' min':''}`:''}</small></h3></div>
-      <div class="stations">${b.items.map((it,j)=>`<div class="station"><span class="lbl">${String.fromCharCode(65+j)}</span><button class="sname${it.ex||it.title?'':' empty'}" data-pick="${b.id}:${j}">${esc(exName(it))||'kies een oefening…'}</button>${coachSelect(it.coach,`data-coach="${b.id}:${j}"`)}<button class="mini" data-info="${b.id}:${j}" title="Details" ${it.ex||it.title?'':'disabled'}>ℹ︎</button><button class="mini del" data-delst="${b.id}:${j}" title="Station verwijderen">✕</button></div>`).join('')}
+      <div class="stations">${b.items.map((it,j)=>{ const w=fits(getEx(it.ex), playersFor(b,t)); return `<div class="station"><span class="lbl">${String.fromCharCode(65+j)}</span><button class="sname${it.ex||it.title?'':' empty'}${w?' warn':''}" data-pick="${b.id}:${j}">${esc(exName(it))||'kies een oefening…'}${w?`<span class="warnnote">⚠ ${esc(w)} · groep van ${playersFor(b,t)}</span>`:''}</button>${coachSelect(it.coach,`data-coach="${b.id}:${j}"`)}<button class="mini" data-info="${b.id}:${j}" title="Details" ${it.ex||it.title?'':'disabled'}>ℹ︎</button><button class="mini del" data-delst="${b.id}:${j}" title="Station verwijderen">✕</button></div>`; }).join('')}
       ${b.items.length<4?`<button class="btn ghost sm" data-addst="${b.id}" style="justify-self:start">＋ station</button>`:''}</div>
       <label class="rot"><input type="checkbox" data-rot="${b.id}" ${b.rotate?'checked':''}> groepen schuiven door (elke groep doet elk station)</label>`;
     }else{
-      const it=b.items[0]||{}; const e=getEx(it.ex);
-      body=`<div class="name"><h3 data-info="${b.id}:0">${esc(exName(it))||'(geen oefening)'}<small>${e?esc(CATS[e.cat].short)+' · '+e.players[0]+'–'+e.players[1]+' spelers':(it.title?'eigen tekst':'')}</small></h3><button class="mini" data-info="${b.id}:0" title="Details">ℹ︎</button></div>
+      const it=b.items[0]||{}; const e=getEx(it.ex); const w=fits(e, playersFor(b,t));
+      body=`<div class="name"><h3 data-info="${b.id}:0" class="${w?'warn':''}">${esc(exName(it))||'(geen oefening)'}<small>${e?esc(CATS[e.cat].short)+' · '+e.players[0]+'–'+e.players[1]+' spelers':(it.title?'eigen tekst':'')}</small>${w?`<span class="warnnote">⚠ ${esc(w)} · jullie zijn met ${t.players||0}</span>`:''}</h3><button class="mini" data-info="${b.id}:0" title="Details">ℹ︎</button></div>
       <div class="ctrls">${coachSelect(it.coach,`data-coach="${b.id}:0"`)}</div>`;
     }
     return `<div class="card block" data-id="${b.id}">
@@ -631,13 +686,9 @@ function renderEdit(app){
   <div class="pagehead noprint"><div class="grow"><h1 style="font-size:18px">${esc(nt.label)}</h1><span class="status ok" id="saveStatus"><i></i><span>opgeslagen</span></span></div><a class="btn sm" href="#/print">📄 Overzicht</a><button class="btn sm" id="btnReset" title="Opnieuw beginnen">↺</button></div>
   <div class="card head">
     <input class="title" placeholder="Thema van deze training (bv. Dribbelen & scoren)" value="${esc(t.title||'')}" data-f="title">
-    <div class="grid3">
-      <label class="field">Spelers<input type="number" inputmode="numeric" min="1" max="30" value="${esc(t.players||'')}" data-f="players"></label>
-      <label class="field">Doel (min)<input type="number" inputmode="numeric" min="10" max="180" value="${esc(t.target||60)}" data-f="target"></label>
-    </div>
-    <div class="field">Aanwezige trainers${tr.length?'':' <span class="muted">(nog geen ingesteld · ⚙︎)</span>'}<div class="row" style="gap:6px">${tr.map(n=>`<label class="chip${(t.present||tr).includes(n)?' on':''}" style="cursor:pointer"><input type="checkbox" class="sr" data-present="${esc(n)}" ${(t.present||tr).includes(n)?'checked':''}>${esc(n)}</label>`).join('')||'<span class="muted small">Voeg trainers toe via het tandwiel rechtsboven.</span>'}</div></div>
-    <textarea class="note" placeholder="Algemene notities (thema, materiaal, wie zet het veld klaar…)" data-f="notes" rows="2">${esc(t.notes||'')}</textarea>
+    <label class="field" style="max-width:220px">Aantal spelers<input type="number" inputmode="numeric" min="1" max="30" value="${esc(t.players||'')}" data-f="players"></label>
   </div>
+  <div class="card matcard"><h2>Materiaal klaarzetten</h2>${matHtml(t)}<div class="small muted" style="margin-top:6px">Geschat uit de gekozen oefeningen voor ${t.players||0} spelers; stations tellen samen, onderdelen na elkaar delen het materiaal.</div></div>
   <div class="timeline" id="timeline">${blocks||'<div class="empty">Nog geen onderdelen. Voeg een oefening of stations toe.</div>'}</div>
   <div class="addrow noprint"><button class="btn primary" id="addSingle">＋ Oefening</button><button class="btn" id="addStations" style="border-color:var(--purple);color:var(--purple)">＋ Stations (groepen)</button><button class="btn" id="addText">＋ Vrije tekst</button></div>
   <div class="sumbar noprint"><div class="in"><div class="bar"><div class="lbl"><span id="sumMin" class="minutes"></span><span id="sumRest" class="muted"></span></div><div class="track"><div class="fill" id="sumFill"></div></div></div><button class="btn primary" id="addSingle2">＋ Oefening</button></div></div>`;
@@ -646,10 +697,9 @@ function renderEdit(app){
   // header fields
   app.querySelectorAll('[data-f]').forEach(el=>{
     const f=el.dataset.f;
-    el.addEventListener('input',()=>{ mutate(t=>{ t[f]=(f==='players'||f==='target')?Number(el.value):el.value; },{noRender:true}); });
-    if(f==='players'||f==='target') el.addEventListener('change',()=>render());
+    el.addEventListener('input',()=>{ mutate(t=>{ t[f]=(f==='players')?Number(el.value):el.value; },{noRender:true}); });
+    if(f==='players') el.addEventListener('change',()=>render());
   });
-  app.querySelectorAll('[data-present]').forEach(cb=>cb.onchange=()=>{ mutate(t=>{ const cur=new Set(t.present||trainers()); cb.checked?cur.add(cb.dataset.present):cur.delete(cb.dataset.present); t.present=trainers().filter(n=>cur.has(n)); }); });
   // blocks
   const findB=id=>t.blocks.find(b=>b.id===id);
   app.querySelectorAll('[data-dur]').forEach(b=>b.onclick=()=>{ const [id,d]=b.dataset.dur.split(':'); mutate(t=>{ const bl=findB(id); bl.duration=Math.max(1,(Number(bl.duration)||0)+Number(d)); }); });
@@ -661,9 +711,9 @@ function renderEdit(app){
   app.querySelectorAll('[data-rot]').forEach(cb=>cb.onchange=()=>mutate(t=>{ findB(cb.dataset.rot).rotate=cb.checked; }));
   app.querySelectorAll('[data-addst]').forEach(b=>b.onclick=()=>mutate(t=>{ findB(b.dataset.addst).items.push({ex:null,coach:''}); }));
   app.querySelectorAll('[data-delst]').forEach(b=>b.onclick=()=>{ const [id,j]=b.dataset.delst.split(':'); mutate(t=>{ const bl=findB(id); bl.items.splice(Number(j),1); if(!bl.items.length) t.blocks=t.blocks.filter(x=>x.id!==id); }); });
-  app.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{ const [id,j]=b.dataset.pick.split(':'); openPicker(ex=>mutate(t=>{ const it=findB(id).items[Number(j)]; it.ex=ex.id; delete it.title; })); });
-  app.querySelectorAll('[data-info]').forEach(b=>b.onclick=()=>{ const [id,j]=b.dataset.info.split(':'); const bl=findB(id); const it=bl.items[Number(j)]; if(it.ex&&getEx(it.ex)) openDetail(getEx(it.ex), {onSwap:ex=>mutate(t=>{ it.ex=ex.id; delete it.title; })}); else openTextEdit(bl, it); });
-  const addS=()=>openPicker(ex=>mutate(t=>{ const tr=trainers(); t.blocks.push(single(ex.id, '', ex.dur)); }));
+  app.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{ const [id,j]=b.dataset.pick.split(':'); openPicker(ex=>mutate(t=>{ const it=findB(id).items[Number(j)]; it.ex=ex.id; delete it.title; }), playersFor(findB(id),t)); });
+  app.querySelectorAll('[data-info]').forEach(b=>b.onclick=()=>{ const [id,j]=b.dataset.info.split(':'); const bl=findB(id); const it=bl.items[Number(j)]; if(it.ex&&getEx(it.ex)) openDetail(getEx(it.ex), {onSwap:ex=>mutate(t=>{ it.ex=ex.id; delete it.title; }), n:playersFor(bl,t)}); else openTextEdit(bl, it); });
+  const addS=()=>openPicker(ex=>mutate(t=>{ t.blocks.push(single(ex.id, '', ex.dur)); }), Number(t.players)||0);
   $('#addSingle').onclick=addS; $('#addSingle2').onclick=addS;
   $('#addStations').onclick=()=>mutate(t=>{ const b=stationsBlock([null,null,null],24); b.items.forEach((it,i)=>it.coach=trainers()[i]||''); t.blocks.push(b); });
   $('#addText').onclick=()=>openTextEdit(null,null);
@@ -704,18 +754,18 @@ function sheet(head, body, foot){
 function closeSheet(){ $('#veil').className='veil'; const s=$('#sheet'); s.className='sheet'; s.innerHTML=''; document.body.style.overflow=''; }
 
 /* ---------- oefening kiezen ---------- */
-function exRow(e, extra){ return `<button class="card exrow" data-ex="${esc(e.id)}"><div class="cat ${e.cat}"></div><div class="t"><b>${esc(e.name)}${e.custom?' <span class="badge eigen">eigen</span>':''}</b><span>${esc(CATS[e.cat]?CATS[e.cat].short:e.cat)} · ${e.dur} min · ${e.players?e.players[0]+'–'+e.players[1]:'?'} spelers</span></div>${extra||''}</button>`; }
+function exRow(e, extra, n){ const w=fits(e,n); return `<div class="card exrow${w?' bad':''}" role="button" tabindex="0" data-ex="${esc(e.id)}"><div class="cat ${e.cat}"></div><div class="t"><b>${esc(e.name)}${e.custom?' <span class="badge eigen">eigen</span>':''}</b><span>${esc(CATS[e.cat]?CATS[e.cat].short:e.cat)} · ${e.dur} min · ${e.players?e.players[0]+'–'+e.players[1]:'?'} spelers</span>${w?`<span class="warnnote">⚠ ${esc(w)}</span>`:''}</div>${extra||''}</div>`; }
 function filterEx(){
   const q=state.q.trim().toLowerCase();
   return allEx().filter(e=>(!state.tab||e.cat===state.tab)&&(!q||(e.name+' '+(e.desc||[]).join(' ')+' '+(e.org||'')).toLowerCase().includes(q)));
 }
-function openPicker(onPick){
+function openPicker(onPick, n){
   const chips=`<div class="chips"><button class="chip${!state.tab?' on':''}" data-tab="">Alles</button>${Object.entries(CATS).map(([k,v])=>`<button class="chip${state.tab===k?' on':''}" data-tab="${k}">${v.short}</button>`).join('')}</div>`;
-  sheet(`<h2>Oefening kiezen</h2>`,`<input class="search" id="exq" placeholder="Zoek (bv. tikkertje, doeltjes, 1 tegen 1)…" value="${esc(state.q)}">${chips}<div class="exlist" id="exlist"></div>`,
+  sheet(`<h2>Oefening kiezen${n?` <span class="muted small" style="font-weight:500">voor ${n} spelers</span>`:''}</h2>`,`<input class="search" id="exq" placeholder="Zoek (bv. tikkertje, doeltjes, 1 tegen 1)…" value="${esc(state.q)}">${chips}<div class="exlist" id="exlist"></div>`,
     `<button class="btn" id="newCustom">＋ Eigen oefening schrijven</button>`);
-  const draw=()=>{ const list=filterEx(); $('#exlist').innerHTML=list.map(e=>exRow(e,`<button class="info" data-info="${esc(e.id)}" aria-label="Details">i</button>`)).join('')||'<div class="empty">Niets gevonden.</div>';
+  const draw=()=>{ const list=filterEx(); $('#exlist').innerHTML=list.map(e=>exRow(e,`<button class="info" data-info="${esc(e.id)}" aria-label="Details">i</button>`,n)).join('')||'<div class="empty">Niets gevonden.</div>';
     $('#exlist').querySelectorAll('[data-ex]').forEach(b=>b.onclick=ev=>{ if(ev.target.closest('[data-info]')) return; const e=getEx(b.dataset.ex); closeSheet(); onPick(e); });
-    $('#exlist').querySelectorAll('[data-info]').forEach(b=>b.onclick=ev=>{ ev.stopPropagation(); openDetail(getEx(b.dataset.info),{onPick, back:()=>openPicker(onPick)}); }); };
+    $('#exlist').querySelectorAll('[data-info]').forEach(b=>b.onclick=ev=>{ ev.stopPropagation(); openDetail(getEx(b.dataset.info),{onPick, back:()=>openPicker(onPick,n)}); }); };
   $('#exq').oninput=e=>{ state.q=e.target.value; draw(); };
   document.querySelectorAll('[data-tab]').forEach(c=>c.onclick=()=>{ state.tab=c.dataset.tab; document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===c)); draw(); });
   $('#newCustom').onclick=()=>openCustomForm(null, e=>{ onPick(e); });
@@ -744,7 +794,7 @@ function openDetail(e, opts={}){
   const q=id=>document.getElementById(id);
   if(q('dBack')) q('dBack').onclick=opts.back;
   if(q('dPick')) q('dPick').onclick=()=>{ closeSheet(); opts.onPick(e); };
-  if(q('dSwap')) q('dSwap').onclick=()=>openPicker(opts.onSwap);
+  if(q('dSwap')) q('dSwap').onclick=()=>openPicker(opts.onSwap, opts.n);
   if(q('dEdit')) q('dEdit').onclick=()=>openCustomForm(e, ()=>{ render(); });
   if(q('dCopy')) q('dCopy').onclick=()=>openCustomForm({...e, id:undefined, name:e.name+' (aangepast)', custom:true}, ne=>{ if(opts.onPick){ opts.onPick(ne); } else render(); });
 }
@@ -824,7 +874,7 @@ function renderLib(app){
   app.innerHTML=`<div class="pagehead"><h1>Oefeningen</h1><button class="btn primary" id="libNew">＋ Eigen oefening</button></div>
   <input class="search" id="libq" placeholder="Zoeken…" value="${esc(state.q)}">${chips}<div class="libgrid" id="libList"></div>
   <p class="small muted" style="margin-top:16px">De basisoefeningen zijn geïnspireerd op de KNVB Rinus-oefenstof voor O6/O7 op een kwartveld en in eigen woorden samengevat. Elke oefening linkt naar de originele tekening en video. Eigen oefeningen (label "eigen") zijn voor iedereen met de link zichtbaar en aanpasbaar.</p>`;
-  const draw=()=>{ const list=filterEx(); $('#libList').innerHTML=list.map(e=>exRow(e)).join('')||'<div class="empty">Niets gevonden.</div>'; $('#libList').querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>openDetail(getEx(b.dataset.ex))); };
+  const draw=()=>{ const list=filterEx(); $('#libList').innerHTML=list.map(e=>exRow(e,'',state.t?Number(state.t.players)||0:0)).join('')||'<div class="empty">Niets gevonden.</div>'; $('#libList').querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>openDetail(getEx(b.dataset.ex))); };
   $('#libq').oninput=e=>{ state.q=e.target.value; draw(); };
   app.querySelectorAll('[data-tab]').forEach(c=>c.onclick=()=>{ state.tab=c.dataset.tab; app.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===c)); draw(); });
   $('#libNew').onclick=()=>openCustomForm(null, ()=>render());
@@ -842,9 +892,9 @@ function renderPrint(app){
     let what, who;
     if(b.kind==='stations'){
       const per=b.rotate&&b.items.length?Math.round((b.duration||0)/b.items.length):null;
-      what=`<b>Stations</b>${per?` <span class="muted small">(doorschuiven om de ${per} min)</span>`:''}${b.items.map((it,j)=>`<span class="st"><b>${String.fromCharCode(65+j)}</b> ${esc(exName(it))||'—'}${it.coach?` <span class="muted">· ${esc(it.coach)}</span>`:''}</span>`).join('')}`;
+      what=`<b>Stations</b>${per?` <span class="muted small">(doorschuiven om de ${per} min)</span>`:''}${b.items.map((it,j)=>{ const w=fits(getEx(it.ex), playersFor(b,t)); return `<span class="st"><b>${String.fromCharCode(65+j)}</b> <span class="${w?'warn':''}">${esc(exName(it))||'—'}</span>${it.coach?` <span class="muted">· ${esc(it.coach)}</span>`:''}${w?` <span class="warnnote">⚠ ${esc(w)}</span>`:''}</span>`; }).join('')}`;
       who=b.items.map(it=>it.coach).filter(Boolean).join(', ');
-    }else{ what=`<b>${esc(exName(b.items[0]))}</b>`; who=b.items[0].coach||''; }
+    }else{ const w=fits(getEx(b.items[0].ex), playersFor(b,t)); what=`<b class="${w?'warn':''}">${esc(exName(b.items[0]))}</b>${w?`<span class="warnnote">⚠ ${esc(w)}</span>`:''}`; who=b.items[0].coach||''; }
     return `<tr><td class="t">${start}<br><span class="muted small">${end}</span></td><td>${what}${b.note?`<div class="small muted">${esc(b.note)}</div>`:''}</td><td>${b.duration||0}'</td><td>${esc(who)}</td></tr>`;
   }).join('');
   const tot=totals(t);
@@ -852,8 +902,8 @@ function renderPrint(app){
   app.innerHTML=`<div class="pagehead noprint"><a class="btn sm" href="#/">‹ Bewerken</a><span class="grow"></span><button class="btn sm" onclick="window.print()">🖨 Afdrukken / PDF</button><button class="btn sm" id="shareBtn">↗ Delen</button></div>
   <div class="card ov">
     <h1>${esc(t.title||('Training U7'+(s.club?' · '+s.club:'')))}</h1>
-    <div class="muted">${esc(nt.label)} · ${t.players||'?'} spelers · <b class="minutes${tot>(t.target||60)?' over':''}">${tot} min</b>${(t.present||trainers()).length?' · trainers: '+esc((t.present||trainers()).join(', ')):''}</div>
-    ${t.notes?`<p style="margin:8px 0 0">${esc(t.notes)}</p>`:''}
+    <div class="muted">${esc(nt.label)} · ${t.players||'?'} spelers · <b class="minutes${tot>(t.target||60)?' over':''}">${tot} min</b> · trainers: ${esc(trainers().join(', '))||'—'}</div>
+    <div style="margin-top:8px"><b class="small">Materiaal klaarzetten:</b> ${matHtml(t)}</div>
     <table><thead><tr><th>Tijd</th><th>Onderdeel</th><th>Duur</th><th>Uitleg</th></tr></thead><tbody>${rows||'<tr><td colspan="4" class="muted">Nog geen onderdelen.</td></tr>'}</tbody></table>
     ${used.size?`<h2 style="font-size:16px;margin-top:22px">Oefeningen in het kort</h2>`+[...used.values()].map(e=>`<div class="exd"><h3>${esc(e.name)} <span class="muted small">· ${e.dur} min · ${e.players?e.players[0]+'–'+e.players[1]:'?'} sp.</span></h3>${e.org?`<p>${esc(e.org)}</p>`:''}<ul>${(e.desc||[]).map(d=>`<li>${esc(d)}</li>`).join('')}</ul>${e.mat?`<p>Materiaal: ${esc(e.mat)}</p>`:''}</div>`).join(''):''}
   </div>`;
