@@ -79,6 +79,7 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 .toast.err{background:var(--coral)}
 .pagehead{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .pagehead h1{font-size:22px;flex:1;min-width:0}
+@media(max-width:560px){.pagehead h1{font-size:16px!important}}
 .status{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
 .status i{width:8px;height:8px;border-radius:50%;background:#9ab3a0;display:inline-block}
 .status.saving i{background:var(--yellow)}.status.ok i{background:var(--pitch-2)}.status.err i{background:var(--coral)}
@@ -95,9 +96,17 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 .minutes.over{color:var(--coral)}
 
 /* ---------- editor ---------- */
-.head{padding:14px;display:grid;gap:10px}
+.head{padding:12px 14px;display:grid;gap:10px}
 .head .title{font-size:20px;font-weight:800;border:0;border-bottom:2px dashed var(--edge);padding:6px 2px;background:transparent;width:100%;min-height:44px}
 .head .title:focus{outline:0;border-bottom-color:var(--pitch-2)}
+.titlerow{display:flex;align-items:center;gap:10px}
+.titlerow .title{flex:1;min-width:0}
+.players{flex:none;display:inline-flex;align-items:center;gap:4px;border:1px solid var(--edge);border-radius:12px;padding:0 8px 0 10px;height:44px;background:#fff}
+.players input{width:44px;border:0;text-align:center;font-weight:800;font-size:18px;color:var(--pitch);-moz-appearance:textfield;height:40px;padding:0}
+.players input::-webkit-inner-spin-button{-webkit-appearance:none}
+.players input:focus{outline:0}
+.players small{font-size:12px;color:var(--muted);font-weight:600}
+.players:focus-within{border-color:var(--pitch-2);outline:2px solid var(--pitch-2);outline-offset:1px}
 .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
 .timeline{margin-top:14px;display:flex;flex-direction:column;gap:10px;position:relative}
 .block{display:flex;gap:0;overflow:hidden;position:relative;transition:box-shadow .15s}
@@ -107,7 +116,7 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 .block .tcol span{font-size:11px;opacity:.85}
 .block .tcol .handle{margin-top:6px;width:36px;height:30px;border-radius:8px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;font-size:18px;letter-spacing:1px}
 .block .body{flex:1;min-width:0;padding:10px 12px;display:grid;gap:8px}
-.block .name{display:flex;align-items:flex-start;gap:8px}
+.block .name{display:flex;align-items:flex-start;gap:6px}
 .block .name h3{font-size:17px;flex:1;min-width:0;cursor:pointer}
 .block .name h3 small{display:block;font-size:12px;color:var(--muted);font-weight:500}
 .block .ctrls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
@@ -126,6 +135,8 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 .station .lbl{flex:none;width:26px;height:26px;border-radius:50%;background:var(--purple);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
 .station .sname{flex:1;min-width:140px;font-weight:600;cursor:pointer;text-align:left;background:transparent;border:0;padding:4px 0}
 .station .sname.empty{color:var(--muted);font-weight:500;font-style:italic}
+.station .coach select{max-width:110px}
+.station{gap:6px}
 .note{border:1px dashed var(--edge);border-radius:10px;padding:8px 10px;font-size:14px;width:100%;background:#fbfdfb;min-height:38px;resize:vertical}
 .note:focus{outline:2px solid var(--pitch-2)}
 .rot{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
@@ -559,7 +570,7 @@ function nextTraining(){
     if(d.toDateString()===now.toDateString()&&time){ const [h,m]=time.split(':').map(Number); const end=new Date(now); end.setHours(h,m+target,0,0); if(now>end) d.setDate(d.getDate()+7); }
   }
   const iso=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-  return {date:hasWd?iso:'', time, end:time?addMin(time,target):'', label:(hasWd?fmtDateLong(iso):'Volgende training')+(time?' · '+time+(time?'–'+addMin(time,target):''):'')};
+  return {date:hasWd?iso:'', time, end:time?addMin(time,target):'', label:(hasWd?fmtDateLong(iso).replace(/ \d{4}$/,''):'Volgende training')+(time?' · '+time+'–'+addMin(time,target):'')};
 }
 function blankTraining(){
   const s=state.lib.settings||{};
@@ -660,13 +671,13 @@ function renderEdit(app){
     let body;
     if(b.kind==='stations'){
       const per=b.rotate&&b.items.length?Math.round((b.duration||0)/b.items.length):null;
-      body=`<div class="name"><h3>Stations <small>${groupsHint(b.items.length)}${per?` · ${b.rotate?'doorschuiven om de '+per+' min':''}`:''}</small></h3></div>
+      body=`<div class="name"><h3>Stations <small>${groupsHint(b.items.length)}${per?` · ${b.rotate?'doorschuiven om de '+per+' min':''}`:''}</small></h3><button class="mini del" data-del="${b.id}" title="Verwijderen">🗑</button></div>
       <div class="stations">${b.items.map((it,j)=>{ const w=fits(getEx(it.ex), playersFor(b,t)); return `<div class="station"><span class="lbl">${String.fromCharCode(65+j)}</span><button class="sname${it.ex||it.title?'':' empty'}${w?' warn':''}" data-pick="${b.id}:${j}">${esc(exName(it))||'kies een oefening…'}${w?`<span class="warnnote">⚠ ${esc(w)} · groep van ${playersFor(b,t)}</span>`:''}</button>${coachSelect(it.coach,`data-coach="${b.id}:${j}"`)}<button class="mini" data-info="${b.id}:${j}" title="Details" ${it.ex||it.title?'':'disabled'}>ℹ︎</button><button class="mini del" data-delst="${b.id}:${j}" title="Station verwijderen">✕</button></div>`; }).join('')}
       ${b.items.length<4?`<button class="btn ghost sm" data-addst="${b.id}" style="justify-self:start">＋ station</button>`:''}</div>
       <label class="rot"><input type="checkbox" data-rot="${b.id}" ${b.rotate?'checked':''}> groepen schuiven door (elke groep doet elk station)</label>`;
     }else{
       const it=b.items[0]||{}; const e=getEx(it.ex); const w=fits(e, playersFor(b,t));
-      body=`<div class="name"><h3 data-info="${b.id}:0" class="${w?'warn':''}">${esc(exName(it))||'(geen oefening)'}<small>${e?esc(CATS[e.cat].short)+' · '+e.players[0]+'–'+e.players[1]+' spelers':(it.title?'eigen tekst':'')}</small>${w?`<span class="warnnote">⚠ ${esc(w)} · jullie zijn met ${t.players||0}</span>`:''}</h3><button class="mini" data-info="${b.id}:0" title="Details">ℹ︎</button></div>
+      body=`<div class="name"><h3 data-info="${b.id}:0" class="${w?'warn':''}">${esc(exName(it))||'(geen oefening)'}<small>${e?esc(CATS[e.cat].short)+' · '+e.players[0]+'–'+e.players[1]+' spelers':(it.title?'eigen tekst':'')}</small>${w?`<span class="warnnote">⚠ ${esc(w)} · jullie zijn met ${t.players||0}</span>`:''}</h3><button class="mini" data-info="${b.id}:0" title="Details">ℹ︎</button><button class="mini del" data-del="${b.id}" title="Verwijderen">🗑</button></div>
       <div class="ctrls">${coachSelect(it.coach,`data-coach="${b.id}:0"`)}</div>`;
     }
     return `<div class="card block" data-id="${b.id}">
@@ -676,7 +687,6 @@ function renderEdit(app){
           <span class="dur"><button data-dur="${b.id}:-1" aria-label="min 1 minuut">−</button><input type="number" inputmode="numeric" min="1" max="60" value="${b.duration||0}" data-durin="${b.id}"><span>min</span><button data-dur="${b.id}:1" aria-label="plus 1 minuut">+</button></span>
           <button class="mini" data-move="${b.id}:-1" title="Omhoog" ${i===0?'disabled':''}>↑</button>
           <button class="mini" data-move="${b.id}:1" title="Omlaag" ${i===t.blocks.length-1?'disabled':''}>↓</button>
-          <button class="mini del" data-del="${b.id}" title="Verwijderen">🗑</button>
         </div>
         <textarea class="note" placeholder="Notitie (bv. wie zet klaar, aandachtspunt)…" data-note="${b.id}" rows="1">${esc(b.note||'')}</textarea>
       </div></div>`;
@@ -685,8 +695,10 @@ function renderEdit(app){
   app.innerHTML=`
   <div class="pagehead noprint"><div class="grow"><h1 style="font-size:18px">${esc(nt.label)}</h1><span class="status ok" id="saveStatus"><i></i><span>opgeslagen</span></span></div><a class="btn sm" href="#/print">📄 Overzicht</a><button class="btn sm" id="btnReset" title="Opnieuw beginnen">↺</button></div>
   <div class="card head">
-    <input class="title" placeholder="Thema van deze training (bv. Dribbelen & scoren)" value="${esc(t.title||'')}" data-f="title">
-    <label class="field" style="max-width:220px">Aantal spelers<input type="number" inputmode="numeric" min="1" max="30" value="${esc(t.players||'')}" data-f="players"></label>
+    <div class="titlerow">
+      <input class="title" placeholder="Thema (bv. Dribbelen & scoren)" value="${esc(t.title||'')}" data-f="title">
+      <label class="players" title="Aantal spelers"><span>👥</span><input type="number" inputmode="numeric" min="1" max="30" value="${esc(t.players||'')}" data-f="players" aria-label="Aantal spelers"><small>spelers</small></label>
+    </div>
   </div>
   <div class="card matcard"><h2>Materiaal klaarzetten</h2>${matHtml(t)}<div class="small muted" style="margin-top:6px">Geschat uit de gekozen oefeningen voor ${t.players||0} spelers; stations tellen samen, onderdelen na elkaar delen het materiaal.</div></div>
   <div class="timeline" id="timeline">${blocks||'<div class="empty">Nog geen onderdelen. Voeg een oefening of stations toe.</div>'}</div>
