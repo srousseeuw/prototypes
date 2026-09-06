@@ -8,76 +8,46 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { --red: #E4032E; --red-dark: #b3021f; --ink: #141414; --paper: #ffffff; --paper-warm: #faf8f6; --line: #e8e4df; --line-2: #d9d3cc; --muted: #6d6a66; --font-display: 'Archivo Black', sans-serif; --font-body: 'Inter', sans-serif; }
+  :root { --red: #E4032E; --ink: #141414; --paper: #ffffff; --paper-warm: #faf8f6; --line: #e8e4df; --line-2: #d9d3cc; --muted: #6d6a66; --font-display: 'Archivo Black', sans-serif; --font-body: 'Inter', sans-serif; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--font-body); background: var(--paper-warm); color: var(--ink); line-height: 1.55; -webkit-text-size-adjust: 100%; }
   a { color: inherit; }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
 
-  .top { background: var(--ink); color: #fff; padding: 56px 0 44px; position: relative; overflow: hidden; }
-  .top::before { content: ""; position: absolute; right: -140px; top: -160px; width: 440px; height: 440px; border: 56px solid var(--red); border-radius: 50%; opacity: 0.12; }
-  .top .wrap { position: relative; }
-  .eyebrow { color: var(--red); font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.78rem; margin-bottom: 14px; }
-  h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 4.8vw, 3.2rem); line-height: 1; text-transform: uppercase; margin-bottom: 14px; }
-  .top p { max-width: 62ch; color: rgba(255,255,255,0.85); font-size: 1.05rem; }
-  .meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 22px; font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+  .top { background: var(--ink); color: #fff; padding: 48px 0 40px; }
+  .eyebrow { color: var(--red); font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.76rem; margin-bottom: 12px; }
+  h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4.5vw, 2.8rem); line-height: 1; text-transform: uppercase; margin-bottom: 12px; }
+  .top p { max-width: 58ch; color: rgba(255,255,255,0.8); font-size: 1rem; }
+  .meta { margin-top: 18px; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
   .meta b { color: #fff; font-weight: 700; }
 
-  /* legenda van de drie groepen */
-  .legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
-  .legend a { display: flex; gap: 12px; align-items: center; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 12px 14px; text-decoration: none; color: #fff; }
-  .legend a:hover { background: rgba(255,255,255,0.1); }
-  .legend .sq { width: 14px; height: 14px; flex: none; }
-  .legend b { display: block; font-size: 0.9rem; }
-  .legend span { font-size: 0.78rem; color: rgba(255,255,255,0.65); }
-
-  section { padding: 44px 0 0; }
-  section:last-of-type { padding-bottom: 72px; }
-  .grp { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
-  .grp .sq { width: 16px; height: 16px; flex: none; }
+  section { padding: 40px 0 0; }
+  section:last-of-type { padding-bottom: 64px; }
+  .grp { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .grp .sq { width: 14px; height: 14px; flex: none; }
   .sq.pub { background: var(--red); }
   .sq.adm { background: var(--ink); }
-  .sq.brd { background: transparent; border: 2.5px solid var(--ink); }
-  h2 { font-family: var(--font-display); text-transform: uppercase; font-size: 1.25rem; }
-  .who { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
-  .who.pub { background: var(--red); color: #fff; }
-  .who.adm { background: var(--ink); color: #fff; }
-  .who.brd { border: 2px solid var(--ink); color: var(--ink); }
-  .sub { color: var(--muted); margin-bottom: 20px; max-width: 66ch; }
+  .sq.brd { border: 2.5px solid var(--ink); }
+  h2 { font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem; }
+  .who { font-size: 0.74rem; font-weight: 700; color: var(--muted); }
 
-  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .card { background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; transition: transform .12s ease, box-shadow .12s ease; }
-  .card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.08); }
-  .card.pub { border-top: 5px solid var(--red); }
-  .card.adm { border-top: 5px solid var(--ink); }
-  .card.brd { border-top: 5px solid var(--line-2); }
-  .shot { background: var(--paper-warm); border-bottom: 1px solid var(--line); padding: 14px 18px 0; }
-  .shot svg { display: block; width: 100%; height: auto; border-radius: 6px 6px 0 0; box-shadow: 0 -1px 0 var(--line), 0 8px 20px rgba(0,0,0,.06); }
-  .card .txt { padding: 18px 22px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-  .card h3 { font-size: 1.08rem; font-weight: 800; }
-  .card p { color: var(--muted); font-size: 0.92rem; }
-  .card .go { margin-top: auto; padding-top: 8px; font-weight: 800; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--red); }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; text-decoration: none; display: grid; grid-template-columns: 1fr auto; gap: 2px 14px; align-items: center; }
+  .card:hover { border-color: var(--ink); }
+  .card h3 { font-size: 1rem; font-weight: 800; }
+  .card p { color: var(--muted); font-size: 0.9rem; grid-column: 1; }
+  .card .go { grid-row: 1 / span 2; font-weight: 800; color: var(--red); font-size: 1.1rem; }
   .card.adm .go { color: var(--ink); }
-  .also { margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
+  .also { margin-top: 10px; font-size: 0.86rem; color: var(--muted); }
   .also a { color: var(--ink); font-weight: 700; text-decoration: none; }
-  .also a:hover { color: var(--red); }
 
-  .stack { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .block { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px; }
-  .block h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
-  .block .what { font-weight: 800; font-size: 1.02rem; margin-bottom: 8px; }
-  .block p { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
-  .block p:last-child { margin-bottom: 0; }
-  .block p b { color: var(--ink); }
-  .list { list-style: none; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px 22px; }
-  .list li { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 0.93rem; color: #2b2928; }
-  .list li:first-child { border-top: 0; }
-  .list li b { color: var(--ink); }
-  .honest { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--red); border-radius: 8px; padding: 18px 22px; color: var(--muted); font-size: 0.93rem; }
-  .honest b { color: var(--ink); }
-  footer { border-top: 1px solid var(--line); padding: 26px 0; font-size: 0.82rem; color: var(--muted); }
-  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  @media (max-width: 860px) { .cards, .stack, .legend { grid-template-columns: 1fr; } .list li { grid-template-columns: 1fr; gap: 4px; } }
+  .facts { list-style: none; background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 4px 20px; }
+  .facts li { padding: 11px 0; border-top: 1px solid var(--line); font-size: 0.92rem; color: #2b2928; }
+  .facts li:first-child { border-top: 0; }
+  .facts li b { color: var(--ink); }
+  footer { border-top: 1px solid var(--line); padding: 22px 0; font-size: 0.8rem; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  @media (max-width: 720px) { .cards { grid-template-columns: 1fr; } }
   a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 </style>
 </head>
@@ -85,115 +55,62 @@
 
 <div class="top">
   <div class="wrap">
-    <div class="eyebrow">ocior.be · voorstel voor het bestuur van Vooruit Essen</div>
+    <div class="eyebrow">ocior.be · voorstel voor Vooruit Essen</div>
     <h1>Alles op één plek</h1>
-    <p>De nieuwe site in drie lagen: wat elke Essenaar ziet, wat alleen de redactie ziet, en het plan waarover het bestuur beslist. Alles hieronder is een demo — klik gerust overal op, er wordt niets echt verstuurd of opgeslagen.</p>
-    <div class="meta"><span>Budget <b>€ 1.500 + € 25/maand</b>, excl. btw</span><span>Domein <b>vooruitessen.be</b></span><span>Redactie <b>3 à 4 bestuursleden</b></span></div>
-    <div class="legend">
-      <a href="#iedereen"><span class="sq" style="background:var(--red)"></span><span><b>Voor iedereen</b><span>de publieke site, 4 pagina's</span></span></a>
-      <a href="#redactie"><span class="sq" style="background:#fff"></span><span><b>Voor de redactie</b><span>het beheer en de cijfers, 2 schermen</span></span></a>
-      <a href="#bestuur"><span class="sq" style="border:2.5px solid #fff"></span><span><b>Voor het bestuur</b><span>het plan om over te beslissen</span></span></a>
-    </div>
+    <p>De nieuwe site in drie lagen. Alles hieronder is een demo: klik gerust, er wordt niets echt verstuurd of bewaard.</p>
+    <div class="meta"><b>€ 1.500</b> eenmalig + <b>€ 25</b> per maand, excl. btw · <b>vooruitessen.be</b></div>
   </div>
 </div>
 
-<section id="iedereen">
+<section>
   <div class="wrap">
-    <div class="grp"><span class="sq pub"></span><h2>Voor iedereen</h2><span class="who pub">Publiek</span></div>
-    <p class="sub">Dit ziet elke bezoeker op vooruitessen.be, zonder in te loggen. De redactie vult het; niemand ziet ooit een beheerscherm.</p>
+    <div class="grp"><span class="sq pub"></span><h2>Voor iedereen</h2><span class="who">de publieke site</span></div>
     <div class="cards">
-      <a class="card pub" href="../">
-        <div class="shot"><svg viewBox="0 0 160 96" aria-hidden="true"><rect width="160" height="96" fill="#f3efec"/><rect width="160" height="9" fill="#fff"/><rect x="6" y="3" width="24" height="3.5" rx="1" fill="#141414"/><rect x="60" y="3" width="8" height="3" rx="1" fill="#6d6a66"/><rect x="72" y="3" width="8" height="3" rx="1" fill="#6d6a66"/><rect x="84" y="3" width="10" height="3" rx="1" fill="#6d6a66"/><rect x="134" y="2" width="20" height="5" rx="1.5" fill="#E4032E"/><rect y="9" width="160" height="42" fill="#141414"/><rect x="10" y="17" width="62" height="7" rx="1" fill="#fff"/><rect x="10" y="27" width="50" height="7" rx="1" fill="#E4032E"/><rect x="10" y="40" width="26" height="5" rx="1.5" fill="#E4032E"/><rect x="40" y="40" width="26" height="5" rx="1.5" fill="none" stroke="#fff" stroke-width="1"/><rect x="8" y="58" width="44" height="34" rx="2" fill="#fff"/><rect x="8" y="58" width="44" height="14" fill="#d9d3cc"/><rect x="12" y="76" width="30" height="3" rx="1" fill="#141414"/><rect x="12" y="82" width="22" height="3" rx="1" fill="#d9d3cc"/><rect x="58" y="58" width="44" height="34" rx="2" fill="#fff"/><rect x="58" y="58" width="44" height="14" fill="#d9d3cc"/><rect x="62" y="76" width="30" height="3" rx="1" fill="#141414"/><rect x="62" y="82" width="22" height="3" rx="1" fill="#d9d3cc"/><rect x="108" y="58" width="44" height="34" rx="2" fill="#fff"/><rect x="108" y="58" width="44" height="14" fill="#d9d3cc"/><rect x="112" y="76" width="30" height="3" rx="1" fill="#141414"/><rect x="112" y="82" width="22" height="3" rx="1" fill="#d9d3cc"/></svg></div>
-        <div class="txt"><h3>De startpagina</h3><p>Wie we zijn, waar we aan werken en het laatste nieuws — de bestaande artikels zijn overgenomen. Onderaan schrijf je je in op de nieuwsbrief.</p><span class="go">Open de site →</span></div>
-      </a>
-      <a class="card pub" href="../#agenda">
-        <div class="shot"><svg viewBox="0 0 160 96" aria-hidden="true"><rect width="160" height="96" fill="#fff"/><rect x="10" y="10" width="30" height="4" rx="1" fill="#E4032E"/><rect x="10" y="18" width="60" height="6" rx="1" fill="#141414"/><rect x="10" y="32" width="140" height="26" rx="2" fill="#faf8f6" stroke="#e8e4df"/><rect x="10" y="32" width="3" height="26" fill="#E4032E"/><text x="22" y="50" font-family="Arial Black, Arial" font-weight="900" font-size="13" fill="#E4032E">1</text><text x="20" y="55" font-family="Arial" font-size="3.6" fill="#141414">NOV</text><rect x="38" y="37" width="52" height="4" rx="1" fill="#141414"/><rect x="38" y="44" width="80" height="3" rx="1" fill="#6d6a66"/><rect x="38" y="50" width="70" height="3" rx="1" fill="#d9d3cc"/><rect x="10" y="64" width="140" height="26" rx="2" fill="#faf8f6" stroke="#e8e4df"/><rect x="10" y="64" width="3" height="26" fill="#d9d3cc"/><text x="22" y="82" font-family="Arial Black, Arial" font-weight="900" font-size="13" fill="#6d6a66">1</text><text x="20" y="87" font-family="Arial" font-size="3.6" fill="#141414">MEI</text><rect x="38" y="69" width="60" height="4" rx="1" fill="#141414"/><rect x="38" y="76" width="84" height="3" rx="1" fill="#6d6a66"/><rect x="38" y="82" width="64" height="3" rx="1" fill="#d9d3cc"/></svg></div>
-        <div class="txt"><h3>De agenda</h3><p>Activiteiten met datum, plaats en korte tekst. Als voorbeeld staan er de brunch van 1 november en het Meifeest van 1 mei — allebei uit de eigen communicatie van de afdeling. Voorbije activiteiten blijven als archief staan.</p><span class="go">Bekijk de agenda →</span></div>
-      </a>
-      <a class="card pub" href="../mensen/">
-        <div class="shot"><svg viewBox="0 0 160 96" aria-hidden="true"><rect width="160" height="96" fill="#fff"/><rect x="10" y="10" width="34" height="4" rx="1" fill="#E4032E"/><rect x="10" y="18" width="70" height="6" rx="1" fill="#141414"/><g><rect x="10" y="32" width="66" height="58" rx="2" fill="#faf8f6" stroke="#e8e4df"/><rect x="10" y="32" width="66" height="2.5" fill="#E4032E"/><circle cx="24" cy="46" r="7" fill="#141414"/><rect x="35" y="41" width="30" height="4" rx="1" fill="#141414"/><rect x="35" y="48" width="20" height="3" rx="1" fill="#6d6a66"/><rect x="15" y="60" width="18" height="5" rx="2.5" fill="#fff" stroke="#e8e4df"/><rect x="36" y="60" width="22" height="5" rx="2.5" fill="#fff" stroke="#e8e4df"/><rect x="15" y="68" width="26" height="5" rx="2.5" fill="#fff" stroke="#e8e4df"/><rect x="15" y="79" width="30" height="6" rx="1.5" fill="none" stroke="#141414"/></g><g><rect x="84" y="32" width="66" height="58" rx="2" fill="#faf8f6" stroke="#e8e4df"/><rect x="84" y="32" width="66" height="2.5" fill="#E4032E"/><circle cx="98" cy="46" r="7" fill="#141414"/><rect x="109" y="41" width="30" height="4" rx="1" fill="#141414"/><rect x="109" y="48" width="20" height="3" rx="1" fill="#6d6a66"/><rect x="89" y="60" width="22" height="5" rx="2.5" fill="#fff" stroke="#e8e4df"/><rect x="114" y="60" width="18" height="5" rx="2.5" fill="#fff" stroke="#e8e4df"/><rect x="89" y="68" width="30" height="5" rx="2.5" fill="#fff" stroke="#e8e4df"/><rect x="89" y="79" width="30" height="6" rx="1.5" fill="none" stroke="#141414"/></g></svg></div>
-        <div class="txt"><h3>Onze mensen</h3><p>De twee schepenen, de fractie en de comitéleden met hun bevoegdheden, hun recente artikels en een knop om hen rechtstreeks een bericht te sturen. Het bestuur komt er bij zodra de namen er zijn.</p><span class="go">Bekijk de mensen →</span></div>
-      </a>
-      <a class="card pub" href="../nieuwsbrief/">
-        <div class="shot"><svg viewBox="0 0 160 96" aria-hidden="true"><rect width="160" height="96" fill="#fff"/><rect x="10" y="10" width="30" height="4" rx="1" fill="#E4032E"/><rect x="10" y="18" width="56" height="6" rx="1" fill="#141414"/><rect x="10" y="32" width="66" height="58" rx="2" fill="#faf8f6" stroke="#e8e4df"/><rect x="16" y="39" width="54" height="8" rx="1.5" fill="#fff" stroke="#d9d3cc"/><rect x="16" y="51" width="54" height="8" rx="1.5" fill="#fff" stroke="#d9d3cc"/><rect x="16" y="63" width="5" height="5" rx="1" fill="#fff" stroke="#E4032E"/><rect x="24" y="64" width="44" height="3" rx="1" fill="#6d6a66"/><rect x="16" y="74" width="54" height="9" rx="1.5" fill="#E4032E"/><rect x="84" y="32" width="66" height="16" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="90" y="37" width="14" height="4" rx="1" fill="#E4032E"/><rect x="108" y="37" width="36" height="4" rx="1" fill="#141414"/><rect x="84" y="53" width="66" height="16" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="90" y="58" width="14" height="4" rx="1" fill="#E4032E"/><rect x="108" y="58" width="30" height="4" rx="1" fill="#141414"/><rect x="84" y="74" width="66" height="16" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="90" y="79" width="14" height="4" rx="1" fill="#E4032E"/><rect x="108" y="79" width="34" height="4" rx="1" fill="#141414"/></svg></div>
-        <div class="txt"><h3>De nieuwsbrief</h3><p>Inschrijven met een bevestigingsmail (dubbele opt-in) en een archief waarin elke verstuurde editie leesbaar blijft — ook voor wie later inschrijft, en voor Google.</p><span class="go">Bekijk de nieuwsbriefpagina →</span></div>
-      </a>
+      <a class="card pub" href="../"><h3>De startpagina</h3><p>Nieuws, thema's, mensen en nieuwsbrief.</p><span class="go">→</span></a>
+      <a class="card pub" href="../#agenda"><h3>De agenda</h3><p>Brunch 1 november en Meifeest als voorbeeld.</p><span class="go">→</span></a>
+      <a class="card pub" href="../mensen/"><h3>Onze mensen</h3><p>Bevoegdheden, artikels en een contactknop per persoon.</p><span class="go">→</span></a>
+      <a class="card pub" href="../nieuwsbrief/"><h3>De nieuwsbrief</h3><p>Inschrijven met bevestiging; elke editie blijft leesbaar.</p><span class="go">→</span></a>
     </div>
-    <p class="also">Ook publiek: de <a href="../privacy/">privacy- en cookieverklaring</a> in gewone taal, als ontwerp voor de afdeling.</p>
+    <p class="also">Ook publiek: <a href="../privacy/">privacy en cookies</a>, als ontwerp.</p>
   </div>
 </section>
 
-<section id="redactie">
+<section>
   <div class="wrap">
-    <div class="grp"><span class="sq adm"></span><h2>Voor de redactie</h2><span class="who adm">Beheer · 3 à 4 bestuursleden</span></div>
-    <p class="sub">Alleen wie de afdeling aanduidt, komt hier binnen — straks met een code per e-mail, in de demo meteen. Alles wat hier gebeurt, staat na één klik op de publieke site.</p>
+    <div class="grp"><span class="sq adm"></span><h2>Voor de redactie</h2><span class="who">3 à 4 bestuursleden</span></div>
     <div class="cards">
-      <a class="card adm" href="../beheer/">
-        <div class="shot"><svg viewBox="0 0 160 96" aria-hidden="true"><rect width="160" height="96" fill="#faf8f6"/><rect width="160" height="9" fill="#141414"/><rect x="6" y="3" width="26" height="3.5" rx="1" fill="#fff"/><rect x="120" y="3" width="30" height="3" rx="1" fill="#9a9590"/><rect y="9" width="38" height="87" fill="#fff"/><rect x="5" y="15" width="28" height="6" rx="1.5" fill="#141414"/><rect x="5" y="25" width="28" height="6" rx="1.5" fill="#faf8f6"/><rect x="8" y="27" width="2" height="2" fill="#E4032E"/><rect x="5" y="35" width="28" height="6" rx="1.5" fill="#faf8f6"/><rect x="8" y="37" width="2" height="2" fill="#E4032E"/><rect x="5" y="45" width="28" height="6" rx="1.5" fill="#faf8f6"/><rect x="8" y="47" width="2" height="2" fill="#E4032E"/><rect x="5" y="55" width="28" height="6" rx="1.5" fill="#faf8f6"/><rect x="8" y="57" width="2" height="2" fill="#E4032E"/><rect x="44" y="15" width="40" height="6" rx="1" fill="#141414"/><rect x="44" y="26" width="108" height="30" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="49" y="31" width="60" height="4" rx="1" fill="#141414"/><rect x="49" y="39" width="98" height="2.5" rx="1" fill="#d9d3cc"/><rect x="49" y="44" width="90" height="2.5" rx="1" fill="#d9d3cc"/><rect x="49" y="49" width="70" height="2.5" rx="1" fill="#d9d3cc"/><rect x="44" y="61" width="52" height="28" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="49" y="66" width="30" height="3" rx="1" fill="#6d6a66"/><rect x="49" y="73" width="40" height="8" rx="1.5" fill="#d9d3cc"/><rect x="100" y="61" width="52" height="28" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="105" y="66" width="42" height="6" rx="1.5" fill="#fff" stroke="#d9d3cc"/><rect x="105" y="74" width="42" height="6" rx="1.5" fill="#fff" stroke="#141414"/><rect x="105" y="82" width="42" height="6" rx="1.5" fill="#E4032E"/></svg></div>
-        <div class="txt"><h3>Het beheer</h3><p>Een artikel schrijven zoals in een tekstverwerker, een foto erin slepen, voorvertoning, publiceren. Activiteiten in de agenda zetten. Een rol aanpassen bij Mensen. Rechtsboven zie je hoe aanmelden er straks uitziet.</p><span class="go">Open het beheer →</span></div>
-      </a>
-      <a class="card adm" href="../beheer/#cijfers">
-        <div class="shot"><svg viewBox="0 0 160 96" aria-hidden="true"><rect width="160" height="96" fill="#faf8f6"/><rect width="160" height="9" fill="#141414"/><rect x="6" y="3" width="26" height="3.5" rx="1" fill="#fff"/><rect y="9" width="38" height="87" fill="#fff"/><rect x="5" y="15" width="28" height="6" rx="1.5" fill="#faf8f6"/><rect x="5" y="25" width="28" height="6" rx="1.5" fill="#faf8f6"/><rect x="5" y="35" width="28" height="6" rx="1.5" fill="#faf8f6"/><rect x="5" y="45" width="28" height="6" rx="1.5" fill="#141414"/><rect x="44" y="15" width="24" height="6" rx="1" fill="#141414"/><rect x="44" y="26" width="33" height="18" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="48" y="30" width="14" height="2.5" rx="1" fill="#6d6a66"/><rect x="48" y="35" width="20" height="5" rx="1" fill="#141414"/><rect x="81" y="26" width="33" height="18" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="85" y="30" width="14" height="2.5" rx="1" fill="#6d6a66"/><rect x="85" y="35" width="16" height="5" rx="1" fill="#141414"/><rect x="118" y="26" width="34" height="18" rx="2" fill="#fff" stroke="#e8e4df"/><rect x="122" y="30" width="14" height="2.5" rx="1" fill="#6d6a66"/><rect x="122" y="35" width="18" height="5" rx="1" fill="#E4032E"/><rect x="44" y="49" width="108" height="42" rx="2" fill="#fff" stroke="#e8e4df"/><g fill="#d9d3cc"><rect x="50" y="76" width="5" height="10"/><rect x="57" y="72" width="5" height="14"/><rect x="64" y="74" width="5" height="12"/><rect x="71" y="69" width="5" height="17"/><rect x="78" y="71" width="5" height="15"/><rect x="85" y="66" width="5" height="20"/><rect x="92" y="70" width="5" height="16"/><rect x="99" y="73" width="5" height="13"/><rect x="113" y="62" width="5" height="24"/><rect x="120" y="68" width="5" height="18"/><rect x="127" y="71" width="5" height="15"/><rect x="134" y="74" width="5" height="12"/><rect x="141" y="72" width="5" height="14"/></g><rect x="106" y="54" width="5" height="32" fill="#E4032E"/></svg></div>
-        <div class="txt"><h3>De cijfers en het mailingdashboard</h3><p>Hoeveel mensen de site bezoeken, waar ze vandaan komen, wat het meest gelezen wordt. Per nieuwsbrief: hoeveel lezers openen en waarop ze klikken. Samenstellen en versturen gebeurt in hetzelfde scherm; de abonneelijst blijft bij de afdeling.</p><span class="go">Open de cijfers →</span></div>
-      </a>
+      <a class="card adm" href="../beheer/"><h3>Het beheer</h3><p>Artikel schrijven, foto erbij, publiceren. Agenda en mensen aanpassen.</p><span class="go">→</span></a>
+      <a class="card adm" href="../beheer/#cijfers"><h3>Cijfers en mailing</h3><p>Bezoekers, wat gelezen wordt, en per nieuwsbrief wie opent en klikt.</p><span class="go">→</span></a>
     </div>
+    <p class="also">In de demo zonder aanmelden; straks met een code per e-mail.</p>
   </div>
 </section>
 
-<section id="bestuur">
+<section>
   <div class="wrap">
-    <div class="grp"><span class="sq brd"></span><h2>Voor het bestuur</h2><span class="who brd">Beslissen</span></div>
-    <p class="sub">Eén pagina om over te beslissen: waar we staan, wat de andere partijen doen, wat er in het budget zit en wat de afdeling nog aanlevert.</p>
+    <div class="grp"><span class="sq brd"></span><h2>Voor het bestuur</h2><span class="who">om over te beslissen</span></div>
     <div class="cards">
-      <a class="card brd" href="plan/">
-        <div class="shot"><svg viewBox="0 0 160 96" aria-hidden="true"><rect width="160" height="96" fill="#faf8f6"/><rect x="10" y="10" width="3" height="3" fill="#E4032E"/><rect x="16" y="10" width="30" height="3" rx="1" fill="#6d6a66"/><rect x="10" y="17" width="80" height="9" rx="1" fill="#141414"/><rect x="10" y="30" width="110" height="2.5" rx="1" fill="#6d6a66"/><rect x="10" y="35" width="90" height="2.5" rx="1" fill="#6d6a66"/><rect x="10" y="42" width="140" height="1.5" fill="#141414"/><rect x="10" y="50" width="140" height="40" rx="1" fill="#fff" stroke="#e8e4df"/><rect x="10" y="50" width="140" height="8" fill="#faf8f6"/><rect x="14" y="53" width="20" height="2.5" rx="1" fill="#6d6a66"/><rect x="62" y="53" width="14" height="2.5" rx="1" fill="#6d6a66"/><rect x="92" y="53" width="14" height="2.5" rx="1" fill="#6d6a66"/><rect x="122" y="53" width="14" height="2.5" rx="1" fill="#6d6a66"/><rect x="14" y="63" width="30" height="3" rx="1" fill="#141414"/><circle cx="69" cy="64.5" r="2" fill="#d9d3cc"/><circle cx="99" cy="64.5" r="2" fill="#E4032E"/><circle cx="129" cy="64.5" r="2" fill="#E4032E"/><rect x="14" y="72" width="26" height="3" rx="1" fill="#141414"/><circle cx="69" cy="73.5" r="2" fill="#E4032E"/><circle cx="99" cy="73.5" r="2" fill="#d9d3cc"/><circle cx="129" cy="73.5" r="2" fill="#E4032E"/><rect x="14" y="81" width="34" height="3" rx="1" fill="#141414"/><circle cx="69" cy="82.5" r="2" fill="#d9d3cc"/><circle cx="99" cy="82.5" r="2" fill="#E4032E"/><circle cx="129" cy="82.5" r="2" fill="#E4032E"/></svg></div>
-        <div class="txt"><h3>Het websiteplan</h3><p>Knelpunten vandaag, vergelijking met N-VA/PLE, cd&amp;v, Vlaams Belang en Vooruit Turnhout, wat er in € 1.500 + € 25 per maand zit, richtprijzen voor extra's en de aanleverlijst.</p><span class="go">Lees het plan →</span></div>
-      </a>
-      <div class="honest" style="align-self:start"><b>Eerlijk over de demo.</b> Er vertrekt geen echte mail, er wordt niets op een server bewaard (alles zit in je eigen browser), de cijfers zijn voorbeeldcijfers en er zijn nog geen foto's van de mensen. Alles wat je ziet klikken, is in de echte bouw voorzien. Wat er níet in zit — zoals online inschrijven voor activiteiten of een meldpunt — staat als optie met prijs in het plan.</div>
+      <a class="card brd" href="plan/"><h3>Het websiteplan</h3><p>Wat er in het budget zit, de opties en wat de afdeling aanlevert.</p><span class="go">→</span></a>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <div class="grp"><h2>Hoe we het maken — en waarom</h2></div>
-    <p class="sub">Twee keuzes, telkens voor bewezen oplossingen. Niets in de demo dat we niet zo kunnen opleveren.</p>
-    <div class="stack">
-      <div class="block">
-        <h3>Site en beheer</h3>
-        <div class="what">Op maat gebouwd, zonder plugins</div>
-        <p>De site en het beheer worden speciaal voor de afdeling gebouwd en gehost op dezelfde betrouwbare infrastructuur als de andere sites van ocior.be. Geen kant-en-klaar pakket met dertig uitbreidingen die elke maand updates vragen en stuk kunnen gaan.</p>
-        <p><b>Inloggen met een code per e-mail</b>: geen wachtwoorden om te onthouden of te lekken. Wie mag publiceren, staat in één lijst die de afdeling zelf beheert.</p>
-      </div>
-      <div class="block">
-        <h3>Mailing</h3>
-        <div class="what">Een Europese verzenddienst doet het zware werk</div>
-        <p>Nieuwsbrieven vertrekken via een gespecialiseerde Europese verzenddienst. Die zorgt dat mails aankomen en niet in spam belanden, regelt de uitschrijflink en foute adressen, en levert de cijfers: hoeveel lezers openen, waarop ze klikken.</p>
-        <p>De redactie werkt gewoon in het eigen beheerscherm; de <b>abonneelijst blijft eigendom van de afdeling</b>. Tot <b>5.000 mails per maand</b> zit in het maandbedrag — ruim voor een maandelijkse nieuwsbrief aan een paar duizend abonnees. Daarboven bekijken we het samen opnieuw.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="grp"><h2>Privacy en cookies, Belgisch bekeken</h2></div>
-    <p class="sub">Een politieke afdeling verwerkt gevoelige gegevens: wie de nieuwsbrief leest, zegt iets over zijn overtuiging. Dus strenger dan de gemiddelde bakkerijsite.</p>
-    <ul class="list">
-      <li><b>Geen cookiebanner nodig</b><span>De site zet geen analyse-, reclame- of socialmediacookies en laadt geen Facebook- of Instagram-inhoud. Bezoekers tellen we zonder cookies. Alleen het beheer gebruikt een sessiecookie, en die is strikt noodzakelijk.</span></li>
-      <li><b>Uitdrukkelijke toestemming</b><span>Nieuwsbrief met een aparte, niet vooraf aangevinkte checkbox en een bevestigingsmail (dubbele opt-in). Wie niet bevestigt, staat niet op de lijst.</span></li>
-      <li><b>Zo weinig en zo kort mogelijk</b><span>De nieuwsbrieflijst bevat enkel voornaam en e-mailadres. Contactberichten worden na een jaar gewist.</span></li>
-      <li><b>Meten zonder te bespioneren</b><span>Voor de nieuwsbrief vragen we bij het inschrijven toestemming om te meten of ze geopend en aangeklikt wordt — en we gebruiken die cijfers samengeteld per editie, niet om per persoon bij te houden wie wat leest. Dat is wat de privacyregels een politieke afdeling toelaten.</span></li>
-      <li><b>Gegevens in Europa</b><span>De verzenddienst staat in de EU en ook de hosting bewaart gegevens in Europa, met de nodige verwerkersovereenkomsten. Lettertypes worden zelf gehost, zodat een bezoek geen data naar Google stuurt.</span></li>
-      <li><b>Rechten in één klik</b><span>Uitschrijven via de link in elke mail; wissen via “Verwijder” in het beheer. Een <a href="../privacy/">privacyverklaring</a> in gewone taal staat klaar als ontwerp.</span></li>
+    <div class="grp"><h2>Goed om te weten</h2></div>
+    <ul class="facts">
+      <li><b>Op maat gebouwd en gehost door ocior.be.</b> Inloggen met een code per e-mail, geen wachtwoorden.</li>
+      <li><b>Mails via een Europese verzenddienst</b>, tot 5.000 per maand inbegrepen. De abonneelijst blijft van de afdeling.</li>
+      <li><b>Geen cookiebanner nodig.</b> Opens en kliks meten we alleen met toestemming en samengeteld, nooit per persoon.</li>
+      <li><b>Demo:</b> geen echte mails, niets bewaard op een server, cijfers zijn voorbeelden.</li>
     </ul>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <span>Sebastiaan Rousseeuw · ocior.be · sebastiaan@ocior.be</span>
-    <span>Voorstel, september 2026 · geen offerte · alle prijzen excl. btw</span>
+    <span>Sebastiaan Rousseeuw · ocior.be</span>
+    <span>september 2026 · voorstel, geen offerte</span>
   </div>
 </footer>
 </body>
