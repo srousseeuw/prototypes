@@ -82,6 +82,18 @@
   .items li span { color: var(--ink-2); font-size: 15px; }
   @media (max-width: 640px) { .items li { grid-template-columns: 1fr; gap: 2px; } }
 
+  .fine { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+  .grow { background: var(--surface); border: 1px solid var(--line-2); border-top: 5px solid var(--red); padding: 24px 24px 22px; }
+  .grow-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+  .grow-head h2 { margin: 0; }
+  .grow-intro { margin: 0 0 18px; color: var(--ink-2); max-width: 66ch; }
+  .opts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .opt { background: var(--ground); border: 1px solid var(--line); padding: 14px 16px; display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; align-items: start; }
+  .opt b { font-weight: 700; }
+  .opt em { font-style: normal; font-family: var(--font-display); color: var(--red); font-size: 20px; line-height: 1; white-space: nowrap; }
+  .opt span { grid-column: 1 / -1; color: var(--ink-2); font-size: 14.5px; }
+  .opt.idea { border-style: dashed; background: transparent; }
+  @media (max-width: 640px) { .opts { grid-template-columns: 1fr; } }
   .need { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 18px; }
   .need div { background: var(--surface); border: 1px solid var(--line); padding: 18px 20px 6px; }
   .need h3 { font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
@@ -141,37 +153,41 @@
   </section>
 
   <section id="scope">
-    <h2>Wat de afdeling krijgt</h2>
-    <div class="scope-head"><span class="tag in">Inbegrepen</span><p>De basis, met onderhoud en hosting.</p></div>
-    <ul class="items">
-      <li><b>Eigen site op vooruitessen.be</b><span>In de rode Vooruit-huisstijl, snel en leesbaar op elke gsm. Domein en inhoud op naam van de afdeling.</span></li>
-      <li><b>Nieuws</b><span>Artikels met foto's, thema's, auteur en datum. De bestaande lokale artikels worden overgenomen.</span></li>
-      <li><b>Agenda</b><span>Activiteiten met datum, plaats en korte tekst, op de startpagina en in de nieuwsbrief. Inschrijven via de link die de afdeling kiest (online inschrijven op de site zelf is een optie).</span></li>
-      <li><b>Mensen</b><span>Schepenen, raadsleden, comitéleden en bestuur — met foto, bevoegdheden en een contactknop per persoon.</span></li>
-      <li><b>Programma</b><span>Per thema, gekoppeld aan het nieuws, met het verkiezingsprogramma als download.</span></li>
-      <li><b>Nieuwsbrief</b><span>Inschrijven met dubbele bevestiging, samenstellen uit gepubliceerde artikels, versturen, archief online. De lijst wordt eigendom van de afdeling.</span></li>
-      <li><b>Beheer zonder techniek</b><span>Inloggen met een code per e-mail. Schrijven zoals in een tekstverwerker, foto's slepen, voorvertoning, publiceren. Wie mag publiceren is instelbaar.</span></li>
-      <li><b>Cijfers</b><span>Bezoekers van de site (zonder cookies), waar ze vandaan komen en wat gelezen wordt; per nieuwsbrief hoeveel lezers openen en waarop ze klikken — samengeteld, niet per persoon.</span></li>
-      <li><b>Erbij</b><span>Privacyverklaring en cookiebeleid op maat van een Belgische partijafdeling (geen banner nodig: enkel functionele cookies), vindbaar in Google, één opleidingsmoment en een korte handleiding.</span></li>
+    <h2>Wat jullie krijgen</h2>
+    <ul class="bul">
+      <li><b>Een eigen site op vooruitessen.be</b>, in het rood van Vooruit, die er op elke gsm goed uitziet.</li>
+      <li><b>Nieuws, agenda en jullie mensen</b> — met foto's, bevoegdheden en een knop om iemand rechtstreeks een bericht te sturen.</li>
+      <li><b>Het programma per thema</b>, met het verkiezingsprogramma als download.</li>
+      <li><b>Een nieuwsbrief die jullie zelf samenstellen</b> uit de artikels. Inschrijven met bevestiging, elke editie blijft op de site staan.</li>
+      <li><b>Een beheer dat aanvoelt als een tekstverwerker.</b> Inloggen met een code per e-mail, schrijven, foto erbij, publiceren. Klaar.</li>
+      <li><b>Cijfers</b>: hoeveel mensen de site bezoeken, wat ze lezen en hoe elke nieuwsbrief het doet.</li>
+      <li><b>Privacy en cookies netjes geregeld</b>, plus een korte opleiding en een handleiding.</li>
     </ul>
+    <p class="fine">Niet inbegrepen: fotografie, teksten en drukwerk. Lidmaatschappen blijven bij Vooruit nationaal.</p>
+  </section>
 
-    <div class="scope-head"><span class="tag">Optioneel</span><p>Elk apart te bestellen. Richtprijzen, eenmalig en excl. btw; daarna inbegrepen in het onderhoud.</p></div>
-    <ul class="items opt">
-      <li><b>Online inschrijven voor activiteiten<em class="price">€ 450</em></b><span>Activiteiten in een agenda met inschrijfformulier, bevestigingsmail met gestructureerde mededeling, deelnemerslijst met “betaald”-vinkje, herinnering en wachtlijst.</span></li>
-      <li><b>Online betalen bij inschrijving<em class="price">€ 350</em></b><span>Bancontact en Payconiq; een betaling zet de inschrijving zelf op “betaald”. Vereist de optie hierboven en een rechtspersoon met KBO-nummer; ± € 0,30 – 0,40 per transactie aan de betaalpartner.</span></li>
-      <li><b>Meldpunt buurt<em class="price">€ 300</em></b><span>“Iets gezien in je straat?” Formulier met foto en plek, rechtstreeks naar een raadslid, met opvolging in het beheer.</span></li>
-      <li><b>Verkiezingsmodus 2030<em class="price">€ 450</em></b><span>Kandidatenlijst, programma per kandidaat, aftelteller — met één schakelaar aan te zetten.</span></li>
-      <li><b>Ledenpagina<em class="price">€ 300</em></b><span>Interne documenten achter dezelfde e-mailcode-login.</span></li>
+  <section id="groei">
+    <div class="grow">
+      <div class="grow-head"><span class="tag in">Later uit te breiden</span><h2>De site groeit mee</h2></div>
+      <p class="grow-intro">Alles hieronder kan er later bij, zonder iets af te breken. Richtprijzen, eenmalig en excl. btw; daarna inbegrepen in het onderhoud.</p>
+      <div class="opts">
+        <div class="opt"><b>Online inschrijven voor activiteiten</b><em>€ 450</em><span>Agenda met inschrijfformulier, bevestigingsmail met gestructureerde mededeling, deelnemerslijst met “betaald”-vinkje, herinnering en wachtlijst.</span></div>
+        <div class="opt"><b>Online betalen bij inschrijving</b><em>€ 350</em><span>Bancontact en Payconiq; een betaling zet de inschrijving zelf op “betaald”. Vraagt de optie hiernaast en een rechtspersoon met KBO-nummer.</span></div>
+        <div class="opt"><b>Meldpunt buurt</b><em>€ 300</em><span>“Iets gezien in je straat?” Formulier met foto en plek, rechtstreeks naar een raadslid, met opvolging in het beheer.</span></div>
+        <div class="opt"><b>Verkiezingsmodus 2030</b><em>€ 450</em><span>Kandidatenlijst, programma per kandidaat, aftelteller — met één schakelaar aan te zetten.</span></div>
+        <div class="opt"><b>Ledenpagina</b><em>€ 300</em><span>Interne documenten achter dezelfde e-mailcode-login.</span></div>
+        <div class="opt idea"><b>Iets anders in gedachten?</b><span>Een fotoalbum per activiteit, verslagen uit de gemeenteraad, een peiling — zeg het, dan zetten we er een prijs op.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hoe">
+    <h2>Hoe we het maken</h2>
+    <ul class="bul">
+      <li><b>Op maat gebouwd en gehost door ocior.be</b>, geen kant-en-klaar pakket met uitbreidingen die verouderen. Inloggen met een code per e-mail — geen wachtwoorden.</li>
+      <li><b>Mails via een Europese verzenddienst</b> die zorgt dat ze aankomen en de cijfers levert. De lijst blijft bij de afdeling; tot 5.000 mails per maand inbegrepen.</li>
+      <li><b>Privacy</b>: uitdrukkelijke toestemming met dubbele opt-in, cijfers alleen samengeteld, bezoekers geteld zonder cookies, gegevens in Europa.</li>
     </ul>
-
-    <div class="scope-head"><span class="tag">Hoe we het maken</span><p>Bewezen oplossingen — niets in de demo dat we niet zo kunnen opleveren.</p></div>
-    <ul class="items opt">
-      <li><b>Site en beheer</b><span>Op maat gebouwd en gehost op dezelfde infrastructuur als de andere ocior-sites; geen kant-en-klaar pakket met uitbreidingen die verouderen. Inloggen met een code per e-mail — geen wachtwoorden.</span></li>
-      <li><b>Mailing</b><span>Een Europese verzenddienst verstuurt, zorgt dat mails aankomen, regelt de uitschrijflink en foute adressen en levert de open- en klikcijfers. De redactie werkt in ons scherm, de lijst blijft bij de afdeling. Tot 5.000 mails per maand inbegrepen in het onderhoud; daarboven bekijken we het samen opnieuw.</span></li>
-      <li><b>Privacy</b><span>Uitdrukkelijke toestemming met dubbele opt-in, ook voor het meten van opens en kliks; cijfers alleen samengeteld; bezoekers geteld zonder cookies; gegevens in Europa; lettertypes zelf gehost.</span></li>
-    </ul>
-
-    <div class="scope-head"><span class="tag out">Niet in scope</span><p>Fotografie, teksten en drukwerk; de ledenadministratie (blijft bij Vooruit nationaal); nieuwe functies na oplevering buiten de lijst hierboven.</p></div>
   </section>
 
   <section id="onderhoud">
