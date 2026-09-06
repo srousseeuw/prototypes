@@ -491,7 +491,10 @@ function stopPoll(){ if(state.poll){ clearInterval(state.poll); state.poll=null;
 /* ---------- sjablonen ---------- */
 function blankTraining(){
   const s=state.lib.settings||{};
-  return {title:'', date:new Date().toISOString().slice(0,10), time:s.defaultTime||'', players: s.defaultPlayers||12, target: s.defaultTarget||60, notes:'', blocks:[]};
+  const d=new Date(); d.setHours(12,0,0,0);
+  if(s.defaultWeekday!==undefined&&s.defaultWeekday!==''&&s.defaultWeekday!==null){ const wd=Number(s.defaultWeekday); d.setDate(d.getDate()+((wd-d.getDay()+7)%7)); }
+  const date=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  return {title:'', date, time:s.defaultTime||'', players: s.defaultPlayers||12, target: s.defaultTarget||60, notes:'', blocks:[]};
 }
 function single(ex, coach, dur){ const e=getEx(ex); return {id:uid(), kind:'single', duration:dur||(e?e.dur:10), items:[{ex, coach:coach||''}], note:''}; }
 function stationsBlock(exIds, dur){ return {id:uid(), kind:'stations', duration:dur, rotate:true, items:exIds.map(ex=>({ex, coach:''})), note:''}; }
@@ -795,14 +798,15 @@ function openSettings(){
     <label class="field">Trainers (één per regel)<textarea id="sTrainers" rows="4" placeholder="Seb&#10;Tom&#10;An">${esc(trainers().join('\n'))}</textarea></label>
     <label class="field">Clubnaam / ploeg (optioneel)<input id="sClub" value="${esc(s.club||'')}" placeholder="bv. KFC Essen U7"></label>
     <div class="two">
+      <label class="field">Vaste trainingsdag<select id="sWeekday"><option value="">— geen</option>${['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'].map((n,i)=>`<option value="${i}"${String(s.defaultWeekday)===String(i)?' selected':''}>${n}</option>`).join('')}</select></label>
       <label class="field">Standaard startuur<input id="sTime" type="time" value="${esc(s.defaultTime||'')}"></label>
-      <label class="field">Standaard aantal spelers<input id="sPlayers" type="number" inputmode="numeric" value="${esc(s.defaultPlayers||12)}"></label>
     </div>
+    <label class="field">Standaard aantal spelers<input id="sPlayers" type="number" inputmode="numeric" value="${esc(s.defaultPlayers||12)}"></label>
     <p class="small muted" style="margin:0">Deze instellingen gelden voor iedereen die de link gebruikt. Er is geen login: deel de link enkel met de trainers.</p>
   </div>`,`<button class="btn primary" id="sSave">Opslaan</button>`);
   $('#sSave').onclick=async()=>{
     state.lib.trainers=$('#sTrainers').value.split('\n').map(x=>x.trim()).filter(Boolean);
-    state.lib.settings={...s, club:$('#sClub').value.trim(), defaultTime:$('#sTime').value, defaultPlayers:Number($('#sPlayers').value)||12, defaultTarget:60};
+    state.lib.settings={...s, club:$('#sClub').value.trim(), defaultWeekday:$('#sWeekday').value===''?null:Number($('#sWeekday').value), defaultTime:$('#sTime').value, defaultPlayers:Number($('#sPlayers').value)||12, defaultTarget:60};
     closeSheet(); await saveLib(); toast('Instellingen opgeslagen'); render();
   };
 }
