@@ -48,8 +48,8 @@
   .people.four { grid-template-columns: repeat(4, 1fr); }
   .person { border: 1px solid var(--line); border-top: 4px solid var(--red); border-radius: 6px; background: #fff; padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 12px; }
   .person .top { display: flex; gap: 14px; align-items: center; }
-  .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-family: var(--font-display); font-size: 1rem; flex: none; }
-  .people.four .avatar { width: 48px; height: 48px; font-size: 0.9rem; }
+  .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--ink); object-fit: cover; display: block; flex: none; }
+  .people.four .avatar { width: 56px; height: 56px; }
   .person .name { font-weight: 800; font-size: 1.05rem; line-height: 1.2; }
   .person .role { color: var(--muted); font-size: 0.86rem; margin-top: 2px; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -125,7 +125,7 @@
     <a class="brand" href="../">Vooruit <span>Essen</span></a>
     <nav class="main" aria-label="Hoofdnavigatie">
       <a href="../#nieuws">Nieuws</a>
-      <a href="../agenda/">Agenda</a>
+      <a href="../#agenda">Agenda</a>
       <a href="../#themas">Waar we aan werken</a>
       <a href="./" aria-current="page">Mensen</a>
       <a href="../nieuwsbrief/">Nieuwsbrief</a>
@@ -136,7 +136,7 @@
   </div>
   <div class="mobile-menu">
     <a href="../#nieuws">Nieuws</a>
-    <a href="../agenda/">Agenda</a>
+    <a href="../#agenda">Agenda</a>
     <a href="../#themas">Waar we aan werken</a>
     <a href="./">Mensen</a>
     <a href="../nieuwsbrief/">Nieuwsbrief</a>
@@ -159,18 +159,23 @@
     <div class="people">
 
       <article class="person">
-        <div class="top"><div class="avatar" aria-hidden="true">AA</div><div><div class="name">Arno Aerden</div><div class="role">Schepen</div></div></div>
+        <div class="top"><img class="avatar" src="../img/mensen/arno-aerden.jpg" alt="Arno Aerden"><div><div class="name">Arno Aerden</div><div class="role">Schepen</div></div></div>
         <div class="chips"><span class="chip">Ruimtelijke ordening</span><span class="chip">Wonen</span><span class="chip">Jeugd</span><span class="chip">Kinderopvang</span><span class="chip">Sociaal beleid</span><span class="chip">Gelijke kansen</span><span class="chip">Juridische aangelegenheden</span></div>
+        <div class="articles"><h4>In het nieuws</h4>
+          <a href="https://nieuws.vooruit.org/zaal_rex_n_keer_per_jaar_gratis_voor_essense_verenigingen" target="_blank" rel="noopener">Zaal Rex één keer per jaar gratis voor Essense verenigingen</a>
+          <a href="https://nieuws.vooruit.org/fietsbieb_krijgt_nieuwe_thuis_op_horendonk" target="_blank" rel="noopener">Fietsbieb krijgt nieuwe thuis op Horendonk</a>
+          <a href="https://nieuws.vooruit.org/zitdagen_maatschappelijk_werker_op_scholen_blijken_drempelverlagend" target="_blank" rel="noopener">Zitdagen maatschappelijk werker op scholen blijken drempelverlagend</a>
+        </div>
         <div class="actions"><button class="btn-sm" data-contact="Arno Aerden">Stuur een bericht</button></div>
       </article>
 
       <article class="person">
-        <div class="top"><div class="avatar" aria-hidden="true">HJ</div><div><div class="name">Helmut Jaspers</div><div class="role">Schepen</div></div></div>
+        <div class="top"><img class="avatar" src="../img/mensen/helmut-jaspers.jpg" alt="Helmut Jaspers"><div><div class="name">Helmut Jaspers</div><div class="role">Schepen</div></div></div>
         <div class="chips"><span class="chip">Leefmilieu</span><span class="chip">Groenbeleid</span><span class="chip">Klimaat</span><span class="chip">Duurzaamheid</span><span class="chip">Dierenwelzijn</span><span class="chip">Cultuur</span><span class="chip">Internationale samenwerking</span></div>
-        <div class="articles"><h4>Recent in het nieuws</h4>
-          <a href="https://nieuws.vooruit.org/gerinkel_naar_de_winkel_13_000_duurzame_ritjes_maken_samen_een_groot_verschil" target="_blank" rel="noopener">Gerinkel naar de Winkel: 13.000 duurzame ritjes maken samen een groot verschil</a>
-          <a href="https://nieuws.vooruit.org/droogte_is_geen_uitzondering_meer_het_is_onze_nieuwe_realiteit" target="_blank" rel="noopener">Droogte is geen uitzondering meer. Het is onze nieuwe realiteit</a>
-          <a href="https://nieuws.vooruit.org/zwaluwtillen_en_wildertnis_en_potpolder" target="_blank" rel="noopener">Zwaluwtillen en WilderTnis en potpolder</a>
+        <div class="articles"><h4>In het nieuws</h4>
+          <a href="https://nieuws.vooruit.org/cultuurzaal_krijgt_nu_echt_vorm" target="_blank" rel="noopener">Cultuurzaal krijgt nu echt vorm</a>
+          <a href="https://nieuws.vooruit.org/de_spiegeltent_komt_terug_naar_het_heuvelplein" target="_blank" rel="noopener">De Spiegeltent komt terug naar het Heuvelplein</a>
+          <a href="https://nieuws.vooruit.org/essen_haalt_textielcontainers_uit_het_straatbeeld" target="_blank" rel="noopener">Essen haalt kleding- en textielcontainers uit het straatbeeld</a>
         </div>
         <div class="actions"><button class="btn-sm" data-contact="Helmut Jaspers">Stuur een bericht</button></div>
       </article>
@@ -185,33 +190,36 @@
     <div class="people four">
 
       <article class="person">
-        <div class="top"><div class="avatar" aria-hidden="true">EL</div><div><div class="name">Emma Lambregts</div><div class="role">Fractieleider</div></div></div>
-        <div class="articles"><h4>Recent in het nieuws</h4>
+        <div class="top"><img class="avatar" src="../img/mensen/emma-lambregts.jpg" alt="Emma Lambregts"><div><div class="name">Emma Lambregts</div><div class="role">Fractieleider</div></div></div>
+        <div class="articles"><h4>In het nieuws</h4>
+          <a href="https://nieuws.vooruit.org/zitdagen_maatschappelijk_werker_op_scholen_blijken_drempelverlagend" target="_blank" rel="noopener">Zitdagen maatschappelijk werker op scholen blijken drempelverlagend</a>
           <a href="https://nieuws.vooruit.org/automatische_zorgtoelage_bereikt_bijna_drie_keer_meer_kinderen_en_jongeren_in_essen" target="_blank" rel="noopener">Automatische zorgtoelage bereikt bijna drie keer meer kinderen en jongeren</a>
-          <a href="https://nieuws.vooruit.org/vooruit_steunt_mobiliteitsplan_nu_moet_het_echte_werk_beginnen" target="_blank" rel="noopener">Vooruit steunt mobiliteitsplan: "Nu moet het echte werk beginnen"</a>
         </div>
         <div class="actions"><button class="btn-sm" data-contact="Emma Lambregts">Stuur een bericht</button></div>
       </article>
 
       <article class="person">
-        <div class="top"><div class="avatar" aria-hidden="true">RG</div><div><div class="name">Ronald Goormachtig</div><div class="role">Gemeenteraadslid</div></div></div>
-        <div class="articles"><h4>Recent in het nieuws</h4>
+        <div class="top"><img class="avatar" src="../img/mensen/ronald-goormachtig.jpg" alt="Ronald Goormachtig"><div><div class="name">Ronald Goormachtig</div><div class="role">Gemeenteraadslid</div></div></div>
+        <div class="articles"><h4>In het nieuws</h4>
           <a href="https://nieuws.vooruit.org/meer_aandacht_voor_voetgangers" target="_blank" rel="noopener">Meer aandacht voor voetgangers</a>
         </div>
         <div class="actions"><button class="btn-sm" data-contact="Ronald Goormachtig">Stuur een bericht</button></div>
       </article>
 
       <article class="person">
-        <div class="top"><div class="avatar" aria-hidden="true">JV</div><div><div class="name">Jeroen Verleysen</div><div class="role">Gemeenteraadslid</div></div></div>
-        <div class="articles"><h4>Recent in het nieuws</h4>
+        <div class="top"><img class="avatar" src="../img/mensen/jeroen-verleysen.jpg" alt="Jeroen Verleysen"><div><div class="name">Jeroen Verleysen</div><div class="role">Gemeenteraadslid</div></div></div>
+        <div class="articles"><h4>In het nieuws</h4>
+          <a href="https://nieuws.vooruit.org/zaal_rex_n_keer_per_jaar_gratis_voor_essense_verenigingen" target="_blank" rel="noopener">Zaal Rex één keer per jaar gratis voor Essense verenigingen</a>
+          <a href="https://nieuws.vooruit.org/fietsbieb_krijgt_nieuwe_thuis_op_horendonk" target="_blank" rel="noopener">Fietsbieb krijgt nieuwe thuis op Horendonk</a>
           <a href="https://nieuws.vooruit.org/graag_duidelijkheid_over_glasvezel_in_essense_buitengebieden" target="_blank" rel="noopener">Graag duidelijkheid over glasvezel in Essense buitengebieden</a>
         </div>
         <div class="actions"><button class="btn-sm" data-contact="Jeroen Verleysen">Stuur een bericht</button></div>
       </article>
 
       <article class="person">
-        <div class="top"><div class="avatar" aria-hidden="true">LJ</div><div><div class="name">Leen Jaspers</div><div class="role">Gemeenteraadslid</div></div></div>
-        <div class="articles"><h4>Recent in het nieuws</h4>
+        <div class="top"><img class="avatar" src="../img/mensen/leen-jaspers.jpg" alt="Leen Jaspers"><div><div class="name">Leen Jaspers</div><div class="role">Gemeenteraadslid</div></div></div>
+        <div class="articles"><h4>In het nieuws</h4>
+          <a href="https://nieuws.vooruit.org/vooruit_essen_vraagt_meer_aandacht_voor_informatie_rond_voorafgaande_zorgplanning" target="_blank" rel="noopener">Vooruit Essen vraagt meer aandacht voor informatie rond voorafgaande zorgplanning</a>
           <a href="https://nieuws.vooruit.org/vooruit_raadslid_leen_jaspers_houdt_hittebeleid_scherp" target="_blank" rel="noopener">Vooruit-raadslid Leen Jaspers houdt hittebeleid scherp</a>
         </div>
         <div class="actions"><button class="btn-sm" data-contact="Leen Jaspers">Stuur een bericht</button></div>
@@ -226,11 +234,11 @@
     <div class="group-label">Bijzonder comité voor de sociale dienst</div>
     <div class="people">
       <article class="person">
-        <div class="top"><div class="avatar" aria-hidden="true">FV</div><div><div class="name">François Veraart</div><div class="role">Lid bijzonder comité sociale dienst</div></div></div>
+        <div class="top"><img class="avatar" src="../img/mensen/francois-veraart.jpg" alt="François Veraart"><div><div class="name">François Veraart</div><div class="role">Lid bijzonder comité sociale dienst</div></div></div>
         <div class="actions"><button class="btn-sm" data-contact="François Veraart">Stuur een bericht</button></div>
       </article>
       <article class="person">
-        <div class="top"><div class="avatar" aria-hidden="true">DV</div><div><div class="name">Diane Van Ginderen</div><div class="role">Lid bijzonder comité sociale dienst</div></div></div>
+        <div class="top"><img class="avatar" src="../img/mensen/diane-van-ginderen.jpg" alt="Diane Van Ginderen"><div><div class="name">Diane Van Ginderen</div><div class="role">Lid bijzonder comité sociale dienst</div></div></div>
         <div class="actions"><button class="btn-sm" data-contact="Diane Van Ginderen">Stuur een bericht</button></div>
       </article>
     </div>
@@ -239,7 +247,7 @@
 
 <section>
   <div class="wrap">
-    <div class="note"><b>Ook het bestuur van de afdeling krijgt hier een plaats</b> — met dezelfde kaarten, zodra de namen aangeleverd zijn. Foto's vervangen de initialen; elke kaart is door de redactie zelf aan te passen in het beheer.</div>
+    <div class="note"><b>Ook het bestuur van de afdeling krijgt hier een plaats</b> — met dezelfde kaarten, zodra de namen aangeleverd zijn. De foto's komen van de huidige site; elke kaart is door de redactie zelf aan te passen in het beheer.</div>
   </div>
 </section>
 
@@ -254,7 +262,6 @@
         <h4>Vooruit Essen</h4>
         <ul>
           <li><a href="../#nieuws">Nieuws</a></li>
-          <li><a href="../agenda/">Agenda</a></li>
           <li><a href="./">Onze mensen</a></li>
           <li><a href="../nieuwsbrief/">Nieuwsbrief</a></li>
           <li><a href="../beheer/">Beheer (demo)</a></li>

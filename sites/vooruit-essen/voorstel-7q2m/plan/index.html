@@ -59,7 +59,6 @@
   thead th { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--ground); border-bottom: 1px solid var(--line-2); white-space: nowrap; }
   tbody tr:last-child td { border-bottom: 0; }
   td strong { font-weight: 600; }
-  td.dim { color: var(--muted); }
   .matrix th:not(:first-child), .matrix td:not(:first-child) { text-align: center; white-space: nowrap; }
   .matrix td:first-child { font-weight: 500; }
   .matrix .now { background: var(--red-tint); }
@@ -67,18 +66,6 @@
   .dot.y { color: var(--red); } .dot.p { color: var(--muted); } .dot.n { color: var(--line-2); }
   .legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 10px 0 0; font-size: 13px; color: var(--muted); }
   .legend span { display: inline-flex; align-items: center; gap: 8px; }
-
-  .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin-top: 18px; }
-  .flow { background: var(--surface); border: 1px solid var(--line); padding: 20px 22px 22px; }
-  .flow.next { border-color: var(--red); }
-  .flow h3 { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
-  .flow h3 small { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-  .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
-  .steps li { counter-increment: step; position: relative; padding: 8px 0 8px 36px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 15px; }
-  .steps li:first-child { border-top: 0; }
-  .steps li::before { content: counter(step); position: absolute; left: 0; top: 9px; width: 24px; height: 24px; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: var(--ink); background: var(--ground); border: 1px solid var(--line-2); }
-  .flow.next .steps li::before { background: var(--red); border-color: var(--red); color: #fff; }
-  .steps li em { font-style: normal; color: var(--ink); font-weight: 600; }
 
   .scope-head { display: flex; align-items: center; gap: 14px; margin: 28px 0 4px; }
   .scope-head:first-child { margin-top: 0; }
@@ -91,7 +78,6 @@
   .items li b { font-weight: 600; position: relative; padding-left: 20px; }
   .items li b::before { content: ""; position: absolute; left: 0; top: .5em; width: 10px; height: 10px; background: var(--red); }
   .items.opt li b::before { background: transparent; border: 1.5px solid var(--ink); width: 8px; height: 8px; }
-  .items.out li b::before { background: var(--line-2); }
   .items li b .price { display: block; font-style: normal; font-weight: 700; color: var(--red); font-size: 14px; margin-top: 2px; font-variant-numeric: tabular-nums; }
   .items li span { color: var(--ink-2); font-size: 15px; }
   @media (max-width: 640px) { .items li { grid-template-columns: 1fr; gap: 2px; } }
@@ -114,68 +100,41 @@
   <header class="mast">
     <span class="eyebrow">Vooruit Essen · voorstel</span>
     <h1>Websiteplan Vooruit Essen</h1>
-    <p class="dek">Een eigen site die de afdeling zelf onderhoudt: nieuws, mensen, programma, activiteiten mét inschrijven, en een nieuwsbrief — allemaal te beheren zonder technische achtergrond.</p>
+    <p class="dek">Een eigen site die de afdeling zelf onderhoudt: nieuws, mensen, programma en een nieuwsbrief — allemaal te beheren zonder technische achtergrond.</p>
     <dl class="meta">
       <div><dt>Budget</dt><dd>€ 1.500 eenmalig + € 25 per maand, excl. btw</dd></div>
+      <div><dt>Domein</dt><dd>vooruitessen.be</dd></div>
       <div><dt>Huidige site</dt><dd>nieuws.vooruit.org/essen</dd></div>
       <div><dt>Redactie</dt><dd>3 à 4 bestuursleden</dd></div>
-      <div><dt>Eerste mijlpaal</dt><dd>Brunch, zondag 1 november 2026</dd></div>
     </dl>
   </header>
 
   <section id="vandaag">
     <h2>Waar we vandaag staan</h2>
     <div class="prose">
-      <p>De huidige pagina is een onderdeel van de nationale Vooruit-site. Dat werkt voor nieuws en voor het verzamelen van e-mailadressen, maar alles wat de afdeling lokaal organiseert, gebeurt buiten de site om.</p>
+      <p>De huidige pagina is een onderdeel van de nationale Vooruit-site. Dat werkt voor nieuws en voor het verzamelen van e-mailadressen, maar de afdeling heeft er weinig over te zeggen.</p>
     </div>
     <ul class="bul">
-      <li><b>Activiteiten staan niet op de site.</b> Inschrijven voor de brunch loopt via een Microsoft Forms-link; betalen via overschrijving, waarna iemand uittreksels naast de antwoorden legt.</li>
       <li><b>De nieuwsbrieflijst is niet van de afdeling.</b> Inschrijvingen gaan naar het nationale CRM; verzenden loopt via de nationale omgeving.</li>
       <li><b>Mensen zonder bevoegdheden of contact.</b> Acht kaarten met naam en mandaat, geen bestuur, geen weg naar een raadslid.</li>
-      <li><b>Beheer buiten eigen hand.</b> Aanpassen gaat via het nationale platform, dat niet gemaakt is voor lokale activiteiten.</li>
+      <li><b>Beheer buiten eigen hand.</b> Aanpassen gaat via het nationale platform; wat er lokaal kan, is beperkt.</li>
     </ul>
-  </section>
-
-  <section id="brunch">
-    <h2>De brunch als voorbeeld</h2>
-    <div class="compare">
-      <div class="flow">
-        <h3>Vandaag <small>Microsoft Forms</small></h3>
-        <ol class="steps">
-          <li>Link of QR-code op de flyer, zes vrije velden. <em>De prijs staat niet in het formulier.</em></li>
-          <li>Zelf een bedrag overschrijven, met een eigen mededeling.</li>
-          <li>Een bestuurslid vergelijkt uittreksels met de antwoordenlijst.</li>
-          <li>Geen bevestiging, geen herinnering, geen zicht op vrije plaatsen.</li>
-        </ol>
-      </div>
-      <div class="flow next">
-        <h3>Straks <small>Eigen site</small></h3>
-        <ol class="steps">
-          <li>De brunch staat in de agenda: € 27 per volwassene, € 10 per kind, 60 plaatsen per shift — met de vrije plaatsen live.</li>
-          <li>Inschrijven op dezelfde pagina; <em>het bedrag wordt meteen berekend</em>.</li>
-          <li>Bevestigingsmail met bedrag en een <em>gestructureerde mededeling</em>. De penningmeester vinkt “betaald” aan; matchen duurt seconden.</li>
-          <li>Eén automatische herinnering na een week. Vol? Wachtlijst. Deelnemerslijst voor de keuken: één klik.</li>
-        </ol>
-      </div>
-    </div>
-    <p class="note"><b>Online betalen</b> (Bancontact, Payconiq) is een optie voor later: het vraagt een betaalpartner op naam van een rechtspersoon. De gestructureerde mededeling lost vandaag al het grootste deel van het werk op.</p>
   </section>
 
   <section id="buren">
     <h2>Wat de andere partijen doen</h2>
     <div class="prose">
-      <p>N-VA/PLE liet een eigen site bouwen; cd&amp;v en Vlaams Belang gebruiken het nationale sjabloon. Vooruit Turnhout toont dat een eigen site naast de nationale omgeving gewoon kan. Niemand laat vandaag rechtstreeks op de site inschrijven voor een activiteit — dat wordt het verschil.</p>
+      <p>N-VA/PLE liet een eigen site bouwen; cd&amp;v en Vlaams Belang gebruiken het nationale sjabloon. Vooruit Turnhout toont dat een eigen site naast de nationale omgeving gewoon kan — met eigen nieuwsbrief en het volledige bestuur erop.</p>
     </div>
     <div class="tablewrap">
       <table class="matrix">
         <thead><tr><th>Functie</th><th class="now">Vooruit Essen nu</th><th>N-VA/PLE</th><th>cd&amp;v Essen</th><th>Vlaams Belang</th><th>Vooruit Turnhout</th></tr></thead>
         <tbody>
           <tr><td>Eigen domeinnaam</td><td class="now"><span class="dot n">—</span></td><td><span class="dot y">●</span></td><td><span class="dot n">—</span></td><td><span class="dot p">○</span></td><td><span class="dot y">●</span></td></tr>
-          <tr><td>Agenda</td><td class="now"><span class="dot n">—</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td></tr>
-          <tr><td>Online inschrijven op de site</td><td class="now"><span class="dot n">—</span></td><td><span class="dot n">—</span></td><td><span class="dot p">○</span></td><td><span class="dot n">—</span></td><td><span class="dot n">—</span></td></tr>
+          <tr><td>Lokaal nieuws</td><td class="now"><span class="dot y">●</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td></tr>
+          <tr><td>Mensen met mandaat</td><td class="now"><span class="dot y">●</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td><td><span class="dot y">●</span></td></tr>
           <tr><td>Eigen nieuwsbrief</td><td class="now"><span class="dot p">○</span></td><td><span class="dot y">●</span></td><td><span class="dot p">○</span></td><td><span class="dot p">○</span></td><td><span class="dot y">●</span></td></tr>
           <tr><td>Bestuur / raden en commissies</td><td class="now"><span class="dot n">—</span></td><td><span class="dot y">●</span></td><td><span class="dot n">—</span></td><td><span class="dot n">—</span></td><td><span class="dot y">●</span></td></tr>
-          <tr><td>Verslag uit de gemeenteraad</td><td class="now"><span class="dot n">—</span></td><td><span class="dot y">●</span></td><td><span class="dot p">○</span></td><td><span class="dot n">—</span></td><td><span class="dot n">—</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -188,29 +147,29 @@
     <ul class="items">
       <li><b>Eigen site op vooruitessen.be</b><span>In de rode Vooruit-huisstijl, snel en leesbaar op elke gsm. Domein en inhoud op naam van de afdeling.</span></li>
       <li><b>Nieuws</b><span>Artikels met foto's, thema's, auteur en datum. De bestaande lokale artikels worden overgenomen.</span></li>
-      <li><b>Agenda en inschrijven</b><span>Activiteiten met prijs en plaatsen per tijdslot, bevestigingsmail met gestructureerde mededeling, deelnemerslijst met “betaald”-vinkje, herinnering, wachtlijst, export.</span></li>
+      <li><b>Agenda</b><span>Activiteiten met datum, plaats en korte tekst, op de startpagina en in de nieuwsbrief. Inschrijven via de link die de afdeling kiest (online inschrijven op de site zelf is een optie).</span></li>
       <li><b>Mensen</b><span>Schepenen, raadsleden, comitéleden en bestuur — met foto, bevoegdheden en een contactknop per persoon.</span></li>
       <li><b>Programma</b><span>Per thema, gekoppeld aan het nieuws, met het verkiezingsprogramma als download.</span></li>
       <li><b>Nieuwsbrief</b><span>Inschrijven met dubbele bevestiging, samenstellen uit gepubliceerde artikels, versturen, archief online. De lijst wordt eigendom van de afdeling.</span></li>
       <li><b>Beheer zonder techniek</b><span>Inloggen met een code per e-mail. Schrijven zoals in een tekstverwerker, foto's slepen, voorvertoning, publiceren. Wie mag publiceren is instelbaar.</span></li>
+      <li><b>Cijfers</b><span>Bezoekers van de site (zonder cookies), waar ze vandaan komen en wat gelezen wordt; per nieuwsbrief hoeveel lezers openen en waarop ze klikken — samengeteld, niet per persoon.</span></li>
       <li><b>Erbij</b><span>Privacyverklaring en cookiebeleid op maat van een Belgische partijafdeling (geen banner nodig: enkel functionele cookies), vindbaar in Google, één opleidingsmoment en een korte handleiding.</span></li>
+    </ul>
+
+    <div class="scope-head"><span class="tag">Optioneel</span><p>Elk apart te bestellen. Richtprijzen, eenmalig en excl. btw; daarna inbegrepen in het maandbedrag.</p></div>
+    <ul class="items opt">
+      <li><b>Online inschrijven voor activiteiten<em class="price">€ 450</em></b><span>Activiteiten in een agenda met inschrijfformulier, bevestigingsmail met gestructureerde mededeling, deelnemerslijst met “betaald”-vinkje, herinnering en wachtlijst.</span></li>
+      <li><b>Online betalen bij inschrijving<em class="price">€ 350</em></b><span>Bancontact en Payconiq; een betaling zet de inschrijving zelf op “betaald”. Vereist de optie hierboven en een rechtspersoon met KBO-nummer; ± € 0,30 – 0,40 per transactie aan de betaalpartner.</span></li>
+      <li><b>Meldpunt buurt<em class="price">€ 300</em></b><span>“Iets gezien in je straat?” Formulier met foto en plek, rechtstreeks naar een raadslid, met opvolging in het beheer.</span></li>
+      <li><b>Verkiezingsmodus 2030<em class="price">€ 450</em></b><span>Kandidatenlijst, programma per kandidaat, aftelteller — met één schakelaar aan te zetten.</span></li>
+      <li><b>Ledenpagina<em class="price">€ 300</em></b><span>Interne documenten achter dezelfde e-mailcode-login.</span></li>
     </ul>
 
     <div class="scope-head"><span class="tag">Hoe we het maken</span><p>Bewezen oplossingen — niets in de demo dat we niet zo kunnen opleveren.</p></div>
     <ul class="items opt">
       <li><b>Site en beheer</b><span>Op maat gebouwd en gehost op dezelfde infrastructuur als de andere ocior-sites; geen kant-en-klaar pakket met uitbreidingen die verouderen. Inloggen met een code per e-mail — geen wachtwoorden.</span></li>
-      <li><b>Mailing</b><span>Een Europese verzenddienst (Brevo) verstuurt en zorgt dat mails aankomen; de uitschrijflink en foute adressen regelt die mee. De redactie werkt in ons scherm, de lijst blijft bij de afdeling. Tot 300 mails per dag in het maandbedrag; groeit de lijst, dan schakelen we op zonder meerprijs.</span></li>
-      <li><b>Privacy</b><span>Uitdrukkelijke toestemming met dubbele opt-in, geen open- of kliktracking, inschrijvingen gewist drie maanden na de activiteit, gegevens in Europa, lettertypes zelf gehost.</span></li>
-    </ul>
-
-    <div class="scope-head"><span class="tag">Optioneel</span><p>Elk apart te bestellen. Richtprijzen, eenmalig en excl. btw; daarna inbegrepen in het maandbedrag.</p></div>
-    <ul class="items opt">
-      <li><b>Online betalen<em class="price">€ 350</em></b><span>Bancontact en Payconiq bij het inschrijven; een betaling zet de inschrijving zelf op “betaald”. Vraagt een rechtspersoon met KBO-nummer; ± € 0,30 – 0,40 per transactie aan de betaalpartner.</span></li>
-      <li><b>Uit de gemeenteraad<em class="price">€ 250</em></b><span>Korte verslagen per zitting, gekoppeld aan de raadsleden.</span></li>
-      <li><b>Meldpunt buurt<em class="price">€ 300</em></b><span>“Iets gezien in je straat?” Formulier met foto en plek, rechtstreeks naar een raadslid, met opvolging in het beheer.</span></li>
-      <li><b>Fotoalbums<em class="price">€ 200</em></b><span>Een album per activiteit, foto's automatisch verkleind.</span></li>
-      <li><b>Verkiezingsmodus 2030<em class="price">€ 450</em></b><span>Kandidatenlijst, programma per kandidaat, aftelteller — met één schakelaar aan te zetten.</span></li>
-      <li><b>Ledenpagina<em class="price">€ 300</em></b><span>Interne documenten achter dezelfde e-mailcode-login.</span></li>
+      <li><b>Mailing</b><span>Een Europese verzenddienst verstuurt, zorgt dat mails aankomen, regelt de uitschrijflink en foute adressen en levert de open- en klikcijfers. De redactie werkt in ons scherm, de lijst blijft bij de afdeling. Tot 5.000 mails per maand in het maandbedrag; daarboven bekijken we het samen opnieuw.</span></li>
+      <li><b>Privacy</b><span>Uitdrukkelijke toestemming met dubbele opt-in, ook voor het meten van opens en kliks; cijfers alleen samengeteld; bezoekers geteld zonder cookies; gegevens in Europa; lettertypes zelf gehost.</span></li>
     </ul>
 
     <div class="scope-head"><span class="tag out">Niet in scope</span><p>Fotografie, teksten en drukwerk; de ledenadministratie (blijft bij Vooruit nationaal); nieuwe functies na oplevering buiten de lijst hierboven.</p></div>
@@ -223,8 +182,8 @@
         <thead><tr><th>Post</th><th>Bedrag (excl. btw)</th><th>Toelichting</th></tr></thead>
         <tbody>
           <tr><td><strong>Bouw en oplevering</strong></td><td>€ 1.500 eenmalig</td><td>Alles onder “Inbegrepen”, inclusief overname van de inhoud, opleiding en handleiding.</td></tr>
-          <tr><td><strong>Onderhoud en hosting</strong></td><td>€ 25 per maand</td><td>Domeinnaam, hosting, verzending van nieuwsbrieven en bevestigingsmails (tot 300 per dag; bij een grotere lijst schakelen we op zonder meerprijs), updates, back-ups en kleine aanpassingen. Eén factuur, geen abonnementen bij derden. Stopt wanneer de afdeling dat wil; de site blijft van haar.</td></tr>
-          <tr><td><strong>Extra functies</strong></td><td>€ 200 – 450 per functie</td><td>Eenmalig, per optie. Alle zes samen: € 1.850.</td></tr>
+          <tr><td><strong>Onderhoud en hosting</strong></td><td>€ 25 per maand</td><td>Domeinnaam, hosting, verzending van nieuwsbrieven tot 5.000 mails per maand (daarboven herbekijken we samen), updates, back-ups en kleine aanpassingen. Eén factuur, geen abonnementen bij derden. Stopt wanneer de afdeling dat wil; de site blijft van haar.</td></tr>
+          <tr><td><strong>Extra functies</strong></td><td>€ 300 – 450 per functie</td><td>Eenmalig, per optie uit de lijst hierboven.</td></tr>
         </tbody>
       </table>
     </div>
@@ -251,19 +210,19 @@
         </ul>
       </div>
       <div>
-        <h3>Nieuwsbrief en brunch</h3>
+        <h3>Nieuwsbrief</h3>
         <ul>
           <li>Aantal abonnees vandaag, en op welke basis ze toestemming gaven</li>
-          <li>Bevestiging van het rekeningnummer en de uiterste inschrijfdatum</li>
+          <li>Gewenst ritme: maandelijks, per kwartaal, bij nieuws</li>
         </ul>
       </div>
     </div>
-    <p class="note"><b>Al binnen:</b> het verkiezingsprogramma, de huisstijl, de domeinnaam en de brunchgegevens. <b>Het prototype toont het al</b> — agenda met inschrijving, mensen, nieuwsbrief en een werkend beheerscherm. Streefdoel: de inschrijvingen voor 1 november lopen via de nieuwe site.</p>
+    <p class="note"><b>Al binnen:</b> het verkiezingsprogramma, de huisstijl en de domeinnaam. <b>Het prototype toont het al</b> — nieuws, agenda, mensen, nieuwsbrief, cijfers en een werkend beheerscherm.</p>
   </section>
 
   <footer>
     <span>Opgesteld door Sebastiaan Rousseeuw · ocior.be</span>
-    <span>Voorstel, versie 0.3 · september 2026 · geen offerte</span>
+    <span>Voorstel, versie 0.4 · september 2026 · geen offerte</span>
   </footer>
 </div>
 </body>

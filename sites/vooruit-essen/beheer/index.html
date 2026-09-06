@@ -10,7 +10,7 @@
 <style>
   :root {
     --red: #E4032E; --red-dark: #b3021f; --ink: #141414; --paper: #ffffff; --paper-warm: #faf8f6;
-    --line: #e8e4df; --line-2: #d9d3cc; --muted: #6d6a66; --ok: #1f7a3a; --ok-bg: #e6f4ea; --warn: #b45309; --warn-bg: #fff4e5; --wait: #5b4fcf; --wait-bg: #eeecfb;
+    --line: #e8e4df; --line-2: #d9d3cc; --muted: #6d6a66; --ok: #1f7a3a; --ok-bg: #e6f4ea; --warn: #b45309; --warn-bg: #fff4e5;
     --font-display: 'Archivo Black', sans-serif; --font-body: 'Inter', sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,7 +20,7 @@
   button, input, select, textarea { font: inherit; color: inherit; }
   button { cursor: pointer; }
 
-  /* ---------- LOGIN ---------- */
+  /* ---------- LOGIN (voorbeeld) ---------- */
   .login { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: var(--ink); color: #fff; position: relative; overflow: hidden; }
   .login::before { content: ""; position: absolute; right: -160px; top: -160px; width: 520px; height: 520px; border: 64px solid var(--red); border-radius: 50%; opacity: 0.12; }
   .login-card { position: relative; width: 100%; max-width: 420px; background: var(--paper); color: var(--ink); border-radius: 8px; padding: 34px 34px 30px; box-shadow: 0 30px 80px rgba(0,0,0,.4); }
@@ -32,7 +32,7 @@
   .login-card p b { color: var(--ink); }
   .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
   label { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; }
-  input[type=text], input[type=email], input[type=tel], select, textarea { padding: 11px 13px; border: 1.5px solid var(--line); border-radius: 4px; background: #fff; width: 100%; }
+  input[type=text], input[type=email], input[type=date], input[type=url], select, textarea { padding: 11px 13px; border: 1.5px solid var(--line); border-radius: 4px; background: #fff; width: 100%; }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--ink); }
   .code { letter-spacing: 0.4em; font-size: 1.3rem; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
   .btn { display: inline-flex; align-items: center; gap: 8px; border: 2px solid transparent; border-radius: 4px; padding: 10px 16px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; background: #fff; }
@@ -79,7 +79,7 @@
   .tabs button:last-child { border-right: 0; }
   .tabs button[aria-pressed="true"] { background: var(--ink); color: #fff; }
 
-  /* ---------- TILES ---------- */
+  /* ---------- TILES & CARDS ---------- */
   .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 26px; }
   .tile { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; }
   .tile .k { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
@@ -99,6 +99,7 @@
   .list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 0.9rem; }
   .list li:first-child { border-top: 0; padding-top: 0; }
   .list li span:last-child { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .note { font-size: 0.78rem; color: var(--muted); margin-top: 10px; }
 
   /* ---------- TABLES ---------- */
   .tablewrap { background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; }
@@ -109,27 +110,24 @@
   tbody tr.click { cursor: pointer; }
   tbody tr.click:hover td { background: var(--paper-warm); }
   td .sub { display: block; color: var(--muted); font-size: 0.78rem; }
-  td.num { text-align: right; white-space: nowrap; }
-  th.num { text-align: right; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
   .pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; white-space: nowrap; }
   .pill.ok { background: var(--ok-bg); color: var(--ok); }
   .pill.warn { background: var(--warn-bg); color: var(--warn); }
-  .pill.wait { background: var(--wait-bg); color: var(--wait); }
   .pill.draft { background: var(--paper-warm); color: var(--muted); border: 1px solid var(--line-2); }
   .pill.live { background: var(--ok-bg); color: var(--ok); }
-  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; }
   input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--red); cursor: pointer; }
-  .empty { padding: 28px; text-align: center; color: var(--muted); font-size: 0.9rem; }
 
-  /* ---------- SHIFTS ---------- */
-  .shifts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
-  .shift { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; }
-  .shift .t { display: flex; justify-content: space-between; font-weight: 800; margin-bottom: 8px; }
-  .shift .t span:last-child { color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
-  .bar2 { height: 10px; background: var(--line); border-radius: 999px; overflow: hidden; }
-  .bar2 i { display: block; height: 100%; background: var(--red); border-radius: 999px; }
-  .shift .m { display: flex; gap: 14px; font-size: 0.8rem; color: var(--muted); margin-top: 8px; flex-wrap: wrap; }
-  .shift .m b { color: var(--ink); }
+  /* ---------- CIJFERS ---------- */
+  .chart { display: flex; align-items: flex-end; gap: 3px; height: 120px; padding-top: 6px; }
+  .chart i { flex: 1; background: var(--line-2); border-radius: 2px 2px 0 0; min-width: 4px; position: relative; }
+  .chart i.hi { background: var(--red); }
+  .chart i[title]:hover { background: var(--ink); }
+  .axis { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
+  .rate { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: center; font-size: 0.88rem; }
+  .rate .bar { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; grid-column: 1 / -1; margin-bottom: 6px; }
+  .rate .bar i { display: block; height: 100%; background: var(--red); border-radius: 999px; }
+  .rate b { font-variant-numeric: tabular-nums; }
 
   /* ---------- EDITOR ---------- */
   .editor { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
@@ -159,6 +157,13 @@
   .preview img { display: block; width: 100%; max-height: 320px; object-fit: cover; border-radius: 6px; margin-bottom: 16px; }
   .preview .txt { max-width: 68ch; line-height: 1.65; }
   .preview .txt h2 { font-size: 1.15rem; margin: 14px 0 6px; }
+
+  /* ---------- AGENDA ---------- */
+  .ev-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+  .ev-form .full { grid-column: 1 / -1; }
+  .ev-form .field { margin-bottom: 0; }
+  .ev-form textarea { min-height: 84px; resize: vertical; }
+  .ev-form .row { grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; }
 
   /* ---------- NIEUWSBRIEF ---------- */
   .nl { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
@@ -190,11 +195,10 @@
   @media (max-width: 980px) {
     .shell { grid-template-columns: 1fr; }
     .side { position: fixed; top: 56px; left: 0; right: 0; z-index: 35; border-right: 0; border-bottom: 1px solid var(--line); box-shadow: 0 12px 30px rgba(0,0,0,.12); }
-    .side[hidden] { display: none !important; }
     .bar .menu-btn { display: inline-block; }
     main { padding: 20px 18px 60px; }
     .tiles { grid-template-columns: 1fr 1fr; }
-    .two, .editor, .nl, .shifts { grid-template-columns: 1fr; }
+    .two, .editor, .nl, .ev-form { grid-template-columns: 1fr; }
     .bar .user .mail-addr { display: none; }
   }
   @media (max-width: 560px) {
@@ -207,8 +211,8 @@
 </head>
 <body>
 
-<!-- ============ LOGIN ============ -->
-<div class="login" id="login">
+<!-- ============ AANMELDSCHERM (voorbeeld, in de demo overgeslagen) ============ -->
+<div class="login" id="login" hidden>
   <div class="login-card">
     <div class="brand">Vooruit <span>Essen</span></div>
     <div class="sub">Beheer · vooruitessen.be/beheer</div>
@@ -217,34 +221,36 @@
       <p>Geen wachtwoord nodig. Vul je e-mailadres in en je krijgt een code van zes cijfers in je mailbox.</p>
       <div class="field"><label for="lemail">Je e-mailadres</label><input type="email" id="lemail" autocomplete="email" placeholder="voornaam@voorbeeld.be" required></div>
       <button class="btn primary block" type="submit">Stuur me een code</button>
-      <p class="fine">Alleen adressen die de afdeling toevoegde, kunnen aanmelden. Demo: elk adres werkt.</p>
+      <p class="fine">Alleen adressen die de afdeling toevoegde, kunnen aanmelden.</p>
     </form>
     <form id="step2" hidden>
       <h1>Code invullen</h1>
       <p>We stuurden een code naar <b id="lto"></b>. Hij blijft 10 minuten geldig.</p>
       <div class="field"><label for="lcode">Code</label><input type="text" id="lcode" class="code" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code" required></div>
       <button class="btn primary block" type="submit">Aanmelden</button>
-      <p class="fine">Demo: eender welke zes cijfers werken. <a href="#" id="lback">Ander adres</a></p>
+      <p class="fine"><a href="#" id="lback">Ander adres</a></p>
     </form>
+    <p class="fine" style="margin-top:22px;padding-top:16px;border-top:1px solid var(--line)">Zo ziet aanmelden er straks uit. In de demo hoef je dat niet: <a href="#" id="lskip">terug naar het beheer →</a></p>
   </div>
 </div>
 
 <!-- ============ APP ============ -->
-<div id="app" hidden>
+<div id="app">
   <div class="bar">
     <div style="display:flex;align-items:center;gap:10px">
       <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
       <a class="brand" href="../">Vooruit <span>Essen</span><small>Beheer</small></a>
     </div>
-    <div class="user"><span class="mail-addr">Aangemeld als <b id="uEmail"></b></span><span class="role">Redacteur · mag publiceren</span><a href="#" id="logout">Afmelden</a></div>
+    <div class="user"><span class="mail-addr">Aangemeld als <b id="uEmail"></b></span><span class="role">Redacteur · mag publiceren</span><a href="#" id="showLogin" title="Bekijk hoe aanmelden er straks uitziet">Aanmeldscherm</a></div>
   </div>
   <div class="shell">
     <aside class="side" id="side">
       <nav aria-label="Beheer">
         <button data-go="overzicht" aria-current="page"><span class="ico"></span>Overzicht</button>
-        <button data-go="artikelen"><span class="ico"></span>Artikelen</button>
-        <button data-go="inschrijvingen"><span class="ico"></span>Agenda &amp; inschrijvingen <span class="cnt" id="cntOpen"></span></button>
+        <button data-go="artikelen"><span class="ico"></span>Artikelen <span class="cnt" id="cntDrafts"></span></button>
+        <button data-go="agenda"><span class="ico"></span>Agenda</button>
         <button data-go="nieuwsbrief"><span class="ico"></span>Nieuwsbrief &amp; abonnees</button>
+        <button data-go="cijfers"><span class="ico"></span>Cijfers</button>
         <button data-go="mensen"><span class="ico"></span>Mensen</button>
         <button disabled title="Nog niet in het prototype"><span class="ico" style="background:var(--line-2)"></span>Instellingen</button>
       </nav>
@@ -257,17 +263,18 @@
         <h1>Goeiemorgen</h1>
         <p class="sub">Dit is wat er speelt. Alles wat je hier ziet, is meteen aan te passen — en staat live zodra je op Publiceer klikt.</p>
         <div class="tiles">
-          <div class="tile"><div class="k">Brunch 1 november</div><div class="v" id="tPers"></div><div class="d" id="tPersD"></div></div>
-          <div class="tile"><div class="k">Betalingen</div><div class="v" id="tPaid"></div><div class="d" id="tPaidD"></div></div>
-          <div class="tile"><div class="k">Nieuwsbrief</div><div class="v" id="tSubs"></div><div class="d" id="tSubsD"></div></div>
-          <div class="tile"><div class="k">Artikels</div><div class="v" id="tArts"></div><div class="d" id="tArtsD"></div></div>
+          <div class="tile"><div class="k">Bezoekers, 30 dagen</div><div class="v" id="tVis"></div><div class="d" id="tVisD"></div></div>
+          <div class="tile"><div class="k">Artikels online</div><div class="v" id="tArts"></div><div class="d" id="tArtsD"></div></div>
+          <div class="tile"><div class="k">Abonnees</div><div class="v" id="tSubs"></div><div class="d" id="tSubsD"></div></div>
+          <div class="tile"><div class="k">Laatste nieuwsbrief</div><div class="v" id="tNl"></div><div class="d" id="tNlD"></div></div>
         </div>
         <div class="two">
           <div class="card"><h2>Snel naar</h2>
             <div class="quick">
               <button data-go="editor">Nieuw artikel schrijven <span>titel, tekst, foto → publiceer</span></button>
-              <button data-go="inschrijvingen">Inschrijvingen brunch <span>afvinken wie betaald heeft</span></button>
+              <button data-go="agenda">Activiteit toevoegen <span>datum, plaats, korte tekst</span></button>
               <button data-go="nieuwsbrief">Nieuwsbrief samenstellen <span>artikels aanvinken en versturen</span></button>
+              <button data-go="cijfers">Cijfers bekijken <span>bezoekers en wat gelezen wordt</span></button>
             </div>
           </div>
           <div class="card"><h2>Recent</h2><ul class="list" id="recent"></ul></div>
@@ -279,7 +286,8 @@
         <h1>Artikelen</h1>
         <p class="sub">Alles wat op de site staat of klaarstaat. Klik op een concept om verder te schrijven.</p>
         <div class="toolbar"><button class="btn primary" data-go="editor">+ Nieuw artikel</button><span class="spacer"></span><span style="color:var(--muted);font-size:.85rem" id="artCount"></span></div>
-        <div class="tablewrap"><table><thead><tr><th>Titel</th><th>Thema</th><th>Auteur</th><th>Datum</th><th>Status</th></tr></thead><tbody id="artRows"></tbody></table></div>
+        <div class="tablewrap"><table><thead><tr><th>Titel</th><th>Thema</th><th>Auteur</th><th>Datum</th><th class="num">Gelezen</th><th>Status</th></tr></thead><tbody id="artRows"></tbody></table></div>
+        <p class="note">“Gelezen” telt bezoeken aan het artikel op de site, zonder cookies. Voorbeeldcijfers.</p>
       </section>
 
       <!-- EDITOR -->
@@ -317,44 +325,77 @@
         <div class="preview" id="preview" hidden></div>
       </section>
 
-      <!-- INSCHRIJVINGEN -->
-      <section class="view" data-view="inschrijvingen" hidden>
-        <h1>Brunch · zondag 1 november</h1>
-        <p class="sub">Elke inschrijving krijgt automatisch een bevestiging met een gestructureerde mededeling. Zie je de betaling op de rekening, vink dan “betaald” aan — de deelnemer krijgt meteen een bevestiging.</p>
-        <div class="shifts" id="shiftCards"></div>
-        <div class="toolbar">
-          <div class="tabs" id="regTabs"><button aria-pressed="true" data-f="alle">Alle</button><button data-f="open">Nog niet betaald</button><button data-f="wacht">Wachtlijst</button></div>
-          <span class="spacer"></span>
-          <button class="btn ghost sm" id="remind">Herinnering sturen</button>
-          <button class="btn dark sm" id="csv">Exporteer lijst (CSV)</button>
+      <!-- AGENDA -->
+      <section class="view" data-view="agenda" hidden>
+        <h1>Agenda</h1>
+        <p class="sub">Activiteiten van de afdeling, met datum, plaats en een korte tekst. Ze verschijnen op de startpagina en kunnen mee in de nieuwsbrief. Inschrijven gebeurt via de link die je zelf kiest.</p>
+        <div class="two">
+          <div>
+            <div class="tablewrap"><table><thead><tr><th>Activiteit</th><th>Wanneer</th><th></th></tr></thead><tbody id="evRows"></tbody></table></div>
+            <p class="note">De brunch en het Meifeest komen van de huidige communicatie van de afdeling (uitnodiging en nieuws.vooruit.org/meifeest2026). Voorbije activiteiten blijven zichtbaar als archief.</p>
+          </div>
+          <div class="card">
+            <h2 id="evFormTitle">Nieuwe activiteit</h2>
+            <form class="ev-form" id="evForm">
+              <div class="field full"><label for="evT">Naam</label><input type="text" id="evT" required placeholder="Bv. Nieuwjaarsreceptie"></div>
+              <div class="field"><label for="evD">Datum</label><input type="date" id="evD" required></div>
+              <div class="field"><label for="evTijd">Uur</label><input type="text" id="evTijd" placeholder="Bv. vanaf 14u00"></div>
+              <div class="field full"><label for="evP">Plaats</label><input type="text" id="evP" placeholder="Bv. Zaal van het Volkshuis, Essen"></div>
+              <div class="field full"><label for="evTxt">Korte tekst</label><textarea id="evTxt" placeholder="Wat, voor wie, prijs, hoe inschrijven."></textarea></div>
+              <div class="field full"><label for="evL">Link voor meer info of inschrijven <span style="color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0">(optioneel)</span></label><input type="url" id="evL" placeholder="https://"></div>
+              <div class="row"><button class="btn primary" type="submit" id="evSave">Zet op de site</button><button class="btn ghost" type="button" id="evCancel" hidden>Annuleer</button></div>
+            </form>
+          </div>
         </div>
-        <div class="tablewrap"><table><thead><tr><th>Naam</th><th>Shift</th><th class="num">Volw.</th><th class="num">Kind.</th><th class="num">Bedrag</th><th>Mededeling</th><th>Status</th><th>Betaald</th></tr></thead><tbody id="regRows"></tbody></table></div>
-        <p style="font-size:.8rem;color:var(--muted);margin-top:10px">Rijen met een grijze naam zijn voorbeelddata. Wat je zelf inschrijft op de <a href="../agenda/">agendapagina</a>, verschijnt hier bovenaan.</p>
       </section>
 
       <!-- NIEUWSBRIEF -->
       <section class="view" data-view="nieuwsbrief" hidden>
         <h1>Nieuwsbrief</h1>
-        <p class="sub">Vink de artikels aan, schrijf twee zinnen inleiding en verstuur. Het versturen zelf doet Brevo (EU-verzenddienst); de abonneelijst blijft hier, bij de afdeling. Elke editie blijft daarna leesbaar op de site.</p>
+        <p class="sub">Vink de artikels aan, schrijf twee zinnen inleiding en verstuur. De abonneelijst blijft bij de afdeling; elke editie blijft daarna leesbaar op de site.</p>
         <div class="nl">
           <div class="card">
-            <div class="field"><label for="nlSubj">Onderwerp</label><input type="text" id="nlSubj" placeholder="Bv. Brunch op 1 november — schrijf je in"></div>
+            <div class="field"><label for="nlSubj">Onderwerp</label><input type="text" id="nlSubj" placeholder="Bv. Nieuws uit Essen — september"></div>
             <div class="field"><label for="nlIntro">Inleiding</label><textarea id="nlIntro" rows="4" placeholder="Dag {voornaam}, …"></textarea></div>
             <div class="field"><label>Artikels in deze editie</label><div class="picks" id="picks"></div></div>
-            <label style="display:flex;gap:10px;align-items:center;text-transform:none;letter-spacing:0;font-weight:600;font-size:.86rem;margin-bottom:14px"><input type="checkbox" id="nlEvent" checked> Voeg de brunch met inschrijfknop toe</label>
+            <label style="display:flex;gap:10px;align-items:center;text-transform:none;letter-spacing:0;font-weight:600;font-size:.86rem;margin-bottom:14px"><input type="checkbox" id="nlEvent" checked> Voeg de eerstvolgende activiteit uit de agenda toe</label>
             <button class="btn primary block" id="nlSend"></button>
-            <p style="font-size:.78rem;color:var(--muted);margin-top:10px">Eerst een testmail naar jezelf? <a href="#" id="nlTest">Stuur test</a></p>
+            <p class="note">Eerst een testmail naar jezelf? <a href="#" id="nlTest">Stuur test</a></p>
           </div>
           <div>
             <div class="mail" id="nlPreview"></div>
-            <div class="card" style="margin-top:14px"><h2>Laatste verzending</h2><ul class="list" id="nlStats"></ul><p style="font-size:.78rem;color:var(--muted);margin-top:10px">Geen open- of kliktracking: we tellen alleen wat aankomt, bouncet of uitschrijft. Dat is wat we mogen zonder extra toestemming.</p></div>
-            <div class="card" style="margin-top:14px"><h2>Eerdere edities</h2><ul class="list" id="nlSent"></ul></div>
+            <div class="card" style="margin-top:14px"><h2>Laatste verzending</h2><div class="rate" id="nlStats"></div><p class="note">Opens en kliks tellen we per editie, samengeteld — niet per persoon. De volledige cijfers staan onder <a href="#cijfers" data-go="cijfers">Cijfers</a>.</p></div>
           </div>
         </div>
         <div class="card" style="margin-top:18px">
           <div class="toolbar" style="margin-bottom:10px"><h2 style="margin:0">Abonnees</h2><span class="spacer"></span><button class="btn ghost sm" id="subCsv">Exporteer (CSV)</button></div>
           <div class="tablewrap" style="border:0"><table><thead><tr><th>E-mail</th><th>Voornaam</th><th>Status</th><th>Sinds</th><th></th></tr></thead><tbody id="subRows"></tbody></table></div>
-          <p style="font-size:.78rem;color:var(--muted);margin-top:10px">Wie zich inschrijft, staat hier eerst als “wacht op bevestiging” tot hij op de link in de bevestigingsmail klikt (dubbele opt-in). Uitschrijven via de link in een mail verschijnt hier automatisch. “Verwijder” wist alle gegevens meteen, hier én bij Brevo — het recht op gegevenswissing.</p>
+          <p class="note">Wie zich inschrijft, staat hier eerst als “wacht op bevestiging” tot hij op de link in de bevestigingsmail klikt (dubbele opt-in). Uitschrijven via de link in een mail verschijnt hier automatisch. “Verwijder” wist alle gegevens meteen — het recht op gegevenswissing. Rijen in het grijs zijn voorbeelddata.</p>
+        </div>
+      </section>
+
+      <!-- CIJFERS -->
+      <section class="view" data-view="cijfers" hidden>
+        <h1>Cijfers</h1>
+        <p class="sub">Hoeveel mensen de site bezoeken, waar ze vandaan komen en wat ze lezen — en hoe elke nieuwsbrief het doet. Alles samengeteld: bezoek meten we zonder cookies, mails per editie en niet per persoon.</p>
+        <div class="tiles">
+          <div class="tile"><div class="k">Bezoekers, 30 dagen</div><div class="v" id="cVis"></div><div class="d" id="cVisD"></div></div>
+          <div class="tile"><div class="k">Paginaweergaven</div><div class="v" id="cViews"></div><div class="d">gemiddeld <b>2,9</b> pagina's per bezoek</div></div>
+          <div class="tile"><div class="k">Via de nieuwsbrief</div><div class="v" id="cNlShare"></div><div class="d">van alle bezoeken komt uit een mail</div></div>
+          <div class="tile"><div class="k">Geopend, laatste editie</div><div class="v" id="cOpen"></div><div class="d" id="cOpenD"></div></div>
+        </div>
+        <div class="two">
+          <div class="card"><h2>Bezoekers per dag, laatste 30 dagen</h2><div class="chart" id="chart"></div><div class="axis"><span id="axL"></span><span>nieuwsbrief verstuurd = rood</span><span id="axR"></span></div></div>
+          <div class="card"><h2>Waar komen bezoekers vandaan</h2><div class="rate" id="sources"></div></div>
+        </div>
+        <div class="two" style="margin-top:18px">
+          <div class="card"><h2>Meest gelezen, 30 dagen</h2><ul class="list" id="topPages"></ul></div>
+          <div class="card"><h2>Waarop klikten lezers in de laatste nieuwsbrief</h2><ul class="list" id="topClicks"></ul></div>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <h2>Nieuwsbrieven</h2>
+          <div class="tablewrap" style="border:0"><table><thead><tr><th>Editie</th><th>Datum</th><th class="num">Verstuurd</th><th class="num">Afgeleverd</th><th class="num">Geopend</th><th class="num">Geklikt</th><th class="num">Uitgeschreven</th></tr></thead><tbody id="nlTable"></tbody></table></div>
+          <p class="note">Voorbeeldcijfers. In de echte site komen ze van de verzenddienst (opens, kliks) en van cookieloze bezoekersstatistieken op de site zelf.</p>
         </div>
       </section>
 
@@ -363,7 +404,7 @@
         <h1>Mensen</h1>
         <p class="sub">Wie er op de site staat, met mandaat en bevoegdheden. Wijzig een rol en klik Bewaar; de mensenpagina volgt meteen.</p>
         <div class="tablewrap"><table><thead><tr><th>Naam</th><th>Groep</th><th>Rol / bevoegdheden</th><th></th></tr></thead><tbody id="peopleRows"></tbody></table></div>
-        <p style="font-size:.8rem;color:var(--muted);margin-top:10px">Bestuursleden toevoegen kan hier ook — zodra de namen er zijn.</p>
+        <p class="note">Bestuursleden toevoegen kan hier ook — zodra de namen er zijn.</p>
       </section>
     </main>
   </div>
@@ -383,6 +424,8 @@
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   };
   function toast(html) { var t = $('#toast'); t.innerHTML = html; t.classList.add('show'); clearTimeout(toast.h); toast.h = setTimeout(function () { t.classList.remove('show'); }, 3200); }
+  var nf = new Intl.NumberFormat('nl-BE');
+  function pct(a, b) { return b ? Math.round(a / b * 100) : 0; }
 
   // ---------- vaste gegevens (wat vandaag op nieuws.vooruit.org/essen staat) ----------
   var THEMAS = ['Sociaal', 'Klimaat', 'Duurzaamheid', 'Mobiliteit', 'Digitalisering', 'Zorg & klimaat', 'Biodiversiteit', 'Jeugd & cultuur', 'Cultuur', 'Verenigingsleven', 'Wonen'];
@@ -396,47 +439,72 @@
     { n: 'François Veraart', g: 'Bijzonder comité sociale dienst', r: 'Lid' },
     { n: 'Diane Van Ginderen', g: 'Bijzonder comité sociale dienst', r: 'Lid' }
   ];
+  // reads = voorbeeld van cookieloze bezoekcijfers per artikel (30 dagen)
   var ARTICLES = [
-    { id: 'a1', t: 'Gerinkel naar de Winkel: 13.000 duurzame ritjes maken samen een groot verschil', th: 'Duurzaamheid', au: 'Helmut Jaspers', d: '2026-08-13', url: 'https://nieuws.vooruit.org/gerinkel_naar_de_winkel_13_000_duurzame_ritjes_maken_samen_een_groot_verschil' },
-    { id: 'a2', t: 'Droogte is geen uitzondering meer. Het is onze nieuwe realiteit', th: 'Klimaat', au: 'Helmut Jaspers', d: '2026-08-02', url: 'https://nieuws.vooruit.org/droogte_is_geen_uitzondering_meer_het_is_onze_nieuwe_realiteit' },
-    { id: 'a3', t: 'Automatische zorgtoelage bereikt bijna drie keer meer kinderen en jongeren in Essen', th: 'Sociaal', au: 'Emma Lambregts', d: '2026-07-27', url: 'https://nieuws.vooruit.org/automatische_zorgtoelage_bereikt_bijna_drie_keer_meer_kinderen_en_jongeren_in_essen' },
-    { id: 'a4', t: 'Meer aandacht voor voetgangers', th: 'Mobiliteit', au: 'Ronald Goormachtig', d: '2026-07-02', url: 'https://nieuws.vooruit.org/meer_aandacht_voor_voetgangers' },
-    { id: 'a5', t: 'Graag duidelijkheid over glasvezel in Essense buitengebieden', th: 'Digitalisering', au: 'Jeroen Verleysen', d: '2026-07-02', url: 'https://nieuws.vooruit.org/graag_duidelijkheid_over_glasvezel_in_essense_buitengebieden' },
-    { id: 'a6', t: 'Vooruit-raadslid Leen Jaspers houdt hittebeleid scherp', th: 'Zorg & klimaat', au: 'Leen Jaspers', d: '2026-07-02', url: 'https://nieuws.vooruit.org/vooruit_raadslid_leen_jaspers_houdt_hittebeleid_scherp' },
-    { id: 'a7', t: 'Vooruit steunt mobiliteitsplan: "Nu moet het echte werk beginnen"', th: 'Mobiliteit', au: 'Emma Lambregts', d: '2026-06-30', url: 'https://nieuws.vooruit.org/vooruit_steunt_mobiliteitsplan_nu_moet_het_echte_werk_beginnen' },
-    { id: 'a8', t: 'Zwaluwtillen en WilderTnis en potpolder', th: 'Biodiversiteit', au: 'Helmut Jaspers', d: '2026-05-28', url: 'https://nieuws.vooruit.org/zwaluwtillen_en_wildertnis_en_potpolder' },
-    { id: 'a9', t: 'Boekstartdag in de bib zet jonge gezinnen op weg naar leesplezier', th: 'Jeugd & cultuur', au: 'Helmut Jaspers', d: '2026-05-23', url: 'https://nieuws.vooruit.org/_boekstartdag_in_de_bib_zet_jonge_gezinnen_op_weg_naar_leesplezier' }
+    { id: 'n1', t: 'Cultuurzaal krijgt nu echt vorm', th: 'Cultuur', au: 'Helmut Jaspers', d: '2026-08-28', reads: 386 },
+    { id: 'n2', t: 'Zaal Rex één keer per jaar gratis voor Essense verenigingen', th: 'Verenigingsleven', au: 'Helmut Jaspers', d: '2026-08-25', reads: 341 },
+    { id: 'n3', t: 'De Spiegeltent komt terug naar het Heuvelplein', th: 'Evenementen', au: 'Helmut Jaspers', d: '2026-08-25', reads: 529 },
+    { id: 'n4', t: 'Fietsbieb krijgt nieuwe thuis op Horendonk', th: 'Sociaal', au: 'Helmut Jaspers', d: '2026-08-25', reads: 214 },
+    { id: 'n5', t: 'Vooruit Essen vraagt meer aandacht voor informatie rond voorafgaande zorgplanning', th: 'Zorg', au: 'Helmut Jaspers', d: '2026-08-25', reads: 168 },
+    { id: 'n6', t: 'Zitdagen maatschappelijk werker op scholen blijken drempelverlagend', th: 'Sociaal', au: 'Helmut Jaspers', d: '2026-08-25', reads: 152 },
+    { id: 'n7', t: 'Essen haalt kleding- en textielcontainers uit het straatbeeld', th: 'Leefmilieu', au: 'Helmut Jaspers', d: '2026-08-19', reads: 263 },
+    { id: 'a1', t: 'Gerinkel naar de Winkel: 13.000 duurzame ritjes maken samen een groot verschil', th: 'Duurzaamheid', au: 'Helmut Jaspers', d: '2026-08-13', reads: 412 },
+    { id: 'a2', t: 'Droogte is geen uitzondering meer. Het is onze nieuwe realiteit', th: 'Klimaat', au: 'Helmut Jaspers', d: '2026-08-02', reads: 287 },
+    { id: 'a3', t: 'Automatische zorgtoelage bereikt bijna drie keer meer kinderen en jongeren in Essen', th: 'Sociaal', au: 'Emma Lambregts', d: '2026-07-27', reads: 198 },
+    { id: 'a4', t: 'Meer aandacht voor voetgangers', th: 'Mobiliteit', au: 'Ronald Goormachtig', d: '2026-07-02', reads: 96 },
+    { id: 'a5', t: 'Graag duidelijkheid over glasvezel in Essense buitengebieden', th: 'Digitalisering', au: 'Jeroen Verleysen', d: '2026-07-02', reads: 154 },
+    { id: 'a6', t: 'Vooruit-raadslid Leen Jaspers houdt hittebeleid scherp', th: 'Zorg & klimaat', au: 'Leen Jaspers', d: '2026-07-02', reads: 121 },
+    { id: 'a7', t: 'Vooruit steunt mobiliteitsplan: "Nu moet het echte werk beginnen"', th: 'Mobiliteit', au: 'Emma Lambregts', d: '2026-06-30', reads: 143 },
+    { id: 'a8', t: 'Zwaluwtillen en WilderTnis en potpolder', th: 'Biodiversiteit', au: 'Helmut Jaspers', d: '2026-05-28', reads: 77 },
+    { id: 'a9', t: 'Boekstartdag in de bib zet jonge gezinnen op weg naar leesplezier', th: 'Jeugd & cultuur', au: 'Helmut Jaspers', d: '2026-05-23', reads: 64 }
   ];
-  var CAP = 60, PRIJS_V = 27, PRIJS_K = 10, SHIFTS = { s1: '10u00 – 11u30', s2: '11u30 – 13u00' };
-  var BRUNCH_SEED = { base: { s1: 57, s2: 21 }, regs: [], seq: 41 };
-  // Voorbeeldrijen: horen bij de al ingenomen plaatsen hierboven, tellen dus niet extra mee.
-  var EX_SEED = [
-    { id: 'e1', naam: 'Marleen Goossens', email: 'marleen@voorbeeld.be', shift: 's2', volw: 2, kind: 1, bedrag: 64, ogm: '+++261/1000/03497+++', betaald: true, ex: true, ts: '2026-09-01T09:12:00' },
-    { id: 'e2', naam: 'Peter en Ann Van Loon', email: 'vanloon@voorbeeld.be', shift: 's1', volw: 2, kind: 0, bedrag: 54, ogm: '+++261/1000/03595+++', betaald: true, ex: true, ts: '2026-09-01T18:40:00' },
-    { id: 'e3', naam: 'Familie Dierckx', email: 'dierckx@voorbeeld.be', shift: 's2', volw: 2, kind: 2, bedrag: 74, ogm: '+++261/1000/03693+++', betaald: false, ex: true, ts: '2026-09-02T20:05:00' },
-    { id: 'e4', naam: 'Rita Peeters', email: 'rita@voorbeeld.be', shift: 's1', volw: 1, kind: 0, bedrag: 27, ogm: '+++261/1000/03791+++', betaald: true, ex: true, ts: '2026-09-03T07:55:00' },
-    { id: 'e5', naam: 'Koen Wouters', email: 'koen@voorbeeld.be', shift: 's2', volw: 3, kind: 0, bedrag: 81, ogm: '+++261/1000/03889+++', betaald: false, ex: true, ts: '2026-09-04T12:30:00' },
-    { id: 'e6', naam: 'Els en Jan Aerts', email: 'aerts@voorbeeld.be', shift: 's1', volw: 2, kind: 1, bedrag: 64, ogm: '+++261/1000/03987+++', betaald: true, ex: true, ts: '2026-09-05T21:14:00' }
+  // Activiteiten uit de huidige communicatie van de afdeling.
+  var EVENTS_SEED = [
+    { id: 'e1', t: 'Brunch Vooruit Essen', d: '2026-11-01', tijd: 'twee shiften: 10u00 – 11u30 en 11u30 – 13u00', p: 'Zaal van het Volkshuis, Essen', txt: 'Uitgebreid ontbijt en lunch in één, met de ploeg van Vooruit Essen aan tafel. € 27 per volwassene, € 10 per kind tot 12 jaar. Inschrijven via de uitnodiging van de afdeling.', l: '' },
+    { id: 'e2', t: 'Meifeest — Dag van de Arbeid', d: '2026-05-01', tijd: 'vanaf 14u00', p: 'Muziekterras in de verkeersvrije Stationsstraat, aan het Volkshuis', txt: 'Gratis inkom. 15u Crocodile Skin, 16u30 De Wit & Koo, daarna Philip Noone in café Volkshuis. Kinderanimatie. Barbecue op inschrijving: € 25 per volwassene, € 15 per kind tot 12 jaar.', l: 'https://nieuws.vooruit.org/meifeest2026' }
   ];
   var SUBS_BASE = 212;
+  var SUB_EX = [
+    { em: 'marleen@voorbeeld.be', vn: 'Marleen', st: 'bevestigd', ts: '2026-05-12T10:00:00', ex: true },
+    { em: 'koen@voorbeeld.be', vn: 'Koen', st: 'bevestigd', ts: '2026-06-03T18:20:00', ex: true },
+    { em: 'rita@voorbeeld.be', vn: 'Rita', st: 'uitgeschreven', ts: '2026-02-19T08:15:00', ex: true },
+    { em: 'dierckx@voorbeeld.be', vn: 'An', st: 'bevestigd', ts: '2026-08-14T21:02:00', ex: true }
+  ];
+  // Voorbeeld-edities met verzendcijfers (open- en klikpercentages zoals een lokale afdeling die haalt).
+  var SENT_EX = [
+    { subj: 'Zwaluwen, WilderTnis en de eerste prentenboeken', n: 198, deliv: 196, open: 109, click: 31, unsub: 0, ts: '2026-05-29T09:00:00', ex: true, clicks: [['Zwaluwtillen en WilderTnis en potpolder', 19], ['Boekstartdag in de bib', 12]] },
+    { subj: 'Zorgtoelage, voetgangers en glasvezel', n: 204, deliv: 202, open: 117, click: 44, unsub: 1, ts: '2026-07-03T09:00:00', ex: true, clicks: [['Automatische zorgtoelage bereikt bijna drie keer meer kinderen', 21], ['Graag duidelijkheid over glasvezel', 13], ['Vooruit steunt mobiliteitsplan', 10]] },
+    { subj: 'Duurzaam Essen: 13.000 ritjes en een droogteplan', n: 212, deliv: 210, open: 131, click: 58, unsub: 1, ts: '2026-08-14T09:00:00', ex: true, clicks: [['Gerinkel naar de Winkel: 13.000 duurzame ritjes', 34], ['Droogte is geen uitzondering meer', 24]] },
+    { subj: 'Cultuurzaal, Zaal Rex en de Spiegeltent', n: 212, deliv: 211, open: 138, click: 67, unsub: 0, ts: '2026-09-01T09:00:00', ex: true, clicks: [['De Spiegeltent komt terug naar het Heuvelplein', 29], ['Cultuurzaal krijgt nu echt vorm', 22], ['Zaal Rex één keer per jaar gratis', 16]] }
+  ];
+  // Bezoekers per dag, 30 dagen (voorbeeld). Piek op de dag van de laatste nieuwsbrief.
+  var VISITS = [31, 28, 34, 30, 27, 22, 25, 38, 41, 36, 33, 29, 24, 27, 35, 39, 44, 37, 31, 26, 23, 30, 142, 88, 52, 41, 37, 33, 29, 32];
+  var NL_DAY = 22;
+  var SOURCES = [['Nieuwsbrief', 38], ['Facebook', 27], ['Google', 21], ['Rechtstreeks', 11], ['Andere', 3]];
+  var TOP_PAGES = [['Startpagina', 1187], ['De Spiegeltent komt terug (artikel)', 529], ['Gerinkel naar de Winkel (artikel)', 412], ['Cultuurzaal krijgt nu echt vorm (artikel)', 386], ['Onze mensen', 296], ['Agenda', 244]];
 
-  function brunch() { var b = store.get('ve_brunch', null); if (!b || !b.base) { b = JSON.parse(JSON.stringify(BRUNCH_SEED)); store.set('ve_brunch', b); } if (!b.ex) { b.ex = JSON.parse(JSON.stringify(EX_SEED)); store.set('ve_brunch', b); } return b; }
-  function taken(b, s) { return b.base[s] + b.regs.filter(function (r) { return r.shift === s && !r.wacht; }).reduce(function (a, r) { return a + r.volw + r.kind; }, 0); }
-  function allRegs(b) { return b.regs.slice().reverse().concat(b.ex); }
   function drafts() { return store.get('ve_articles', []); }
   function subs() { return store.get('ve_news', []); }
   function people() { return store.get('ve_people', PEOPLE); }
+  function events() { return store.get('ve_events', EVENTS_SEED); }
+  function sent() { return SENT_EX.concat(store.get('ve_nl_sent', [])); }
   function fmtDate(iso) { var d = new Date(iso); return String(d.getDate()).padStart(2, '0') + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + d.getFullYear(); }
+  var MAAND = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+  var DAG = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+  function fmtLong(iso) { var d = new Date(iso + 'T12:00:00'); return DAG[d.getDay()] + ' ' + d.getDate() + ' ' + MAAND[d.getMonth()] + ' ' + d.getFullYear(); }
   function today() { return new Date().toISOString().slice(0, 10); }
+  function upcoming() { var t = today(); return events().filter(function (e) { return e.d >= t; }).sort(function (a, b) { return a.d < b.d ? -1 : 1; }); }
 
-  // ---------- login ----------
-  var user = sessionStorage.getItem('ve_admin');
-  function startView() { var h = (location.hash || '').replace('#', ''); return ['overzicht', 'artikelen', 'inschrijvingen', 'nieuwsbrief', 'mensen'].indexOf(h) >= 0 ? h : 'overzicht'; }
+  // ---------- aanmelden (in de demo overgeslagen) ----------
+  var DEMO_USER = 'redactie@vooruitessen.be';
+  var user = sessionStorage.getItem('ve_admin') || DEMO_USER;
+  function startView() { var h = (location.hash || '').replace('#', ''); return ['overzicht', 'artikelen', 'agenda', 'nieuwsbrief', 'cijfers', 'mensen'].indexOf(h) >= 0 ? h : 'overzicht'; }
   function showApp() { $('#login').hidden = true; $('#app').hidden = false; $('#uEmail').textContent = user; go(startView()); }
+  $('#showLogin').addEventListener('click', function (e) { e.preventDefault(); $('#app').hidden = true; $('#login').hidden = false; $('#step2').hidden = true; $('#step1').hidden = false; $('#lcode').value = ''; window.scrollTo(0, 0); });
+  $('#lskip').addEventListener('click', function (e) { e.preventDefault(); showApp(); });
   $('#step1').addEventListener('submit', function (e) { e.preventDefault(); var em = $('#lemail').value.trim(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { alert('Vul een geldig e-mailadres in.'); return; } $('#lto').textContent = em; $('#step1').hidden = true; $('#step2').hidden = false; $('#lcode').focus(); });
   $('#step2').addEventListener('submit', function (e) { e.preventDefault(); if (!/^\d{6}$/.test($('#lcode').value.trim())) { alert('De code bestaat uit zes cijfers.'); return; } user = $('#lto').textContent; sessionStorage.setItem('ve_admin', user); showApp(); toast('Welkom! Je bent aangemeld als <b>' + esc(user) + '</b>'); });
   $('#lback').addEventListener('click', function (e) { e.preventDefault(); $('#step2').hidden = true; $('#step1').hidden = false; });
-  $('#logout').addEventListener('click', function (e) { e.preventDefault(); sessionStorage.removeItem('ve_admin'); user = null; $('#app').hidden = true; $('#login').hidden = false; $('#step2').hidden = true; $('#step1').hidden = false; $('#lcode').value = ''; });
 
   // ---------- navigatie ----------
   var RENDER = {};
@@ -448,40 +516,39 @@
     if (RENDER[v]) RENDER[v]();
     window.scrollTo(0, 0);
   }
-  document.addEventListener('click', function (e) { var b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); go(b.dataset.go); } });
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); if (b.dataset.go === 'editor') openEditor(null); else go(b.dataset.go); } });
   $('#menuBtn').addEventListener('click', function () { $('#side').hidden = !$('#side').hidden; });
   function sideInit() { $('#side').hidden = window.innerWidth <= 980; }
   window.addEventListener('resize', sideInit); sideInit();
 
   // ---------- overzicht ----------
   RENDER.overzicht = function () {
-    var b = brunch(), regs = allRegs(b), pers = taken(b, 's1') + taken(b, 's2');
-    var open = regs.filter(function (r) { return !r.betaald && !r.wacht; }), wacht = regs.filter(function (r) { return r.wacht; });
-    var due = open.reduce(function (a, r) { return a + r.bedrag; }, 0);
-    $('#tPers').innerHTML = pers + '<small>/ 120 plaatsen</small>';
-    $('#tPersD').innerHTML = (CAP - taken(b, 's1')) + ' vrij om 10u · ' + (CAP - taken(b, 's2')) + ' vrij om 11u30' + (wacht.length ? ' · <b class="w">' + wacht.length + ' op wachtlijst</b>' : '');
-    $('#tPaid').innerHTML = open.length + '<small>nog te betalen</small>';
-    $('#tPaidD').innerHTML = 'Samen <b class="w">€ ' + due + '</b> · ' + regs.filter(function (r) { return r.betaald; }).length + ' bevestigd';
+    var vis = VISITS.reduce(function (a, b) { return a + b; }, 0);
+    $('#tVis').innerHTML = nf.format(vis);
+    $('#tVisD').innerHTML = '<b>+18 %</b> tegenover de 30 dagen ervoor';
+    var d = drafts(), live = d.filter(function (x) { return x.status === 'live'; }), dr = d.filter(function (x) { return x.status === 'draft'; });
+    $('#tArts').innerHTML = (ARTICLES.length + live.length) + '<small>op de site</small>';
+    $('#tArtsD').innerHTML = dr.length ? '<b class="w">' + dr.length + '</b> concept' + (dr.length === 1 ? '' : 'en') + ' klaar om af te werken' : 'Meest gelezen: De Spiegeltent komt terug (529)';
     var s = subs();
     $('#tSubs').innerHTML = (SUBS_BASE + s.length) + '<small>abonnees</small>';
-    $('#tSubsD').innerHTML = s.length ? '<b>+' + s.length + '</b> nieuw via de site' : 'Laatste editie: augustus 2026';
-    var d = drafts();
-    $('#tArts').innerHTML = (ARTICLES.length + d.filter(function (x) { return x.status === 'live'; }).length) + '<small>online</small>';
-    $('#tArtsD').innerHTML = d.filter(function (x) { return x.status === 'draft'; }).length + ' concept' + (d.filter(function (x) { return x.status === 'draft'; }).length === 1 ? '' : 'en') + ' klaar om af te werken';
-    $('#cntOpen').textContent = open.length || ''; $('#cntOpen').hidden = !open.length;
+    $('#tSubsD').innerHTML = s.length ? '<b>+' + s.length + '</b> nieuw via de site, wachten op bevestiging' : 'Allemaal bevestigd via dubbele opt-in';
+    var last = sent().slice(-1)[0];
+    $('#tNl').innerHTML = pct(last.open, last.deliv) + ' %<small>geopend</small>';
+    $('#tNlD').innerHTML = esc(last.subj) + ' · ' + fmtDate(last.ts) + ' · ' + pct(last.click, last.deliv) + ' % klikte';
+    $('#cntDrafts').textContent = dr.length || ''; $('#cntDrafts').hidden = !dr.length;
     var rec = [];
-    b.regs.slice(-3).reverse().forEach(function (r) { rec.push(['Inschrijving brunch · ' + esc(r.naam) + (r.wacht ? ' (wachtlijst)' : ''), fmtDate(r.ts)]); });
     s.slice(-2).reverse().forEach(function (x) { rec.push(['Nieuwe abonnee · ' + esc(x.em), fmtDate(x.ts)]); });
-    d.slice(-2).reverse().forEach(function (x) { rec.push([(x.status === 'live' ? 'Gepubliceerd · ' : 'Concept · ') + esc(x.t || 'zonder titel'), fmtDate(x.ts)]); });
-    if (!rec.length) rec = [['Inschrijving brunch · Els en Jan Aerts', '05.09.2026'], ['Inschrijving brunch · Koen Wouters', '04.09.2026'], ['Artikel gepubliceerd · Gerinkel naar de Winkel', '13.08.2026']];
+    d.slice(-3).reverse().forEach(function (x) { rec.push([(x.status === 'live' ? 'Gepubliceerd · ' : 'Concept · ') + esc(x.t || 'zonder titel'), fmtDate(x.ts)]); });
+    store.get('ve_nl_sent', []).slice(-1).forEach(function (x) { rec.push(['Nieuwsbrief verstuurd · ' + esc(x.subj), fmtDate(x.ts)]); });
+    if (!rec.length) rec = [['Nieuwsbrief verstuurd · Cultuurzaal, Zaal Rex en de Spiegeltent', '01.09.2026'], ['Gepubliceerd · Cultuurzaal krijgt nu echt vorm', '28.08.2026'], ['Gepubliceerd · Zaal Rex één keer per jaar gratis', '25.08.2026'], ['Gepubliceerd · De Spiegeltent komt terug naar het Heuvelplein', '25.08.2026'], ['Activiteit toegevoegd · Brunch Vooruit Essen', '20.08.2026']];
     $('#recent').innerHTML = rec.slice(0, 6).map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('');
   };
 
   // ---------- artikelen ----------
   RENDER.artikelen = function () {
     var d = drafts().slice().reverse(), rows = '';
-    d.forEach(function (x) { rows += '<tr class="click" data-edit="' + x.id + '"><td><b>' + esc(x.t || 'Zonder titel') + '</b><span class="sub">' + (x.status === 'live' ? 'Gepubliceerd op de site' : 'Concept — klik om verder te schrijven') + '</span></td><td>' + esc(x.th) + '</td><td>' + esc(x.au) + '</td><td>' + fmtDate(x.ts) + '</td><td><span class="pill ' + (x.status === 'live' ? 'live">Gepubliceerd' : 'draft">Concept') + '</span></td></tr>'; });
-    ARTICLES.forEach(function (a) { rows += '<tr><td><b>' + esc(a.t) + '</b><span class="sub">Overgenomen van nieuws.vooruit.org</span></td><td>' + esc(a.th) + '</td><td>' + esc(a.au) + '</td><td>' + fmtDate(a.d) + '</td><td><span class="pill live">Gepubliceerd</span></td></tr>'; });
+    d.forEach(function (x) { rows += '<tr class="click" data-edit="' + x.id + '"><td><b>' + esc(x.t || 'Zonder titel') + '</b><span class="sub">' + (x.status === 'live' ? 'Gepubliceerd op de site — klik om te bewerken' : 'Concept — klik om verder te schrijven') + '</span></td><td>' + esc(x.th) + '</td><td>' + esc(x.au) + '</td><td>' + fmtDate(x.ts) + '</td><td class="num">' + (x.status === 'live' ? '0' : '—') + '</td><td><span class="pill ' + (x.status === 'live' ? 'live">Gepubliceerd' : 'draft">Concept') + '</span></td></tr>'; });
+    ARTICLES.forEach(function (a) { rows += '<tr><td><b>' + esc(a.t) + '</b><span class="sub">Overgenomen van nieuws.vooruit.org</span></td><td>' + esc(a.th) + '</td><td>' + esc(a.au) + '</td><td>' + fmtDate(a.d) + '</td><td class="num">' + a.reads + '</td><td><span class="pill live">Gepubliceerd</span></td></tr>'; });
     $('#artRows').innerHTML = rows;
     $('#artCount').textContent = (ARTICLES.length + d.length) + ' artikels';
     $$('#artRows tr[data-edit]').forEach(function (tr) { tr.addEventListener('click', function () { openEditor(tr.dataset.edit); }); });
@@ -492,7 +559,7 @@
   $('#edThema').innerHTML = THEMAS.map(function (t) { return '<option>' + esc(t) + '</option>'; }).join('');
   $('#edAuteur').innerHTML = PEOPLE.map(function (p) { return '<option>' + esc(p.n) + '</option>'; }).join('');
   function openEditor(id) {
-    edId = id || null; edImg = null;
+    edId = id || null;
     var x = id ? drafts().filter(function (a) { return a.id === id; })[0] : null;
     $('#edTitle').value = x ? x.t : ''; $('#edBody').innerHTML = x ? x.html : ''; $('#edThema').value = x ? x.th : THEMAS[0]; $('#edAuteur').value = x ? x.au : PEOPLE[1].n;
     edImg = x && x.img ? x.img : null; paintDrop();
@@ -500,8 +567,6 @@
     $('#preview').hidden = true;
     go('editor');
   }
-  RENDER.editor = function () { if (!$('#edTitle').value && !edId && $('#edBody').innerHTML === '') { $('#edStatus').textContent = 'Nog niet bewaard'; } };
-  $$('.side nav button[data-go="artikelen"], .quick button[data-go="editor"], .toolbar .btn[data-go="editor"]').forEach(function (b) { if (b.dataset.go === 'editor') b.addEventListener('click', function () { openEditor(null); }, true); });
   function paintDrop() { $('#dropInner').innerHTML = edImg ? '<img src="' + edImg + '" alt=""><b>Foto toegevoegd</b>klik om een andere te kiezen' : '<b>Sleep een foto hierheen</b>of klik om te kiezen. Wordt automatisch verkleind.'; }
   $('#edFoto').addEventListener('change', function () {
     var f = this.files && this.files[0]; if (!f) return;
@@ -526,7 +591,8 @@
     x.t = t; x.html = $('#edBody').innerHTML; x.th = $('#edThema').value; x.au = $('#edAuteur').value; x.img = edImg; x.status = status; x.ts = new Date().toISOString();
     store.set('ve_articles', d); return x;
   }
-  $('#edSave').addEventListener('click', function () { var x = saveArticle(edId && drafts().filter(function (a) { return a.id === edId; })[0] && drafts().filter(function (a) { return a.id === edId; })[0].status === 'live' ? 'live' : 'draft'); if (x) { $('#edStatus').textContent = 'Concept bewaard om ' + new Date().toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' }); toast('Concept bewaard'); } });
+  function currentStatus() { var x = edId ? drafts().filter(function (a) { return a.id === edId; })[0] : null; return x ? x.status : 'draft'; }
+  $('#edSave').addEventListener('click', function () { var x = saveArticle(currentStatus() === 'live' ? 'live' : 'draft'); if (x) { $('#edStatus').textContent = 'Bewaard om ' + new Date().toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' }); toast('Concept bewaard'); } });
   $('#edPreview').addEventListener('click', function () {
     var p = $('#preview'); p.hidden = false;
     p.innerHTML = '<span class="tag">' + esc($('#edThema').value) + '</span><h3>' + esc($('#edTitle').value || 'Zonder titel') + '</h3><div class="meta">' + fmtDate(today()) + ' — ' + esc($('#edAuteur').value) + '</div>' + (edImg ? '<img src="' + edImg + '" alt="">' : '') + '<div class="txt">' + ($('#edBody').innerHTML || '<p style="color:var(--muted)">Nog geen tekst.</p>') + '</div>';
@@ -534,95 +600,92 @@
   });
   $('#edPublish').addEventListener('click', function () { var x = saveArticle('live'); if (x) { $('#edStatus').textContent = 'Gepubliceerd om ' + new Date().toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' }); toast('<b>Gepubliceerd.</b> Het artikel staat nu op de site (demo).'); } });
 
-  // ---------- inschrijvingen ----------
-  var regFilter = 'alle';
-  RENDER.inschrijvingen = function () {
-    var b = brunch();
-    $('#shiftCards').innerHTML = ['s1', 's2'].map(function (s) {
-      var t = taken(b, s), l = CAP - t, rs = allRegs(b).filter(function (r) { return r.shift === s; });
-      var paid = rs.filter(function (r) { return r.betaald; }).length, open = rs.filter(function (r) { return !r.betaald && !r.wacht; }).length, w = rs.filter(function (r) { return r.wacht; }).length;
-      return '<div class="shift"><div class="t"><span>' + SHIFTS[s] + '</span><span>' + t + ' / ' + CAP + ' bezet</span></div><div class="bar2"><i style="width:' + Math.min(100, t / CAP * 100) + '%"></i></div><div class="m"><span><b>' + (l === 0 ? 'Volzet' : l + ' vrij') + '</b></span><span><b>' + paid + '</b> betaald</span><span><b>' + open + '</b> nog te betalen</span>' + (w ? '<span><b>' + w + '</b> op wachtlijst</span>' : '') + '</div></div>';
-    }).join('');
-    var rows = allRegs(b).filter(function (r) { return regFilter === 'alle' || (regFilter === 'open' && !r.betaald && !r.wacht) || (regFilter === 'wacht' && r.wacht); });
-    $('#regRows').innerHTML = rows.length ? rows.map(function (r) {
-      var st = r.wacht ? '<span class="pill wait">Wachtlijst</span>' : r.betaald ? '<span class="pill ok">Betaald</span>' : '<span class="pill warn">Wacht op betaling</span>';
-      return '<tr><td><b' + (r.ex ? ' style="color:var(--muted)"' : '') + '>' + esc(r.naam) + '</b><span class="sub">' + esc(r.email) + (r.tel ? ' · ' + esc(r.tel) : '') + (r.opm ? ' · “' + esc(r.opm) + '”' : '') + '</span></td><td>' + SHIFTS[r.shift] + '</td><td class="num">' + r.volw + '</td><td class="num">' + r.kind + '</td><td class="num">€ ' + r.bedrag + '</td><td class="mono">' + (r.wacht ? '—' : esc(r.ogm)) + '</td><td>' + st + '</td><td>' + (r.wacht ? '' : '<input type="checkbox" data-paid="' + esc(r.id) + '"' + (r.betaald ? ' checked' : '') + ' aria-label="Betaald">') + '</td></tr>';
-    }).join('') : '<tr><td colspan="8" class="empty">Niets in deze lijst.</td></tr>';
-    $$('#regRows [data-paid]').forEach(function (cb) {
-      cb.addEventListener('change', function () {
-        var b2 = brunch(), all = b2.regs.concat(b2.ex), r = all.filter(function (x) { return String(x.id) === cb.dataset.paid; })[0];
-        if (r) { r.betaald = cb.checked; store.set('ve_brunch', b2); toast(cb.checked ? '<b>Betaald.</b> ' + esc(r.naam) + ' krijgt een bevestiging: plaats definitief.' : 'Betaling van ' + esc(r.naam) + ' weer opengezet.'); RENDER.inschrijvingen(); RENDER.overzicht(); }
-      });
-    });
+  // ---------- agenda ----------
+  var evEdit = null;
+  RENDER.agenda = function () {
+    var t = today(), evs = events().slice().sort(function (a, b) { return a.d < b.d ? 1 : -1; });
+    $('#evRows').innerHTML = evs.map(function (e) {
+      var past = e.d < t;
+      return '<tr><td><b' + (past ? ' style="color:var(--muted)"' : '') + '>' + esc(e.t) + '</b><span class="sub">' + esc(e.p) + (e.l ? ' · <a href="' + esc(e.l) + '" target="_blank" rel="noopener">link</a>' : '') + '</span></td><td>' + fmtLong(e.d) + (e.tijd ? '<span class="sub">' + esc(e.tijd) + '</span>' : '') + (past ? '<span class="pill draft" style="margin-top:4px">voorbij</span>' : '<span class="pill ok" style="margin-top:4px">op de site</span>') + '</td><td style="text-align:right;white-space:nowrap"><button class="btn ghost sm" data-evedit="' + esc(e.id) + '">Bewerk</button> <button class="btn ghost sm" data-evdel="' + esc(e.id) + '">Verwijder</button></td></tr>';
+    }).join('') || '<tr><td colspan="3" style="color:var(--muted);text-align:center;padding:22px">Nog geen activiteiten. Voeg er rechts een toe.</td></tr>';
+    $$('#evRows [data-evedit]').forEach(function (b) { b.addEventListener('click', function () { var e = events().filter(function (x) { return x.id === b.dataset.evedit; })[0]; if (!e) return; evEdit = e.id; $('#evT').value = e.t; $('#evD').value = e.d; $('#evTijd').value = e.tijd || ''; $('#evP').value = e.p || ''; $('#evTxt').value = e.txt || ''; $('#evL').value = e.l || ''; $('#evFormTitle').textContent = 'Activiteit bewerken'; $('#evSave').textContent = 'Bewaar'; $('#evCancel').hidden = false; $('#evT').focus(); }); });
+    $$('#evRows [data-evdel]').forEach(function (b) { b.addEventListener('click', function () { var e = events().filter(function (x) { return x.id === b.dataset.evdel; })[0]; if (!e || !confirm('“' + e.t + '” van de site halen?')) return; store.set('ve_events', events().filter(function (x) { return x.id !== e.id; })); toast('Activiteit verwijderd (demo).'); resetEvForm(); RENDER.agenda(); }); });
   };
-  $$('#regTabs button').forEach(function (b) { b.addEventListener('click', function () { regFilter = b.dataset.f; $$('#regTabs button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); RENDER.inschrijvingen(); }); });
-  $('#remind').addEventListener('click', function () { var n = allRegs(brunch()).filter(function (r) { return !r.betaald && !r.wacht; }).length; toast(n ? '<b>' + n + '</b> herinnering' + (n === 1 ? '' : 'en') + ' verstuurd naar wie nog niet betaalde (demo).' : 'Iedereen heeft betaald — geen herinnering nodig.'); });
-  $('#csv').addEventListener('click', function () {
-    var rows = [['Naam', 'E-mail', 'Telefoon', 'Shift', 'Volwassenen', 'Kinderen', 'Bedrag', 'Mededeling', 'Status', 'Opmerking']];
-    allRegs(brunch()).forEach(function (r) { rows.push([r.naam, r.email, r.tel || '', SHIFTS[r.shift], r.volw, r.kind, r.bedrag, r.wacht ? '' : r.ogm, r.wacht ? 'wachtlijst' : r.betaald ? 'betaald' : 'open', r.opm || '']); });
-    var csv = rows.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(';'); }).join('\n');
-    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' })); a.download = 'brunch-2026-11-01-inschrijvingen.csv'; document.body.appendChild(a); a.click(); a.remove();
-    toast('Lijst geëxporteerd — ' + (rows.length - 1) + ' rijen.');
+  function resetEvForm() { evEdit = null; $('#evForm').reset(); $('#evFormTitle').textContent = 'Nieuwe activiteit'; $('#evSave').textContent = 'Zet op de site'; $('#evCancel').hidden = true; }
+  $('#evCancel').addEventListener('click', resetEvForm);
+  $('#evForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var t = $('#evT').value.trim(), d = $('#evD').value; if (!t || !d) { alert('Geef minstens een naam en een datum.'); return; }
+    var evs = events(), x = evEdit ? evs.filter(function (v) { return v.id === evEdit; })[0] : null;
+    if (!x) { x = { id: 'ev' + Date.now() }; evs.push(x); }
+    x.t = t; x.d = d; x.tijd = $('#evTijd').value.trim(); x.p = $('#evP').value.trim(); x.txt = $('#evTxt').value.trim(); x.l = $('#evL').value.trim();
+    store.set('ve_events', evs); toast('<b>' + esc(t) + '</b> staat in de agenda op de site (demo).'); resetEvForm(); RENDER.agenda();
   });
 
   // ---------- nieuwsbrief ----------
+  function allArticles() { return drafts().filter(function (x) { return x.status === 'live'; }).map(function (x) { return { id: x.id, t: x.t, th: x.th, au: x.au, d: x.ts.slice(0, 10) }; }).concat(ARTICLES); }
   RENDER.nieuwsbrief = function () {
-    var live = drafts().filter(function (x) { return x.status === 'live'; }).map(function (x) { return { id: x.id, t: x.t, th: x.th, au: x.au, d: x.ts.slice(0, 10) }; });
-    var all = live.concat(ARTICLES);
+    var all = allArticles();
     if (!$('#picks').children.length) $('#picks').innerHTML = all.map(function (a, i) { return '<label><input type="checkbox" value="' + esc(a.id) + '"' + (i < 2 ? ' checked' : '') + '><span>' + esc(a.t) + '<small>' + esc(a.th) + ' · ' + esc(a.au) + ' · ' + fmtDate(a.d) + '</small></span></label>'; }).join('');
-    if (!$('#nlSubj').value) $('#nlSubj').value = 'Brunch op 1 november — schrijf je in';
-    if (!$('#nlIntro').value) $('#nlIntro').value = 'Dag {voornaam},\n\nOp zondag 1 november brunchen we opnieuw in het Volkshuis, in twee shiften. Schrijf je hieronder in — en lees wat onze ploeg de voorbije weken deed.';
+    if (!$('#nlSubj').value) $('#nlSubj').value = 'Nieuws uit Essen — september 2026';
+    if (!$('#nlIntro').value) $('#nlIntro').value = 'Dag {voornaam},\n\nDe zomer zit erop en onze ploeg is opnieuw volop aan de slag in de gemeenteraad en het schepencollege. Dit is wat we de voorbije weken deden.';
     var n = SUBS_BASE + subs().length; $('#nlSend').textContent = 'Verstuur naar ' + n + ' abonnees';
-    nlPreview(all);
-    var sent = store.get('ve_nl_sent', []).slice().reverse();
-    $('#nlSent').innerHTML = (sent.map(function (s) { return '<li><span>' + esc(s.subj) + '</span><span>' + fmtDate(s.ts) + ' · ' + s.n + '</span></li>'; }).join('')) + '<li><span>Duurzaam Essen: 13.000 ritjes en een droogteplan</span><span>14.08.2026 · 212</span></li><li><span>Zorgtoelage, voetgangers en glasvezel</span><span>03.07.2026 · 204</span></li>';
-  };
-  function nlPreview(all) {
     var ids = $$('#picks input:checked').map(function (c) { return c.value; }), items = all.filter(function (a) { return ids.indexOf(a.id) >= 0; });
+    var ev = upcoming()[0];
     $('#nlPreview').innerHTML = '<div class="mast">Vooruit <span>Essen</span> · nieuwsbrief</div><div class="subj">' + esc($('#nlSubj').value || '(geen onderwerp)') + '</div><p>' + esc($('#nlIntro').value) + '</p>'
-      + ($('#nlEvent').checked ? '<div class="item"><span class="tag">Agenda</span><b>Brunch Vooruit Essen · zondag 1 november · Volkshuis</b><span style="font-size:.82rem;color:var(--muted)">€ 27 per volwassene, € 10 per kind tot 12 jaar · </span><a href="../agenda/" style="font-size:.82rem;font-weight:800;color:var(--red)">Schrijf je in →</a></div>' : '')
+      + ($('#nlEvent').checked && ev ? '<div class="item"><span class="tag">Agenda</span><b>' + esc(ev.t) + ' · ' + fmtLong(ev.d) + '</b><span style="font-size:.82rem;color:var(--muted)">' + esc(ev.p) + (ev.tijd ? ' · ' + esc(ev.tijd) : '') + '</span></div>' : '')
       + items.map(function (a) { return '<div class="item"><span class="tag">' + esc(a.th) + '</span><b>' + esc(a.t) + '</b><span style="font-size:.8rem;color:var(--muted)">' + esc(a.au) + ' · lees verder →</span></div>'; }).join('')
       + '<div class="foot">Je ontvangt deze mail omdat je je inschreef op vooruitessen.be · Uitschrijven · Vooruit Essen</div>';
-  }
-  ['#nlSubj', '#nlIntro', '#nlEvent', '#picks'].forEach(function (s) { $(s).addEventListener('input', function () { RENDER.nieuwsbrief(); }); $(s).addEventListener('change', function () { RENDER.nieuwsbrief(); }); });
+    var last = sent().slice(-1)[0];
+    $('#nlStats').innerHTML = rateRow('Verstuurd', last.n, last.n) + rateRow('Afgeleverd', last.deliv, last.n) + rateRow('Geopend', last.open, last.deliv) + rateRow('Geklikt', last.click, last.deliv) + '<span>Uitgeschreven</span><b>' + last.unsub + '</b>';
+    renderSubs();
+  };
+  function rateRow(lbl, v, of) { return '<span>' + lbl + '</span><b>' + v + (of && lbl !== 'Verstuurd' ? ' · ' + pct(v, of) + ' %' : '') + '</b><div class="bar"><i style="width:' + (of ? Math.min(100, v / of * 100) : 0) + '%"></i></div>'; }
+  ['#nlSubj', '#nlIntro', '#picks', '#nlEvent'].forEach(function (s) { $(s).addEventListener('input', function () { RENDER.nieuwsbrief(); }); $(s).addEventListener('change', function () { RENDER.nieuwsbrief(); }); });
   $('#nlSend').addEventListener('click', function () {
     var n = SUBS_BASE + subs().length, subj = $('#nlSubj').value.trim(); if (!subj) { alert('Geef de nieuwsbrief een onderwerp.'); return; }
     if (!confirm('Nieuwsbrief “' + subj + '” versturen naar ' + n + ' abonnees?')) return;
-    var s = store.get('ve_nl_sent', []); s.push({ subj: subj, n: n, ts: new Date().toISOString() }); store.set('ve_nl_sent', s);
-    toast('<b>Verstuurd</b> via Brevo naar ' + n + ' abonnees (demo). De editie staat nu ook in het archief op de site.'); RENDER.nieuwsbrief();
+    var s = store.get('ve_nl_sent', []); s.push({ subj: subj, n: n, deliv: n - 2, open: 0, click: 0, unsub: 0, ts: new Date().toISOString(), clicks: [] }); store.set('ve_nl_sent', s);
+    toast('<b>Verstuurd</b> naar ' + n + ' abonnees (demo). De cijfers lopen de komende dagen binnen.'); RENDER.nieuwsbrief();
   });
   $('#nlTest').addEventListener('click', function (e) { e.preventDefault(); toast('Testmail verstuurd naar <b>' + esc(user) + '</b> (demo).'); });
 
-  // ---------- abonnees & verzendcijfers ----------
-  var SUB_EX = [
-    { em: 'marleen@voorbeeld.be', vn: 'Marleen', st: 'bevestigd', ts: '2026-05-12T10:00:00', ex: true },
-    { em: 'koen@voorbeeld.be', vn: 'Koen', st: 'bevestigd', ts: '2026-06-03T18:20:00', ex: true },
-    { em: 'rita@voorbeeld.be', vn: 'Rita', st: 'uitgeschreven', ts: '2026-02-19T08:15:00', ex: true },
-    { em: 'dierckx@voorbeeld.be', vn: 'An', st: 'bevestigd', ts: '2026-08-14T21:02:00', ex: true }
-  ];
+  // ---------- abonnees ----------
   function subsAll() { return subs().slice().reverse().map(function (s) { return { em: s.em, vn: s.vn, st: 'wacht op bevestiging', ts: s.ts }; }).concat(store.get('ve_subs_ex', SUB_EX)); }
   function renderSubs() {
-    var last = store.get('ve_nl_sent', []).slice(-1)[0];
-    var n = last ? last.n : 212, b = last ? Math.round(n * 0.01) : 2, u = last ? (n > 50 ? 1 : 0) : 1;
-    $('#nlStats').innerHTML = '<li><span>' + esc(last ? last.subj : 'Duurzaam Essen: 13.000 ritjes en een droogteplan') + '</span><span>' + (last ? fmtDate(last.ts) : '14.08.2026') + '</span></li><li><span>Verstuurd</span><span>' + n + '</span></li><li><span>Afgeleverd</span><span>' + (n - b) + '</span></li><li><span>Gebounced (adres bestaat niet meer)</span><span>' + b + '</span></li><li><span>Uitgeschreven</span><span>' + u + '</span></li><li><span>Als spam gemeld</span><span>0</span></li>';
     $('#subRows').innerHTML = subsAll().map(function (s) { var p = s.st === 'bevestigd' ? 'ok' : s.st === 'uitgeschreven' ? 'draft' : 'warn'; return '<tr><td' + (s.ex ? ' style="color:var(--muted)"' : '') + '>' + esc(s.em) + '</td><td>' + esc(s.vn) + '</td><td><span class="pill ' + p + '">' + esc(s.st) + '</span></td><td>' + fmtDate(s.ts) + '</td><td style="text-align:right"><button class="btn ghost sm" data-delsub="' + esc(s.em) + '">Verwijder</button></td></tr>'; }).join('');
     $$('#subRows [data-delsub]').forEach(function (b2) {
       b2.addEventListener('click', function () {
-        var em = b2.dataset.delsub; if (!confirm('Alle gegevens van ' + em + ' definitief wissen, hier én bij Brevo?')) return;
+        var em = b2.dataset.delsub; if (!confirm('Alle gegevens van ' + em + ' definitief wissen?')) return;
         store.set('ve_news', subs().filter(function (s) { return s.em !== em; }));
         store.set('ve_subs_ex', store.get('ve_subs_ex', SUB_EX).filter(function (s) { return s.em !== em; }));
-        toast('Gegevens van <b>' + esc(em) + '</b> gewist (demo).'); RENDER.nieuwsbrief();
+        toast('Gegevens van <b>' + esc(em) + '</b> gewist (demo).'); RENDER.nieuwsbrief(); RENDER.overzicht();
       });
     });
   }
-  var renderNieuwsbrief = RENDER.nieuwsbrief;
-  RENDER.nieuwsbrief = function () { renderNieuwsbrief(); renderSubs(); };
   $('#subCsv').addEventListener('click', function () {
     var rows = [['E-mail', 'Voornaam', 'Status', 'Sinds']].concat(subsAll().map(function (s) { return [s.em, s.vn, s.st, s.ts.slice(0, 10)]; }));
     var csv = rows.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(';'); }).join('\n');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' })); a.download = 'abonnees.csv'; document.body.appendChild(a); a.click(); a.remove();
     toast('Abonnees geëxporteerd — ' + (rows.length - 1) + ' rijen.');
   });
+
+  // ---------- cijfers ----------
+  RENDER.cijfers = function () {
+    var vis = VISITS.reduce(function (a, b) { return a + b; }, 0), max = Math.max.apply(null, VISITS);
+    $('#cVis').innerHTML = nf.format(vis); $('#cVisD').innerHTML = '<b>+18 %</b> tegenover de 30 dagen ervoor';
+    $('#cViews').innerHTML = nf.format(Math.round(vis * 2.9));
+    $('#cNlShare').innerHTML = SOURCES[0][1] + ' %';
+    var last = sent().slice(-1)[0];
+    $('#cOpen').innerHTML = pct(last.open, last.deliv) + ' %'; $('#cOpenD').innerHTML = esc(last.subj) + ' · ' + pct(last.click, last.deliv) + ' % klikte door';
+    var end = new Date(), start = new Date(); start.setDate(end.getDate() - 29);
+    $('#chart').innerHTML = VISITS.map(function (v, i) { var d = new Date(start); d.setDate(start.getDate() + i); return '<i style="height:' + Math.round(v / max * 100) + '%" class="' + (i === NL_DAY ? 'hi' : '') + '" title="' + fmtDate(d) + ': ' + v + ' bezoekers' + (i === NL_DAY ? ' — nieuwsbrief verstuurd' : '') + '"></i>'; }).join('');
+    $('#axL').textContent = fmtDate(start); $('#axR').textContent = fmtDate(end);
+    $('#sources').innerHTML = SOURCES.map(function (s) { return '<span>' + s[0] + '</span><b>' + s[1] + ' %</b><div class="bar"><i style="width:' + s[1] + '%"></i></div>'; }).join('');
+    $('#topPages').innerHTML = TOP_PAGES.map(function (p) { return '<li><span>' + esc(p[0]) + '</span><span>' + nf.format(p[1]) + '</span></li>'; }).join('');
+    $('#topClicks').innerHTML = (last.clicks && last.clicks.length ? last.clicks : [['Nog geen kliks binnen', 0]]).map(function (c) { return '<li><span>' + esc(c[0]) + '</span><span>' + c[1] + (c[1] ? ' kliks' : '') + '</span></li>'; }).join('');
+    $('#nlTable').innerHTML = sent().slice().reverse().map(function (s) { return '<tr><td><b>' + esc(s.subj) + '</b></td><td>' + fmtDate(s.ts) + '</td><td class="num">' + s.n + '</td><td class="num">' + s.deliv + '</td><td class="num">' + s.open + ' <span style="color:var(--muted)">(' + pct(s.open, s.deliv) + ' %)</span></td><td class="num">' + s.click + ' <span style="color:var(--muted)">(' + pct(s.click, s.deliv) + ' %)</span></td><td class="num">' + s.unsub + '</td></tr>'; }).join('');
+  };
 
   // ---------- mensen ----------
   RENDER.mensen = function () {
@@ -639,9 +702,9 @@
   };
 
   // ---------- reset ----------
-  $('#resetAll').addEventListener('click', function (e) { e.preventDefault(); if (!confirm('Alle demo-gegevens terugzetten naar het voorbeeld?')) return; ['ve_brunch', 've_news', 've_articles', 've_people', 've_nl_sent', 've_subs_ex'].forEach(function (k) { localStorage.removeItem(k); }); $('#picks').innerHTML = ''; $('#nlSubj').value = ''; $('#nlIntro').value = ''; toast('Voorbeeld hersteld.'); go('overzicht'); });
+  $('#resetAll').addEventListener('click', function (e) { e.preventDefault(); if (!confirm('Alle demo-gegevens terugzetten naar het voorbeeld?')) return; ['ve_news', 've_articles', 've_people', 've_nl_sent', 've_subs_ex', 've_events'].forEach(function (k) { localStorage.removeItem(k); }); $('#picks').innerHTML = ''; $('#nlSubj').value = ''; $('#nlIntro').value = ''; toast('Voorbeeld hersteld.'); go('overzicht'); });
 
-  if (user) showApp();
+  showApp();
 })();
 </script>
 </body>

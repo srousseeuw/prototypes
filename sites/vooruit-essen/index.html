@@ -149,6 +149,7 @@
   .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
   .team-grid.two { grid-template-columns: repeat(2, 1fr); max-width: 640px; }
   .team-card { border-top: 3px solid var(--red); padding-top: 14px; }
+  .team-card .face { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; margin-bottom: 12px; background: #2a2a2a; }
   .team-card .name { font-weight: 800; font-size: 1.02rem; margin-bottom: 6px; }
   .team-card .role { color: rgba(255,255,255,0.66); font-size: 0.87rem; line-height: 1.45; }
 
@@ -174,19 +175,21 @@
   footer ul a:hover { color: var(--red); }
   .foot-bottom { border-top: 1px solid var(--line); padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 0.82rem; }
 
-  /* ---------- AGENDA TEASER ---------- */
-  .event-card { display: grid; grid-template-columns: 130px 1fr auto; gap: 28px; align-items: center; border: 1px solid var(--line); border-left: 6px solid var(--red); border-radius: 6px; padding: 26px 30px; background: #fff; }
-  .event-date { text-align: center; font-family: var(--font-display); text-transform: uppercase; line-height: 1; }
-  .event-date .d { font-size: 3.2rem; color: var(--red); }
-  .event-date .m { font-size: 1rem; letter-spacing: 0.06em; margin-top: 2px; }
-  .event-date .w { font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; color: var(--muted); text-transform: none; margin-top: 6px; }
-  .event-info h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
-  .event-info p { color: var(--muted); font-size: 0.95rem; margin-bottom: 12px; }
-  .event-facts { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.88rem; font-weight: 600; color: var(--muted); }
-  .event-facts b { color: var(--ink); font-weight: 800; }
-  .event-facts #teaser-left { font-weight: 700; color: var(--red); }
-  .event-cta { text-align: center; }
-  .event-cta .left { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
+  /* ---------- AGENDA ---------- */
+  .agenda-list { display: grid; gap: 16px; }
+  .ev { display: grid; grid-template-columns: 120px 1fr; gap: 26px; align-items: start; border: 1px solid var(--line); border-left: 6px solid var(--red); border-radius: 6px; padding: 24px 28px; background: #fff; }
+  .ev.past { border-left-color: var(--line); }
+  .ev-date { text-align: center; font-family: var(--font-display); text-transform: uppercase; line-height: 1; }
+  .ev-date .d { display: block; font-size: 3rem; color: var(--red); }
+  .ev.past .ev-date .d { color: var(--muted); }
+  .ev-date .m { display: block; font-size: 1rem; letter-spacing: 0.06em; margin-top: 2px; }
+  .ev-date .w { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.76rem; color: var(--muted); text-transform: none; margin-top: 6px; }
+  .ev-body h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 4px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .ev-tag { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; }
+  .ev-meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+  .ev-body p:last-child { font-size: 0.97rem; }
+  .ev-body a { color: var(--red); font-weight: 700; text-decoration: none; }
+  .ev-body a:hover { text-decoration: underline; }
 
   /* ---------- TEAM: link ---------- */
   .team-more { margin-top: 40px; }
@@ -214,14 +217,11 @@
     nav.main { gap: 14px; font-size: 0.76rem; }
   }
   @media (max-width: 940px) {
-    .event-card { grid-template-columns: 110px 1fr; gap: 20px; }
-    .event-cta { grid-column: 1 / -1; text-align: left; }
     .nb-grid { grid-template-columns: 1fr; gap: 36px; }
   }
   @media (max-width: 680px) {
-    .event-card { grid-template-columns: 1fr; padding: 22px; }
-    .event-date { display: flex; gap: 12px; align-items: baseline; text-align: left; }
-    .event-cta .btn-primary { display: block; text-align: center; }
+    .ev { grid-template-columns: 1fr; gap: 12px; padding: 20px; }
+    .ev-date { display: flex; gap: 12px; align-items: baseline; text-align: left; }
     .nb-form { grid-template-columns: 1fr; }
     .team-more .btn-ghost { display: block; text-align: center; }
   }
@@ -276,7 +276,7 @@
     <div class="brand">Vooruit <span>Essen</span></div>
     <nav class="main" aria-label="Hoofdnavigatie">
       <a href="#nieuws">Nieuws</a>
-      <a href="agenda/">Agenda</a>
+      <a href="#agenda">Agenda</a>
       <a href="#themas">Waar we aan werken</a>
       <a href="mensen/">Mensen</a>
       <a href="nieuwsbrief/">Nieuwsbrief</a>
@@ -289,7 +289,7 @@
   </div>
   <div class="mobile-menu">
     <a href="#nieuws" onclick="document.getElementById('nav-check').checked=false">Nieuws</a>
-    <a href="agenda/">Agenda</a>
+    <a href="#agenda" onclick="document.getElementById('nav-check').checked=false">Agenda</a>
     <a href="#themas" onclick="document.getElementById('nav-check').checked=false">Waar we aan werken</a>
     <a href="mensen/">Mensen</a>
     <a href="nieuwsbrief/">Nieuwsbrief</a>
@@ -379,19 +379,28 @@
   </div>
 </section>
 
-<section class="agenda-teaser" id="agenda">
+<section class="agenda" id="agenda">
   <div class="wrap">
     <div class="redbar"></div>
-    <h2>Kom eens langs</h2>
-    <p class="section-sub">Onze eerstvolgende activiteit. Inschrijven doe je meteen hier — je krijgt een bevestiging met alles wat je moet weten.</p>
-    <div class="event-card">
-      <div class="event-date" aria-label="Zondag 1 november 2026"><div class="d">1</div><div class="m">nov</div><div class="w">zondag</div></div>
-      <div class="event-info">
-        <h3>Brunch Vooruit Essen</h3>
-        <p>Zaal van het Volkshuis · twee shiften: 10u00–11u30 en 11u30–13u00 · 60 plaatsen per shift</p>
-        <div class="event-facts"><span>Volwassene <b>€ 27</b></span><span>Kind tot 12 jaar <b>€ 10</b></span><span id="teaser-left">Nog plaatsen in beide shiften</span></div>
-      </div>
-      <div class="event-cta"><a class="btn-primary" href="agenda/">Schrijf je in</a><span class="left">Betalen kan na je bevestiging</span></div>
+    <h2>Agenda</h2>
+    <p class="section-sub">Waar je ons kan ontmoeten. De redactie zet activiteiten zelf in het beheer; ze verschijnen hier en in de nieuwsbrief.</p>
+    <div class="agenda-list" id="agenda-list">
+      <article class="ev">
+        <div class="ev-date"><span class="d">1</span><span class="m">nov</span><span class="w">zondag 2026</span></div>
+        <div class="ev-body">
+          <h3>Brunch Vooruit Essen</h3>
+          <p class="ev-meta">Zaal van het Volkshuis, Essen · twee shiften: 10u00 – 11u30 en 11u30 – 13u00</p>
+          <p>Uitgebreid ontbijt en lunch in één, met de ploeg van Vooruit Essen aan tafel. € 27 per volwassene, € 10 per kind tot 12 jaar. Inschrijven via de uitnodiging van de afdeling.</p>
+        </div>
+      </article>
+      <article class="ev past">
+        <div class="ev-date"><span class="d">1</span><span class="m">mei</span><span class="w">vrijdag 2026</span></div>
+        <div class="ev-body">
+          <h3>Meifeest — Dag van de Arbeid <span class="ev-tag">voorbij</span></h3>
+          <p class="ev-meta">Muziekterras in de verkeersvrije Stationsstraat, aan het Volkshuis · vanaf 14u00</p>
+          <p>Gratis inkom. 15u Crocodile Skin, 16u30 De Wit &amp; Koo, daarna Philip Noone in café Volkshuis. Kinderanimatie. Barbecue op inschrijving: € 25 per volwassene, € 15 per kind tot 12 jaar. <a href="https://nieuws.vooruit.org/meifeest2026" target="_blank" rel="noopener">Meer over het Meifeest →</a></p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -400,8 +409,71 @@
   <div class="wrap">
     <div class="redbar"></div>
     <h2>Ons laatste nieuws</h2>
-    <p class="section-sub">Wat onze ploeg de afgelopen maanden realiseerde en op de agenda zette — elk artikel lees je integraal op de nieuwspagina van Vooruit.</p>
+    <p class="section-sub">Wat onze ploeg de afgelopen weken realiseerde en op de agenda zette — elk artikel lees je integraal op de nieuwspagina van Vooruit.</p>
     <div class="news-grid">
+
+      <a class="news-card" href="https://nieuws.vooruit.org/cultuurzaal_krijgt_nu_echt_vorm" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/cultuurzaal_krijgt_nu_echt_vorm.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Cultuur</span>
+          <h3>Cultuurzaal krijgt nu echt vorm</h3>
+          <span class="date">28.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/zaal_rex_n_keer_per_jaar_gratis_voor_essense_verenigingen" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/zaal_rex_n_keer_per_jaar_gratis_voor_ess.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Verenigingsleven</span>
+          <h3>Zaal Rex één keer per jaar gratis voor Essense verenigingen</h3>
+          <span class="date">25.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/de_spiegeltent_komt_terug_naar_het_heuvelplein" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/de_spiegeltent_komt_terug_naar_het_heuve.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Evenementen</span>
+          <h3>De Spiegeltent komt terug naar het Heuvelplein</h3>
+          <span class="date">25.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/fietsbieb_krijgt_nieuwe_thuis_op_horendonk" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/fietsbieb_krijgt_nieuwe_thuis_op_horendo.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Sociaal</span>
+          <h3>Fietsbieb krijgt nieuwe thuis op Horendonk</h3>
+          <span class="date">25.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/vooruit_essen_vraagt_meer_aandacht_voor_informatie_rond_voorafgaande_zorgplanning" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/vooruit_essen_vraagt_meer_aandacht_voor.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Zorg</span>
+          <h3>Vooruit Essen vraagt meer aandacht voor informatie rond voorafgaande zorgplanning</h3>
+          <span class="date">25.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/zitdagen_maatschappelijk_werker_op_scholen_blijken_drempelverlagend" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/zitdagen_maatschappelijk_werker_op_schol.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Sociaal</span>
+          <h3>Zitdagen maatschappelijk werker op scholen blijken drempelverlagend</h3>
+          <span class="date">25.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
+
+      <a class="news-card" href="https://nieuws.vooruit.org/essen_haalt_textielcontainers_uit_het_straatbeeld" target="_blank" rel="noopener">
+        <div class="thumb"><img src="img/essen_haalt_textielcontainers_uit_het_st.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">Leefmilieu</span>
+          <h3>Essen haalt kleding- en textielcontainers uit het straatbeeld</h3>
+          <span class="date">19.08.2026 — Helmut Jaspers</span>
+        </div>
+      </a>
 
       <a class="news-card" href="https://nieuws.vooruit.org/gerinkel_naar_de_winkel_13_000_duurzame_ritjes_maken_samen_een_groot_verschil" target="_blank" rel="noopener">
         <div class="thumb"><img src="img/gerinkel.jpg" alt="" loading="lazy"></div>
@@ -421,69 +493,6 @@
         </div>
       </a>
 
-      <a class="news-card" href="https://nieuws.vooruit.org/automatische_zorgtoelage_bereikt_bijna_drie_keer_meer_kinderen_en_jongeren_in_essen" target="_blank" rel="noopener">
-        <div class="thumb"><img src="img/zorgtoelage.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <span class="tag">Sociaal</span>
-          <h3>Automatische zorgtoelage bereikt bijna drie keer meer kinderen en jongeren in Essen</h3>
-          <span class="date">27.07.2026 — Emma Lambregts</span>
-        </div>
-      </a>
-
-      <a class="news-card" href="https://nieuws.vooruit.org/meer_aandacht_voor_voetgangers" target="_blank" rel="noopener">
-        <div class="thumb"><img src="img/voetgangers.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <span class="tag">Mobiliteit</span>
-          <h3>Meer aandacht voor voetgangers</h3>
-          <span class="date">02.07.2026 — Ronald Goormachtig</span>
-        </div>
-      </a>
-
-      <a class="news-card" href="https://nieuws.vooruit.org/graag_duidelijkheid_over_glasvezel_in_essense_buitengebieden" target="_blank" rel="noopener">
-        <div class="thumb"><img src="img/glasvezel.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <span class="tag">Digitalisering</span>
-          <h3>Graag duidelijkheid over glasvezel in Essense buitengebieden</h3>
-          <span class="date">02.07.2026 — Jeroen Verleysen</span>
-        </div>
-      </a>
-
-      <a class="news-card" href="https://nieuws.vooruit.org/vooruit_raadslid_leen_jaspers_houdt_hittebeleid_scherp" target="_blank" rel="noopener">
-        <div class="thumb"><img src="img/hitte.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <span class="tag">Zorg &amp; klimaat</span>
-          <h3>Vooruit-raadslid Leen Jaspers houdt hittebeleid scherp</h3>
-          <span class="date">02.07.2026 — Leen Jaspers</span>
-        </div>
-      </a>
-
-      <a class="news-card" href="https://nieuws.vooruit.org/vooruit_steunt_mobiliteitsplan_nu_moet_het_echte_werk_beginnen" target="_blank" rel="noopener">
-        <div class="thumb"><img src="img/fietsers.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <span class="tag">Mobiliteit</span>
-          <h3>Vooruit steunt mobiliteitsplan: "Nu moet het echte werk beginnen"</h3>
-          <span class="date">30.06.2026 — Emma Lambregts</span>
-        </div>
-      </a>
-
-      <a class="news-card" href="https://nieuws.vooruit.org/zwaluwtillen_en_wildertnis_en_potpolder" target="_blank" rel="noopener">
-        <div class="thumb"><img src="img/zwaluwtil.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <span class="tag">Biodiversiteit</span>
-          <h3>Zwaluwtillen en WilderTnis en potpolder</h3>
-          <span class="date">28.05.2026 — Helmut Jaspers</span>
-        </div>
-      </a>
-
-      <a class="news-card" href="https://nieuws.vooruit.org/_boekstartdag_in_de_bib_zet_jonge_gezinnen_op_weg_naar_leesplezier" target="_blank" rel="noopener">
-        <div class="thumb"><img src="img/boekstart.jpg" alt="" loading="lazy"></div>
-        <div class="body">
-          <span class="tag">Jeugd &amp; cultuur</span>
-          <h3>Boekstartdag in de bib zet jonge gezinnen op weg naar leesplezier</h3>
-          <span class="date">23.05.2026 — Helmut Jaspers</span>
-        </div>
-      </a>
-
     </div>
     <div class="news-more">
       <a class="btn-dark" href="https://nieuws.vooruit.org/tags/essen" target="_blank" rel="noopener">Bekijk alle artikels →</a>
@@ -499,22 +508,22 @@
 
     <div class="team-group-label">Schepencollege</div>
     <div class="team-grid two">
-      <div class="team-card"><div class="name">Arno Aerden</div><div class="role">Schepen van ruimtelijke ordening en wonen, jeugd en kinderopvang, sociaal beleid, gelijke kansen en juridische aangelegenheden</div></div>
-      <div class="team-card"><div class="name">Helmut Jaspers</div><div class="role">Schepen van leefmilieu, groenbeleid, klimaat, duurzaamheid en dierenwelzijn; schepen van cultuur en internationale samenwerking</div></div>
+      <div class="team-card"><img class="face" src="img/mensen/arno-aerden.jpg" alt="Arno Aerden" loading="lazy"><div class="name">Arno Aerden</div><div class="role">Schepen van ruimtelijke ordening en wonen, jeugd en kinderopvang, sociaal beleid, gelijke kansen en juridische aangelegenheden</div></div>
+      <div class="team-card"><img class="face" src="img/mensen/helmut-jaspers.jpg" alt="Helmut Jaspers" loading="lazy"><div class="name">Helmut Jaspers</div><div class="role">Schepen van leefmilieu, groenbeleid, klimaat, duurzaamheid en dierenwelzijn; schepen van cultuur en internationale samenwerking</div></div>
     </div>
 
     <div class="team-group-label">Gemeenteraad</div>
     <div class="team-grid">
-      <div class="team-card"><div class="name">Emma Lambregts</div><div class="role">Fractieleider gemeenteraad</div></div>
-      <div class="team-card"><div class="name">Ronald Goormachtig</div><div class="role">Gemeenteraadslid</div></div>
-      <div class="team-card"><div class="name">Jeroen Verleysen</div><div class="role">Gemeenteraadslid</div></div>
-      <div class="team-card"><div class="name">Leen Jaspers</div><div class="role">Gemeenteraadslid</div></div>
+      <div class="team-card"><img class="face" src="img/mensen/emma-lambregts.jpg" alt="Emma Lambregts" loading="lazy"><div class="name">Emma Lambregts</div><div class="role">Fractieleider gemeenteraad</div></div>
+      <div class="team-card"><img class="face" src="img/mensen/ronald-goormachtig.jpg" alt="Ronald Goormachtig" loading="lazy"><div class="name">Ronald Goormachtig</div><div class="role">Gemeenteraadslid</div></div>
+      <div class="team-card"><img class="face" src="img/mensen/jeroen-verleysen.jpg" alt="Jeroen Verleysen" loading="lazy"><div class="name">Jeroen Verleysen</div><div class="role">Gemeenteraadslid</div></div>
+      <div class="team-card"><img class="face" src="img/mensen/leen-jaspers.jpg" alt="Leen Jaspers" loading="lazy"><div class="name">Leen Jaspers</div><div class="role">Gemeenteraadslid</div></div>
     </div>
 
     <div class="team-group-label">Bijzonder Comité Sociale Dienst</div>
     <div class="team-grid two">
-      <div class="team-card"><div class="name">François Veraart</div><div class="role">Lid bijzonder comité sociale dienst</div></div>
-      <div class="team-card"><div class="name">Diane Van Ginderen</div><div class="role">Lid bijzonder comité sociale dienst</div></div>
+      <div class="team-card"><img class="face" src="img/mensen/francois-veraart.jpg" alt="François Veraart" loading="lazy"><div class="name">François Veraart</div><div class="role">Lid bijzonder comité sociale dienst</div></div>
+      <div class="team-card"><img class="face" src="img/mensen/diane-van-ginderen.jpg" alt="Diane Van Ginderen" loading="lazy"><div class="name">Diane Van Ginderen</div><div class="role">Lid bijzonder comité sociale dienst</div></div>
     </div>
 
     <div class="team-more"><a class="btn-ghost" href="mensen/">Bevoegdheden en contact per persoon →</a></div>
@@ -532,12 +541,13 @@
         <input id="nb-em" type="email" placeholder="E-mailadres" autocomplete="email" aria-label="E-mailadres">
         <button class="btn-primary nb-btn" type="submit">Inschrijven</button>
       </form>
-      <label class="nb-consent"><input type="checkbox" id="nb-ok"><span>Ik geef Vooruit Essen uitdrukkelijk toestemming om mij de nieuwsbrief te sturen. Mijn gegevens blijven bij de afdeling; uitschrijven kan met één klik. <a href="privacy/">Privacy</a></span></label>
+      <label class="nb-consent"><input type="checkbox" id="nb-ok"><span>Ik geef Vooruit Essen uitdrukkelijk toestemming om mij de nieuwsbrief te sturen en te meten of ik die open en aanklik, zodat de afdeling haar communicatie kan verbeteren. Mijn gegevens blijven bij de afdeling; uitschrijven kan met één klik. <a href="privacy/">Privacy</a></span></label>
       <div class="nb-ok" id="nb-done">We stuurden een bevestigingslink naar <b id="nb-mail"></b>. Klik erop en je staat op de lijst.</div>
     </div>
     <div class="nb-side">
       <h3>Vorige edities</h3>
       <ul>
+        <li><a href="nieuwsbrief/#archief"><b>September 2026</b><span>Cultuurzaal, Zaal Rex en de Spiegeltent</span></a></li>
         <li><a href="nieuwsbrief/#archief"><b>Augustus 2026</b><span>Duurzaam Essen: 13.000 ritjes en een droogteplan</span></a></li>
         <li><a href="nieuwsbrief/#archief"><b>Juli 2026</b><span>Zorgtoelage, voetgangers en glasvezel</span></a></li>
         <li><a href="nieuwsbrief/#archief"><b>Mei 2026</b><span>Zwaluwen, WilderTnis en de eerste prentenboeken</span></a></li>
@@ -570,7 +580,7 @@
         <h4>Vooruit Essen</h4>
         <ul>
           <li><a href="#nieuws">Nieuws</a></li>
-          <li><a href="agenda/">Agenda</a></li>
+          <li><a href="#agenda">Agenda</a></li>
           <li><a href="#themas">Waar we aan werken</a></li>
           <li><a href="mensen/">Onze mensen</a></li>
           <li><a href="nieuwsbrief/">Nieuwsbrief</a></li>
@@ -596,15 +606,19 @@
 
 <script>
 (function () {
-  // Plaatsenteller van de brunch: leest dezelfde demo-opslag als de agendapagina.
+  // Agenda: toont wat de redactie in het beheer (demo) zette; anders de twee vaste voorbeelden hierboven.
   try {
-    var d = JSON.parse(localStorage.getItem('ve_brunch')) || { base: { s1: 57, s2: 21 }, regs: [] };
-    function left(s) { var t = d.base[s] + d.regs.filter(function (r) { return r.shift === s && !r.wacht; }).reduce(function (a, r) { return a + r.volw + r.kind; }, 0); return Math.max(0, 60 - t); }
-    var l1 = left('s1'), l2 = left('s2'), el = document.getElementById('teaser-left');
-    if (l1 === 0 && l2 === 0) el.textContent = 'Volzet — wachtlijst mogelijk';
-    else if (l1 === 0 || l2 === 0) el.textContent = 'Nog ' + (l1 || l2) + ' plaatsen in de shift van ' + (l1 ? '10u00' : '11u30');
-    else if (l1 <= 6 || l2 <= 6) el.textContent = 'Nog ' + Math.min(l1, l2) + ' plaatsen in de shift van ' + (l1 <= l2 ? '10u00' : '11u30');
-    else el.textContent = 'Nog plaatsen in beide shiften';
+    var evs = JSON.parse(localStorage.getItem('ve_events'));
+    if (Array.isArray(evs) && evs.length) {
+      var M = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'], D = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+      var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+      var t = new Date().toISOString().slice(0, 10);
+      evs.sort(function (a, b) { return (a.d >= t) === (b.d >= t) ? (a.d >= t ? (a.d < b.d ? -1 : 1) : (a.d > b.d ? -1 : 1)) : (a.d >= t ? -1 : 1); });
+      document.getElementById('agenda-list').innerHTML = evs.map(function (e) {
+        var d = new Date(e.d + 'T12:00:00'), past = e.d < t;
+        return '<article class="ev' + (past ? ' past' : '') + '"><div class="ev-date"><span class="d">' + d.getDate() + '</span><span class="m">' + M[d.getMonth()] + '</span><span class="w">' + D[d.getDay()] + ' ' + d.getFullYear() + '</span></div><div class="ev-body"><h3>' + esc(e.t) + (past ? ' <span class="ev-tag">voorbij</span>' : '') + '</h3><p class="ev-meta">' + esc(e.p) + (e.tijd ? ' · ' + esc(e.tijd) : '') + '</p><p>' + esc(e.txt) + (e.l ? ' <a href="' + esc(e.l) + '" target="_blank" rel="noopener">Meer info →</a>' : '') + '</p></div></article>';
+      }).join('');
+    }
   } catch (e) {}
 
   // Nieuwsbrief-inschrijving (demo, dubbele opt-in).
