@@ -1,12 +1,15 @@
-// Kleine API voor de U7-trainingsplanner (sites/training/).
+// Kleine API voor de U7-trainingsplanner (sites/training/) en het
+// feestcomité (sites/feestcomite-vondel/).
 //
 // Dit is de Worker-kant van het "prototypes"-project (zie ../wrangler.toml).
 // Alle statische bestanden in sites/ worden nog altijd rechtstreeks als assets
 // geserveerd; enkel /api/* komt hier terecht (run_worker_first).
 //
-// Opslag: één KV-namespace (binding TRAINING) met deze keys:
+// Opslag trainingsplanner: KV-namespace TRAINING met deze keys:
 //   t:<id>      → één training (JSON, met "version"), metadata = korte samenvatting
 //   library     → eigen oefeningen + trainersnamen (JSON, met "version")
+// Opslag feestcomité: KV-namespace FEESTCOMITE, één key "data" (JSON, met
+// "version") met alles erin — zie handleFeestcomiteApi hieronder.
 //
 // Geen login: iedereen met de link mag lezen en schrijven. Om elkaars werk niet
 // stilletjes te overschrijven stuurt de client bij elke PUT de versie mee die
@@ -133,12 +136,66 @@ async function handleApi(request, env) {
   return json({ error: "onbekende route" }, 404);
 }
 
+// --- Feestcomité (sites/feestcomite-vondel/) ---------------------------------
+//
+// Eén document voor alles (collega's, kas, activiteiten, taken) — net als
+// "library" hierboven. Geen aparte lijst nodig, de dataset is klein.
+const FC_PREFIX = "/api/feestcomite";
+const FC_KEY = "data";
+const FC_EMPTY = {
+  bijdrage: { bedrag: 0 },
+  collegas: [],
+  kas: { transacties: [] },
+  activiteiten: [],
+  taken: [],
+  info: { adres: "", notities: "" },
+};
+
+async function handleFeestcomiteApi(request, env) {
+  const kv = env.FEESTCOMITE;
+  if (!kv) return json({ error: "KV-binding FEESTCOMITE ontbreekt" }, 500);
+
+  const url = new URL(request.url);
+  const path = url.pathname.slice(FC_PREFIX.length).replace(/\/+$/, "") || "/";
+  const method = request.method.toUpperCase();
+
+  if (path === "/data") {
+    if (method === "GET") {
+      const doc = (await kv.get(FC_KEY, "json")) || { version: 0, ...FC_EMPTY };
+      return json(doc);
+    }
+    if (method === "PUT") {
+      const body = await readBody(request);
+      const incoming = {
+        bijdrage: body.bijdrage && typeof body.bijdrage === "object" ? body.bijdrage : FC_EMPTY.bijdrage,
+        collegas: Array.isArray(body.collegas) ? body.collegas : [],
+        kas: body.kas && typeof body.kas === "object" ? body.kas : FC_EMPTY.kas,
+        activiteiten: Array.isArray(body.activiteiten) ? body.activiteiten : [],
+        taken: Array.isArray(body.taken) ? body.taken : [],
+        info: body.info && typeof body.info === "object" ? body.info : FC_EMPTY.info,
+      };
+      const r = await putVersioned(kv, FC_KEY, incoming, body.baseVersion);
+      return r.conflict ? json({ conflict: true, current: r.doc }, 409) : json(r.doc);
+    }
+    return json({ error: "method not allowed" }, 405);
+  }
+
+  return json({ error: "onbekende route" }, 404);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname.startsWith(PREFIX)) {
       try {
         return await handleApi(request, env);
+      } catch (err) {
+        return json({ error: String(err && err.message || err) }, 400);
+      }
+    }
+    if (url.pathname.startsWith(FC_PREFIX)) {
+      try {
+        return await handleFeestcomiteApi(request, env);
       } catch (err) {
         return json({ error: String(err && err.message || err) }, 400);
       }

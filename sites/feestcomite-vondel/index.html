@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#146c6c">
+<title>Feestcomité De Vondel</title>
+<style>
+:root{
+  --bg:#eef4f4; --card:#ffffff; --ink:#1e2a2c; --muted:#5f7274; --edge:#dbe6e6;
+  --primary:#146c6c; --primary-2:#0d4f4f; --primary-soft:#e1f0ef;
+  --coral:#ea5b52; --coral-soft:#fce9e7; --gold:#e8a23e; --gold-soft:#fbf0dd; --plum:#8c5a9e;
+  --good:#2f9e5b; --good-soft:#e4f6ea; --bad:#c0392b; --bad-soft:#fbe8e5;
+  --radius:14px; --shadow:0 1px 2px rgba(15,40,40,.08),0 4px 14px rgba(15,40,40,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+a{color:var(--primary)}
+h1,h2,h3{margin:0 0 2px;line-height:1.25}
+p{margin:0 0 8px}
+.sr{position:absolute;left:-9999px}
+.muted{color:var(--muted)}
+.small{font-size:12.5px}
+
+/* ---------- top bar ---------- */
+.top{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18);overflow:hidden}
+.top::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.6;background-image:
+  radial-gradient(circle 3px at 10% 25%, var(--gold) 98%, transparent),
+  radial-gradient(circle 4px at 24% 75%, var(--coral) 98%, transparent),
+  radial-gradient(circle 3px at 52% 15%, #fff 98%, transparent),
+  radial-gradient(circle 3px at 68% 70%, var(--gold) 98%, transparent),
+  radial-gradient(circle 4px at 84% 30%, var(--coral) 98%, transparent),
+  radial-gradient(circle 3px at 96% 80%, #fff 98%, transparent),
+  radial-gradient(circle 3px at 40% 90%, var(--plum) 98%, transparent);
+}
+.top .in{position:relative;max-width:640px;margin:0 auto;padding:12px 14px;display:flex;align-items:center;gap:10px;min-height:52px}
+.top .brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.top .brand b{display:block;font-size:16px;letter-spacing:.2px}
+.top .brand small{display:block;font-weight:500;font-size:12px;opacity:.88}
+.top .actions{display:flex;gap:6px;align-items:center}
+.iconbtn{background:rgba(255,255,255,.16);border:0;color:#fff;border-radius:10px;width:38px;height:38px;font-size:17px;display:inline-flex;align-items:center;justify-content:center}
+.syncdot{width:9px;height:9px;border-radius:50%;background:#8be0b8;box-shadow:0 0 0 3px rgba(255,255,255,.14);transition:background .2s}
+.syncdot.saving{background:var(--gold)}
+.syncdot.err{background:var(--coral)}
+
+main{max-width:640px;margin:0 auto;padding:14px 14px 96px}
+
+/* ---------- generic ---------- */
+.card{background:var(--card);border:1px solid var(--edge);border-radius:var(--radius);padding:13px 15px;box-shadow:var(--shadow);margin-bottom:10px}
+.hero{background:linear-gradient(135deg,var(--primary-soft),#fff);border:1px solid var(--edge)}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.wrap{flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--card);border:1px solid var(--edge);border-radius:var(--radius);padding:10px 12px;text-align:left}
+.stat b{display:block;font-size:20px}
+.stat span{color:var(--muted);font-size:12.5px}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:18px 0 8px}
+.section-title h2{font-size:14px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.section-title a,.section-title button.link{font-size:13px;font-weight:600;background:none;border:0;padding:0;color:var(--primary)}
+.empty{color:var(--muted);font-size:13.5px;padding:14px;text-align:center;border:1px dashed var(--edge);border-radius:var(--radius)}
+
+.btn{background:var(--primary);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:700;font-size:14.5px}
+.btn.soft{background:var(--primary-soft);color:var(--primary-2)}
+.btn.ghost{background:transparent;color:var(--primary);border:1px solid var(--edge)}
+.btn.danger{background:var(--bad-soft);color:var(--bad)}
+.btn.block{width:100%}
+.iconlink{background:none;border:0;color:var(--muted);font-size:16px;padding:6px;border-radius:8px}
+.iconlink:hover{background:var(--bg)}
+
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:5px 10px;font-size:12.5px;font-weight:700;border:0}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.gold{background:var(--gold-soft);color:#8a5f16}
+.pill.soft{background:var(--primary-soft);color:var(--primary-2)}
+.badge{display:inline-block;background:var(--plum);color:#fff;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;vertical-align:middle}
+
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--edge);border-radius:10px;padding:10px 11px;background:#fff}
+.field textarea{min-height:70px;resize:vertical}
+.field-row{display:flex;gap:10px}
+.field-row>.field{flex:1}
+.hint{color:var(--muted);font-size:12px;margin-top:-6px;margin-bottom:12px}
+
+.list-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--edge)}
+.list-item:first-child{border-top:0}
+.list-item .t{flex:1;min-width:0}
+.list-item .t b{display:block}
+.list-item .t .sub{color:var(--muted);font-size:12.5px;margin-top:1px}
+.list-item .amt{font-weight:800;font-size:15px;white-space:nowrap}
+.amt.pos{color:var(--good)}
+.amt.neg{color:var(--bad)}
+.actionsrow{display:flex;gap:2px}
+
+.check{width:22px;height:22px;flex:none;border:2px solid var(--edge);border-radius:7px;display:inline-flex;align-items:center;justify-content:center;background:#fff}
+.check.on{background:var(--good);border-color:var(--good);color:#fff}
+.taak.done .t b{text-decoration:line-through;color:var(--muted)}
+
+/* ---------- bottom nav ---------- */
+.bottomnav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;background:#fff;border-top:1px solid var(--edge);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -2px 10px rgba(0,0,0,.06)}
+.bottomnav button{flex:1;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:10px;color:var(--muted);font-size:11px;font-weight:600}
+.bottomnav button .ic{font-size:19px;line-height:1}
+.bottomnav button.on{color:var(--primary)}
+.bottomnav button.on .ic{transform:scale(1.05)}
+
+/* ---------- sheet (bottom form panel) ---------- */
+.overlay{position:fixed;inset:0;background:rgba(20,30,30,.4);z-index:29}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-radius:16px 16px 0 0;max-height:88vh;overflow:auto;box-shadow:0 -8px 30px rgba(0,0,0,.25);padding:16px 16px calc(16px + env(safe-area-inset-bottom));max-width:640px;margin:0 auto}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sheet-head b{font-size:16px}
+.sheet-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;bottom:calc(70px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:#1e2a2c;color:#fff;padding:10px 16px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:.25s;z-index:40;max-width:88vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.err{background:var(--bad)}
+
+.infobox{background:var(--gold-soft);border:1px solid #f0d9ab;border-radius:var(--radius);padding:12px 14px;font-size:13px;color:#6b4d14;margin-bottom:14px}
+.backlink{background:none;border:0;color:var(--primary);font-weight:700;padding:0;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="in">
+    <div class="brand">
+      <div>
+        <b>🎉 Feestcomité</b>
+        <small>OCMW Antwerpen · De Vondel</small>
+      </div>
+    </div>
+    <div class="actions">
+      <span class="syncdot" id="syncDot" title="alles opgeslagen"></span>
+      <button class="iconbtn" id="btnInfo" title="Info &amp; instellingen">⚙️</button>
+    </div>
+  </div>
+</header>
+
+<main id="main"><div class="empty">Bezig met laden…</div></main>
+
+<nav class="bottomnav" id="bottomnav">
+  <button data-tab="overzicht"><span class="ic">🏠</span><span>Overzicht</span></button>
+  <button data-tab="collegas"><span class="ic">👥</span><span>Collega's</span></button>
+  <button data-tab="kas"><span class="ic">💶</span><span>Kas</span></button>
+  <button data-tab="activiteiten"><span class="ic">📅</span><span>Activiteiten</span></button>
+  <button data-tab="taken"><span class="ic">✅</span><span>Taken</span></button>
+</nav>
+
+<div id="sheetLayer"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const API = '/api/feestcomite';
+const JAAR = new Date().getFullYear();
+const MND = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+const MND_KORT = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+
+const EMPTY = { version:0, bijdrage:{bedrag:0}, collegas:[], kas:{transacties:[]}, activiteiten:[], taken:[], info:{adres:'',notities:''} };
+const state = { doc: JSON.parse(JSON.stringify(EMPTY)), loaded:false, dirty:false, saving:false, pendingSave:false, poll:null, tab:'overzicht', q:'', sheet:null };
+
+/* ---------- helpers ---------- */
+function isoLocal(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function todayISO(){ return isoLocal(new Date()); }
+function fmtEUR(n){ return (Number(n)||0).toLocaleString('nl-BE',{style:'currency',currency:'EUR'}); }
+function fmtKort(iso){ if(!iso) return ''; const d=new Date(iso+'T00:00:00'); if(isNaN(d)) return ''; return d.getDate()+' '+MND_KORT[d.getMonth()]; }
+function fmtVol(iso){ if(!iso) return ''; const d=new Date(iso+'T00:00:00'); if(isNaN(d)) return iso; return d.getDate()+' '+MND[d.getMonth()]+' '+d.getFullYear(); }
+function isPast(iso){ if(!iso) return false; return iso < todayISO(); }
+
+function nextVerjaardag(dag, maand){
+  if(!dag||!maand) return null;
+  const now=new Date(); now.setHours(0,0,0,0);
+  let d=new Date(now.getFullYear(), maand-1, dag);
+  if(d<now) d=new Date(now.getFullYear()+1, maand-1, dag);
+  return d;
+}
+function daysUntil(d){ const now=new Date(); now.setHours(0,0,0,0); return Math.round((d-now)/86400000); }
+
+function dienstjaren(iso, ref){
+  if(!iso) return null;
+  const start=new Date(iso+'T00:00:00'); if(isNaN(start)) return null;
+  ref = ref || new Date();
+  let years = ref.getFullYear()-start.getFullYear();
+  const passed = (ref.getMonth()>start.getMonth())||(ref.getMonth()===start.getMonth()&&ref.getDate()>=start.getDate());
+  if(!passed) years--;
+  return years;
+}
+function jubileumDitJaar(iso){
+  if(!iso) return null;
+  const start=new Date(iso+'T00:00:00'); if(isNaN(start)) return null;
+  const jaren = JAAR - start.getFullYear();
+  if(jaren>0 && jaren%5===0) return jaren;
+  return null;
+}
+function jubileumDatumDitJaar(iso){
+  const start=new Date(iso+'T00:00:00');
+  return new Date(JAAR, start.getMonth(), start.getDate());
+}
+
+function collega(id){ return state.doc.collegas.find(c=>c.id===id); }
+function collegaNaam(id){ const c=collega(id); return c?c.naam:''; }
+function activiteit(id){ return state.doc.activiteiten.find(a=>a.id===id); }
+function activiteitNaam(id){ const a=activiteit(id); return a?a.naam:''; }
+function saldo(){ return state.doc.kas.transacties.reduce((s,t)=>s+(Number(t.bedrag)||0),0); }
+function collegasGesorteerd(){ return state.doc.collegas.slice().sort((a,b)=>a.naam.localeCompare(b.naam,'nl')); }
+
+/* ---------- api + opslaan (debounce + optimistic lock, zie sites/training/) ---------- */
+async function api(path, opt={}){
+  const r = await fetch(API+path, {headers:{'content-type':'application/json'}, ...opt, body: opt.body!==undefined ? JSON.stringify(opt.body) : undefined});
+  const data = await r.json().catch(()=>({}));
+  if(!r.ok){ const e=new Error(data.error||('HTTP '+r.status)); e.status=r.status; e.data=data; throw e; }
+  return data;
+}
+let toastTimer;
+function toast(msg, err){ const t=$('#toast'); t.textContent=msg; t.className='toast show'+(err?' err':''); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.className='toast',2800); }
+function setSync(cls){ $('#syncDot').className='syncdot'+(cls?' '+cls:''); }
+
+function mutate(fn){ fn(state.doc); state.dirty=true; render(); setSync('saving'); clearTimeout(saveTimer); saveTimer=setTimeout(save,600); }
+let saveTimer;
+async function save(){
+  if(state.saving){ state.pendingSave=true; return; }
+  state.saving=true; state.dirty=false; setSync('saving');
+  const {version, updatedAt, ...body} = state.doc;
+  try{
+    const r = await api('/data',{method:'PUT',body:{baseVersion:state.doc.version, ...body}});
+    state.doc.version=r.version; state.doc.updatedAt=r.updatedAt;
+    setSync('');
+  }catch(e){
+    if(e.status===409){
+      state.doc = e.data.current; state.dirty=false;
+      toast('Iemand anders heeft net iets aangepast. Nieuwste versie geladen.', true);
+      render();
+    }else{ setSync('err'); toast('Opslaan mislukt: '+e.message, true); state.dirty=true; }
+  }finally{
+    state.saving=false;
+    if(state.pendingSave||state.dirty){ state.pendingSave=false; save(); }
+  }
+}
+async function load(){
+  try{ state.doc = await api('/data'); }
+  catch(e){ toast('Laden mislukt: '+e.message, true); }
+  state.loaded=true; render();
+}
+function startPoll(){
+  state.poll = setInterval(async()=>{
+    if(state.dirty||state.saving||document.hidden||state.sheet) return;
+    const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+    try{ const r=await api('/data'); if(r.version!==state.doc.version){ state.doc=r; render(); toast("Bijgewerkt door een collega"); } }catch(e){}
+  }, 15000);
+}
+
+/* ---------- sheet (bottom form) ---------- */
+function openSheet(title, bodyHtml, submitLabel, onSubmit, extraBtnHtml){
+  state.sheet = {title, bodyHtml, submitLabel, onSubmit, extraBtnHtml: extraBtnHtml||''};
+  renderSheet();
+}
+function closeSheet(){ state.sheet=null; renderSheet(); }
+function renderSheet(){
+  const layer = $('#sheetLayer');
+  if(!state.sheet){ layer.innerHTML=''; return; }
+  const s = state.sheet;
+  layer.innerHTML = `<div class="overlay" id="ovBg"></div>
+    <div class="sheet">
+      <div class="sheet-head"><b>${esc(s.title)}</b><button type="button" class="iconlink" id="ovClose">✕</button></div>
+      <form id="sheetForm">${s.bodyHtml}
+        <div class="sheet-actions">${s.extraBtnHtml}<button type="submit" class="btn">${esc(s.submitLabel)}</button></div>
+      </form>
+    </div>`;
+  $('#ovBg').onclick = closeSheet;
+  $('#ovClose').onclick = closeSheet;
+  const form = $('#sheetForm');
+  form.onsubmit = e => { e.preventDefault(); s.onSubmit(new FormData(form)); };
+  setTimeout(()=>{ const f=form.querySelector('input,select,textarea'); if(f) f.focus(); }, 30);
+}
+
+/* ---------- generieke velden (bijdrage, info) ---------- */
+function setPath(obj, path, value){
+  const parts = path.split('.'); let o=obj;
+  for(let i=0;i<parts.length-1;i++) o=o[parts[i]];
+  o[parts[parts.length-1]] = value;
+}
+function getPath(obj, path){
+  return path.split('.').reduce((o,k)=>(o||{})[k], obj);
+}
+
+/* ===================================================================== */
+/* Overzicht                                                              */
+function renderOverzicht(){
+  const s = saldo();
+  const dit = String(JAAR);
+  const nietBetaald = state.doc.collegas.filter(c=>!(c.bijdragen&&c.bijdragen[dit]&&c.bijdragen[dit].paid));
+  const verjaardagen = state.doc.collegas
+    .map(c=>({c, d:nextVerjaardag(c.verjDag,c.verjMaand)}))
+    .filter(x=>x.d)
+    .map(x=>({...x, days:daysUntil(x.d)}))
+    .filter(x=>x.days<=30)
+    .sort((a,b)=>a.days-b.days);
+  const jubilea = state.doc.collegas
+    .map(c=>({c, jaren:jubileumDitJaar(c.indienst)}))
+    .filter(x=>x.jaren)
+    .map(x=>({...x, d:jubileumDatumDitJaar(x.c.indienst)}))
+    .sort((a,b)=>a.d-b.d);
+  const openTaken = state.doc.taken.filter(t=>!t.klaar)
+    .sort((a,b)=>(a.deadline||'9999').localeCompare(b.deadline||'9999'));
+  const volgendeAct = state.doc.activiteiten.filter(a=>a.datum>=todayISO()).sort((a,b)=>a.datum.localeCompare(b.datum))[0];
+
+  return `
+  <div class="card hero">
+    <div class="small muted">Saldo groepspot</div>
+    <div style="font-size:30px;font-weight:800;color:${s>=0?'var(--good)':'var(--bad)'}">${fmtEUR(s)}</div>
+    <div class="small muted">${state.doc.kas.transacties.length} boeking(en) · bijdrage ${fmtEUR(state.doc.bijdrage.bedrag)} / jaar</div>
+  </div>
+
+  <div class="grid2">
+    <div class="stat"><b>${state.doc.collegas.length}</b><span>collega's</span></div>
+    <div class="stat"><b>${nietBetaald.length}</b><span>nog niet betaald voor ${dit}</span></div>
+  </div>
+
+  ${volgendeAct ? `
+  <div class="section-title"><h2>Volgende activiteit</h2><button class="link" data-goto="activiteiten">bekijk alle →</button></div>
+  <div class="card row between">
+    <div class="t"><b>${esc(volgendeAct.naam)}</b><div class="sub">${fmtVol(volgendeAct.datum)}${volgendeAct.budget?' · budget '+fmtEUR(volgendeAct.budget):''}</div></div>
+    <span class="pill soft">${esc(volgendeAct.status||'gepland')}</span>
+  </div>` : ''}
+
+  <div class="section-title"><h2>Verjaardagen (30 dagen)</h2></div>
+  ${verjaardagen.length ? `<div class="card">${verjaardagen.slice(0,8).map(x=>`
+    <div class="list-item"><div class="t"><b>${esc(x.c.naam)}</b><div class="sub">🎂 ${fmtKort(isoLocal(x.d))}${x.days===0?' · vandaag!':x.days===1?' · morgen':' · over '+x.days+' dagen'}</div></div></div>
+  `).join('')}</div>` : `<div class="empty">Geen verjaardagen in de komende 30 dagen (of nog niet ingevuld).</div>`}
+
+  <div class="section-title"><h2>Jubilea dit jaar</h2></div>
+  ${jubilea.length ? `<div class="card">${jubilea.map(x=>`
+    <div class="list-item"><div class="t"><b>${esc(x.c.naam)}</b><div class="sub">🏅 ${x.jaren} jaar in dienst · ${MND[x.d.getMonth()]} ${JAAR}${isPast(isoLocal(x.d))?' (al gevierd?)':''}</div></div></div>
+  `).join('')}</div>` : `<div class="empty">Geen jubilea (5, 10, 15… jaar dienst) dit jaar gevonden.</div>`}
+
+  <div class="section-title"><h2>Openstaande taken</h2><button class="link" data-goto="taken">alle taken →</button></div>
+  ${openTaken.length ? `<div class="card">${openTaken.slice(0,5).map(t=>`
+    <div class="list-item"><div class="t"><b>${esc(t.omschrijving)}</b><div class="sub">${t.toegewezenAan?esc(collegaNaam(t.toegewezenAan)):'niemand toegewezen'}${t.deadline?' · tegen '+fmtKort(t.deadline):''}</div></div></div>
+  `).join('')}</div>` : `<div class="empty">Geen openstaande taken.</div>`}
+  `;
+}
+
+/* ===================================================================== */
+/* Collega's                                                              */
+function collegaFormHtml(c){
+  c = c || {naam:'',verjDag:'',verjMaand:'',indienst:'',lidFeestcomite:false};
+  const maandOpts = MND.map((m,i)=>`<option value="${i+1}" ${Number(c.verjMaand)===i+1?'selected':''}>${m}</option>`).join('');
+  return `
+    <div class="field"><label>Naam</label><input name="naam" required value="${esc(c.naam)}"></div>
+    <div class="field-row">
+      <div class="field"><label>Verjaardag — dag</label><input name="verjDag" type="number" min="1" max="31" value="${c.verjDag||''}"></div>
+      <div class="field"><label>Verjaardag — maand</label><select name="verjMaand"><option value="">—</option>${maandOpts}</select></div>
+    </div>
+    <div class="hint">Enkel dag + maand, geen geboortejaar nodig.</div>
+    <div class="field"><label>In dienst sinds</label><input name="indienst" type="date" value="${esc(c.indienst||'')}"></div>
+    <div class="field row"><label style="margin:0"><input type="checkbox" name="lidFeestcomite" ${c.lidFeestcomite?'checked':''}> Lid van het feestcomité</label></div>
+  `;
+}
+function readCollegaForm(fd){
+  return {
+    naam: String(fd.get('naam')||'').trim(),
+    verjDag: fd.get('verjDag') ? Number(fd.get('verjDag')) : null,
+    verjMaand: fd.get('verjMaand') ? Number(fd.get('verjMaand')) : null,
+    indienst: String(fd.get('indienst')||''),
+    lidFeestcomite: fd.get('lidFeestcomite') === 'on',
+  };
+}
+function addCollega(){
+  openSheet('Collega toevoegen', collegaFormHtml(), 'Toevoegen', fd=>{
+    const data = readCollegaForm(fd);
+    if(!data.naam) return;
+    mutate(doc=>doc.collegas.push({id:uid(), bijdragen:{}, ...data}));
+    closeSheet();
+  });
+}
+function editCollega(id){
+  const c = collega(id); if(!c) return;
+  const del = `<button type="button" class="btn danger" id="delBtn">Verwijderen</button>`;
+  openSheet('Collega bewerken', collegaFormHtml(c), 'Opslaan', fd=>{
+    const data = readCollegaForm(fd);
+    if(!data.naam) return;
+    mutate(doc=>{ const t=collega(id); Object.assign(t, data); });
+    closeSheet();
+  }, del);
+  $('#delBtn').onclick = ()=>{
+    if(!confirm(`${c.naam} verwijderen?`)) return;
+    mutate(doc=>{ doc.collegas = doc.collegas.filter(x=>x.id!==id); doc.taken.forEach(t=>{ if(t.toegewezenAan===id) t.toegewezenAan=''; }); });
+    closeSheet();
+  };
+}
+function bulkAddCollegas(){
+  openSheet('Meerdere collega\'s toevoegen', `
+    <div class="hint">Eén per lijn: <b>Naam; DD-MM; jjjj-mm-dd</b> — de laatste twee mogen leeg blijven.<br>Bv. <i>Jan Peeters; 14-03; 2016-05-01</i></div>
+    <div class="field"><textarea name="bulk" rows="8" placeholder="Jan Peeters; 14-03; 2016-05-01
+Marie Janssens; 02-11"></textarea></div>
+  `, 'Toevoegen', fd=>{
+    const raw = String(fd.get('bulk')||'');
+    const lines = raw.split('\n').map(l=>l.trim()).filter(Boolean);
+    let n=0;
+    mutate(doc=>{
+      lines.forEach(line=>{
+        const parts = line.split(';').map(p=>p.trim());
+        const naam = parts[0]; if(!naam) return;
+        let verjDag=null, verjMaand=null;
+        if(parts[1]){ const m=parts[1].match(/^(\d{1,2})[\-\/](\d{1,2})$/); if(m){ verjDag=Number(m[1]); verjMaand=Number(m[2]); } }
+        let indienst='';
+        if(parts[2] && /^\d{4}-\d{2}-\d{2}$/.test(parts[2])) indienst=parts[2];
+        doc.collegas.push({id:uid(), naam, verjDag, verjMaand, indienst, lidFeestcomite:false, bijdragen:{}});
+        n++;
+      });
+    });
+    toast(n+" collega's toegevoegd");
+    closeSheet();
+  });
+}
+function toggleBijdrage(id){
+  mutate(doc=>{
+    const c = doc.collegas.find(x=>x.id===id); if(!c) return;
+    const jaar = String(JAAR);
+    c.bijdragen = c.bijdragen || {};
+    const huidig = c.bijdragen[jaar];
+    if(huidig && huidig.paid){
+      if(huidig.txId) doc.kas.transacties = doc.kas.transacties.filter(t=>t.id!==huidig.txId);
+      c.bijdragen[jaar] = {paid:false, txId:null};
+    } else {
+      const txId = uid();
+      doc.kas.transacties.push({id:txId, datum:todayISO(), omschrijving:`Jaarlijkse bijdrage ${jaar} — ${c.naam}`, bedrag:Number(doc.bijdrage.bedrag)||0, type:'inkomst'});
+      c.bijdragen[jaar] = {paid:true, txId};
+    }
+  });
+}
+function renderCollegas(){
+  const dit = String(JAAR);
+  const q = state.q.toLocaleLowerCase('nl');
+  const lijst = collegasGesorteerd().filter(c=>!q || c.naam.toLocaleLowerCase('nl').includes(q));
+  return `
+  <div class="row wrap" style="margin-bottom:10px">
+    <input id="zoek" placeholder="Zoek een collega…" value="${esc(state.q)}" style="flex:1;min-width:140px;border:1px solid var(--edge);border-radius:10px;padding:9px 11px;background:#fff">
+    <button class="btn ghost" id="btnBulk">+ Meerdere</button>
+    <button class="btn" id="btnAddCollega">+ Collega</button>
+  </div>
+  ${lijst.length ? `<div class="card">${lijst.map(c=>{
+    const betaald = c.bijdragen && c.bijdragen[dit] && c.bijdragen[dit].paid;
+    const jaren = dienstjaren(c.indienst);
+    const verj = c.verjDag&&c.verjMaand ? `🎂 ${c.verjDag} ${MND_KORT[c.verjMaand-1]}` : '';
+    const dienst = jaren!=null ? `${jaren} jaar in dienst` : '';
+    return `<div class="list-item">
+      <div class="t">
+        <b>${esc(c.naam)}${c.lidFeestcomite?' <span class="badge">comité</span>':''}</b>
+        <div class="sub">${[verj,dienst].filter(Boolean).join(' · ')||'—'}</div>
+      </div>
+      <button class="pill ${betaald?'good':'bad'}" data-toggle-bijdrage="${c.id}">${betaald?'✓ '+dit:'nog niet betaald'}</button>
+      <div class="actionsrow"><button class="iconlink" data-edit-collega="${c.id}">✏️</button></div>
+    </div>`;
+  }).join('')}</div>` : `<div class="empty">${state.q?'Geen collega gevonden.':"Nog geen collega's toegevoegd."}</div>`}
+  `;
+}
+
+/* ===================================================================== */
+/* Kas                                                                    */
+function txFormHtml(){
+  return `
+    <div class="field-row">
+      <div class="field"><label>Datum</label><input name="datum" type="date" value="${todayISO()}" required></div>
+      <div class="field"><label>Type</label><select name="type"><option value="inkomst">Inkomst</option><option value="uitgave">Uitgave</option></select></div>
+    </div>
+    <div class="field"><label>Omschrijving</label><input name="omschrijving" required placeholder="Bv. bloemen bij pensioen"></div>
+    <div class="field"><label>Bedrag (€)</label><input name="bedrag" type="number" step="0.01" min="0" required></div>
+  `;
+}
+function addTx(){
+  openSheet('Boeking toevoegen', txFormHtml(), 'Toevoegen', fd=>{
+    const bedrag = Math.abs(Number(fd.get('bedrag'))||0);
+    const type = fd.get('type');
+    if(!bedrag) return;
+    mutate(doc=>doc.kas.transacties.push({id:uid(), datum:String(fd.get('datum')||todayISO()), omschrijving:String(fd.get('omschrijving')||'').trim(), bedrag: type==='uitgave'?-bedrag:bedrag, type}));
+    closeSheet();
+  });
+}
+function delTx(id){
+  if(!confirm('Deze boeking verwijderen?')) return;
+  mutate(doc=>{ doc.kas.transacties = doc.kas.transacties.filter(t=>t.id!==id); });
+}
+function renderKas(){
+  const txs = state.doc.kas.transacties.slice().sort((a,b)=>b.datum.localeCompare(a.datum));
+  const s = saldo();
+  return `
+  <div class="card hero">
+    <div class="small muted">Saldo groepspot</div>
+    <div style="font-size:28px;font-weight:800;color:${s>=0?'var(--good)':'var(--bad)'}">${fmtEUR(s)}</div>
+  </div>
+  <div class="card">
+    <div class="field" style="margin-bottom:0">
+      <label>Jaarlijkse bijdrage per collega (€)</label>
+      <input data-field="bijdrage.bedrag" data-type="number" type="number" step="0.01" min="0" value="${state.doc.bijdrage.bedrag}">
+    </div>
+  </div>
+  <div class="section-title"><h2>Boekingen</h2><button class="btn" id="btnAddTx" style="padding:6px 12px;font-size:13px">+ Toevoegen</button></div>
+  ${txs.length ? `<div class="card">${txs.map(t=>`
+    <div class="list-item">
+      <div class="t"><b>${esc(t.omschrijving)||(t.type==='uitgave'?'Uitgave':'Inkomst')}</b><div class="sub">${fmtKort(t.datum)}</div></div>
+      <div class="amt ${t.bedrag>=0?'pos':'neg'}">${t.bedrag>=0?'+':''}${fmtEUR(t.bedrag)}</div>
+      <button class="iconlink" data-del-tx="${t.id}">🗑️</button>
+    </div>
+  `).join('')}</div>` : `<div class="empty">Nog geen boekingen.</div>`}
+  `;
+}
+
+/* ===================================================================== */
+/* Activiteiten                                                          */
+function actFormHtml(a){
+  a = a || {naam:'',datum:'',budget:'',status:'gepland',notities:''};
+  return `
+    <div class="field"><label>Naam</label><input name="naam" required value="${esc(a.naam)}" placeholder="Bv. Nieuwjaarsdrink"></div>
+    <div class="field-row">
+      <div class="field"><label>Datum</label><input name="datum" type="date" value="${esc(a.datum||'')}"></div>
+      <div class="field"><label>Budget (€)</label><input name="budget" type="number" step="0.01" min="0" value="${a.budget||''}"></div>
+    </div>
+    <div class="field"><label>Status</label><select name="status">
+      <option value="gepland" ${a.status==='gepland'?'selected':''}>Gepland</option>
+      <option value="bezig" ${a.status==='bezig'?'selected':''}>Bezig</option>
+      <option value="afgerond" ${a.status==='afgerond'?'selected':''}>Afgerond</option>
+    </select></div>
+    <div class="field"><label>Notities</label><textarea name="notities">${esc(a.notities||'')}</textarea></div>
+  `;
+}
+function readActForm(fd){
+  return { naam:String(fd.get('naam')||'').trim(), datum:String(fd.get('datum')||''), budget: fd.get('budget')?Number(fd.get('budget')):null, status:String(fd.get('status')||'gepland'), notities:String(fd.get('notities')||'') };
+}
+function addAct(){
+  openSheet('Activiteit toevoegen', actFormHtml(), 'Toevoegen', fd=>{
+    const data = readActForm(fd); if(!data.naam) return;
+    mutate(doc=>doc.activiteiten.push({id:uid(), ...data}));
+    closeSheet();
+  });
+}
+function editAct(id){
+  const a = activiteit(id); if(!a) return;
+  const del = `<button type="button" class="btn danger" id="delBtn">Verwijderen</button>`;
+  openSheet('Activiteit bewerken', actFormHtml(a), 'Opslaan', fd=>{
+    const data = readActForm(fd); if(!data.naam) return;
+    mutate(doc=>{ Object.assign(activiteit(id), data); });
+    closeSheet();
+  }, del);
+  $('#delBtn').onclick = ()=>{
+    if(!confirm(`"${a.naam}" verwijderen?`)) return;
+    mutate(doc=>{ doc.activiteiten = doc.activiteiten.filter(x=>x.id!==id); doc.taken.forEach(t=>{ if(t.activiteitId===id) t.activiteitId=''; }); });
+    closeSheet();
+  };
+}
+function renderActiviteiten(){
+  const lijst = state.doc.activiteiten.slice().sort((a,b)=>(a.datum||'9999').localeCompare(b.datum||'9999'));
+  return `
+  <div class="row" style="margin-bottom:10px;justify-content:flex-end">
+    <button class="btn" id="btnAddAct">+ Activiteit</button>
+  </div>
+  ${lijst.length ? lijst.map(a=>{
+    const openTaken = state.doc.taken.filter(t=>t.activiteitId===a.id && !t.klaar).length;
+    return `<div class="card row between">
+      <div class="t"><b>${esc(a.naam)}</b><div class="sub">${a.datum?fmtVol(a.datum):'geen datum'}${a.budget?' · budget '+fmtEUR(a.budget):''}${openTaken?' · '+openTaken+' open taak/taken':''}</div>${a.notities?`<div class="small muted" style="margin-top:4px">${esc(a.notities)}</div>`:''}</div>
+      <div class="row" style="gap:6px">
+        <span class="pill ${a.status==='afgerond'?'good':a.status==='bezig'?'gold':'soft'}">${esc(a.status)}</span>
+        <button class="iconlink" data-edit-act="${a.id}">✏️</button>
+      </div>
+    </div>`;
+  }).join('') : `<div class="empty">Nog geen activiteiten gepland.</div>`}
+  `;
+}
+
+/* ===================================================================== */
+/* Taken                                                                  */
+function taakFormHtml(t){
+  t = t || {omschrijving:'',toegewezenAan:'',activiteitId:'',deadline:''};
+  const collegaOpts = collegasGesorteerd().map(c=>`<option value="${c.id}" ${t.toegewezenAan===c.id?'selected':''}>${esc(c.naam)}</option>`).join('');
+  const actOpts = state.doc.activiteiten.map(a=>`<option value="${a.id}" ${t.activiteitId===a.id?'selected':''}>${esc(a.naam)}</option>`).join('');
+  return `
+    <div class="field"><label>Taak</label><input name="omschrijving" required value="${esc(t.omschrijving)}" placeholder="Bv. cadeaubon bestellen"></div>
+    <div class="field"><label>Toegewezen aan</label><select name="toegewezenAan"><option value="">— niemand —</option>${collegaOpts}</select></div>
+    <div class="field"><label>Bij activiteit</label><select name="activiteitId"><option value="">— geen —</option>${actOpts}</select></div>
+    <div class="field"><label>Deadline</label><input name="deadline" type="date" value="${esc(t.deadline||'')}"></div>
+  `;
+}
+function readTaakForm(fd){
+  return { omschrijving:String(fd.get('omschrijving')||'').trim(), toegewezenAan:String(fd.get('toegewezenAan')||''), activiteitId:String(fd.get('activiteitId')||''), deadline:String(fd.get('deadline')||'') };
+}
+function addTaak(){
+  openSheet('Taak toevoegen', taakFormHtml(), 'Toevoegen', fd=>{
+    const data = readTaakForm(fd); if(!data.omschrijving) return;
+    mutate(doc=>doc.taken.push({id:uid(), klaar:false, ...data}));
+    closeSheet();
+  });
+}
+function editTaak(id){
+  const t = state.doc.taken.find(x=>x.id===id); if(!t) return;
+  const del = `<button type="button" class="btn danger" id="delBtn">Verwijderen</button>`;
+  openSheet('Taak bewerken', taakFormHtml(t), 'Opslaan', fd=>{
+    const data = readTaakForm(fd); if(!data.omschrijving) return;
+    mutate(doc=>{ Object.assign(doc.taken.find(x=>x.id===id), data); });
+    closeSheet();
+  }, del);
+  $('#delBtn').onclick = ()=>{
+    mutate(doc=>{ doc.taken = doc.taken.filter(x=>x.id!==id); });
+    closeSheet();
+  };
+}
+function toggleTaak(id){
+  mutate(doc=>{ const t=doc.taken.find(x=>x.id===id); if(t) t.klaar=!t.klaar; });
+}
+function renderTaken(){
+  const open = state.doc.taken.filter(t=>!t.klaar).sort((a,b)=>(a.deadline||'9999').localeCompare(b.deadline||'9999'));
+  const klaar = state.doc.taken.filter(t=>t.klaar);
+  function row(t){
+    const overdue = t.deadline && !t.klaar && isPast(t.deadline);
+    return `<div class="list-item taak ${t.klaar?'done':''}">
+      <button class="check ${t.klaar?'on':''}" data-toggle-taak="${t.id}">${t.klaar?'✓':''}</button>
+      <div class="t" data-edit-taak="${t.id}">
+        <b>${esc(t.omschrijving)}</b>
+        <div class="sub">${t.toegewezenAan?esc(collegaNaam(t.toegewezenAan)):'niemand toegewezen'}${t.activiteitId?' · '+esc(activiteitNaam(t.activiteitId)):''}${t.deadline?` · <span style="${overdue?'color:var(--bad);font-weight:700':''}">tegen ${fmtKort(t.deadline)}</span>`:''}</div>
+      </div>
+    </div>`;
+  }
+  return `
+  <div class="row" style="margin-bottom:10px;justify-content:flex-end">
+    <button class="btn" id="btnAddTaak">+ Taak</button>
+  </div>
+  <div class="section-title"><h2>Open (${open.length})</h2></div>
+  ${open.length ? `<div class="card">${open.map(row).join('')}</div>` : `<div class="empty">Geen openstaande taken.</div>`}
+  ${klaar.length ? `<div class="section-title"><h2>Klaar (${klaar.length})</h2></div><div class="card">${klaar.map(row).join('')}</div>` : ''}
+  `;
+}
+
+/* ===================================================================== */
+/* Info & instellingen                                                   */
+function renderInfo(){
+  return `
+  <button class="backlink" data-goto="overzicht">← Terug</button>
+  <div class="infobox">
+    Iedereen met deze link kan dit overzicht bekijken <b>én</b> aanpassen — er is geen login.
+    Deel de link dus enkel binnen het team, en zet er niet meer persoonlijke info in dan nodig
+    (bv. enkel dag + maand van een verjaardag, geen geboortejaar).
+  </div>
+  <div class="card">
+    <div class="field"><label>Adres / locatie</label>
+      <input data-field="info.adres" value="${esc(state.doc.info.adres)}" placeholder="Bv. Sociaal centrum De Vondel, Boerhaavestraat 20, 2060 Antwerpen">
+    </div>
+    <div class="field" style="margin-bottom:0"><label>Notities voor het feestcomité</label>
+      <textarea data-field="info.notities" rows="4" placeholder="Bv. reglement, wie de kas beheert, contactpersonen…">${esc(state.doc.info.notities)}</textarea>
+    </div>
+  </div>
+  <div class="card">
+    <button class="btn block" id="btnCopyLink">🔗 Kopieer deze link</button>
+  </div>
+  `;
+}
+
+/* ===================================================================== */
+/* Render + wiring                                                       */
+function render(){
+  $('#bottomnav').querySelectorAll('button').forEach(b=>b.classList.toggle('on', b.dataset.tab===state.tab));
+  if(!state.loaded){ $('#main').innerHTML = '<div class="empty">Bezig met laden…</div>'; return; }
+  let html = '';
+  if(state.tab==='overzicht') html = renderOverzicht();
+  else if(state.tab==='collegas') html = renderCollegas();
+  else if(state.tab==='kas') html = renderKas();
+  else if(state.tab==='activiteiten') html = renderActiviteiten();
+  else if(state.tab==='taken') html = renderTaken();
+  else if(state.tab==='info') html = renderInfo();
+  $('#main').innerHTML = html;
+  wireMain();
+  renderSheet();
+}
+
+function wireMain(){
+  const m = $('#main');
+  m.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>{ state.tab=b.dataset.goto; render(); });
+  m.querySelectorAll('[data-field]').forEach(el=>{
+    const evt = (el.tagName==='SELECT') ? 'change' : (el.type==='checkbox' ? 'change' : 'input');
+    el.addEventListener(evt, ()=>{
+      const v = el.type==='checkbox' ? el.checked : (el.dataset.type==='number' ? Number(el.value) : el.value);
+      mutate(doc=>setPath(doc, el.dataset.field, v));
+    });
+  });
+
+  // collega's
+  const zoek = $('#zoek'); if(zoek) zoek.oninput = ()=>{ state.q = zoek.value; render(); setTimeout(()=>{ const z=$('#zoek'); if(z){ z.focus(); z.selectionStart=z.selectionEnd=z.value.length; } },0); };
+  const btnAddCollega = $('#btnAddCollega'); if(btnAddCollega) btnAddCollega.onclick = addCollega;
+  const btnBulk = $('#btnBulk'); if(btnBulk) btnBulk.onclick = bulkAddCollegas;
+  m.querySelectorAll('[data-edit-collega]').forEach(b=>b.onclick=()=>editCollega(b.dataset.editCollega));
+  m.querySelectorAll('[data-toggle-bijdrage]').forEach(b=>b.onclick=()=>toggleBijdrage(b.dataset.toggleBijdrage));
+
+  // kas
+  const btnAddTx = $('#btnAddTx'); if(btnAddTx) btnAddTx.onclick = addTx;
+  m.querySelectorAll('[data-del-tx]').forEach(b=>b.onclick=()=>delTx(b.dataset.delTx));
+
+  // activiteiten
+  const btnAddAct = $('#btnAddAct'); if(btnAddAct) btnAddAct.onclick = addAct;
+  m.querySelectorAll('[data-edit-act]').forEach(b=>b.onclick=()=>editAct(b.dataset.editAct));
+
+  // taken
+  const btnAddTaak = $('#btnAddTaak'); if(btnAddTaak) btnAddTaak.onclick = addTaak;
+  m.querySelectorAll('[data-toggle-taak]').forEach(b=>b.onclick=()=>toggleTaak(b.dataset.toggleTaak));
+  m.querySelectorAll('[data-edit-taak]').forEach(b=>b.onclick=()=>editTaak(b.dataset.editTaak));
+
+  // info
+  const btnCopy = $('#btnCopyLink'); if(btnCopy) btnCopy.onclick = async ()=>{
+    try{ await navigator.clipboard.writeText(location.href); toast('Link gekopieerd'); }
+    catch(e){ toast(location.href); }
+  };
+}
+
+$('#bottomnav').addEventListener('click', e=>{
+  const b = e.target.closest('button[data-tab]'); if(!b) return;
+  state.tab = b.dataset.tab; render();
+});
+$('#btnInfo').onclick = ()=>{ state.tab='info'; render(); };
+document.addEventListener('visibilitychange', async ()=>{
+  if(document.hidden||state.dirty||state.saving) return;
+  try{ const r=await api('/data'); if(r.version!==state.doc.version){ state.doc=r; render(); } }catch(e){}
+});
+
+load();
+startPoll();
+</script>
+</body>
+</html>

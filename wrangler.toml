@@ -16,6 +16,10 @@
 # trainingen in de KV-namespace hieronder. Alle andere paden blijven gewone
 # statische assets (run_worker_first beperkt de Worker tot /api/*).
 #
+# Zelfde verhaal voor het feestcomité (sites/feestcomite-vondel/): api/index.js
+# beantwoordt ook /api/feestcomite/* en bewaart alles in één document in de
+# KV-namespace FEESTCOMITE hieronder.
+#
 # Let op: worker/wrangler.toml is een ándere Worker (de wedstrijdbot), met een
 # eigen naam, cron en KV. Die twee staan los van elkaar.
 name = "prototypes"
@@ -32,3 +36,9 @@ run_worker_first = ["/api/*"]
 [[kv_namespaces]]
 binding = "TRAINING"
 id = "a11333ca7fa344c092acdff5d3f6165c"
+
+# Gedeelde opslag van het feestcomité (sites/feestcomite-vondel/). Aangemaakt met
+#   npx wrangler kv namespace create FEESTCOMITE
+[[kv_namespaces]]
+binding = "FEESTCOMITE"
+id = "bade94ca5897493f8de657d4064f70b1"
