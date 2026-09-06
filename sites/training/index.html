@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#1e6b3a">
+<meta name="theme-color" content="#7c207c">
 <title>U7 Trainingsplanner</title>
 <style>
 :root{
-  --pitch:#1e6b3a; --pitch-2:#2a8a4a; --pitch-3:#17552e; --line:#ffffff;
-  --cone:#ff7a1a; --yellow:#ffd23f; --blue:#2f6fdb; --coral:#e5484d; --purple:#7c4dff;
-  --ink:#14281d; --muted:#5d6f63; --bg:#f1f6f0; --card:#ffffff; --edge:#d8e4d9;
-  --radius:14px; --shadow:0 1px 2px rgba(20,40,29,.08),0 4px 14px rgba(20,40,29,.06);
+  --pitch:#7c207c; --pitch-2:#9a2f9a; --pitch-3:#5b165b; --line:#ffffff; /* clubkleuren KSV Wildert: paars en wit (paars uit het logo) */
+  --cone:#ff7a1a; --yellow:#ffd23f; --blue:#2f6fdb; --coral:#e5484d; --purple:#0f8b8d; --green:#2a8a4a;
+  --ink:#241a2a; --muted:#6b5f70; --bg:#f6f2f7; --card:#ffffff; --edge:#e3d8e5;
+  --radius:14px; --shadow:0 1px 2px rgba(60,20,60,.08),0 4px 14px rgba(60,20,60,.06);
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -27,7 +27,7 @@ h1,h2,h3{margin:0;line-height:1.2}
 .top .in{max-width:900px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:10px;min-height:56px}
 .top .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:800;letter-spacing:.2px;flex:1;min-width:0}
 .top .brand .ball{width:30px;height:30px;border-radius:50%;background:#fff;position:relative;flex:none;box-shadow:inset -4px -4px 0 rgba(0,0,0,.12)}
-.top .brand .ball:after{content:"";position:absolute;inset:8px;background:var(--ink);clip-path:polygon(50% 0,100% 38%,81% 100%,19% 100%,0 38%)}
+.top .brand .ball:after{content:"";position:absolute;inset:8px;background:var(--pitch);clip-path:polygon(50% 0,100% 38%,81% 100%,19% 100%,0 38%)}
 .top .brand small{display:block;font-weight:500;font-size:12px;opacity:.85}
 .top .brand span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .top nav{display:flex;gap:4px}
@@ -61,7 +61,7 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 .field textarea{min-height:80px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--pitch-2);outline-offset:1px;border-color:var(--pitch-2)}
 .badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;color:#fff;background:var(--muted);white-space:nowrap}
-.badge.warm{background:var(--cone)}.badge.fit{background:#d9a400}.badge.dribbel{background:var(--pitch-2)}.badge.schiet{background:var(--coral)}.badge.v1{background:var(--blue)}.badge.partij{background:var(--purple)}.badge.overig{background:#7b8a80}
+.badge.warm{background:var(--cone)}.badge.fit{background:#d9a400}.badge.dribbel{background:var(--green)}.badge.schiet{background:var(--coral)}.badge.v1{background:var(--blue)}.badge.partij{background:var(--purple)}.badge.overig{background:#7b8a80}
 .badge.eigen{background:#fff;color:var(--pitch);border:1px solid var(--pitch)}
 .empty{text-align:center;padding:40px 16px;color:var(--muted)}
 .empty .big{font-size:44px;margin-bottom:8px}
@@ -151,7 +151,7 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 .exlist{display:grid;gap:8px}
 .exrow{display:flex;gap:10px;align-items:center;padding:10px 12px;text-align:left;width:100%;background:#fff}
 .exrow .cat{flex:none;width:10px;align-self:stretch;border-radius:6px;background:var(--muted)}
-.exrow .cat.warm{background:var(--cone)}.exrow .cat.fit{background:#d9a400}.exrow .cat.dribbel{background:var(--pitch-2)}.exrow .cat.schiet{background:var(--coral)}.exrow .cat.v1{background:var(--blue)}.exrow .cat.partij{background:var(--purple)}.exrow .cat.overig{background:#7b8a80}
+.exrow .cat.warm{background:var(--cone)}.exrow .cat.fit{background:#d9a400}.exrow .cat.dribbel{background:var(--green)}.exrow .cat.schiet{background:var(--coral)}.exrow .cat.v1{background:var(--blue)}.exrow .cat.partij{background:var(--purple)}.exrow .cat.overig{background:#7b8a80}
 .exrow .t{flex:1;min-width:0}
 .exrow .t b{display:block;font-size:15px}
 .exrow .t span{font-size:13px;color:var(--muted)}
@@ -194,7 +194,7 @@ main{max-width:900px;margin:0 auto;padding:16px 14px 120px}
 <header class="top">
   <div class="lines"></div>
   <div class="in">
-    <a class="brand" href="#/"><i class="ball"></i><span id="brandTxt">U7 Trainingsplanner<small id="brandSub">60 minuten, kwartveld</small></span></a>
+    <a class="brand" href="#/"><i class="ball"></i><span id="brandTxt">U7 Trainingsplanner<small id="brandSub">KSV Wildert</small></span></a>
     <nav>
       <a href="#/" id="navHome">Training</a>
       <a href="#/oefeningen" id="navLib">Oefeningen</a>
@@ -554,7 +554,7 @@ async function route(){
 function render(){
   const app=$('#app');
   const s=state.lib.settings||{};
-  $('#brandSub').textContent = s.club ? s.club+' · U7' : '60 minuten, kwartveld';
+  $('#brandSub').textContent = s.club ? s.club+' · U7' : 'KSV Wildert';
   if(state.view==='lib') return renderLib(app);
   if(state.view==='edit') return renderEdit(app);
   if(state.view==='print') return renderPrint(app);
@@ -579,7 +579,7 @@ function renderSummary(){
   const t=state.t; if(!t) return;
   const tot=totals(t), target=Number(t.target)||60;
   const el=$('#sumMin'); if(el){ el.textContent=tot+' / '+target+' min'; el.className='minutes'+(tot>target?' over':''); }
-  const fill=$('#sumFill'); if(fill){ fill.style.width=Math.min(100,tot/target*100)+'%'; fill.className='fill'+(tot>target?' over':tot>=target-3?' near':''); }
+  const fill=$('#sumFill'); if(fill){ fill.style.width=Math.min(100,tot/target*100)+'%'; fill.className='fill'+(tot>target?' over':(tot<target&&tot>=target-3)?' near':''); }
   const rest=$('#sumRest'); if(rest) rest.textContent= tot>target ? (tot-target)+' min te veel' : tot===target ? 'perfect op tijd' : (target-tot)+' min over';
   // starttijden
   const time=nextTraining().time;
