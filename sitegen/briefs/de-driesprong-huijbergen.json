@@ -1,0 +1,24 @@
+{
+  "slug": "de-driesprong-huijbergen",
+  "business_name": "Cafetaria De Driesprong",
+  "sector": "frituur",
+  "category": "Cafetaria & afhaalsnackbar",
+  "tagline": "De vertrouwde frietkot van het centrum van Huijbergen",
+  "address": "Boomstraat 20, 4635 CX Huijbergen",
+  "phone": "0164 65 35 94",
+  "about": "Cafetaria De Driesprong is een vertrouwd adres in het centrum van Huijbergen. De zaak staat bekend om huisgemaakte kroketten en bitterballen volgens een traditioneel recept, aangevuld met een ruime keuze aan vegetarische snacks naast de klassiekers. Je kunt er terecht om ter plaatse te eten, af te halen, telefonisch te bestellen of te laten bezorgen in Huijbergen en omgeving.",
+  "cta_text": "Bel en bestel je snack",
+  "accent": "#c1440e",
+  "highlights": [
+    "Huisgemaakte kroketten en bitterballen volgens traditioneel recept",
+    "Ruime keuze aan vegetarische snacks naast de klassiekers",
+    "Ter plaatse eten, afhalen, telefonisch bestellen of bezorging in Huijbergen en omgeving",
+    "Vertrouwd adres in het centrum van Huijbergen"
+  ],
+  "email_note": "Geen eigen website of e-mailadres gevonden. De zaak staat enkel vermeld in horecagidsen (o.a. snackbarbaar.nl, lekkerindebuurt.nl, het-menu.nl) en heeft mogelijk een Facebookpagina, maar die kon niet rechtstreeks geraadpleegd worden (inlogmuur). Voorlopig enkel telefonisch bereikbaar op 0164 65 35 94.",
+  "note": "Adres en telefoonnummer (0164 65 35 94) zijn consistent teruggevonden op meerdere onafhankelijke horecagidsen. Eén enkele bron (lekkerindebuurt.nl) vermeldde een afwijkend nummer zonder duidelijke opmaak (\"164642855\"); dat lijkt een scrape-fout en is niet overgenomen. Openingstijden kon ik nergens betrouwbaar bevestigen, dus die staan bewust niet in de brief — de site verwijst bezoekers naar telefonisch navragen.",
+  "outreach": {
+    "status": "nieuw",
+    "only_phone": true
+  }
+}
