@@ -21,6 +21,8 @@ Bewust ingebouwde remmen:
     maar doorschuiven naar "handmatig"
   * per wedstrijd maar één keer (zie opslag.py) — dat is meestal ook de regel
 """
+from __future__ import annotations
+
 import json
 import re
 import time
@@ -29,12 +31,36 @@ import urllib.request
 from html.parser import HTMLParser
 from pathlib import Path
 
-from bronnen import UA, BronFout, haal, strip_html
+import antwoord
+from bronnen import UA, BronFout, haal, strip_html, verzamel_links
+
+# Overzichtssites tonen een detailpagina met een knop naar de echte wedstrijd.
+# Zonder die stap zoeken we een formulier op een pagina die er geen heeft.
+DOORKLIK = re.compile(
+    r"deelnem|meedoen|doe\s*mee|ga naar|naar de (actie|wedstrijd|site)|win nu|"
+    r"aanvragen|vraag aan|claim|profiteer|bekijk (de )?(actie|aanbieding)|hier", re.I)
+
+ROMMEL_LINK = re.compile(
+    r"facebook|twitter|x\.com|instagram|pinterest|whatsapp|linkedin|w3\.org|schema\.org|"
+    r"wordpress|gravatar|googleapis|gstatic|cookiedatabase|/tag/|/category/|/feed", re.I)
 
 CAPTCHA_SPOREN = ("recaptcha", "g-recaptcha", "hcaptcha", "h-captcha", "cf-turnstile",
                   "turnstile", "friendlycaptcha", "captcha")
 
-LOGIN_SPOREN = ("wachtwoord", "password", "inloggen om deel te nemen", "log in om")
+# Formulieren die géén deelnameformulier zijn. Zonder deze filter kiest de bot
+# op elke WordPress-site het reactieformulier (dat heeft ook een e-mailveld) en
+# plaatst hij je naam en adres publiek onder een blogartikel.
+GEEN_DEELNAME_ACTIE = re.compile(
+    r"wp-comments-post|/comment|#comment|/search|/zoek|list-manage\.com|"
+    r"mailchimp|newsletter|nieuwsbrief|/login|/inloggen|/account", re.I)
+
+GEEN_DEELNAME_VELDEN = (
+    {"comment", "author"},        # WordPress-reacties
+    {"comment", "email"},
+    {"bericht", "naam"},          # contactformulier
+)
+
+ZOEKVELDEN = ({"s"}, {"q"}, {"search"}, {"zoek"}, {"s", "submit"}, {"q", "submit"})
 
 GELUKT_STANDAARD = ("bedankt", "je deelname", "uw deelname", "deelname geregistreerd",
                     "succesvol", "gelukt", "bevestigingsmail", "thank you", "veel succes")
@@ -156,26 +182,83 @@ def raad_veld(veld: dict, labels: dict) -> str | None:
     return None
 
 
+def is_deelnameformulier(formulier: dict) -> bool:
+    """Zeef reactie-, zoek-, nieuwsbrief- en loginformulieren eruit."""
+    if GEEN_DEELNAME_ACTIE.search(formulier.get("action", "")):
+        return False
+
+    namen = {(v.get("name") or "").lower() for v in formulier["velden"] if v.get("name")}
+    if any(kern <= namen for kern in GEEN_DEELNAME_VELDEN):
+        return False
+    if any(namen == zoek for zoek in ZOEKVELDEN):
+        return False
+
+    invulbaar = [v for v in formulier["velden"]
+                 if v["type"] not in ("hidden", "submit", "button", "image")]
+    # Eén enkel e-mailveld is een nieuwsbriefinschrijving, geen wedstrijd.
+    if len(invulbaar) <= 1:
+        return False
+    return True
+
+
 def kies_formulier(formulieren: list[dict]) -> dict | None:
-    """Het formulier met de meeste ingevulde-kunnen-worden velden en een e-mailveld."""
+    """Het deelnameformulier: heeft een e-mailveld, en is er ook echt één."""
     kandidaten = []
     for formulier in formulieren:
         velden = formulier["velden"]
         heeft_email = any(v["type"] == "email" or re.search(r"e.?mail", v.get("name", ""), re.I) for v in velden)
         zichtbaar = [v for v in velden if v["type"] not in ("hidden", "submit", "button", "image")]
-        if heeft_email and zichtbaar:
+        if heeft_email and zichtbaar and is_deelnameformulier(formulier):
             kandidaten.append((len(zichtbaar), formulier))
     if not kandidaten:
         return None
     return max(kandidaten, key=lambda p: p[0])[1]
 
 
+def keuzes_per_veld(formulier: dict, labels: dict) -> dict[str, list[dict]]:
+    """Radiokeuzes per veldnaam, nodig om een meerkeuzevraag te beantwoorden."""
+    keuzes: dict[str, list[dict]] = {}
+    for veld in formulier["velden"]:
+        if veld["type"] != "radio" or not veld.get("name"):
+            continue
+        keuzes.setdefault(veld["name"], []).append({
+            "value": veld.get("value") or "on",
+            "tekst": labels.get(veld.get("id", ""), "") or veld.get("value", ""),
+        })
+    return keuzes
+
+
 def bouw_payload(formulier: dict, labels: dict, gegevens: dict,
-                 recept: dict | None) -> tuple[dict, list[str]]:
-    """Bouwt de POST-gegevens. Tweede return: velden die we niet begrepen."""
+                 recept: dict | None, context: dict | None = None) -> tuple[dict, list[str], list[str]]:
+    """Bouwt de POST-gegevens.
+
+    Returns (payload, niet-begrepen velden, uitleg over ingevulde vragen).
+    """
     payload: dict[str, str] = {}
     onbekend: list[str] = []
+    uitleg: list[str] = []
     vaste_velden = (recept or {}).get("velden", {})
+    context = context or {}
+    keuzes = keuzes_per_veld(formulier, labels)
+
+    def probeer_vraag(veld: dict, aanwijzing: str) -> bool:
+        """Een wedstrijd- of schiftingsvraag invullen op basis van de pagina."""
+        soort = antwoord.soort_vraag(aanwijzing)
+        if not soort:
+            return False
+        naam = veld["name"]
+        if soort == "schifting":
+            gevonden = antwoord.schat_schifting(aanwijzing, context.get("pagina", ""),
+                                                context.get("context", ""))
+        else:
+            gevonden = antwoord.zoek_antwoord(aanwijzing, keuzes.get(naam, []),
+                                              context.get("pagina", ""), context.get("context", ""))
+        if not gevonden:
+            return False
+        payload[naam] = gevonden["waarde"]
+        label = "schifting" if soort == "schifting" else "wedstrijdvraag"
+        uitleg.append(f'{label}: "{gevonden["waarde"]}" — {gevonden["reden"]}')
+        return True
 
     for veld in formulier["velden"]:
         naam = veld.get("name")
@@ -207,8 +290,17 @@ def bouw_payload(formulier: dict, labels: dict, gegevens: dict,
         if veld["type"] == "radio":
             if veld.get("checked"):
                 payload[naam] = veld.get("value", "on")
-            elif veld["required"] and naam not in payload:
+            elif naam in payload:
+                pass
+            elif probeer_vraag(veld, f'{labels.get(veld.get("id", ""), "")} {naam}'):
+                pass
+            elif veld["required"]:
                 onbekend.append(f"verplichte keuze ({naam})")
+            continue
+
+        aanwijzing = " ".join([naam, veld.get("id", ""), veld.get("placeholder", ""),
+                               labels.get(veld.get("id", ""), "")])
+        if probeer_vraag(veld, aanwijzing):
             continue
 
         sleutel = raad_veld(veld, labels)
@@ -223,7 +315,42 @@ def bouw_payload(formulier: dict, labels: dict, gegevens: dict,
         elif veld["required"]:
             onbekend.append(f"verplicht veld ({naam})")
 
-    return payload, onbekend
+    return payload, onbekend, uitleg
+
+
+def zoek_doorklik(html: str, basis_url: str) -> str | None:
+    """De link naar de echte wedstrijd op de site van het merk.
+
+    Voorkeur voor een externe link met een deelneem-achtige tekst; anders de
+    eerste externe link in de artikeltekst. Bij twijfel None: dan gaat de
+    wedstrijd naar "zelf doen" in plaats van naar een willekeurige pagina.
+    """
+    eigen = urllib.parse.urlsplit(basis_url).netloc.lower().removeprefix("www.")
+    met_tekst, zonder_tekst, zelfde_site = [], [], []
+
+    for url, tekst in verzamel_links(html, basis_url):
+        if ROMMEL_LINK.search(url) or url.split("#")[0] == basis_url.split("#")[0]:
+            continue
+        stuk = urllib.parse.urlsplit(url)
+        domein = stuk.netloc.lower().removeprefix("www.")
+        if not domein:
+            continue
+        if domein == eigen:
+            # Sommige overzichtssites hosten het formulier zelf; alleen volgen
+            # als de link er ook echt naar verwijst, en nooit naar de homepage.
+            if DOORKLIK.search(tekst) and stuk.path.strip("/"):
+                zelfde_site.append(url)
+            continue
+        (met_tekst if DOORKLIK.search(tekst) else zonder_tekst).append(url)
+
+    if met_tekst:
+        return met_tekst[0]
+    # De knop is vaak een afbeelding zonder tekst. Staat er precies één extern
+    # domein in het artikel, dan is dat de wedstrijd; bij meerdere gokken we niet.
+    domeinen = {urllib.parse.urlsplit(u).netloc for u in zonder_tekst}
+    if zonder_tekst and len(domeinen) == 1:
+        return zonder_tekst[0]
+    return zelfde_site[0] if zelfde_site else None
 
 
 def bevat_captcha(html: str) -> bool:
@@ -240,7 +367,7 @@ def gelukt(html: str, recept: dict | None) -> bool:
 # --------------------------------------------------------------------------- uitvoeren
 
 def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
-                   dry_run: bool, timeout: int) -> tuple[str, str]:
+                   dry_run: bool, timeout: int, context: str = "") -> tuple[str, str]:
     """Geeft (status, opmerking) terug."""
     try:
         html = haal(url, timeout)
@@ -249,41 +376,70 @@ def deelnemen_http(url: str, gegevens: dict, recept: dict | None,
 
     if bevat_captcha(html):
         return "handmatig", "captcha op de pagina"
-    if any(spoor in html.lower() for spoor in LOGIN_SPOREN):
-        return "handmatig", "lijkt een account of login te vragen"
 
     parser = FormulierParser()
     parser.feed(html)
     formulier = kies_formulier(parser.formulieren)
-    if formulier is None:
-        return "handmatig", "geen deelnameformulier gevonden op de pagina"
+    doel_url = url
 
-    payload, onbekend = bouw_payload(formulier, parser.labels, gegevens, recept)
+    # Geen formulier? Dan staan we op de detailpagina van een overzichtssite.
+    # Volg de knop naar het merk — één keer.
+    if formulier is None:
+        door = zoek_doorklik(html, url)
+        if not door:
+            return "handmatig", "geen deelnameformulier en geen doorklik gevonden"
+        try:
+            html = haal(door, timeout)
+        except BronFout as fout:
+            return "mislukt", f"doorklik {door} niet op te halen: {fout}"
+
+        doel_url = door
+        if bevat_captcha(html):
+            return "handmatig", f"captcha op {urllib.parse.urlsplit(door).netloc}"
+
+        parser = FormulierParser()
+        parser.feed(html)
+        formulier = kies_formulier(parser.formulieren)
+        if formulier is None:
+            return ("handmatig",
+                    f"doorgeklikt naar {urllib.parse.urlsplit(door).netloc}, "
+                    f"maar geen deelnameformulier")
+
+    # Login herkennen we aan een wachtwoordveld ín dit formulier. Op het hele
+    # document zoeken sloeg aan op de inlogknop in elke sitenavigatie.
+    if any(v["type"] == "password" for v in formulier["velden"]):
+        return "handmatig", "het formulier vraagt een account (wachtwoordveld)"
+
+    payload, onbekend, uitleg = bouw_payload(
+        formulier, parser.labels, gegevens, recept,
+        {"pagina": strip_html(html), "context": context})
     if onbekend:
         return "handmatig", "niet begrepen: " + "; ".join(onbekend[:4])
     if not any(re.search(r"e.?mail", naam, re.I) for naam in payload):
         return "handmatig", "geen e-mailveld herkend"
 
-    doel = urllib.parse.urljoin(url, formulier["action"] or url)
+    extra = (" · " + " · ".join(uitleg)) if uitleg else ""
+    doel = urllib.parse.urljoin(doel_url, formulier["action"] or doel_url)
     if dry_run:
         kort = {k: v for k, v in payload.items() if v}
-        return "proefdraai", f"zou POST'en naar {doel} met {len(kort)} velden: {', '.join(sorted(kort)[:8])}"
+        return "proefdraai", (f"zou POST'en naar {doel} met {len(kort)} velden: "
+                              f"{', '.join(sorted(kort)[:8])}{extra}")
 
     data = urllib.parse.urlencode(payload).encode("utf-8")
     verzoek = urllib.request.Request(doel, data=data, headers={
         "User-Agent": UA,
         "Content-Type": "application/x-www-form-urlencoded",
-        "Referer": url,
+        "Referer": doel_url,
         "Accept-Language": "nl-BE,nl;q=0.9",
     })
     try:
-        with urllib.request.urlopen(verzoek, timeout=timeout) as antwoord:
-            resultaat = antwoord.read().decode("utf-8", errors="replace")
+        with urllib.request.urlopen(verzoek, timeout=timeout) as respons:
+            resultaat = respons.read().decode("utf-8", errors="replace")
     except Exception as fout:  # netwerk, HTTP-fout, time-out
         return "mislukt", f"versturen mislukt: {fout}"
 
     if gelukt(resultaat, recept):
-        return "gedaan", f"verstuurd naar {doel}"
+        return "gedaan", f"verstuurd naar {doel}{extra}"
     return "handmatig", "verstuurd, maar geen bevestiging herkend — zelf nakijken"
 
 

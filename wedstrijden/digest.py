@@ -8,6 +8,8 @@ nooit uit config.json.
 
 De volgorde is bewust: eerst wat jij nog moet doen, dan wat het script zelf deed.
 """
+from __future__ import annotations
+
 import os
 import smtplib
 from datetime import datetime

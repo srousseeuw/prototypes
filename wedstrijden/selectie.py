@@ -7,6 +7,8 @@ titel + samenvatting + URL, plus een bonus voor "gratis"-signalen. Eén woord ui
 de uitsluitlijst duwt de score onder nul, zodat gokken, tabak en sms-spelletjes
 er sowieso uit vallen. Alle woorden en gewichten staan in config.json.
 """
+from __future__ import annotations
+
 import re
 import unicodedata
 

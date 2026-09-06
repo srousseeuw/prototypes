@@ -10,6 +10,8 @@ Zonder dit zou het script elke nacht opnieuw aan dezelfde wedstrijd deelnemen.
 Dat is meteen ook de belangrijkste regel van de meeste wedstrijdreglementen:
 één deelname per persoon.
 """
+from __future__ import annotations
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
