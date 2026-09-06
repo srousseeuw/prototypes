@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voorstel voor Vooruit Essen — ocior.be</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --red: #E4032E; --red-dark: #b3021f; --ink: #141414; --paper: #ffffff; --paper-warm: #faf8f6; --line: #e8e4df; --line-2: #d9d3cc; --muted: #6d6a66; --ok: #1f7a3a; --font-display: 'Archivo Black', sans-serif; --font-body: 'Inter', sans-serif; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--paper-warm); color: var(--ink); line-height: 1.55; -webkit-text-size-adjust: 100%; }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  .top { background: var(--ink); color: #fff; padding: 56px 0 44px; position: relative; overflow: hidden; }
+  .top::before { content: ""; position: absolute; right: -140px; top: -160px; width: 440px; height: 440px; border: 56px solid var(--red); border-radius: 50%; opacity: 0.12; }
+  .top .wrap { position: relative; }
+  .eyebrow { color: var(--red); font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.78rem; margin-bottom: 14px; }
+  h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 4.8vw, 3.2rem); line-height: 1; text-transform: uppercase; margin-bottom: 14px; }
+  .top p { max-width: 62ch; color: rgba(255,255,255,0.85); font-size: 1.05rem; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 26px; margin-top: 22px; font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+  .meta b { color: #fff; font-weight: 700; }
+  section { padding: 44px 0 0; }
+  section:last-of-type { padding-bottom: 72px; }
+  h2 { font-family: var(--font-display); text-transform: uppercase; font-size: 1.25rem; margin-bottom: 6px; }
+  .sub { color: var(--muted); margin-bottom: 20px; max-width: 66ch; }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; counter-reset: c; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; position: relative; transition: transform .12s ease, box-shadow .12s ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.07); }
+  .card .n { counter-increment: c; font-family: var(--font-display); color: var(--red); font-size: 1rem; }
+  .card .n::before { content: counter(c, decimal-leading-zero); }
+  .card h3 { font-size: 1.1rem; font-weight: 800; }
+  .card p { color: var(--muted); font-size: 0.93rem; }
+  .card .go { margin-top: auto; padding-top: 6px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--red); }
+  .card.wide { grid-column: 1 / -1; }
+  .stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .block { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px; }
+  .block h3 { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .block .what { font-weight: 800; font-size: 1.02rem; margin-bottom: 8px; }
+  .block p { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
+  .block p:last-child { margin-bottom: 0; }
+  .block p b { color: var(--ink); }
+  .list { list-style: none; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px 22px; }
+  .list li { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 0.93rem; color: #2b2928; }
+  .list li:first-child { border-top: 0; }
+  .list li b { color: var(--ink); }
+  .honest { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--red); border-radius: 8px; padding: 18px 22px; color: var(--muted); font-size: 0.93rem; }
+  .honest b { color: var(--ink); }
+  footer { border-top: 1px solid var(--line); padding: 26px 0; font-size: 0.82rem; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  @media (max-width: 860px) { .cards, .stack { grid-template-columns: 1fr; } .list li { grid-template-columns: 1fr; gap: 4px; } }
+  a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <div class="eyebrow">ocior.be · voorstel voor het bestuur van Vooruit Essen</div>
+    <h1>Alles op één plek</h1>
+    <p>Vijf dingen om te bekijken: hoe de nieuwe site eruitziet, hoe inschrijven voor de brunch werkt, het plan met wat er in het budget zit, het beheer voor de redactie en het mailingdashboard. Alles hieronder is een demo — klik gerust overal op, er wordt niets echt verstuurd of opgeslagen.</p>
+    <div class="meta"><span>Budget <b>€ 1.500 + € 25/maand</b>, excl. btw</span><span>Domein <b>vooruitessen.be</b></span><span>Mijlpaal <b>brunch 1 november</b></span></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Bekijk het zelf</h2>
+    <p class="sub">In deze volgorde bekijken werkt het best: eerst de site zoals bezoekers ze zien, dan de achterkant.</p>
+    <div class="cards">
+      <a class="card" href="../">
+        <span class="n"></span><h3>De site</h3>
+        <p>Startpagina met nieuws, thema's, de eerstvolgende activiteit, mensen en nieuwsbrief-inschrijving. Onderaan staan de subpagina's.</p>
+        <span class="go">Open de site →</span>
+      </a>
+      <a class="card" href="../agenda/">
+        <span class="n"></span><h3>Inschrijven voor de brunch</h3>
+        <p>Vul het formulier in als bezoeker: het bedrag rekent zichzelf uit, je krijgt een gestructureerde mededeling en de plaatsenteller loopt mee. Kies de shift van 10u om de wachtlijst te zien.</p>
+        <span class="go">Schrijf je (voor de test) in →</span>
+      </a>
+      <a class="card" href="plan/">
+        <span class="n"></span><h3>Het websiteplan</h3>
+        <p>Op één pagina: waar we vandaag staan, wat de andere partijen doen, wat er in het budget zit, richtprijzen voor extra's en wat de afdeling nog aanlevert.</p>
+        <span class="go">Lees het plan →</span>
+      </a>
+      <a class="card" href="../beheer/">
+        <span class="n"></span><h3>Het beheer</h3>
+        <p>Meld aan met je e-mailadres (elke code van zes cijfers werkt in de demo). Schrijf een artikel, publiceer het, vink een betaling af. Je eigen testinschrijving van hiernaast staat er bovenaan.</p>
+        <span class="go">Open het beheer →</span>
+      </a>
+      <a class="card wide" href="../beheer/#nieuwsbrief">
+        <span class="n"></span><h3>Het mailingdashboard</h3>
+        <p>Nieuwsbrief samenstellen uit gepubliceerde artikels, testmail, versturen, en de cijfers van de laatste verzending: afgeleverd, gebounced, uitgeschreven. Plus de abonneelijst met dubbele opt-in en “verwijder” voor het recht op gegevenswissing. Geen open- of kliktracking — dat is bewust.</p>
+        <span class="go">Open het mailingdashboard →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Waarmee we bouwen — en waarom</h2>
+    <p class="sub">Drie keuzes, telkens voor bewezen oplossingen. Niets in de demo dat we niet zo kunnen opleveren.</p>
+    <div class="stack">
+      <div class="block">
+        <h3>Site en beheer</h3>
+        <div class="what">Op maat gebouwd, zonder plugins</div>
+        <p>De site en het beheer worden speciaal voor de afdeling gebouwd en gehost op dezelfde betrouwbare infrastructuur als de andere sites van ocior.be. Geen kant-en-klaar pakket met dertig uitbreidingen die elke maand updates vragen en stuk kunnen gaan.</p>
+        <p><b>Inloggen met een code per e-mail</b>: geen wachtwoorden om te onthouden of te lekken. Wie mag publiceren, staat in één lijst die de afdeling zelf beheert.</p>
+      </div>
+      <div class="block">
+        <h3>Mailing</h3>
+        <div class="what">Een Europese verzenddienst doet het zware werk</div>
+        <p>Nieuwsbrieven en bevestigingsmails vertrekken via een gespecialiseerde Europese verzenddienst (Brevo). Die zorgt dat mails aankomen en niet in spam belanden, en regelt de uitschrijflink en foute adressen.</p>
+        <p>De redactie werkt gewoon in het eigen beheerscherm; de <b>abonneelijst blijft eigendom van de afdeling</b>. Tot 300 mails per dag zit in het maandbedrag; groeit de lijst, dan schakelen we op zonder meerprijs.</p>
+      </div>
+      <div class="block">
+        <h3>Betalingen</h3>
+        <div class="what">Eerst gestructureerde mededeling</div>
+        <p>Elke inschrijving krijgt een unieke mededeling; de penningmeester ziet in seconden wie betaald heeft. Geen betaalpartner nodig, geen transactiekosten.</p>
+        <p><b>Online betalen</b> (Bancontact, Payconiq) is een optie van € 350 en vraagt dat de afdeling een rechtspersoon is. Pas aanzetten als dat op orde is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Privacy en cookies, Belgisch bekeken</h2>
+    <p class="sub">Een politieke afdeling verwerkt gevoelige gegevens: wie de nieuwsbrief leest, zegt iets over zijn overtuiging. Dus strenger dan de gemiddelde bakkerijsite.</p>
+    <ul class="list">
+      <li><b>Geen cookiebanner nodig</b><span>De site zet geen analyse-, reclame- of socialmediacookies en laadt geen Facebook- of Instagram-inhoud. Alleen het beheer gebruikt een sessiecookie, en die is strikt noodzakelijk. Wil de afdeling toch bezoekersaantallen, dan met een cookieloze teller.</span></li>
+      <li><b>Uitdrukkelijke toestemming</b><span>Nieuwsbrief met een aparte, niet vooraf aangevinkte checkbox en een bevestigingsmail (dubbele opt-in). Wie niet bevestigt, staat niet op de lijst.</span></li>
+      <li><b>Zo weinig en zo kort mogelijk</b><span>Inschrijvingen voor een activiteit worden drie maanden erna automatisch gewist. Contactberichten na een jaar. Geen open- of kliktracking in mails.</span></li>
+      <li><b>Gegevens in Europa</b><span>De verzenddienst staat in de EU en ook de hosting bewaart gegevens in Europa, met de nodige verwerkersovereenkomsten. Lettertypes worden zelf gehost, zodat een bezoek geen data naar Google stuurt.</span></li>
+      <li><b>Rechten in één klik</b><span>Uitschrijven via de link in elke mail; wissen via “Verwijder” in het beheer, hier én bij Brevo. Een <a href="../privacy/">privacyverklaring</a> in gewone taal staat klaar als ontwerp.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Wat de demo níet doet</h2>
+    <div class="honest"><b>Eerlijk over de demo.</b> Er vertrekt geen echte mail, er wordt niets op een server bewaard (alles zit in je eigen browser), er zijn nog geen foto's van de mensen en de betaalcontrole gebeurt met het vinkje, niet automatisch. Alles wat je ziet klikken, is in de echte bouw voorzien. Wat er níet in zit — online betalen, fotoalbums, gemeenteraadverslagen — staat als optie met prijs in het plan.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Sebastiaan Rousseeuw · ocior.be · sebastiaan@ocior.be</span>
+    <span>Voorstel, september 2026 · geen offerte · alle prijzen excl. btw</span>
+  </div>
+</footer>
+</body>
+</html>

@@ -174,6 +174,58 @@
   footer ul a:hover { color: var(--red); }
   .foot-bottom { border-top: 1px solid var(--line); padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 0.82rem; }
 
+  /* ---------- AGENDA TEASER ---------- */
+  .event-card { display: grid; grid-template-columns: 130px 1fr auto; gap: 28px; align-items: center; border: 1px solid var(--line); border-left: 6px solid var(--red); border-radius: 6px; padding: 26px 30px; background: #fff; }
+  .event-date { text-align: center; font-family: var(--font-display); text-transform: uppercase; line-height: 1; }
+  .event-date .d { font-size: 3.2rem; color: var(--red); }
+  .event-date .m { font-size: 1rem; letter-spacing: 0.06em; margin-top: 2px; }
+  .event-date .w { font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; color: var(--muted); text-transform: none; margin-top: 6px; }
+  .event-info h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+  .event-info p { color: var(--muted); font-size: 0.95rem; margin-bottom: 12px; }
+  .event-facts { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.88rem; font-weight: 600; color: var(--muted); }
+  .event-facts b { color: var(--ink); font-weight: 800; }
+  .event-facts #teaser-left { font-weight: 700; color: var(--red); }
+  .event-cta { text-align: center; }
+  .event-cta .left { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
+
+  /* ---------- TEAM: link ---------- */
+  .team-more { margin-top: 40px; }
+
+  /* ---------- NIEUWSBRIEF ---------- */
+  .nieuwsbrief { background: var(--paper); }
+  .nb-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: start; }
+  .nb-sub { margin-bottom: 22px; }
+  .nb-form { display: grid; grid-template-columns: 1fr 1.3fr auto; gap: 12px; }
+  .nb-form input { font: inherit; padding: 13px 14px; border: 1.5px solid var(--line); border-radius: 4px; background: #fff; min-width: 0; color: var(--ink); }
+  .nb-form input:focus { outline: none; border-color: var(--ink); }
+  .nb-btn { border: 0; cursor: pointer; font-family: inherit; padding: 13px 22px; }
+  .nb-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 0.84rem; color: var(--muted); margin-top: 12px; }
+  .nb-consent input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: var(--red); }
+  .nb-ok { display: none; margin-top: 14px; background: var(--paper-warm); border: 1px solid var(--line); border-left: 5px solid var(--red); padding: 14px 18px; border-radius: 6px; font-size: 0.95rem; }
+  .nb-side h3 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); font-weight: 800; margin-bottom: 14px; }
+  .nb-side ul { list-style: none; margin-bottom: 22px; }
+  .nb-side li a { display: block; text-decoration: none; padding: 12px 0; border-top: 1px solid var(--line); }
+  .nb-side li:last-child a { border-bottom: 1px solid var(--line); }
+  .nb-side li a b { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 2px; }
+  .nb-side li a span { font-weight: 700; }
+  .nb-side li a:hover span { color: var(--red); }
+
+  @media (max-width: 1060px) {
+    nav.main { gap: 14px; font-size: 0.76rem; }
+  }
+  @media (max-width: 940px) {
+    .event-card { grid-template-columns: 110px 1fr; gap: 20px; }
+    .event-cta { grid-column: 1 / -1; text-align: left; }
+    .nb-grid { grid-template-columns: 1fr; gap: 36px; }
+  }
+  @media (max-width: 680px) {
+    .event-card { grid-template-columns: 1fr; padding: 22px; }
+    .event-date { display: flex; gap: 12px; align-items: baseline; text-align: left; }
+    .event-cta .btn-primary { display: block; text-align: center; }
+    .nb-form { grid-template-columns: 1fr; }
+    .team-more .btn-ghost { display: block; text-align: center; }
+  }
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 940px) {
     .news-grid, .themas-grid { grid-template-columns: 1fr 1fr; }
@@ -224,8 +276,10 @@
     <div class="brand">Vooruit <span>Essen</span></div>
     <nav class="main" aria-label="Hoofdnavigatie">
       <a href="#nieuws">Nieuws</a>
+      <a href="agenda/">Agenda</a>
       <a href="#themas">Waar we aan werken</a>
-      <a href="#mensen">Team</a>
+      <a href="mensen/">Mensen</a>
+      <a href="nieuwsbrief/">Nieuwsbrief</a>
       <a href="#contact">Contact</a>
     </nav>
     <a class="join-btn desktop" href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid</a>
@@ -235,8 +289,10 @@
   </div>
   <div class="mobile-menu">
     <a href="#nieuws" onclick="document.getElementById('nav-check').checked=false">Nieuws</a>
+    <a href="agenda/">Agenda</a>
     <a href="#themas" onclick="document.getElementById('nav-check').checked=false">Waar we aan werken</a>
-    <a href="#mensen" onclick="document.getElementById('nav-check').checked=false">Team</a>
+    <a href="mensen/">Mensen</a>
+    <a href="nieuwsbrief/">Nieuwsbrief</a>
     <a href="#contact" onclick="document.getElementById('nav-check').checked=false">Contact</a>
     <a class="join-mobile" href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid →</a>
   </div>
@@ -319,6 +375,23 @@
         <h3>Jeugd &amp; cultuur</h3>
         <p>Van Boekstartdag in de bib tot een sterk cultuuraanbod: opgroeien in Essen moet kansen bieden, van het eerste prentenboek tot het eerste podium.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="agenda-teaser" id="agenda">
+  <div class="wrap">
+    <div class="redbar"></div>
+    <h2>Kom eens langs</h2>
+    <p class="section-sub">Onze eerstvolgende activiteit. Inschrijven doe je meteen hier — je krijgt een bevestiging met alles wat je moet weten.</p>
+    <div class="event-card">
+      <div class="event-date" aria-label="Zondag 1 november 2026"><div class="d">1</div><div class="m">nov</div><div class="w">zondag</div></div>
+      <div class="event-info">
+        <h3>Brunch Vooruit Essen</h3>
+        <p>Zaal van het Volkshuis · twee shiften: 10u00–11u30 en 11u30–13u00 · 60 plaatsen per shift</p>
+        <div class="event-facts"><span>Volwassene <b>€ 27</b></span><span>Kind tot 12 jaar <b>€ 10</b></span><span id="teaser-left">Nog plaatsen in beide shiften</span></div>
+      </div>
+      <div class="event-cta"><a class="btn-primary" href="agenda/">Schrijf je in</a><span class="left">Betalen kan na je bevestiging</span></div>
     </div>
   </div>
 </section>
@@ -443,6 +516,34 @@
       <div class="team-card"><div class="name">François Veraart</div><div class="role">Lid bijzonder comité sociale dienst</div></div>
       <div class="team-card"><div class="name">Diane Van Ginderen</div><div class="role">Lid bijzonder comité sociale dienst</div></div>
     </div>
+
+    <div class="team-more"><a class="btn-ghost" href="mensen/">Bevoegdheden en contact per persoon →</a></div>
+  </div>
+</section>
+
+<section class="nieuwsbrief" id="nieuwsbrief">
+  <div class="wrap nb-grid">
+    <div>
+      <div class="redbar"></div>
+      <h2>Blijf op de hoogte</h2>
+      <p class="section-sub nb-sub">Een paar keer per jaar, recht uit Essen. Je bevestigt eerst je adres; uitschrijven kan altijd met één klik.</p>
+      <form class="nb-form" id="nbform" novalidate>
+        <input id="nb-vn" placeholder="Voornaam" autocomplete="given-name" aria-label="Voornaam">
+        <input id="nb-em" type="email" placeholder="E-mailadres" autocomplete="email" aria-label="E-mailadres">
+        <button class="btn-primary nb-btn" type="submit">Inschrijven</button>
+      </form>
+      <label class="nb-consent"><input type="checkbox" id="nb-ok"><span>Ik geef Vooruit Essen uitdrukkelijk toestemming om mij de nieuwsbrief te sturen. Mijn gegevens blijven bij de afdeling; uitschrijven kan met één klik. <a href="privacy/">Privacy</a></span></label>
+      <div class="nb-ok" id="nb-done">We stuurden een bevestigingslink naar <b id="nb-mail"></b>. Klik erop en je staat op de lijst.</div>
+    </div>
+    <div class="nb-side">
+      <h3>Vorige edities</h3>
+      <ul>
+        <li><a href="nieuwsbrief/#archief"><b>Augustus 2026</b><span>Duurzaam Essen: 13.000 ritjes en een droogteplan</span></a></li>
+        <li><a href="nieuwsbrief/#archief"><b>Juli 2026</b><span>Zorgtoelage, voetgangers en glasvezel</span></a></li>
+        <li><a href="nieuwsbrief/#archief"><b>Mei 2026</b><span>Zwaluwen, WilderTnis en de eerste prentenboeken</span></a></li>
+      </ul>
+      <a class="btn-dark" href="nieuwsbrief/">Alle edities →</a>
+    </div>
   </div>
 </section>
 
@@ -466,12 +567,14 @@
         <p class="foot-note">De lokale afdeling van Vooruit in Essen (provincie Antwerpen). Onderdeel van de landelijke beweging Vooruit, Keizerslaan 13, 1000 Brussel.</p>
       </div>
       <div>
-        <h4>Op deze pagina</h4>
+        <h4>Vooruit Essen</h4>
         <ul>
           <li><a href="#nieuws">Nieuws</a></li>
+          <li><a href="agenda/">Agenda</a></li>
           <li><a href="#themas">Waar we aan werken</a></li>
-          <li><a href="#mensen">Team</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="mensen/">Onze mensen</a></li>
+          <li><a href="nieuwsbrief/">Nieuwsbrief</a></li>
+          <li><a href="beheer/">Beheer (demo)</a></li>
         </ul>
       </div>
       <div>
@@ -486,10 +589,37 @@
     </div>
     <div class="foot-bottom">
       <span>© 2026 Vooruit Essen</span>
-      <span><a href="https://www.vooruit.org/privacyverklaring" target="_blank" rel="noopener" style="text-decoration:none;">Privacyverklaring</a> · <a href="https://www.vooruit.org/gebruiksvoorwaarden" target="_blank" rel="noopener" style="text-decoration:none;">Gebruiksvoorwaarden</a></span>
+      <span><a href="privacy/" style="text-decoration:none;">Privacy &amp; cookies</a></span>
     </div>
   </div>
 </footer>
+
+<script>
+(function () {
+  // Plaatsenteller van de brunch: leest dezelfde demo-opslag als de agendapagina.
+  try {
+    var d = JSON.parse(localStorage.getItem('ve_brunch')) || { base: { s1: 57, s2: 21 }, regs: [] };
+    function left(s) { var t = d.base[s] + d.regs.filter(function (r) { return r.shift === s && !r.wacht; }).reduce(function (a, r) { return a + r.volw + r.kind; }, 0); return Math.max(0, 60 - t); }
+    var l1 = left('s1'), l2 = left('s2'), el = document.getElementById('teaser-left');
+    if (l1 === 0 && l2 === 0) el.textContent = 'Volzet — wachtlijst mogelijk';
+    else if (l1 === 0 || l2 === 0) el.textContent = 'Nog ' + (l1 || l2) + ' plaatsen in de shift van ' + (l1 ? '10u00' : '11u30');
+    else if (l1 <= 6 || l2 <= 6) el.textContent = 'Nog ' + Math.min(l1, l2) + ' plaatsen in de shift van ' + (l1 <= l2 ? '10u00' : '11u30');
+    else el.textContent = 'Nog plaatsen in beide shiften';
+  } catch (e) {}
+
+  // Nieuwsbrief-inschrijving (demo, dubbele opt-in).
+  var f = document.getElementById('nbform');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var vn = document.getElementById('nb-vn').value.trim(), em = document.getElementById('nb-em').value.trim();
+    if (!vn || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { alert('Vul je voornaam en een geldig e-mailadres in.'); return; }
+    if (!document.getElementById('nb-ok').checked) { alert('Vink aan dat je de nieuwsbrief wil ontvangen — zonder toestemming mogen we je niets sturen.'); return; }
+    try { var l = JSON.parse(localStorage.getItem('ve_news') || '[]'); l.push({ vn: vn, em: em, ts: new Date().toISOString(), status: 'wacht op bevestiging' }); localStorage.setItem('ve_news', JSON.stringify(l)); } catch (err) {}
+    document.getElementById('nb-mail').textContent = em;
+    f.style.display = 'none'; document.getElementById('nb-done').style.display = 'block';
+  });
+})();
+</script>
 
 </body>
 </html>

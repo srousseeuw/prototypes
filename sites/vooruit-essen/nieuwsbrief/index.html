@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nieuwsbrief — Vooruit Essen</title>
+<meta name="description" content="Schrijf je in op de nieuwsbrief van Vooruit Essen en lees de vorige edities online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E4032E; --red-dark: #b3021f; --ink: #141414; --paper: #ffffff; --paper-warm: #faf8f6;
+    --line: #e8e4df; --muted: #6d6a66; --ok: #1f7a3a;
+    --font-display: 'Archivo Black', sans-serif; --font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--paper); color: var(--ink); line-height: 1.55; -webkit-text-size-adjust: 100%; }
+  a { color: inherit; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  header.top { position: sticky; top: 0; z-index: 50; background: var(--paper); border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; justify-content: space-between; align-items: center; height: 64px; gap: 12px; }
+  .brand { font-family: var(--font-display); font-size: 1.02rem; text-transform: uppercase; letter-spacing: -0.01em; white-space: nowrap; text-decoration: none; }
+  .brand span { color: var(--red); }
+  nav.main { display: flex; gap: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+  nav.main a { text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+  nav.main a:hover, nav.main a[aria-current="page"] { border-bottom-color: var(--red); }
+  .join-btn { background: var(--red); color: #fff; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+  .join-btn:hover { background: var(--red-dark); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle span { display: block; width: 24px; height: 3px; background: var(--ink); margin: 5px 0; border-radius: 2px; transition: transform 0.2s ease, opacity 0.2s ease; }
+  #nav-check { display: none; }
+  .mobile-menu { display: none; }
+
+  .page-head { background: var(--ink); color: #fff; padding: 64px 0 52px; position: relative; overflow: hidden; }
+  .page-head::before { content: ""; position: absolute; right: -140px; top: -160px; width: 440px; height: 440px; border: 56px solid var(--red); border-radius: 50%; opacity: 0.12; }
+  .page-head .wrap { position: relative; }
+  .page-head .eyebrow { color: var(--red); font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; font-size: 0.78rem; margin-bottom: 14px; }
+  .page-head h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1; text-transform: uppercase; margin-bottom: 14px; }
+  .page-head p { max-width: 58ch; color: rgba(255,255,255,0.85); font-size: 1.05rem; }
+
+  section { padding: 64px 0; }
+  .redbar { width: 72px; height: 6px; background: var(--red); margin-bottom: 20px; }
+  h2 { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.3rem, 2.6vw, 1.8rem); margin-bottom: 10px; }
+  .section-sub { color: var(--muted); margin-bottom: 32px; max-width: 62ch; }
+
+  .signup { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .signup-card { background: var(--paper-warm); border: 1px solid var(--line); border-radius: 6px; padding: 28px; }
+  .signup-card h3 { font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem; margin-bottom: 6px; }
+  .signup-card .hint { color: var(--muted); font-size: 0.92rem; margin-bottom: 18px; }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  label { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+  input { font: inherit; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 4px; background: #fff; width: 100%; color: var(--ink); }
+  input:focus { outline: none; border-color: var(--ink); }
+  .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 0.86rem; color: var(--muted); margin: 6px 0 18px; }
+  .consent input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: var(--red); }
+  .btn-primary { background: var(--red); color: #fff; padding: 14px 26px; border-radius: 4px; font-weight: 800; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.04em; border: 0; cursor: pointer; font-family: inherit; }
+  .btn-primary:hover { background: var(--red-dark); }
+  .done { display: none; }
+  .done .dot { width: 44px; height: 44px; border-radius: 50%; background: var(--ok); color: #fff; display: grid; place-items: center; font-weight: 800; margin-bottom: 14px; font-size: 1.2rem; }
+  .done h3 { font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem; margin-bottom: 8px; }
+  .done p { color: var(--muted); font-size: 0.95rem; }
+  .done p b { color: var(--ink); }
+
+  .why h3 { font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 14px; }
+  .why ul { list-style: none; display: grid; gap: 12px; }
+  .why li { display: flex; gap: 12px; color: var(--muted); font-size: 0.95rem; }
+  .why li::before { content: ""; width: 10px; height: 10px; background: var(--red); flex: none; margin-top: 7px; }
+  .why li b { color: var(--ink); }
+
+  .archive { background: var(--paper-warm); }
+  .editions { display: grid; gap: 14px; }
+  details { background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+  summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 110px 1fr auto; gap: 18px; align-items: center; padding: 18px 22px; }
+  summary::-webkit-details-marker { display: none; }
+  summary .ed { font-family: var(--font-display); text-transform: uppercase; color: var(--red); font-size: 0.95rem; line-height: 1.2; }
+  summary .t { font-weight: 800; }
+  summary .t small { display: block; font-weight: 500; color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+  summary .arrow { color: var(--muted); font-weight: 800; transition: transform .2s ease; }
+  details[open] summary .arrow { transform: rotate(90deg); }
+  .mail { border-top: 1px solid var(--line); padding: 22px 22px 26px; max-width: 640px; }
+  .mail .mast { font-family: var(--font-display); text-transform: uppercase; font-size: 1rem; margin-bottom: 14px; }
+  .mail .mast span { color: var(--red); }
+  .mail p { color: var(--ink); margin-bottom: 16px; font-size: 0.95rem; }
+  .mail .item { border-top: 1px solid var(--line); padding: 12px 0; }
+  .mail .item .tag { color: var(--red); font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .mail .item a { display: block; font-weight: 700; text-decoration: none; margin: 2px 0 4px; }
+  .mail .item a:hover { color: var(--red); }
+  .mail .item span { color: var(--muted); font-size: 0.88rem; }
+  .mail .foot { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 12px; font-size: 0.78rem; color: var(--muted); }
+  .example { font-size: 0.8rem; color: var(--muted); margin-top: 14px; }
+
+  footer { padding: 56px 0 36px; background: var(--paper); border-top: 1px solid var(--line); }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .foot-brand-line { font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem; margin-bottom: 12px; }
+  .foot-brand-line span { color: var(--red); }
+  .foot-note { color: var(--muted); font-size: 0.88rem; max-width: 40ch; }
+  footer h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; color: var(--muted); }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; }
+  footer ul a { text-decoration: none; font-size: 0.92rem; font-weight: 600; }
+  footer ul a:hover { color: var(--red); }
+  .foot-bottom { border-top: 1px solid var(--line); padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 0.82rem; }
+
+  .demo-pill { position: fixed; left: 16px; bottom: 16px; z-index: 60; background: var(--ink); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 12px; border-radius: 999px; opacity: 0.92; }
+
+  @media (max-width: 940px) {
+    .signup { grid-template-columns: 1fr; gap: 32px; }
+    .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media (max-width: 680px) {
+    nav.main, .join-btn.desktop { display: none; }
+    .nav-toggle { display: block; }
+    #nav-check:checked ~ .mobile-menu { display: block; }
+    .mobile-menu { position: absolute; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--line); padding: 8px 24px 20px; }
+    .mobile-menu a { display: block; padding: 14px 0; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.04em; border-bottom: 1px solid var(--line); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .join-mobile { color: var(--red); }
+    #nav-check:checked ~ .wrap .nav-toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    #nav-check:checked ~ .wrap .nav-toggle span:nth-child(2) { opacity: 0; }
+    #nav-check:checked ~ .wrap .nav-toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    section { padding: 48px 0; }
+    .page-head { padding: 52px 0 40px; }
+    .signup-card { padding: 20px; }
+    summary { grid-template-columns: 1fr auto; }
+    summary .ed { grid-column: 1 / -1; }
+    .btn-primary { width: 100%; }
+    .foot-bottom { flex-direction: column; }
+    .demo-pill { left: 12px; right: 12px; bottom: 12px; text-align: center; }
+  }
+  a:focus-visible, button:focus-visible, summary:focus-visible, .nav-toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <div class="wrap">
+    <a class="brand" href="../">Vooruit <span>Essen</span></a>
+    <nav class="main" aria-label="Hoofdnavigatie">
+      <a href="../#nieuws">Nieuws</a>
+      <a href="../agenda/">Agenda</a>
+      <a href="../#themas">Waar we aan werken</a>
+      <a href="../mensen/">Mensen</a>
+      <a href="./" aria-current="page">Nieuwsbrief</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+    <a class="join-btn desktop" href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid</a>
+    <label for="nav-check" class="nav-toggle" role="button" aria-label="Menu openen" tabindex="0"><span></span><span></span><span></span></label>
+  </div>
+  <div class="mobile-menu">
+    <a href="../#nieuws">Nieuws</a>
+    <a href="../agenda/">Agenda</a>
+    <a href="../#themas">Waar we aan werken</a>
+    <a href="../mensen/">Mensen</a>
+    <a href="./">Nieuwsbrief</a>
+    <a href="../#contact">Contact</a>
+    <a class="join-mobile" href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid →</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Nieuwsbrief</div>
+    <h1>Blijf op de hoogte</h1>
+    <p>Een paar keer per jaar, recht uit Essen: wat onze ploeg deed in de gemeenteraad en het schepencollege, en waar je ons kan ontmoeten. Geen spam, uitschrijven kan altijd met één klik.</p>
+  </div>
+</div>
+
+<section id="inschrijven">
+  <div class="wrap">
+    <div class="signup">
+      <div class="signup-card">
+        <form id="nbform" novalidate>
+          <h3>Schrijf je in</h3>
+          <p class="hint">Je krijgt eerst een mail om je adres te bevestigen. Pas daarna sta je op de lijst.</p>
+          <div class="field"><label for="vn">Voornaam</label><input id="vn" autocomplete="given-name" required></div>
+          <div class="field"><label for="em">E-mailadres</label><input id="em" type="email" autocomplete="email" required></div>
+          <label class="consent"><input type="checkbox" id="ok" required><span>Ik geef Vooruit Essen uitdrukkelijk toestemming om mij de nieuwsbrief te sturen. Mijn gegevens worden alleen daarvoor gebruikt, blijven bij de afdeling en ik kan me met één klik uitschrijven. <a href="../privacy/">Privacyverklaring</a></span></label>
+          <button class="btn-primary" type="submit">Inschrijven</button>
+        </form>
+        <div class="done" id="done">
+          <div class="dot">✓</div>
+          <h3>Bijna klaar</h3>
+          <p>We stuurden een bevestigingslink naar <b id="doneMail"></b>. Klik erop en je ontvangt vanaf de volgende editie onze nieuwsbrief. Niets gekregen? Kijk even in je ongewenste mail.</p>
+        </div>
+      </div>
+      <div class="why">
+        <h3>Wat je mag verwachten</h3>
+        <ul>
+          <li><span><b>Nieuws uit Essen, niet uit Brussel.</b> Alleen wat onze eigen ploeg realiseert en op de agenda zet.</span></li>
+          <li><span><b>Een uitnodiging voor elke activiteit</b>, met een link waarmee je meteen kan inschrijven.</span></li>
+          <li><span><b>Kort en leesbaar op je gsm.</b> Vier of vijf berichten, telkens met een link om verder te lezen.</span></li>
+          <li><span><b>Jouw adres blijft in Essen.</b> De lijst is van de afdeling zelf en wordt met niemand gedeeld.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="archive" id="archief">
+  <div class="wrap">
+    <div class="redbar"></div>
+    <h2>Vorige edities</h2>
+    <p class="section-sub">Elke verstuurde nieuwsbrief blijft hier leesbaar. Zo kan wie later inschrijft alsnog meelezen, en vinden zoekmachines onze berichten terug.</p>
+    <div class="editions">
+
+      <details>
+        <summary><span class="ed">Augustus<br>2026</span><span class="t">Duurzaam Essen: 13.000 ritjes en een droogteplan<small>2 berichten · verstuurd 14 augustus 2026</small></span><span class="arrow">›</span></summary>
+        <div class="mail">
+          <div class="mast">Vooruit <span>Essen</span> · nieuwsbrief</div>
+          <p>Dag {voornaam}, de zomer was heet en droog, en dat merkten we ook in Essen. Twee berichten van schepen Helmut Jaspers over hoe we daar als gemeente op reageren.</p>
+          <div class="item"><span class="tag">Duurzaamheid</span><a href="https://nieuws.vooruit.org/gerinkel_naar_de_winkel_13_000_duurzame_ritjes_maken_samen_een_groot_verschil" target="_blank" rel="noopener">Gerinkel naar de Winkel: 13.000 duurzame ritjes maken samen een groot verschil</a><span>Helmut Jaspers · 13 augustus</span></div>
+          <div class="item"><span class="tag">Klimaat</span><a href="https://nieuws.vooruit.org/droogte_is_geen_uitzondering_meer_het_is_onze_nieuwe_realiteit" target="_blank" rel="noopener">Droogte is geen uitzondering meer. Het is onze nieuwe realiteit</a><span>Helmut Jaspers · 2 augustus</span></div>
+          <div class="foot">Je ontvangt deze mail omdat je je inschreef op vooruitessen.be · Uitschrijven · Vooruit Essen</div>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="ed">Juli<br>2026</span><span class="t">Zorgtoelage, voetgangers en glasvezel<small>5 berichten · verstuurd 3 juli 2026</small></span><span class="arrow">›</span></summary>
+        <div class="mail">
+          <div class="mast">Vooruit <span>Essen</span> · nieuwsbrief</div>
+          <p>Dag {voornaam}, een drukke maand in de gemeenteraad. De automatische zorgtoelage bereikt drie keer meer kinderen, en onze fractie zette voetgangers, hitte en snel internet op de agenda.</p>
+          <div class="item"><span class="tag">Sociaal</span><a href="https://nieuws.vooruit.org/automatische_zorgtoelage_bereikt_bijna_drie_keer_meer_kinderen_en_jongeren_in_essen" target="_blank" rel="noopener">Automatische zorgtoelage bereikt bijna drie keer meer kinderen en jongeren in Essen</a><span>Emma Lambregts</span></div>
+          <div class="item"><span class="tag">Mobiliteit</span><a href="https://nieuws.vooruit.org/meer_aandacht_voor_voetgangers" target="_blank" rel="noopener">Meer aandacht voor voetgangers</a><span>Ronald Goormachtig</span></div>
+          <div class="item"><span class="tag">Digitalisering</span><a href="https://nieuws.vooruit.org/graag_duidelijkheid_over_glasvezel_in_essense_buitengebieden" target="_blank" rel="noopener">Graag duidelijkheid over glasvezel in Essense buitengebieden</a><span>Jeroen Verleysen</span></div>
+          <div class="item"><span class="tag">Zorg &amp; klimaat</span><a href="https://nieuws.vooruit.org/vooruit_raadslid_leen_jaspers_houdt_hittebeleid_scherp" target="_blank" rel="noopener">Vooruit-raadslid Leen Jaspers houdt hittebeleid scherp</a><span>Leen Jaspers</span></div>
+          <div class="item"><span class="tag">Mobiliteit</span><a href="https://nieuws.vooruit.org/vooruit_steunt_mobiliteitsplan_nu_moet_het_echte_werk_beginnen" target="_blank" rel="noopener">Vooruit steunt mobiliteitsplan: "Nu moet het echte werk beginnen"</a><span>Emma Lambregts</span></div>
+          <div class="foot">Je ontvangt deze mail omdat je je inschreef op vooruitessen.be · Uitschrijven · Vooruit Essen</div>
+        </div>
+      </details>
+
+      <details>
+        <summary><span class="ed">Mei<br>2026</span><span class="t">Zwaluwen, WilderTnis en de eerste prentenboeken<small>2 berichten · verstuurd 29 mei 2026</small></span><span class="arrow">›</span></summary>
+        <div class="mail">
+          <div class="mast">Vooruit <span>Essen</span> · nieuwsbrief</div>
+          <p>Dag {voornaam}, natuur en cultuur in één mail: nieuwe zwaluwtillen in de potpolder, en jonge gezinnen die in de bib kennismaken met lezen.</p>
+          <div class="item"><span class="tag">Biodiversiteit</span><a href="https://nieuws.vooruit.org/zwaluwtillen_en_wildertnis_en_potpolder" target="_blank" rel="noopener">Zwaluwtillen en WilderTnis en potpolder</a><span>Helmut Jaspers · 28 mei</span></div>
+          <div class="item"><span class="tag">Jeugd &amp; cultuur</span><a href="https://nieuws.vooruit.org/_boekstartdag_in_de_bib_zet_jonge_gezinnen_op_weg_naar_leesplezier" target="_blank" rel="noopener">Boekstartdag in de bib zet jonge gezinnen op weg naar leesplezier</a><span>Helmut Jaspers · 23 mei</span></div>
+          <div class="foot">Je ontvangt deze mail omdat je je inschreef op vooruitessen.be · Uitschrijven · Vooruit Essen</div>
+        </div>
+      </details>
+
+    </div>
+    <p class="example">Voorbeeldedities, samengesteld uit de artikels die vandaag op nieuws.vooruit.org/essen staan. In het beheer maak je zo'n editie in een paar klikken: artikels aanvinken, twee zinnen inleiding, versturen.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand-line">Samen Essen, <span>samen Vooruit.</span></div>
+        <p class="foot-note">De lokale afdeling van Vooruit in Essen (provincie Antwerpen). Onderdeel van de landelijke beweging Vooruit, Keizerslaan 13, 1000 Brussel.</p>
+      </div>
+      <div>
+        <h4>Vooruit Essen</h4>
+        <ul>
+          <li><a href="../#nieuws">Nieuws</a></li>
+          <li><a href="../agenda/">Agenda</a></li>
+          <li><a href="../mensen/">Onze mensen</a></li>
+          <li><a href="./">Nieuwsbrief</a></li>
+          <li><a href="../beheer/">Beheer (demo)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Vooruit landelijk</h4>
+        <ul>
+          <li><a href="https://www.vooruit.org/missie" target="_blank" rel="noopener">Mission statement</a></li>
+          <li><a href="https://www.vooruit.org/standpunten" target="_blank" rel="noopener">Standpunten</a></li>
+          <li><a href="https://www.vooruit.org/registreer" target="_blank" rel="noopener">Word lid</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Vooruit Essen</span>
+      <span><a href="../privacy/" style="text-decoration:none;">Privacy &amp; cookies</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="demo-pill">Demo · er wordt niets echt gemaild</div>
+
+<script>
+(function () {
+  var KEY = 've_news', f = document.getElementById('nbform');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var vn = document.getElementById('vn').value.trim(), em = document.getElementById('em').value.trim(), ok = document.getElementById('ok').checked;
+    if (!vn || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { alert('Vul je voornaam en een geldig e-mailadres in.'); return; }
+    if (!ok) { alert('Vink aan dat je de nieuwsbrief wil ontvangen — zonder toestemming mogen we je niets sturen.'); return; }
+    try {
+      var list = JSON.parse(localStorage.getItem(KEY) || '[]');
+      list.push({ vn: vn, em: em, ts: new Date().toISOString(), status: 'wacht op bevestiging' });
+      localStorage.setItem(KEY, JSON.stringify(list));
+    } catch (err) {}
+    document.getElementById('doneMail').textContent = em;
+    f.style.display = 'none'; document.getElementById('done').style.display = 'block';
+  });
+})();
+</script>
+</body>
+</html>

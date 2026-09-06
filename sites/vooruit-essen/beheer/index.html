@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beheer — Vooruit Essen</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E4032E; --red-dark: #b3021f; --ink: #141414; --paper: #ffffff; --paper-warm: #faf8f6;
+    --line: #e8e4df; --line-2: #d9d3cc; --muted: #6d6a66; --ok: #1f7a3a; --ok-bg: #e6f4ea; --warn: #b45309; --warn-bg: #fff4e5; --wait: #5b4fcf; --wait-bg: #eeecfb;
+    --font-display: 'Archivo Black', sans-serif; --font-body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--paper-warm); color: var(--ink); line-height: 1.5; font-size: 15px; -webkit-text-size-adjust: 100%; }
+  a { color: inherit; }
+  [hidden] { display: none !important; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+
+  /* ---------- LOGIN ---------- */
+  .login { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+  .login::before { content: ""; position: absolute; right: -160px; top: -160px; width: 520px; height: 520px; border: 64px solid var(--red); border-radius: 50%; opacity: 0.12; }
+  .login-card { position: relative; width: 100%; max-width: 420px; background: var(--paper); color: var(--ink); border-radius: 8px; padding: 34px 34px 30px; box-shadow: 0 30px 80px rgba(0,0,0,.4); }
+  .login-card .brand { font-family: var(--font-display); text-transform: uppercase; font-size: 1.05rem; margin-bottom: 4px; }
+  .login-card .brand span { color: var(--red); }
+  .login-card .sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 24px; }
+  .login-card h1 { font-size: 1.25rem; font-weight: 800; margin-bottom: 6px; }
+  .login-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 18px; }
+  .login-card p b { color: var(--ink); }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  label { font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; }
+  input[type=text], input[type=email], input[type=tel], select, textarea { padding: 11px 13px; border: 1.5px solid var(--line); border-radius: 4px; background: #fff; width: 100%; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--ink); }
+  .code { letter-spacing: 0.4em; font-size: 1.3rem; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; border: 2px solid transparent; border-radius: 4px; padding: 10px 16px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; background: #fff; }
+  .btn.primary { background: var(--red); color: #fff; border-color: var(--red); }
+  .btn.primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+  .btn.dark { border-color: var(--ink); color: var(--ink); background: transparent; }
+  .btn.dark:hover { background: var(--ink); color: #fff; }
+  .btn.ghost { border-color: var(--line-2); color: var(--ink); background: #fff; }
+  .btn.ghost:hover { border-color: var(--ink); }
+  .btn.sm { padding: 7px 12px; font-size: 0.72rem; }
+  .btn.block { width: 100%; justify-content: center; }
+  .login-card .fine { font-size: 0.78rem; color: var(--muted); margin-top: 16px; }
+  .login-card .fine a { color: var(--red); }
+
+  /* ---------- APP SHELL ---------- */
+  .bar { position: sticky; top: 0; z-index: 40; background: var(--ink); color: #fff; height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; gap: 16px; }
+  .bar .brand { font-family: var(--font-display); text-transform: uppercase; font-size: 0.95rem; white-space: nowrap; text-decoration: none; }
+  .bar .brand span { color: var(--red); }
+  .bar .brand small { font-family: var(--font-body); font-weight: 600; font-size: 0.72rem; color: rgba(255,255,255,.6); text-transform: none; margin-left: 10px; letter-spacing: 0; }
+  .bar .user { display: flex; align-items: center; gap: 14px; font-size: 0.82rem; color: rgba(255,255,255,.85); }
+  .bar .user b { color: #fff; }
+  .bar .user .role { background: rgba(255,255,255,.12); padding: 3px 8px; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
+  .bar .user a { color: #fff; text-decoration: none; font-weight: 700; opacity: .8; }
+  .bar .user a:hover { opacity: 1; }
+  .bar .menu-btn { display: none; background: none; border: 0; color: #fff; font-weight: 800; }
+  .shell { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 56px); }
+  .side { background: #fff; border-right: 1px solid var(--line); padding: 18px 12px; }
+  .side nav { display: flex; flex-direction: column; gap: 4px; }
+  .side button { text-align: left; background: none; border: 0; padding: 11px 12px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; width: 100%; color: var(--ink); }
+  .side button:hover { background: var(--paper-warm); }
+  .side button[aria-current="page"] { background: var(--ink); color: #fff; }
+  .side button .ico { width: 10px; height: 10px; background: var(--red); flex: none; }
+  .side button[disabled] { opacity: .45; cursor: default; }
+  .side .cnt { margin-left: auto; font-size: 0.7rem; font-weight: 800; background: var(--red); color: #fff; padding: 2px 7px; border-radius: 999px; }
+  .side .sitelink { margin-top: 22px; padding: 12px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); }
+  .side .sitelink a { display: block; color: var(--ink); font-weight: 700; text-decoration: none; margin-top: 4px; }
+  main { padding: 28px 32px 60px; min-width: 0; }
+  .view > h1 { font-family: var(--font-display); text-transform: uppercase; font-size: 1.5rem; margin-bottom: 4px; }
+  .view > .sub { color: var(--muted); margin-bottom: 22px; max-width: 70ch; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+  .toolbar .spacer { flex: 1; }
+  .tabs { display: inline-flex; border: 1.5px solid var(--line-2); border-radius: 6px; overflow: hidden; }
+  .tabs button { background: #fff; border: 0; padding: 8px 14px; font-weight: 700; font-size: 0.8rem; border-right: 1.5px solid var(--line-2); }
+  .tabs button:last-child { border-right: 0; }
+  .tabs button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+
+  /* ---------- TILES ---------- */
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 26px; }
+  .tile { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; }
+  .tile .k { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .tile .v { font-family: var(--font-display); font-size: 1.8rem; line-height: 1; font-variant-numeric: tabular-nums; }
+  .tile .v small { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; color: var(--muted); margin-left: 4px; }
+  .tile .d { font-size: 0.82rem; color: var(--muted); margin-top: 8px; }
+  .tile .d b { color: var(--ok); }
+  .tile .d b.w { color: var(--warn); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px; }
+  .card h2 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .quick { display: grid; gap: 10px; }
+  .quick button { text-align: left; background: var(--paper-warm); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .quick button:hover { border-color: var(--ink); }
+  .quick button span { color: var(--muted); font-weight: 500; font-size: 0.82rem; }
+  .list { list-style: none; }
+  .list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 0.9rem; }
+  .list li:first-child { border-top: 0; padding-top: 0; }
+  .list li span:last-child { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  /* ---------- TABLES ---------- */
+  .tablewrap { background: #fff; border: 1px solid var(--line); border-radius: 8px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  thead th { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--paper-warm); white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr.click { cursor: pointer; }
+  tbody tr.click:hover td { background: var(--paper-warm); }
+  td .sub { display: block; color: var(--muted); font-size: 0.78rem; }
+  td.num { text-align: right; white-space: nowrap; }
+  th.num { text-align: right; }
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; white-space: nowrap; }
+  .pill.ok { background: var(--ok-bg); color: var(--ok); }
+  .pill.warn { background: var(--warn-bg); color: var(--warn); }
+  .pill.wait { background: var(--wait-bg); color: var(--wait); }
+  .pill.draft { background: var(--paper-warm); color: var(--muted); border: 1px solid var(--line-2); }
+  .pill.live { background: var(--ok-bg); color: var(--ok); }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; }
+  input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--red); cursor: pointer; }
+  .empty { padding: 28px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+  /* ---------- SHIFTS ---------- */
+  .shifts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .shift { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; }
+  .shift .t { display: flex; justify-content: space-between; font-weight: 800; margin-bottom: 8px; }
+  .shift .t span:last-child { color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bar2 { height: 10px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .bar2 i { display: block; height: 100%; background: var(--red); border-radius: 999px; }
+  .shift .m { display: flex; gap: 14px; font-size: 0.8rem; color: var(--muted); margin-top: 8px; flex-wrap: wrap; }
+  .shift .m b { color: var(--ink); }
+
+  /* ---------- EDITOR ---------- */
+  .editor { display: grid; grid-template-columns: 1fr 300px; gap: 18px; align-items: start; }
+  .ed-main { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 22px; }
+  .ed-main input.title { border: 0; border-bottom: 2px solid var(--line); border-radius: 0; font-size: 1.5rem; font-weight: 800; padding: 6px 0 10px; margin-bottom: 14px; }
+  .ed-main input.title:focus { border-bottom-color: var(--ink); }
+  .tb { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; border: 1.5px solid var(--line); border-radius: 6px 6px 0 0; background: var(--paper-warm); }
+  .tb button { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 6px 10px; font-weight: 700; font-size: 0.82rem; min-width: 34px; }
+  .tb button:hover { border-color: var(--ink); }
+  .body { min-height: 260px; border: 1.5px solid var(--line); border-top: 0; border-radius: 0 0 6px 6px; padding: 16px 18px; line-height: 1.6; background: #fff; }
+  .body:focus { outline: none; border-color: var(--ink); }
+  .body:empty::before { content: attr(data-placeholder); color: var(--muted); }
+  .body h2 { font-size: 1.15rem; margin: 14px 0 6px; }
+  .body ul { padding-left: 22px; margin: 8px 0; }
+  .body a { color: var(--red); }
+  .ed-side { display: grid; gap: 14px; }
+  .drop { border: 2px dashed var(--line-2); border-radius: 6px; padding: 18px; text-align: center; color: var(--muted); font-size: 0.85rem; cursor: pointer; background: var(--paper-warm); position: relative; overflow: hidden; }
+  .drop:hover { border-color: var(--ink); }
+  .drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
+  .drop img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 4px; margin-bottom: 8px; }
+  .drop b { color: var(--ink); display: block; }
+  .ed-actions { display: grid; gap: 8px; }
+  .preview { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 26px 30px; margin-top: 18px; }
+  .preview .tag { color: var(--red); font-weight: 800; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .preview h3 { font-size: 1.5rem; font-weight: 800; line-height: 1.2; margin: 6px 0 4px; }
+  .preview .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+  .preview img { display: block; width: 100%; max-height: 320px; object-fit: cover; border-radius: 6px; margin-bottom: 16px; }
+  .preview .txt { max-width: 68ch; line-height: 1.65; }
+  .preview .txt h2 { font-size: 1.15rem; margin: 14px 0 6px; }
+
+  /* ---------- NIEUWSBRIEF ---------- */
+  .nl { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+  .picks { display: grid; gap: 6px; max-height: 320px; overflow: auto; border: 1.5px solid var(--line); border-radius: 6px; padding: 8px; background: #fff; }
+  .picks label { display: flex; gap: 10px; align-items: flex-start; padding: 8px; border-radius: 4px; font-size: 0.86rem; font-weight: 600; text-transform: none; letter-spacing: 0; cursor: pointer; }
+  .picks label:hover { background: var(--paper-warm); }
+  .picks label span small { display: block; color: var(--muted); font-weight: 500; font-size: 0.76rem; }
+  .mail { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 22px 24px; }
+  .mail .mast { font-family: var(--font-display); text-transform: uppercase; font-size: 0.95rem; margin-bottom: 12px; }
+  .mail .mast span { color: var(--red); }
+  .mail .subj { font-weight: 800; font-size: 1.1rem; margin-bottom: 8px; }
+  .mail p { font-size: 0.92rem; margin-bottom: 14px; white-space: pre-wrap; }
+  .mail .item { border-top: 1px solid var(--line); padding: 10px 0; }
+  .mail .item .tag { color: var(--red); font-weight: 800; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .mail .item b { display: block; font-size: 0.92rem; }
+  .mail .foot { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 10px; font-size: 0.74rem; color: var(--muted); }
+
+  /* ---------- MISC ---------- */
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 6px; font-weight: 700; font-size: 0.88rem; opacity: 0; transition: opacity .2s ease, transform .2s ease; z-index: 80; max-width: calc(100% - 32px); }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast b { color: var(--red); }
+  .demo-pill { position: fixed; right: 16px; bottom: 16px; z-index: 60; background: #fff; color: var(--ink); border: 1px solid var(--line-2); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 11px; border-radius: 999px; }
+  .demo-pill a { color: var(--red); text-decoration: none; margin-left: 6px; }
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); text-decoration: none; font-weight: 700; font-size: 0.82rem; background: none; border: 0; margin-bottom: 12px; }
+  .back:hover { color: var(--ink); }
+  .inline-edit { display: flex; gap: 8px; align-items: center; }
+  .inline-edit input { padding: 7px 10px; }
+
+  @media (max-width: 980px) {
+    .shell { grid-template-columns: 1fr; }
+    .side { position: fixed; top: 56px; left: 0; right: 0; z-index: 35; border-right: 0; border-bottom: 1px solid var(--line); box-shadow: 0 12px 30px rgba(0,0,0,.12); }
+    .side[hidden] { display: none !important; }
+    .bar .menu-btn { display: inline-block; }
+    main { padding: 20px 18px 60px; }
+    .tiles { grid-template-columns: 1fr 1fr; }
+    .two, .editor, .nl, .shifts { grid-template-columns: 1fr; }
+    .bar .user .mail-addr { display: none; }
+  }
+  @media (max-width: 560px) {
+    .tiles { grid-template-columns: 1fr; }
+    .login-card { padding: 26px 22px; }
+  }
+  a:focus-visible, button:focus-visible, input:focus-visible, [contenteditable]:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div class="login" id="login">
+  <div class="login-card">
+    <div class="brand">Vooruit <span>Essen</span></div>
+    <div class="sub">Beheer · vooruitessen.be/beheer</div>
+    <form id="step1">
+      <h1>Aanmelden</h1>
+      <p>Geen wachtwoord nodig. Vul je e-mailadres in en je krijgt een code van zes cijfers in je mailbox.</p>
+      <div class="field"><label for="lemail">Je e-mailadres</label><input type="email" id="lemail" autocomplete="email" placeholder="voornaam@voorbeeld.be" required></div>
+      <button class="btn primary block" type="submit">Stuur me een code</button>
+      <p class="fine">Alleen adressen die de afdeling toevoegde, kunnen aanmelden. Demo: elk adres werkt.</p>
+    </form>
+    <form id="step2" hidden>
+      <h1>Code invullen</h1>
+      <p>We stuurden een code naar <b id="lto"></b>. Hij blijft 10 minuten geldig.</p>
+      <div class="field"><label for="lcode">Code</label><input type="text" id="lcode" class="code" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code" required></div>
+      <button class="btn primary block" type="submit">Aanmelden</button>
+      <p class="fine">Demo: eender welke zes cijfers werken. <a href="#" id="lback">Ander adres</a></p>
+    </form>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" hidden>
+  <div class="bar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+      <a class="brand" href="../">Vooruit <span>Essen</span><small>Beheer</small></a>
+    </div>
+    <div class="user"><span class="mail-addr">Aangemeld als <b id="uEmail"></b></span><span class="role">Redacteur · mag publiceren</span><a href="#" id="logout">Afmelden</a></div>
+  </div>
+  <div class="shell">
+    <aside class="side" id="side">
+      <nav aria-label="Beheer">
+        <button data-go="overzicht" aria-current="page"><span class="ico"></span>Overzicht</button>
+        <button data-go="artikelen"><span class="ico"></span>Artikelen</button>
+        <button data-go="inschrijvingen"><span class="ico"></span>Agenda &amp; inschrijvingen <span class="cnt" id="cntOpen"></span></button>
+        <button data-go="nieuwsbrief"><span class="ico"></span>Nieuwsbrief &amp; abonnees</button>
+        <button data-go="mensen"><span class="ico"></span>Mensen</button>
+        <button disabled title="Nog niet in het prototype"><span class="ico" style="background:var(--line-2)"></span>Instellingen</button>
+      </nav>
+      <div class="sitelink">Publieke site<a href="../">vooruitessen.be →</a></div>
+    </aside>
+
+    <main>
+      <!-- OVERZICHT -->
+      <section class="view" data-view="overzicht">
+        <h1>Goeiemorgen</h1>
+        <p class="sub">Dit is wat er speelt. Alles wat je hier ziet, is meteen aan te passen — en staat live zodra je op Publiceer klikt.</p>
+        <div class="tiles">
+          <div class="tile"><div class="k">Brunch 1 november</div><div class="v" id="tPers"></div><div class="d" id="tPersD"></div></div>
+          <div class="tile"><div class="k">Betalingen</div><div class="v" id="tPaid"></div><div class="d" id="tPaidD"></div></div>
+          <div class="tile"><div class="k">Nieuwsbrief</div><div class="v" id="tSubs"></div><div class="d" id="tSubsD"></div></div>
+          <div class="tile"><div class="k">Artikels</div><div class="v" id="tArts"></div><div class="d" id="tArtsD"></div></div>
+        </div>
+        <div class="two">
+          <div class="card"><h2>Snel naar</h2>
+            <div class="quick">
+              <button data-go="editor">Nieuw artikel schrijven <span>titel, tekst, foto → publiceer</span></button>
+              <button data-go="inschrijvingen">Inschrijvingen brunch <span>afvinken wie betaald heeft</span></button>
+              <button data-go="nieuwsbrief">Nieuwsbrief samenstellen <span>artikels aanvinken en versturen</span></button>
+            </div>
+          </div>
+          <div class="card"><h2>Recent</h2><ul class="list" id="recent"></ul></div>
+        </div>
+      </section>
+
+      <!-- ARTIKELEN -->
+      <section class="view" data-view="artikelen" hidden>
+        <h1>Artikelen</h1>
+        <p class="sub">Alles wat op de site staat of klaarstaat. Klik op een concept om verder te schrijven.</p>
+        <div class="toolbar"><button class="btn primary" data-go="editor">+ Nieuw artikel</button><span class="spacer"></span><span style="color:var(--muted);font-size:.85rem" id="artCount"></span></div>
+        <div class="tablewrap"><table><thead><tr><th>Titel</th><th>Thema</th><th>Auteur</th><th>Datum</th><th>Status</th></tr></thead><tbody id="artRows"></tbody></table></div>
+      </section>
+
+      <!-- EDITOR -->
+      <section class="view" data-view="editor" hidden>
+        <button class="back" data-go="artikelen">← Terug naar artikelen</button>
+        <div class="editor">
+          <div class="ed-main">
+            <input class="title" id="edTitle" type="text" placeholder="Titel van je artikel">
+            <div class="tb" role="toolbar" aria-label="Opmaak">
+              <button type="button" data-cmd="bold"><b>B</b></button>
+              <button type="button" data-cmd="italic"><i>I</i></button>
+              <button type="button" data-cmd="h2">Kop</button>
+              <button type="button" data-cmd="ul">• Lijst</button>
+              <button type="button" data-cmd="link">Link</button>
+              <button type="button" data-cmd="clear">Opmaak wissen</button>
+            </div>
+            <div class="body" id="edBody" contenteditable="true" data-placeholder="Begin hier te schrijven. Selecteer tekst en gebruik de knoppen hierboven voor vet, een tussenkop of een lijst."></div>
+          </div>
+          <div class="ed-side">
+            <div class="card">
+              <div class="field"><label for="edThema">Thema</label><select id="edThema"></select></div>
+              <div class="field"><label for="edAuteur">Auteur</label><select id="edAuteur"></select></div>
+              <div class="field" style="margin-bottom:0"><label>Foto</label>
+                <div class="drop" id="drop"><input type="file" accept="image/*" id="edFoto"><div id="dropInner"><b>Sleep een foto hierheen</b>of klik om te kiezen. Wordt automatisch verkleind.</div></div>
+              </div>
+            </div>
+            <div class="card ed-actions">
+              <button class="btn ghost block" id="edSave">Bewaar als concept</button>
+              <button class="btn dark block" id="edPreview">Voorvertoning</button>
+              <button class="btn primary block" id="edPublish">Publiceer</button>
+              <span style="font-size:.78rem;color:var(--muted)" id="edStatus">Nog niet bewaard</span>
+            </div>
+          </div>
+        </div>
+        <div class="preview" id="preview" hidden></div>
+      </section>
+
+      <!-- INSCHRIJVINGEN -->
+      <section class="view" data-view="inschrijvingen" hidden>
+        <h1>Brunch · zondag 1 november</h1>
+        <p class="sub">Elke inschrijving krijgt automatisch een bevestiging met een gestructureerde mededeling. Zie je de betaling op de rekening, vink dan “betaald” aan — de deelnemer krijgt meteen een bevestiging.</p>
+        <div class="shifts" id="shiftCards"></div>
+        <div class="toolbar">
+          <div class="tabs" id="regTabs"><button aria-pressed="true" data-f="alle">Alle</button><button data-f="open">Nog niet betaald</button><button data-f="wacht">Wachtlijst</button></div>
+          <span class="spacer"></span>
+          <button class="btn ghost sm" id="remind">Herinnering sturen</button>
+          <button class="btn dark sm" id="csv">Exporteer lijst (CSV)</button>
+        </div>
+        <div class="tablewrap"><table><thead><tr><th>Naam</th><th>Shift</th><th class="num">Volw.</th><th class="num">Kind.</th><th class="num">Bedrag</th><th>Mededeling</th><th>Status</th><th>Betaald</th></tr></thead><tbody id="regRows"></tbody></table></div>
+        <p style="font-size:.8rem;color:var(--muted);margin-top:10px">Rijen met een grijze naam zijn voorbeelddata. Wat je zelf inschrijft op de <a href="../agenda/">agendapagina</a>, verschijnt hier bovenaan.</p>
+      </section>
+
+      <!-- NIEUWSBRIEF -->
+      <section class="view" data-view="nieuwsbrief" hidden>
+        <h1>Nieuwsbrief</h1>
+        <p class="sub">Vink de artikels aan, schrijf twee zinnen inleiding en verstuur. Het versturen zelf doet Brevo (EU-verzenddienst); de abonneelijst blijft hier, bij de afdeling. Elke editie blijft daarna leesbaar op de site.</p>
+        <div class="nl">
+          <div class="card">
+            <div class="field"><label for="nlSubj">Onderwerp</label><input type="text" id="nlSubj" placeholder="Bv. Brunch op 1 november — schrijf je in"></div>
+            <div class="field"><label for="nlIntro">Inleiding</label><textarea id="nlIntro" rows="4" placeholder="Dag {voornaam}, …"></textarea></div>
+            <div class="field"><label>Artikels in deze editie</label><div class="picks" id="picks"></div></div>
+            <label style="display:flex;gap:10px;align-items:center;text-transform:none;letter-spacing:0;font-weight:600;font-size:.86rem;margin-bottom:14px"><input type="checkbox" id="nlEvent" checked> Voeg de brunch met inschrijfknop toe</label>
+            <button class="btn primary block" id="nlSend"></button>
+            <p style="font-size:.78rem;color:var(--muted);margin-top:10px">Eerst een testmail naar jezelf? <a href="#" id="nlTest">Stuur test</a></p>
+          </div>
+          <div>
+            <div class="mail" id="nlPreview"></div>
+            <div class="card" style="margin-top:14px"><h2>Laatste verzending</h2><ul class="list" id="nlStats"></ul><p style="font-size:.78rem;color:var(--muted);margin-top:10px">Geen open- of kliktracking: we tellen alleen wat aankomt, bouncet of uitschrijft. Dat is wat we mogen zonder extra toestemming.</p></div>
+            <div class="card" style="margin-top:14px"><h2>Eerdere edities</h2><ul class="list" id="nlSent"></ul></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <div class="toolbar" style="margin-bottom:10px"><h2 style="margin:0">Abonnees</h2><span class="spacer"></span><button class="btn ghost sm" id="subCsv">Exporteer (CSV)</button></div>
+          <div class="tablewrap" style="border:0"><table><thead><tr><th>E-mail</th><th>Voornaam</th><th>Status</th><th>Sinds</th><th></th></tr></thead><tbody id="subRows"></tbody></table></div>
+          <p style="font-size:.78rem;color:var(--muted);margin-top:10px">Wie zich inschrijft, staat hier eerst als “wacht op bevestiging” tot hij op de link in de bevestigingsmail klikt (dubbele opt-in). Uitschrijven via de link in een mail verschijnt hier automatisch. “Verwijder” wist alle gegevens meteen, hier én bij Brevo — het recht op gegevenswissing.</p>
+        </div>
+      </section>
+
+      <!-- MENSEN -->
+      <section class="view" data-view="mensen" hidden>
+        <h1>Mensen</h1>
+        <p class="sub">Wie er op de site staat, met mandaat en bevoegdheden. Wijzig een rol en klik Bewaar; de mensenpagina volgt meteen.</p>
+        <div class="tablewrap"><table><thead><tr><th>Naam</th><th>Groep</th><th>Rol / bevoegdheden</th><th></th></tr></thead><tbody id="peopleRows"></tbody></table></div>
+        <p style="font-size:.8rem;color:var(--muted);margin-top:10px">Bestuursleden toevoegen kan hier ook — zodra de namen er zijn.</p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="demo-pill">Demo · niets wordt echt gepubliceerd of gemaild <a href="#" id="resetAll">herstel voorbeeld</a></div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var store = {
+    get: function (k, d) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  function toast(html) { var t = $('#toast'); t.innerHTML = html; t.classList.add('show'); clearTimeout(toast.h); toast.h = setTimeout(function () { t.classList.remove('show'); }, 3200); }
+
+  // ---------- vaste gegevens (wat vandaag op nieuws.vooruit.org/essen staat) ----------
+  var THEMAS = ['Sociaal', 'Klimaat', 'Duurzaamheid', 'Mobiliteit', 'Digitalisering', 'Zorg & klimaat', 'Biodiversiteit', 'Jeugd & cultuur', 'Cultuur', 'Verenigingsleven', 'Wonen'];
+  var PEOPLE = [
+    { n: 'Arno Aerden', g: 'Schepencollege', r: 'Schepen van ruimtelijke ordening en wonen, jeugd en kinderopvang, sociaal beleid, gelijke kansen en juridische aangelegenheden' },
+    { n: 'Helmut Jaspers', g: 'Schepencollege', r: 'Schepen van leefmilieu, groenbeleid, klimaat, duurzaamheid en dierenwelzijn; cultuur en internationale samenwerking' },
+    { n: 'Emma Lambregts', g: 'Gemeenteraad', r: 'Fractieleider' },
+    { n: 'Ronald Goormachtig', g: 'Gemeenteraad', r: 'Gemeenteraadslid' },
+    { n: 'Jeroen Verleysen', g: 'Gemeenteraad', r: 'Gemeenteraadslid' },
+    { n: 'Leen Jaspers', g: 'Gemeenteraad', r: 'Gemeenteraadslid' },
+    { n: 'François Veraart', g: 'Bijzonder comité sociale dienst', r: 'Lid' },
+    { n: 'Diane Van Ginderen', g: 'Bijzonder comité sociale dienst', r: 'Lid' }
+  ];
+  var ARTICLES = [
+    { id: 'a1', t: 'Gerinkel naar de Winkel: 13.000 duurzame ritjes maken samen een groot verschil', th: 'Duurzaamheid', au: 'Helmut Jaspers', d: '2026-08-13', url: 'https://nieuws.vooruit.org/gerinkel_naar_de_winkel_13_000_duurzame_ritjes_maken_samen_een_groot_verschil' },
+    { id: 'a2', t: 'Droogte is geen uitzondering meer. Het is onze nieuwe realiteit', th: 'Klimaat', au: 'Helmut Jaspers', d: '2026-08-02', url: 'https://nieuws.vooruit.org/droogte_is_geen_uitzondering_meer_het_is_onze_nieuwe_realiteit' },
+    { id: 'a3', t: 'Automatische zorgtoelage bereikt bijna drie keer meer kinderen en jongeren in Essen', th: 'Sociaal', au: 'Emma Lambregts', d: '2026-07-27', url: 'https://nieuws.vooruit.org/automatische_zorgtoelage_bereikt_bijna_drie_keer_meer_kinderen_en_jongeren_in_essen' },
+    { id: 'a4', t: 'Meer aandacht voor voetgangers', th: 'Mobiliteit', au: 'Ronald Goormachtig', d: '2026-07-02', url: 'https://nieuws.vooruit.org/meer_aandacht_voor_voetgangers' },
+    { id: 'a5', t: 'Graag duidelijkheid over glasvezel in Essense buitengebieden', th: 'Digitalisering', au: 'Jeroen Verleysen', d: '2026-07-02', url: 'https://nieuws.vooruit.org/graag_duidelijkheid_over_glasvezel_in_essense_buitengebieden' },
+    { id: 'a6', t: 'Vooruit-raadslid Leen Jaspers houdt hittebeleid scherp', th: 'Zorg & klimaat', au: 'Leen Jaspers', d: '2026-07-02', url: 'https://nieuws.vooruit.org/vooruit_raadslid_leen_jaspers_houdt_hittebeleid_scherp' },
+    { id: 'a7', t: 'Vooruit steunt mobiliteitsplan: "Nu moet het echte werk beginnen"', th: 'Mobiliteit', au: 'Emma Lambregts', d: '2026-06-30', url: 'https://nieuws.vooruit.org/vooruit_steunt_mobiliteitsplan_nu_moet_het_echte_werk_beginnen' },
+    { id: 'a8', t: 'Zwaluwtillen en WilderTnis en potpolder', th: 'Biodiversiteit', au: 'Helmut Jaspers', d: '2026-05-28', url: 'https://nieuws.vooruit.org/zwaluwtillen_en_wildertnis_en_potpolder' },
+    { id: 'a9', t: 'Boekstartdag in de bib zet jonge gezinnen op weg naar leesplezier', th: 'Jeugd & cultuur', au: 'Helmut Jaspers', d: '2026-05-23', url: 'https://nieuws.vooruit.org/_boekstartdag_in_de_bib_zet_jonge_gezinnen_op_weg_naar_leesplezier' }
+  ];
+  var CAP = 60, PRIJS_V = 27, PRIJS_K = 10, SHIFTS = { s1: '10u00 – 11u30', s2: '11u30 – 13u00' };
+  var BRUNCH_SEED = { base: { s1: 57, s2: 21 }, regs: [], seq: 41 };
+  // Voorbeeldrijen: horen bij de al ingenomen plaatsen hierboven, tellen dus niet extra mee.
+  var EX_SEED = [
+    { id: 'e1', naam: 'Marleen Goossens', email: 'marleen@voorbeeld.be', shift: 's2', volw: 2, kind: 1, bedrag: 64, ogm: '+++261/1000/03497+++', betaald: true, ex: true, ts: '2026-09-01T09:12:00' },
+    { id: 'e2', naam: 'Peter en Ann Van Loon', email: 'vanloon@voorbeeld.be', shift: 's1', volw: 2, kind: 0, bedrag: 54, ogm: '+++261/1000/03595+++', betaald: true, ex: true, ts: '2026-09-01T18:40:00' },
+    { id: 'e3', naam: 'Familie Dierckx', email: 'dierckx@voorbeeld.be', shift: 's2', volw: 2, kind: 2, bedrag: 74, ogm: '+++261/1000/03693+++', betaald: false, ex: true, ts: '2026-09-02T20:05:00' },
+    { id: 'e4', naam: 'Rita Peeters', email: 'rita@voorbeeld.be', shift: 's1', volw: 1, kind: 0, bedrag: 27, ogm: '+++261/1000/03791+++', betaald: true, ex: true, ts: '2026-09-03T07:55:00' },
+    { id: 'e5', naam: 'Koen Wouters', email: 'koen@voorbeeld.be', shift: 's2', volw: 3, kind: 0, bedrag: 81, ogm: '+++261/1000/03889+++', betaald: false, ex: true, ts: '2026-09-04T12:30:00' },
+    { id: 'e6', naam: 'Els en Jan Aerts', email: 'aerts@voorbeeld.be', shift: 's1', volw: 2, kind: 1, bedrag: 64, ogm: '+++261/1000/03987+++', betaald: true, ex: true, ts: '2026-09-05T21:14:00' }
+  ];
+  var SUBS_BASE = 212;
+
+  function brunch() { var b = store.get('ve_brunch', null); if (!b || !b.base) { b = JSON.parse(JSON.stringify(BRUNCH_SEED)); store.set('ve_brunch', b); } if (!b.ex) { b.ex = JSON.parse(JSON.stringify(EX_SEED)); store.set('ve_brunch', b); } return b; }
+  function taken(b, s) { return b.base[s] + b.regs.filter(function (r) { return r.shift === s && !r.wacht; }).reduce(function (a, r) { return a + r.volw + r.kind; }, 0); }
+  function allRegs(b) { return b.regs.slice().reverse().concat(b.ex); }
+  function drafts() { return store.get('ve_articles', []); }
+  function subs() { return store.get('ve_news', []); }
+  function people() { return store.get('ve_people', PEOPLE); }
+  function fmtDate(iso) { var d = new Date(iso); return String(d.getDate()).padStart(2, '0') + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + d.getFullYear(); }
+  function today() { return new Date().toISOString().slice(0, 10); }
+
+  // ---------- login ----------
+  var user = sessionStorage.getItem('ve_admin');
+  function startView() { var h = (location.hash || '').replace('#', ''); return ['overzicht', 'artikelen', 'inschrijvingen', 'nieuwsbrief', 'mensen'].indexOf(h) >= 0 ? h : 'overzicht'; }
+  function showApp() { $('#login').hidden = true; $('#app').hidden = false; $('#uEmail').textContent = user; go(startView()); }
+  $('#step1').addEventListener('submit', function (e) { e.preventDefault(); var em = $('#lemail').value.trim(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { alert('Vul een geldig e-mailadres in.'); return; } $('#lto').textContent = em; $('#step1').hidden = true; $('#step2').hidden = false; $('#lcode').focus(); });
+  $('#step2').addEventListener('submit', function (e) { e.preventDefault(); if (!/^\d{6}$/.test($('#lcode').value.trim())) { alert('De code bestaat uit zes cijfers.'); return; } user = $('#lto').textContent; sessionStorage.setItem('ve_admin', user); showApp(); toast('Welkom! Je bent aangemeld als <b>' + esc(user) + '</b>'); });
+  $('#lback').addEventListener('click', function (e) { e.preventDefault(); $('#step2').hidden = true; $('#step1').hidden = false; });
+  $('#logout').addEventListener('click', function (e) { e.preventDefault(); sessionStorage.removeItem('ve_admin'); user = null; $('#app').hidden = true; $('#login').hidden = false; $('#step2').hidden = true; $('#step1').hidden = false; $('#lcode').value = ''; });
+
+  // ---------- navigatie ----------
+  var RENDER = {};
+  function go(v) {
+    $$('.view').forEach(function (s) { s.hidden = s.dataset.view !== v; });
+    if (v !== 'editor') { try { history.replaceState(null, '', '#' + v); } catch (e) {} }
+    $$('.side nav button[data-go]').forEach(function (b) { if (b.dataset.go === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    if (window.innerWidth <= 980) $('#side').hidden = true;
+    if (RENDER[v]) RENDER[v]();
+    window.scrollTo(0, 0);
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); go(b.dataset.go); } });
+  $('#menuBtn').addEventListener('click', function () { $('#side').hidden = !$('#side').hidden; });
+  function sideInit() { $('#side').hidden = window.innerWidth <= 980; }
+  window.addEventListener('resize', sideInit); sideInit();
+
+  // ---------- overzicht ----------
+  RENDER.overzicht = function () {
+    var b = brunch(), regs = allRegs(b), pers = taken(b, 's1') + taken(b, 's2');
+    var open = regs.filter(function (r) { return !r.betaald && !r.wacht; }), wacht = regs.filter(function (r) { return r.wacht; });
+    var due = open.reduce(function (a, r) { return a + r.bedrag; }, 0);
+    $('#tPers').innerHTML = pers + '<small>/ 120 plaatsen</small>';
+    $('#tPersD').innerHTML = (CAP - taken(b, 's1')) + ' vrij om 10u · ' + (CAP - taken(b, 's2')) + ' vrij om 11u30' + (wacht.length ? ' · <b class="w">' + wacht.length + ' op wachtlijst</b>' : '');
+    $('#tPaid').innerHTML = open.length + '<small>nog te betalen</small>';
+    $('#tPaidD').innerHTML = 'Samen <b class="w">€ ' + due + '</b> · ' + regs.filter(function (r) { return r.betaald; }).length + ' bevestigd';
+    var s = subs();
+    $('#tSubs').innerHTML = (SUBS_BASE + s.length) + '<small>abonnees</small>';
+    $('#tSubsD').innerHTML = s.length ? '<b>+' + s.length + '</b> nieuw via de site' : 'Laatste editie: augustus 2026';
+    var d = drafts();
+    $('#tArts').innerHTML = (ARTICLES.length + d.filter(function (x) { return x.status === 'live'; }).length) + '<small>online</small>';
+    $('#tArtsD').innerHTML = d.filter(function (x) { return x.status === 'draft'; }).length + ' concept' + (d.filter(function (x) { return x.status === 'draft'; }).length === 1 ? '' : 'en') + ' klaar om af te werken';
+    $('#cntOpen').textContent = open.length || ''; $('#cntOpen').hidden = !open.length;
+    var rec = [];
+    b.regs.slice(-3).reverse().forEach(function (r) { rec.push(['Inschrijving brunch · ' + esc(r.naam) + (r.wacht ? ' (wachtlijst)' : ''), fmtDate(r.ts)]); });
+    s.slice(-2).reverse().forEach(function (x) { rec.push(['Nieuwe abonnee · ' + esc(x.em), fmtDate(x.ts)]); });
+    d.slice(-2).reverse().forEach(function (x) { rec.push([(x.status === 'live' ? 'Gepubliceerd · ' : 'Concept · ') + esc(x.t || 'zonder titel'), fmtDate(x.ts)]); });
+    if (!rec.length) rec = [['Inschrijving brunch · Els en Jan Aerts', '05.09.2026'], ['Inschrijving brunch · Koen Wouters', '04.09.2026'], ['Artikel gepubliceerd · Gerinkel naar de Winkel', '13.08.2026']];
+    $('#recent').innerHTML = rec.slice(0, 6).map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('');
+  };
+
+  // ---------- artikelen ----------
+  RENDER.artikelen = function () {
+    var d = drafts().slice().reverse(), rows = '';
+    d.forEach(function (x) { rows += '<tr class="click" data-edit="' + x.id + '"><td><b>' + esc(x.t || 'Zonder titel') + '</b><span class="sub">' + (x.status === 'live' ? 'Gepubliceerd op de site' : 'Concept — klik om verder te schrijven') + '</span></td><td>' + esc(x.th) + '</td><td>' + esc(x.au) + '</td><td>' + fmtDate(x.ts) + '</td><td><span class="pill ' + (x.status === 'live' ? 'live">Gepubliceerd' : 'draft">Concept') + '</span></td></tr>'; });
+    ARTICLES.forEach(function (a) { rows += '<tr><td><b>' + esc(a.t) + '</b><span class="sub">Overgenomen van nieuws.vooruit.org</span></td><td>' + esc(a.th) + '</td><td>' + esc(a.au) + '</td><td>' + fmtDate(a.d) + '</td><td><span class="pill live">Gepubliceerd</span></td></tr>'; });
+    $('#artRows').innerHTML = rows;
+    $('#artCount').textContent = (ARTICLES.length + d.length) + ' artikels';
+    $$('#artRows tr[data-edit]').forEach(function (tr) { tr.addEventListener('click', function () { openEditor(tr.dataset.edit); }); });
+  };
+
+  // ---------- editor ----------
+  var edId = null, edImg = null;
+  $('#edThema').innerHTML = THEMAS.map(function (t) { return '<option>' + esc(t) + '</option>'; }).join('');
+  $('#edAuteur').innerHTML = PEOPLE.map(function (p) { return '<option>' + esc(p.n) + '</option>'; }).join('');
+  function openEditor(id) {
+    edId = id || null; edImg = null;
+    var x = id ? drafts().filter(function (a) { return a.id === id; })[0] : null;
+    $('#edTitle').value = x ? x.t : ''; $('#edBody').innerHTML = x ? x.html : ''; $('#edThema').value = x ? x.th : THEMAS[0]; $('#edAuteur').value = x ? x.au : PEOPLE[1].n;
+    edImg = x && x.img ? x.img : null; paintDrop();
+    $('#edStatus').textContent = x ? (x.status === 'live' ? 'Gepubliceerd — wijzigingen gaan live bij opnieuw publiceren' : 'Concept, bewaard op ' + fmtDate(x.ts)) : 'Nog niet bewaard';
+    $('#preview').hidden = true;
+    go('editor');
+  }
+  RENDER.editor = function () { if (!$('#edTitle').value && !edId && $('#edBody').innerHTML === '') { $('#edStatus').textContent = 'Nog niet bewaard'; } };
+  $$('.side nav button[data-go="artikelen"], .quick button[data-go="editor"], .toolbar .btn[data-go="editor"]').forEach(function (b) { if (b.dataset.go === 'editor') b.addEventListener('click', function () { openEditor(null); }, true); });
+  function paintDrop() { $('#dropInner').innerHTML = edImg ? '<img src="' + edImg + '" alt=""><b>Foto toegevoegd</b>klik om een andere te kiezen' : '<b>Sleep een foto hierheen</b>of klik om te kiezen. Wordt automatisch verkleind.'; }
+  $('#edFoto').addEventListener('change', function () {
+    var f = this.files && this.files[0]; if (!f) return;
+    var r = new FileReader(); r.onload = function () {
+      var im = new Image(); im.onload = function () { var c = document.createElement('canvas'), w = Math.min(1200, im.width), h = Math.round(im.height * w / im.width); c.width = w; c.height = h; c.getContext('2d').drawImage(im, 0, 0, w, h); edImg = c.toDataURL('image/jpeg', 0.82); paintDrop(); toast('Foto verkleind naar ' + w + ' px breed'); }; im.src = r.result;
+    }; r.readAsDataURL(f);
+  });
+  $$('.tb button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var c = b.dataset.cmd; $('#edBody').focus();
+      if (c === 'bold' || c === 'italic') document.execCommand(c);
+      else if (c === 'h2') document.execCommand('formatBlock', false, 'h2');
+      else if (c === 'ul') document.execCommand('insertUnorderedList');
+      else if (c === 'link') { var u = prompt('Link naar (bv. https://…)'); if (u) document.execCommand('createLink', false, u); }
+      else if (c === 'clear') { document.execCommand('removeFormat'); document.execCommand('formatBlock', false, 'p'); }
+    });
+  });
+  function saveArticle(status) {
+    var t = $('#edTitle').value.trim(); if (!t) { alert('Geef je artikel eerst een titel.'); $('#edTitle').focus(); return null; }
+    var d = drafts(), x = edId ? d.filter(function (a) { return a.id === edId; })[0] : null;
+    if (!x) { x = { id: 'd' + Date.now() }; d.push(x); edId = x.id; }
+    x.t = t; x.html = $('#edBody').innerHTML; x.th = $('#edThema').value; x.au = $('#edAuteur').value; x.img = edImg; x.status = status; x.ts = new Date().toISOString();
+    store.set('ve_articles', d); return x;
+  }
+  $('#edSave').addEventListener('click', function () { var x = saveArticle(edId && drafts().filter(function (a) { return a.id === edId; })[0] && drafts().filter(function (a) { return a.id === edId; })[0].status === 'live' ? 'live' : 'draft'); if (x) { $('#edStatus').textContent = 'Concept bewaard om ' + new Date().toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' }); toast('Concept bewaard'); } });
+  $('#edPreview').addEventListener('click', function () {
+    var p = $('#preview'); p.hidden = false;
+    p.innerHTML = '<span class="tag">' + esc($('#edThema').value) + '</span><h3>' + esc($('#edTitle').value || 'Zonder titel') + '</h3><div class="meta">' + fmtDate(today()) + ' — ' + esc($('#edAuteur').value) + '</div>' + (edImg ? '<img src="' + edImg + '" alt="">' : '') + '<div class="txt">' + ($('#edBody').innerHTML || '<p style="color:var(--muted)">Nog geen tekst.</p>') + '</div>';
+    p.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('#edPublish').addEventListener('click', function () { var x = saveArticle('live'); if (x) { $('#edStatus').textContent = 'Gepubliceerd om ' + new Date().toLocaleTimeString('nl-BE', { hour: '2-digit', minute: '2-digit' }); toast('<b>Gepubliceerd.</b> Het artikel staat nu op de site (demo).'); } });
+
+  // ---------- inschrijvingen ----------
+  var regFilter = 'alle';
+  RENDER.inschrijvingen = function () {
+    var b = brunch();
+    $('#shiftCards').innerHTML = ['s1', 's2'].map(function (s) {
+      var t = taken(b, s), l = CAP - t, rs = allRegs(b).filter(function (r) { return r.shift === s; });
+      var paid = rs.filter(function (r) { return r.betaald; }).length, open = rs.filter(function (r) { return !r.betaald && !r.wacht; }).length, w = rs.filter(function (r) { return r.wacht; }).length;
+      return '<div class="shift"><div class="t"><span>' + SHIFTS[s] + '</span><span>' + t + ' / ' + CAP + ' bezet</span></div><div class="bar2"><i style="width:' + Math.min(100, t / CAP * 100) + '%"></i></div><div class="m"><span><b>' + (l === 0 ? 'Volzet' : l + ' vrij') + '</b></span><span><b>' + paid + '</b> betaald</span><span><b>' + open + '</b> nog te betalen</span>' + (w ? '<span><b>' + w + '</b> op wachtlijst</span>' : '') + '</div></div>';
+    }).join('');
+    var rows = allRegs(b).filter(function (r) { return regFilter === 'alle' || (regFilter === 'open' && !r.betaald && !r.wacht) || (regFilter === 'wacht' && r.wacht); });
+    $('#regRows').innerHTML = rows.length ? rows.map(function (r) {
+      var st = r.wacht ? '<span class="pill wait">Wachtlijst</span>' : r.betaald ? '<span class="pill ok">Betaald</span>' : '<span class="pill warn">Wacht op betaling</span>';
+      return '<tr><td><b' + (r.ex ? ' style="color:var(--muted)"' : '') + '>' + esc(r.naam) + '</b><span class="sub">' + esc(r.email) + (r.tel ? ' · ' + esc(r.tel) : '') + (r.opm ? ' · “' + esc(r.opm) + '”' : '') + '</span></td><td>' + SHIFTS[r.shift] + '</td><td class="num">' + r.volw + '</td><td class="num">' + r.kind + '</td><td class="num">€ ' + r.bedrag + '</td><td class="mono">' + (r.wacht ? '—' : esc(r.ogm)) + '</td><td>' + st + '</td><td>' + (r.wacht ? '' : '<input type="checkbox" data-paid="' + esc(r.id) + '"' + (r.betaald ? ' checked' : '') + ' aria-label="Betaald">') + '</td></tr>';
+    }).join('') : '<tr><td colspan="8" class="empty">Niets in deze lijst.</td></tr>';
+    $$('#regRows [data-paid]').forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        var b2 = brunch(), all = b2.regs.concat(b2.ex), r = all.filter(function (x) { return String(x.id) === cb.dataset.paid; })[0];
+        if (r) { r.betaald = cb.checked; store.set('ve_brunch', b2); toast(cb.checked ? '<b>Betaald.</b> ' + esc(r.naam) + ' krijgt een bevestiging: plaats definitief.' : 'Betaling van ' + esc(r.naam) + ' weer opengezet.'); RENDER.inschrijvingen(); RENDER.overzicht(); }
+      });
+    });
+  };
+  $$('#regTabs button').forEach(function (b) { b.addEventListener('click', function () { regFilter = b.dataset.f; $$('#regTabs button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); RENDER.inschrijvingen(); }); });
+  $('#remind').addEventListener('click', function () { var n = allRegs(brunch()).filter(function (r) { return !r.betaald && !r.wacht; }).length; toast(n ? '<b>' + n + '</b> herinnering' + (n === 1 ? '' : 'en') + ' verstuurd naar wie nog niet betaalde (demo).' : 'Iedereen heeft betaald — geen herinnering nodig.'); });
+  $('#csv').addEventListener('click', function () {
+    var rows = [['Naam', 'E-mail', 'Telefoon', 'Shift', 'Volwassenen', 'Kinderen', 'Bedrag', 'Mededeling', 'Status', 'Opmerking']];
+    allRegs(brunch()).forEach(function (r) { rows.push([r.naam, r.email, r.tel || '', SHIFTS[r.shift], r.volw, r.kind, r.bedrag, r.wacht ? '' : r.ogm, r.wacht ? 'wachtlijst' : r.betaald ? 'betaald' : 'open', r.opm || '']); });
+    var csv = rows.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(';'); }).join('\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' })); a.download = 'brunch-2026-11-01-inschrijvingen.csv'; document.body.appendChild(a); a.click(); a.remove();
+    toast('Lijst geëxporteerd — ' + (rows.length - 1) + ' rijen.');
+  });
+
+  // ---------- nieuwsbrief ----------
+  RENDER.nieuwsbrief = function () {
+    var live = drafts().filter(function (x) { return x.status === 'live'; }).map(function (x) { return { id: x.id, t: x.t, th: x.th, au: x.au, d: x.ts.slice(0, 10) }; });
+    var all = live.concat(ARTICLES);
+    if (!$('#picks').children.length) $('#picks').innerHTML = all.map(function (a, i) { return '<label><input type="checkbox" value="' + esc(a.id) + '"' + (i < 2 ? ' checked' : '') + '><span>' + esc(a.t) + '<small>' + esc(a.th) + ' · ' + esc(a.au) + ' · ' + fmtDate(a.d) + '</small></span></label>'; }).join('');
+    if (!$('#nlSubj').value) $('#nlSubj').value = 'Brunch op 1 november — schrijf je in';
+    if (!$('#nlIntro').value) $('#nlIntro').value = 'Dag {voornaam},\n\nOp zondag 1 november brunchen we opnieuw in het Volkshuis, in twee shiften. Schrijf je hieronder in — en lees wat onze ploeg de voorbije weken deed.';
+    var n = SUBS_BASE + subs().length; $('#nlSend').textContent = 'Verstuur naar ' + n + ' abonnees';
+    nlPreview(all);
+    var sent = store.get('ve_nl_sent', []).slice().reverse();
+    $('#nlSent').innerHTML = (sent.map(function (s) { return '<li><span>' + esc(s.subj) + '</span><span>' + fmtDate(s.ts) + ' · ' + s.n + '</span></li>'; }).join('')) + '<li><span>Duurzaam Essen: 13.000 ritjes en een droogteplan</span><span>14.08.2026 · 212</span></li><li><span>Zorgtoelage, voetgangers en glasvezel</span><span>03.07.2026 · 204</span></li>';
+  };
+  function nlPreview(all) {
+    var ids = $$('#picks input:checked').map(function (c) { return c.value; }), items = all.filter(function (a) { return ids.indexOf(a.id) >= 0; });
+    $('#nlPreview').innerHTML = '<div class="mast">Vooruit <span>Essen</span> · nieuwsbrief</div><div class="subj">' + esc($('#nlSubj').value || '(geen onderwerp)') + '</div><p>' + esc($('#nlIntro').value) + '</p>'
+      + ($('#nlEvent').checked ? '<div class="item"><span class="tag">Agenda</span><b>Brunch Vooruit Essen · zondag 1 november · Volkshuis</b><span style="font-size:.82rem;color:var(--muted)">€ 27 per volwassene, € 10 per kind tot 12 jaar · </span><a href="../agenda/" style="font-size:.82rem;font-weight:800;color:var(--red)">Schrijf je in →</a></div>' : '')
+      + items.map(function (a) { return '<div class="item"><span class="tag">' + esc(a.th) + '</span><b>' + esc(a.t) + '</b><span style="font-size:.8rem;color:var(--muted)">' + esc(a.au) + ' · lees verder →</span></div>'; }).join('')
+      + '<div class="foot">Je ontvangt deze mail omdat je je inschreef op vooruitessen.be · Uitschrijven · Vooruit Essen</div>';
+  }
+  ['#nlSubj', '#nlIntro', '#nlEvent', '#picks'].forEach(function (s) { $(s).addEventListener('input', function () { RENDER.nieuwsbrief(); }); $(s).addEventListener('change', function () { RENDER.nieuwsbrief(); }); });
+  $('#nlSend').addEventListener('click', function () {
+    var n = SUBS_BASE + subs().length, subj = $('#nlSubj').value.trim(); if (!subj) { alert('Geef de nieuwsbrief een onderwerp.'); return; }
+    if (!confirm('Nieuwsbrief “' + subj + '” versturen naar ' + n + ' abonnees?')) return;
+    var s = store.get('ve_nl_sent', []); s.push({ subj: subj, n: n, ts: new Date().toISOString() }); store.set('ve_nl_sent', s);
+    toast('<b>Verstuurd</b> via Brevo naar ' + n + ' abonnees (demo). De editie staat nu ook in het archief op de site.'); RENDER.nieuwsbrief();
+  });
+  $('#nlTest').addEventListener('click', function (e) { e.preventDefault(); toast('Testmail verstuurd naar <b>' + esc(user) + '</b> (demo).'); });
+
+  // ---------- abonnees & verzendcijfers ----------
+  var SUB_EX = [
+    { em: 'marleen@voorbeeld.be', vn: 'Marleen', st: 'bevestigd', ts: '2026-05-12T10:00:00', ex: true },
+    { em: 'koen@voorbeeld.be', vn: 'Koen', st: 'bevestigd', ts: '2026-06-03T18:20:00', ex: true },
+    { em: 'rita@voorbeeld.be', vn: 'Rita', st: 'uitgeschreven', ts: '2026-02-19T08:15:00', ex: true },
+    { em: 'dierckx@voorbeeld.be', vn: 'An', st: 'bevestigd', ts: '2026-08-14T21:02:00', ex: true }
+  ];
+  function subsAll() { return subs().slice().reverse().map(function (s) { return { em: s.em, vn: s.vn, st: 'wacht op bevestiging', ts: s.ts }; }).concat(store.get('ve_subs_ex', SUB_EX)); }
+  function renderSubs() {
+    var last = store.get('ve_nl_sent', []).slice(-1)[0];
+    var n = last ? last.n : 212, b = last ? Math.round(n * 0.01) : 2, u = last ? (n > 50 ? 1 : 0) : 1;
+    $('#nlStats').innerHTML = '<li><span>' + esc(last ? last.subj : 'Duurzaam Essen: 13.000 ritjes en een droogteplan') + '</span><span>' + (last ? fmtDate(last.ts) : '14.08.2026') + '</span></li><li><span>Verstuurd</span><span>' + n + '</span></li><li><span>Afgeleverd</span><span>' + (n - b) + '</span></li><li><span>Gebounced (adres bestaat niet meer)</span><span>' + b + '</span></li><li><span>Uitgeschreven</span><span>' + u + '</span></li><li><span>Als spam gemeld</span><span>0</span></li>';
+    $('#subRows').innerHTML = subsAll().map(function (s) { var p = s.st === 'bevestigd' ? 'ok' : s.st === 'uitgeschreven' ? 'draft' : 'warn'; return '<tr><td' + (s.ex ? ' style="color:var(--muted)"' : '') + '>' + esc(s.em) + '</td><td>' + esc(s.vn) + '</td><td><span class="pill ' + p + '">' + esc(s.st) + '</span></td><td>' + fmtDate(s.ts) + '</td><td style="text-align:right"><button class="btn ghost sm" data-delsub="' + esc(s.em) + '">Verwijder</button></td></tr>'; }).join('');
+    $$('#subRows [data-delsub]').forEach(function (b2) {
+      b2.addEventListener('click', function () {
+        var em = b2.dataset.delsub; if (!confirm('Alle gegevens van ' + em + ' definitief wissen, hier én bij Brevo?')) return;
+        store.set('ve_news', subs().filter(function (s) { return s.em !== em; }));
+        store.set('ve_subs_ex', store.get('ve_subs_ex', SUB_EX).filter(function (s) { return s.em !== em; }));
+        toast('Gegevens van <b>' + esc(em) + '</b> gewist (demo).'); RENDER.nieuwsbrief();
+      });
+    });
+  }
+  var renderNieuwsbrief = RENDER.nieuwsbrief;
+  RENDER.nieuwsbrief = function () { renderNieuwsbrief(); renderSubs(); };
+  $('#subCsv').addEventListener('click', function () {
+    var rows = [['E-mail', 'Voornaam', 'Status', 'Sinds']].concat(subsAll().map(function (s) { return [s.em, s.vn, s.st, s.ts.slice(0, 10)]; }));
+    var csv = rows.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(';'); }).join('\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' })); a.download = 'abonnees.csv'; document.body.appendChild(a); a.click(); a.remove();
+    toast('Abonnees geëxporteerd — ' + (rows.length - 1) + ' rijen.');
+  });
+
+  // ---------- mensen ----------
+  RENDER.mensen = function () {
+    var ps = people();
+    $('#peopleRows').innerHTML = ps.map(function (p, i) { return '<tr data-i="' + i + '"><td><b>' + esc(p.n) + '</b></td><td>' + esc(p.g) + '</td><td class="rolecell">' + esc(p.r) + '</td><td style="text-align:right"><button class="btn ghost sm" data-editrole="' + i + '">Bewerk</button></td></tr>'; }).join('');
+    $$('#peopleRows [data-editrole]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var i = +b.dataset.editrole, tr = b.closest('tr'), cell = $('.rolecell', tr), ps2 = people();
+        cell.innerHTML = '<div class="inline-edit"><input type="text" value="' + esc(ps2[i].r) + '" aria-label="Rol"><button class="btn primary sm">Bewaar</button></div>';
+        $('input', cell).focus();
+        $('button', cell).addEventListener('click', function () { ps2[i].r = $('input', cell).value.trim() || ps2[i].r; store.set('ve_people', ps2); toast('Rol van <b>' + esc(ps2[i].n) + '</b> bijgewerkt (demo).'); RENDER.mensen(); });
+      });
+    });
+  };
+
+  // ---------- reset ----------
+  $('#resetAll').addEventListener('click', function (e) { e.preventDefault(); if (!confirm('Alle demo-gegevens terugzetten naar het voorbeeld?')) return; ['ve_brunch', 've_news', 've_articles', 've_people', 've_nl_sent', 've_subs_ex'].forEach(function (k) { localStorage.removeItem(k); }); $('#picks').innerHTML = ''; $('#nlSubj').value = ''; $('#nlIntro').value = ''; toast('Voorbeeld hersteld.'); go('overzicht'); });
+
+  if (user) showApp();
+})();
+</script>
+</body>
+</html>
