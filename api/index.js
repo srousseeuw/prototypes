@@ -145,8 +145,9 @@ const FC_KEY = "data";
 const FC_EMPTY = {
   bijdrage: { bedrag: 0 },
   collegas: [],
-  kas: { transacties: [] },
+  kas: { transacties: [], banksaldo: { bedrag: null, bijgewerktOp: null }, iban: "" },
   activiteiten: [],
+  gebeurtenissen: [], // huwelijk / geboorte / ziekte / overlijden bij een collega
   taken: [],
   info: { adres: "", notities: "" },
 };
@@ -171,6 +172,7 @@ async function handleFeestcomiteApi(request, env) {
         collegas: Array.isArray(body.collegas) ? body.collegas : [],
         kas: body.kas && typeof body.kas === "object" ? body.kas : FC_EMPTY.kas,
         activiteiten: Array.isArray(body.activiteiten) ? body.activiteiten : [],
+        gebeurtenissen: Array.isArray(body.gebeurtenissen) ? body.gebeurtenissen : [],
         taken: Array.isArray(body.taken) ? body.taken : [],
         info: body.info && typeof body.info === "object" ? body.info : FC_EMPTY.info,
       };

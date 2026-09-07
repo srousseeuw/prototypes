@@ -147,7 +147,7 @@ main{max-width:640px;margin:0 auto;padding:14px 14px 96px}
   <button data-tab="overzicht"><span class="ic">🏠</span><span>Overzicht</span></button>
   <button data-tab="collegas"><span class="ic">👥</span><span>Collega's</span></button>
   <button data-tab="kas"><span class="ic">💶</span><span>Kas</span></button>
-  <button data-tab="activiteiten"><span class="ic">📅</span><span>Activiteiten</span></button>
+  <button data-tab="agenda"><span class="ic">📅</span><span>Agenda</span></button>
   <button data-tab="taken"><span class="ic">✅</span><span>Taken</span></button>
 </nav>
 
@@ -164,8 +164,15 @@ const JAAR = new Date().getFullYear();
 const MND = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
 const MND_KORT = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
 
-const EMPTY = { version:0, bijdrage:{bedrag:0}, collegas:[], kas:{transacties:[]}, activiteiten:[], taken:[], info:{adres:'',notities:''} };
+const EMPTY = { version:0, bijdrage:{bedrag:0}, collegas:[], kas:{transacties:[], banksaldo:{bedrag:null,bijgewerktOp:null}, iban:''}, activiteiten:[], gebeurtenissen:[], taken:[], info:{adres:'',notities:''} };
 const state = { doc: JSON.parse(JSON.stringify(EMPTY)), loaded:false, dirty:false, saving:false, pendingSave:false, poll:null, tab:'overzicht', q:'', sheet:null };
+
+const GEBEURTENIS_TYPES = {
+  trouw:      {label:'Huwelijk',   ic:'💍'},
+  geboorte:   {label:'Geboorte',   ic:'👶'},
+  ziekte:     {label:'Ziekte',     ic:'🌷'},
+  overlijden: {label:'Overlijden', ic:'🕯️'},
+};
 
 /* ---------- helpers ---------- */
 function isoLocal(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -175,14 +182,21 @@ function fmtKort(iso){ if(!iso) return ''; const d=new Date(iso+'T00:00:00'); if
 function fmtVol(iso){ if(!iso) return ''; const d=new Date(iso+'T00:00:00'); if(isNaN(d)) return iso; return d.getDate()+' '+MND[d.getMonth()]+' '+d.getFullYear(); }
 function isPast(iso){ if(!iso) return false; return iso < todayISO(); }
 
-function nextVerjaardag(dag, maand){
-  if(!dag||!maand) return null;
+function daysAgo(iso){
+  if(!iso) return null;
+  const d=new Date(iso+'T00:00:00'); if(isNaN(d)) return null;
   const now=new Date(); now.setHours(0,0,0,0);
-  let d=new Date(now.getFullYear(), maand-1, dag);
-  if(d<now) d=new Date(now.getFullYear()+1, maand-1, dag);
-  return d;
+  return Math.round((now-d)/86400000);
 }
-function daysUntil(d){ const now=new Date(); now.setHours(0,0,0,0); return Math.round((d-now)/86400000); }
+function relatief(iso){
+  const n = daysAgo(iso);
+  if(n==null) return '';
+  if(n===0) return 'vandaag';
+  if(n===1) return 'gisteren';
+  if(n>1) return n+' dagen geleden';
+  if(n===-1) return 'morgen';
+  return 'over '+(-n)+' dagen';
+}
 
 function dienstjaren(iso, ref){
   if(!iso) return null;
@@ -209,7 +223,9 @@ function collega(id){ return state.doc.collegas.find(c=>c.id===id); }
 function collegaNaam(id){ const c=collega(id); return c?c.naam:''; }
 function activiteit(id){ return state.doc.activiteiten.find(a=>a.id===id); }
 function activiteitNaam(id){ const a=activiteit(id); return a?a.naam:''; }
-function saldo(){ return state.doc.kas.transacties.reduce((s,t)=>s+(Number(t.bedrag)||0),0); }
+function gebeurtenis(id){ return state.doc.gebeurtenissen.find(g=>g.id===id); }
+function saldoBoekingen(){ return state.doc.kas.transacties.reduce((s,t)=>s+(Number(t.bedrag)||0),0); }
+function banksaldo(){ return state.doc.kas.banksaldo || {bedrag:null, bijgewerktOp:null}; }
 function collegasGesorteerd(){ return state.doc.collegas.slice().sort((a,b)=>a.naam.localeCompare(b.naam,'nl')); }
 
 /* ---------- api + opslaan (debounce + optimistic lock, zie sites/training/) ---------- */
@@ -235,7 +251,7 @@ async function save(){
     setSync('');
   }catch(e){
     if(e.status===409){
-      state.doc = e.data.current; state.dirty=false;
+      state.doc = normalizeDoc(e.data.current); state.dirty=false;
       toast('Iemand anders heeft net iets aangepast. Nieuwste versie geladen.', true);
       render();
     }else{ setSync('err'); toast('Opslaan mislukt: '+e.message, true); state.dirty=true; }
@@ -244,8 +260,22 @@ async function save(){
     if(state.pendingSave||state.dirty){ state.pendingSave=false; save(); }
   }
 }
+function normalizeDoc(d){
+  d = d || {};
+  d.collegas = Array.isArray(d.collegas) ? d.collegas : [];
+  d.activiteiten = Array.isArray(d.activiteiten) ? d.activiteiten : [];
+  d.gebeurtenissen = Array.isArray(d.gebeurtenissen) ? d.gebeurtenissen : [];
+  d.taken = Array.isArray(d.taken) ? d.taken : [];
+  d.kas = d.kas && typeof d.kas==='object' ? d.kas : {};
+  d.kas.transacties = Array.isArray(d.kas.transacties) ? d.kas.transacties : [];
+  d.kas.banksaldo = d.kas.banksaldo && typeof d.kas.banksaldo==='object' ? d.kas.banksaldo : {bedrag:null, bijgewerktOp:null};
+  d.kas.iban = d.kas.iban || '';
+  d.bijdrage = d.bijdrage && typeof d.bijdrage==='object' ? d.bijdrage : {bedrag:0};
+  d.info = d.info && typeof d.info==='object' ? d.info : {adres:'',notities:''};
+  return d;
+}
 async function load(){
-  try{ state.doc = await api('/data'); }
+  try{ state.doc = normalizeDoc(await api('/data')); }
   catch(e){ toast('Laden mislukt: '+e.message, true); }
   state.loaded=true; render();
 }
@@ -253,7 +283,7 @@ function startPoll(){
   state.poll = setInterval(async()=>{
     if(state.dirty||state.saving||document.hidden||state.sheet) return;
     const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
-    try{ const r=await api('/data'); if(r.version!==state.doc.version){ state.doc=r; render(); toast("Bijgewerkt door een collega"); } }catch(e){}
+    try{ const r=await api('/data'); if(r.version!==state.doc.version){ state.doc=normalizeDoc(r); render(); toast("Bijgewerkt door een collega"); } }catch(e){}
   }, 15000);
 }
 
@@ -294,15 +324,14 @@ function getPath(obj, path){
 /* ===================================================================== */
 /* Overzicht                                                              */
 function renderOverzicht(){
-  const s = saldo();
+  const bs = banksaldo();
+  const heeftBanksaldo = bs.bedrag!=null && bs.bedrag!=='';
+  const sBoek = saldoBoekingen();
   const dit = String(JAAR);
   const nietBetaald = state.doc.collegas.filter(c=>!(c.bijdragen&&c.bijdragen[dit]&&c.bijdragen[dit].paid));
-  const verjaardagen = state.doc.collegas
-    .map(c=>({c, d:nextVerjaardag(c.verjDag,c.verjMaand)}))
-    .filter(x=>x.d)
-    .map(x=>({...x, days:daysUntil(x.d)}))
-    .filter(x=>x.days<=30)
-    .sort((a,b)=>a.days-b.days);
+  const recenteGebeurtenissen = state.doc.gebeurtenissen.slice()
+    .sort((a,b)=>(b.datum||'').localeCompare(a.datum||''))
+    .slice(0,5);
   const jubilea = state.doc.collegas
     .map(c=>({c, jaren:jubileumDitJaar(c.indienst)}))
     .filter(x=>x.jaren)
@@ -314,9 +343,10 @@ function renderOverzicht(){
 
   return `
   <div class="card hero">
-    <div class="small muted">Saldo groepspot</div>
-    <div style="font-size:30px;font-weight:800;color:${s>=0?'var(--good)':'var(--bad)'}">${fmtEUR(s)}</div>
-    <div class="small muted">${state.doc.kas.transacties.length} boeking(en) · bijdrage ${fmtEUR(state.doc.bijdrage.bedrag)} / jaar</div>
+    <div class="small muted">${heeftBanksaldo?'Banksaldo':'Saldo (som boekingen)'}</div>
+    <div style="font-size:30px;font-weight:800;color:${(heeftBanksaldo?bs.bedrag:sBoek)>=0?'var(--good)':'var(--bad)'}">${fmtEUR(heeftBanksaldo?bs.bedrag:sBoek)}</div>
+    <div class="small muted">${heeftBanksaldo?'bijgewerkt op '+fmtKort(bs.bijgewerktOp)+' · ':''}${state.doc.kas.transacties.length} boeking(en) · bijdrage ${fmtEUR(state.doc.bijdrage.bedrag)} / jaar</div>
+    ${heeftBanksaldo && Math.abs(bs.bedrag-sBoek)>0.01 ? `<div class="small" style="color:#8a5f16;margin-top:4px">⚠ volgens de boekingen hieronder: ${fmtEUR(sBoek)}</div>` : ''}
   </div>
 
   <div class="grid2">
@@ -325,16 +355,17 @@ function renderOverzicht(){
   </div>
 
   ${volgendeAct ? `
-  <div class="section-title"><h2>Volgende activiteit</h2><button class="link" data-goto="activiteiten">bekijk alle →</button></div>
+  <div class="section-title"><h2>Volgende activiteit</h2><button class="link" data-goto="agenda">bekijk alle →</button></div>
   <div class="card row between">
     <div class="t"><b>${esc(volgendeAct.naam)}</b><div class="sub">${fmtVol(volgendeAct.datum)}${volgendeAct.budget?' · budget '+fmtEUR(volgendeAct.budget):''}</div></div>
     <span class="pill soft">${esc(volgendeAct.status||'gepland')}</span>
   </div>` : ''}
 
-  <div class="section-title"><h2>Verjaardagen (30 dagen)</h2></div>
-  ${verjaardagen.length ? `<div class="card">${verjaardagen.slice(0,8).map(x=>`
-    <div class="list-item"><div class="t"><b>${esc(x.c.naam)}</b><div class="sub">🎂 ${fmtKort(isoLocal(x.d))}${x.days===0?' · vandaag!':x.days===1?' · morgen':' · over '+x.days+' dagen'}</div></div></div>
-  `).join('')}</div>` : `<div class="empty">Geen verjaardagen in de komende 30 dagen (of nog niet ingevuld).</div>`}
+  <div class="section-title"><h2>Aandacht bij collega's</h2><button class="link" data-goto="agenda">bekijk alle →</button></div>
+  ${recenteGebeurtenissen.length ? `<div class="card">${recenteGebeurtenissen.map(g=>{
+    const type = GEBEURTENIS_TYPES[g.type] || {label:g.type, ic:'•'};
+    return `<div class="list-item"><div class="t"><b>${type.ic} ${esc(collegaNaam(g.collegaId))||'(collega verwijderd)'}</b><div class="sub">${type.label}${g.datum?' · '+relatief(g.datum):''}</div></div></div>`;
+  }).join('')}</div>` : `<div class="empty">Nog geen huwelijk, geboorte, ziekte of overlijden geregistreerd.</div>`}
 
   <div class="section-title"><h2>Jubilea dit jaar</h2></div>
   ${jubilea.length ? `<div class="card">${jubilea.map(x=>`
@@ -351,24 +382,17 @@ function renderOverzicht(){
 /* ===================================================================== */
 /* Collega's                                                              */
 function collegaFormHtml(c){
-  c = c || {naam:'',verjDag:'',verjMaand:'',indienst:'',lidFeestcomite:false};
-  const maandOpts = MND.map((m,i)=>`<option value="${i+1}" ${Number(c.verjMaand)===i+1?'selected':''}>${m}</option>`).join('');
+  c = c || {naam:'',indienst:'',lidFeestcomite:false};
   return `
     <div class="field"><label>Naam</label><input name="naam" required value="${esc(c.naam)}"></div>
-    <div class="field-row">
-      <div class="field"><label>Verjaardag — dag</label><input name="verjDag" type="number" min="1" max="31" value="${c.verjDag||''}"></div>
-      <div class="field"><label>Verjaardag — maand</label><select name="verjMaand"><option value="">—</option>${maandOpts}</select></div>
-    </div>
-    <div class="hint">Enkel dag + maand, geen geboortejaar nodig.</div>
     <div class="field"><label>In dienst sinds</label><input name="indienst" type="date" value="${esc(c.indienst||'')}"></div>
+    <div class="hint">Bepaalt de jubilea (5, 10, 15… jaar dienst) op het overzicht.</div>
     <div class="field row"><label style="margin:0"><input type="checkbox" name="lidFeestcomite" ${c.lidFeestcomite?'checked':''}> Lid van het feestcomité</label></div>
   `;
 }
 function readCollegaForm(fd){
   return {
     naam: String(fd.get('naam')||'').trim(),
-    verjDag: fd.get('verjDag') ? Number(fd.get('verjDag')) : null,
-    verjMaand: fd.get('verjMaand') ? Number(fd.get('verjMaand')) : null,
     indienst: String(fd.get('indienst')||''),
     lidFeestcomite: fd.get('lidFeestcomite') === 'on',
   };
@@ -398,9 +422,9 @@ function editCollega(id){
 }
 function bulkAddCollegas(){
   openSheet('Meerdere collega\'s toevoegen', `
-    <div class="hint">Eén per lijn: <b>Naam; DD-MM; jjjj-mm-dd</b> — de laatste twee mogen leeg blijven.<br>Bv. <i>Jan Peeters; 14-03; 2016-05-01</i></div>
-    <div class="field"><textarea name="bulk" rows="8" placeholder="Jan Peeters; 14-03; 2016-05-01
-Marie Janssens; 02-11"></textarea></div>
+    <div class="hint">Eén per lijn: <b>Naam; jjjj-mm-dd</b> — de datum (in dienst sinds) mag leeg blijven.<br>Bv. <i>Jan Peeters; 2016-05-01</i></div>
+    <div class="field"><textarea name="bulk" rows="8" placeholder="Jan Peeters; 2016-05-01
+Marie Janssens"></textarea></div>
   `, 'Toevoegen', fd=>{
     const raw = String(fd.get('bulk')||'');
     const lines = raw.split('\n').map(l=>l.trim()).filter(Boolean);
@@ -409,11 +433,9 @@ Marie Janssens; 02-11"></textarea></div>
       lines.forEach(line=>{
         const parts = line.split(';').map(p=>p.trim());
         const naam = parts[0]; if(!naam) return;
-        let verjDag=null, verjMaand=null;
-        if(parts[1]){ const m=parts[1].match(/^(\d{1,2})[\-\/](\d{1,2})$/); if(m){ verjDag=Number(m[1]); verjMaand=Number(m[2]); } }
         let indienst='';
-        if(parts[2] && /^\d{4}-\d{2}-\d{2}$/.test(parts[2])) indienst=parts[2];
-        doc.collegas.push({id:uid(), naam, verjDag, verjMaand, indienst, lidFeestcomite:false, bijdragen:{}});
+        if(parts[1] && /^\d{4}-\d{2}-\d{2}$/.test(parts[1])) indienst=parts[1];
+        doc.collegas.push({id:uid(), naam, indienst, lidFeestcomite:false, bijdragen:{}});
         n++;
       });
     });
@@ -450,15 +472,17 @@ function renderCollegas(){
   ${lijst.length ? `<div class="card">${lijst.map(c=>{
     const betaald = c.bijdragen && c.bijdragen[dit] && c.bijdragen[dit].paid;
     const jaren = dienstjaren(c.indienst);
-    const verj = c.verjDag&&c.verjMaand ? `🎂 ${c.verjDag} ${MND_KORT[c.verjMaand-1]}` : '';
     const dienst = jaren!=null ? `${jaren} jaar in dienst` : '';
     return `<div class="list-item">
       <div class="t">
         <b>${esc(c.naam)}${c.lidFeestcomite?' <span class="badge">comité</span>':''}</b>
-        <div class="sub">${[verj,dienst].filter(Boolean).join(' · ')||'—'}</div>
+        <div class="sub">${dienst||'—'}</div>
       </div>
       <button class="pill ${betaald?'good':'bad'}" data-toggle-bijdrage="${c.id}">${betaald?'✓ '+dit:'nog niet betaald'}</button>
-      <div class="actionsrow"><button class="iconlink" data-edit-collega="${c.id}">✏️</button></div>
+      <div class="actionsrow">
+        <button class="iconlink" data-add-gebeurtenis="${c.id}" title="Huwelijk, geboorte, ziekte of overlijden melden">💐</button>
+        <button class="iconlink" data-edit-collega="${c.id}">✏️</button>
+      </div>
     </div>`;
   }).join('')}</div>` : `<div class="empty">${state.q?'Geen collega gevonden.':"Nog geen collega's toegevoegd."}</div>`}
   `;
@@ -491,11 +515,26 @@ function delTx(id){
 }
 function renderKas(){
   const txs = state.doc.kas.transacties.slice().sort((a,b)=>b.datum.localeCompare(a.datum));
-  const s = saldo();
+  const s = saldoBoekingen();
+  const bs = banksaldo();
+  const iban = state.doc.kas.iban || '';
   return `
   <div class="card hero">
-    <div class="small muted">Saldo groepspot</div>
-    <div style="font-size:28px;font-weight:800;color:${s>=0?'var(--good)':'var(--bad)'}">${fmtEUR(s)}</div>
+    <div class="field" style="margin-bottom:0">
+      <label>Banksaldo (het echte saldo op de rekening)</label>
+      <input id="banksaldoInput" type="number" step="0.01" placeholder="Nog niet ingevuld" value="${bs.bedrag!=null?bs.bedrag:''}">
+    </div>
+    ${bs.bijgewerktOp ? `<div class="small muted" style="margin-top:6px">Laatst gecontroleerd op ${fmtVol(bs.bijgewerktOp)}</div>` : `<div class="small muted" style="margin-top:6px">Vul in wat de bank toont — dat wordt het saldo op het overzicht.</div>`}
+  </div>
+  <div class="card">
+    <div class="field" style="margin-bottom:0">
+      <label>IBAN van de feestcomité-rekening</label>
+      <div class="row">
+        <input data-field="kas.iban" style="flex:1" placeholder="Bv. BE00 0000 0000 0000" value="${esc(iban)}">
+        ${iban ? `<button type="button" class="iconlink" id="btnCopyIban" title="Kopieer IBAN">📋</button>` : ''}
+      </div>
+    </div>
+    <div class="hint" style="margin-top:6px">Collega's storten hun bijdrage rechtstreeks op deze rekening; het banksaldo hierboven houd je zelf up-to-date.</div>
   </div>
   <div class="card">
     <div class="field" style="margin-bottom:0">
@@ -503,7 +542,8 @@ function renderKas(){
       <input data-field="bijdrage.bedrag" data-type="number" type="number" step="0.01" min="0" value="${state.doc.bijdrage.bedrag}">
     </div>
   </div>
-  <div class="section-title"><h2>Boekingen</h2><button class="btn" id="btnAddTx" style="padding:6px 12px;font-size:13px">+ Toevoegen</button></div>
+  <div class="section-title"><h2>Boekingen (handmatig bijgehouden)</h2><button class="btn" id="btnAddTx" style="padding:6px 12px;font-size:13px">+ Toevoegen</button></div>
+  <div class="small muted" style="margin:-4px 0 8px">Som van onderstaande boekingen: <b>${fmtEUR(s)}</b> — ter referentie, naast het echte banksaldo hierboven.</div>
   ${txs.length ? `<div class="card">${txs.map(t=>`
     <div class="list-item">
       <div class="t"><b>${esc(t.omschrijving)||(t.type==='uitgave'?'Uitgave':'Inkomst')}</b><div class="sub">${fmtKort(t.datum)}</div></div>
@@ -511,6 +551,59 @@ function renderKas(){
       <button class="iconlink" data-del-tx="${t.id}">🗑️</button>
     </div>
   `).join('')}</div>` : `<div class="empty">Nog geen boekingen.</div>`}
+  `;
+}
+
+/* ===================================================================== */
+/* Aandacht bij collega's (huwelijk, geboorte, ziekte, overlijden)        */
+function gebeurtenisFormHtml(g){
+  g = g || {collegaId:'', type:'geboorte', datum:todayISO(), notities:''};
+  const collegaOpts = collegasGesorteerd().map(c=>`<option value="${c.id}" ${g.collegaId===c.id?'selected':''}>${esc(c.naam)}</option>`).join('');
+  const typeOpts = Object.entries(GEBEURTENIS_TYPES).map(([k,v])=>`<option value="${k}" ${g.type===k?'selected':''}>${v.ic} ${v.label}</option>`).join('');
+  return `
+    <div class="field"><label>Collega</label><select name="collegaId" required><option value="">— kies —</option>${collegaOpts}</select></div>
+    <div class="field-row">
+      <div class="field"><label>Soort</label><select name="type">${typeOpts}</select></div>
+      <div class="field"><label>Datum</label><input name="datum" type="date" value="${esc(g.datum||todayISO())}"></div>
+    </div>
+    <div class="field"><label>Notities</label><textarea name="notities" placeholder="Bv. adres voor bloemen, naam van de baby…">${esc(g.notities||'')}</textarea></div>
+  `;
+}
+function readGebeurtenisForm(fd){
+  return { collegaId:String(fd.get('collegaId')||''), type:String(fd.get('type')||'geboorte'), datum:String(fd.get('datum')||todayISO()), notities:String(fd.get('notities')||'') };
+}
+function addGebeurtenis(prefillCollegaId){
+  openSheet('Aandacht melden', gebeurtenisFormHtml(prefillCollegaId?{collegaId:prefillCollegaId,type:'geboorte',datum:todayISO(),notities:''}:null), 'Toevoegen', fd=>{
+    const data = readGebeurtenisForm(fd); if(!data.collegaId) return;
+    mutate(doc=>doc.gebeurtenissen.push({id:uid(), ...data}));
+    closeSheet();
+  });
+}
+function editGebeurtenis(id){
+  const g = gebeurtenis(id); if(!g) return;
+  const del = `<button type="button" class="btn danger" id="delBtn">Verwijderen</button>`;
+  openSheet('Aandacht bewerken', gebeurtenisFormHtml(g), 'Opslaan', fd=>{
+    const data = readGebeurtenisForm(fd); if(!data.collegaId) return;
+    mutate(doc=>{ Object.assign(gebeurtenis(id), data); });
+    closeSheet();
+  }, del);
+  $('#delBtn').onclick = ()=>{
+    mutate(doc=>{ doc.gebeurtenissen = doc.gebeurtenissen.filter(x=>x.id!==id); doc.taken.forEach(t=>{ if(t.gebeurtenisId===id) t.gebeurtenisId=''; }); });
+    closeSheet();
+  };
+}
+function renderGebeurtenissen(){
+  const lijst = state.doc.gebeurtenissen.slice().sort((a,b)=>(b.datum||'').localeCompare(a.datum||''));
+  return `
+  <div class="section-title"><h2>Aandacht bij collega's</h2><button class="btn" id="btnAddGebeurtenis" style="padding:6px 12px;font-size:13px">+ Melden</button></div>
+  ${lijst.length ? lijst.map(g=>{
+    const type = GEBEURTENIS_TYPES[g.type] || {label:g.type, ic:'•'};
+    const openTaken = state.doc.taken.filter(t=>t.gebeurtenisId===g.id && !t.klaar).length;
+    return `<div class="card row between">
+      <div class="t"><b>${type.ic} ${esc(collegaNaam(g.collegaId))||'(collega verwijderd)'}</b><div class="sub">${type.label}${g.datum?' · '+fmtVol(g.datum):''}${openTaken?' · '+openTaken+' open taak/taken':''}</div>${g.notities?`<div class="small muted" style="margin-top:4px">${esc(g.notities)}</div>`:''}</div>
+      <button class="iconlink" data-edit-gebeurtenis="${g.id}">✏️</button>
+    </div>`;
+  }).join('') : `<div class="empty">Nog niets gemeld. Gebruik "+ Melden" of het 💐-icoontje bij een collega.</div>`}
   `;
 }
 
@@ -556,12 +649,12 @@ function editAct(id){
     closeSheet();
   };
 }
-function renderActiviteiten(){
+function renderAgenda(){
   const lijst = state.doc.activiteiten.slice().sort((a,b)=>(a.datum||'9999').localeCompare(b.datum||'9999'));
   return `
-  <div class="row" style="margin-bottom:10px;justify-content:flex-end">
-    <button class="btn" id="btnAddAct">+ Activiteit</button>
-  </div>
+  ${renderGebeurtenissen()}
+
+  <div class="section-title"><h2>Geplande activiteiten</h2><button class="btn" id="btnAddAct" style="padding:6px 12px;font-size:13px">+ Activiteit</button></div>
   ${lijst.length ? lijst.map(a=>{
     const openTaken = state.doc.taken.filter(t=>t.activiteitId===a.id && !t.klaar).length;
     return `<div class="card row between">
@@ -578,18 +671,23 @@ function renderActiviteiten(){
 /* ===================================================================== */
 /* Taken                                                                  */
 function taakFormHtml(t){
-  t = t || {omschrijving:'',toegewezenAan:'',activiteitId:'',deadline:''};
+  t = t || {omschrijving:'',toegewezenAan:'',activiteitId:'',gebeurtenisId:'',deadline:''};
   const collegaOpts = collegasGesorteerd().map(c=>`<option value="${c.id}" ${t.toegewezenAan===c.id?'selected':''}>${esc(c.naam)}</option>`).join('');
   const actOpts = state.doc.activiteiten.map(a=>`<option value="${a.id}" ${t.activiteitId===a.id?'selected':''}>${esc(a.naam)}</option>`).join('');
+  const gebOpts = state.doc.gebeurtenissen.map(g=>{
+    const type = GEBEURTENIS_TYPES[g.type]||{label:g.type,ic:'•'};
+    return `<option value="${g.id}" ${t.gebeurtenisId===g.id?'selected':''}>${type.ic} ${esc(collegaNaam(g.collegaId))} — ${type.label}</option>`;
+  }).join('');
   return `
     <div class="field"><label>Taak</label><input name="omschrijving" required value="${esc(t.omschrijving)}" placeholder="Bv. cadeaubon bestellen"></div>
     <div class="field"><label>Toegewezen aan</label><select name="toegewezenAan"><option value="">— niemand —</option>${collegaOpts}</select></div>
     <div class="field"><label>Bij activiteit</label><select name="activiteitId"><option value="">— geen —</option>${actOpts}</select></div>
+    <div class="field"><label>Bij aandacht (huwelijk/geboorte/ziekte/overlijden)</label><select name="gebeurtenisId"><option value="">— geen —</option>${gebOpts}</select></div>
     <div class="field"><label>Deadline</label><input name="deadline" type="date" value="${esc(t.deadline||'')}"></div>
   `;
 }
 function readTaakForm(fd){
-  return { omschrijving:String(fd.get('omschrijving')||'').trim(), toegewezenAan:String(fd.get('toegewezenAan')||''), activiteitId:String(fd.get('activiteitId')||''), deadline:String(fd.get('deadline')||'') };
+  return { omschrijving:String(fd.get('omschrijving')||'').trim(), toegewezenAan:String(fd.get('toegewezenAan')||''), activiteitId:String(fd.get('activiteitId')||''), gebeurtenisId:String(fd.get('gebeurtenisId')||''), deadline:String(fd.get('deadline')||'') };
 }
 function addTaak(){
   openSheet('Taak toevoegen', taakFormHtml(), 'Toevoegen', fd=>{
@@ -623,7 +721,7 @@ function renderTaken(){
       <button class="check ${t.klaar?'on':''}" data-toggle-taak="${t.id}">${t.klaar?'✓':''}</button>
       <div class="t" data-edit-taak="${t.id}">
         <b>${esc(t.omschrijving)}</b>
-        <div class="sub">${t.toegewezenAan?esc(collegaNaam(t.toegewezenAan)):'niemand toegewezen'}${t.activiteitId?' · '+esc(activiteitNaam(t.activiteitId)):''}${t.deadline?` · <span style="${overdue?'color:var(--bad);font-weight:700':''}">tegen ${fmtKort(t.deadline)}</span>`:''}</div>
+        <div class="sub">${t.toegewezenAan?esc(collegaNaam(t.toegewezenAan)):'niemand toegewezen'}${t.activiteitId?' · '+esc(activiteitNaam(t.activiteitId)):''}${t.gebeurtenisId&&gebeurtenis(t.gebeurtenisId)?' · '+esc((GEBEURTENIS_TYPES[gebeurtenis(t.gebeurtenisId).type]||{}).label||'')+' '+esc(collegaNaam(gebeurtenis(t.gebeurtenisId).collegaId)):''}${t.deadline?` · <span style="${overdue?'color:var(--bad);font-weight:700':''}">tegen ${fmtKort(t.deadline)}</span>`:''}</div>
       </div>
     </div>`;
   }
@@ -644,8 +742,9 @@ function renderInfo(){
   <button class="backlink" data-goto="overzicht">← Terug</button>
   <div class="infobox">
     Iedereen met deze link kan dit overzicht bekijken <b>én</b> aanpassen — er is geen login.
-    Deel de link dus enkel binnen het team, en zet er niet meer persoonlijke info in dan nodig
-    (bv. enkel dag + maand van een verjaardag, geen geboortejaar).
+    Deel de link dus enkel binnen het team. Bij "Aandacht bij collega's" gaat het soms om gevoelige
+    info (ziekte, overlijden) — noteer daar alleen wat het comité nodig heeft om iets te sturen of
+    te regelen, niet meer dan dat.
   </div>
   <div class="card">
     <div class="field"><label>Adres / locatie</label>
@@ -670,7 +769,7 @@ function render(){
   if(state.tab==='overzicht') html = renderOverzicht();
   else if(state.tab==='collegas') html = renderCollegas();
   else if(state.tab==='kas') html = renderKas();
-  else if(state.tab==='activiteiten') html = renderActiviteiten();
+  else if(state.tab==='agenda') html = renderAgenda();
   else if(state.tab==='taken') html = renderTaken();
   else if(state.tab==='info') html = renderInfo();
   $('#main').innerHTML = html;
@@ -695,12 +794,25 @@ function wireMain(){
   const btnBulk = $('#btnBulk'); if(btnBulk) btnBulk.onclick = bulkAddCollegas;
   m.querySelectorAll('[data-edit-collega]').forEach(b=>b.onclick=()=>editCollega(b.dataset.editCollega));
   m.querySelectorAll('[data-toggle-bijdrage]').forEach(b=>b.onclick=()=>toggleBijdrage(b.dataset.toggleBijdrage));
+  m.querySelectorAll('[data-add-gebeurtenis]').forEach(b=>b.onclick=()=>addGebeurtenis(b.dataset.addGebeurtenis));
 
   // kas
   const btnAddTx = $('#btnAddTx'); if(btnAddTx) btnAddTx.onclick = addTx;
   m.querySelectorAll('[data-del-tx]').forEach(b=>b.onclick=()=>delTx(b.dataset.delTx));
+  const banksaldoInput = $('#banksaldoInput'); if(banksaldoInput) banksaldoInput.addEventListener('change', ()=>{
+    const v = banksaldoInput.value===''?null:Number(banksaldoInput.value);
+    mutate(doc=>{ doc.kas.banksaldo = {bedrag:v, bijgewerktOp: v==null?null:todayISO()}; });
+  });
+  const btnCopyIban = $('#btnCopyIban'); if(btnCopyIban) btnCopyIban.onclick = async ()=>{
+    try{ await navigator.clipboard.writeText(state.doc.kas.iban||''); toast('IBAN gekopieerd'); }
+    catch(e){ toast(state.doc.kas.iban||''); }
+  };
 
-  // activiteiten
+  // agenda: aandacht bij collega's
+  const btnAddGeb = $('#btnAddGebeurtenis'); if(btnAddGeb) btnAddGeb.onclick = ()=>addGebeurtenis();
+  m.querySelectorAll('[data-edit-gebeurtenis]').forEach(b=>b.onclick=()=>editGebeurtenis(b.dataset.editGebeurtenis));
+
+  // agenda: activiteiten
   const btnAddAct = $('#btnAddAct'); if(btnAddAct) btnAddAct.onclick = addAct;
   m.querySelectorAll('[data-edit-act]').forEach(b=>b.onclick=()=>editAct(b.dataset.editAct));
 
@@ -723,7 +835,7 @@ $('#bottomnav').addEventListener('click', e=>{
 $('#btnInfo').onclick = ()=>{ state.tab='info'; render(); };
 document.addEventListener('visibilitychange', async ()=>{
   if(document.hidden||state.dirty||state.saving) return;
-  try{ const r=await api('/data'); if(r.version!==state.doc.version){ state.doc=r; render(); } }catch(e){}
+  try{ const r=await api('/data'); if(r.version!==state.doc.version){ state.doc=normalizeDoc(r); render(); } }catch(e){}
 });
 
 load();
