@@ -211,29 +211,6 @@
 </head>
 <body>
 
-<!-- ============ AANMELDSCHERM (voorbeeld, in de demo overgeslagen) ============ -->
-<div class="login" id="login" hidden>
-  <div class="login-card">
-    <div class="brand">Vooruit <span>Essen</span></div>
-    <div class="sub">Beheer · vooruitessen.be/beheer</div>
-    <form id="step1">
-      <h1>Aanmelden</h1>
-      <p>Geen wachtwoord nodig. Vul je e-mailadres in en je krijgt een code van zes cijfers in je mailbox.</p>
-      <div class="field"><label for="lemail">Je e-mailadres</label><input type="email" id="lemail" autocomplete="email" placeholder="voornaam@voorbeeld.be" required></div>
-      <button class="btn primary block" type="submit">Stuur me een code</button>
-      <p class="fine">Alleen adressen die de afdeling toevoegde, kunnen aanmelden.</p>
-    </form>
-    <form id="step2" hidden>
-      <h1>Code invullen</h1>
-      <p>We stuurden een code naar <b id="lto"></b>. Hij blijft 10 minuten geldig.</p>
-      <div class="field"><label for="lcode">Code</label><input type="text" id="lcode" class="code" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="one-time-code" required></div>
-      <button class="btn primary block" type="submit">Aanmelden</button>
-      <p class="fine"><a href="#" id="lback">Ander adres</a></p>
-    </form>
-    <p class="fine" style="margin-top:22px;padding-top:16px;border-top:1px solid var(--line)">Zo ziet aanmelden er straks uit. In de demo hoef je dat niet: <a href="#" id="lskip">terug naar het beheer →</a></p>
-  </div>
-</div>
-
 <!-- ============ APP ============ -->
 <div id="app">
   <div class="bar">
@@ -241,7 +218,7 @@
       <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
       <a class="brand" href="../">Vooruit <span>Essen</span><small>Beheer</small></a>
     </div>
-    <div class="user"><span class="mail-addr">Aangemeld als <b id="uEmail"></b></span><span class="role">Redacteur · mag publiceren</span><a href="#" id="showLogin" title="Bekijk hoe aanmelden er straks uitziet">Aanmeldscherm</a></div>
+    <div class="user"><span class="mail-addr">Aangemeld als <b id="uEmail"></b></span><span class="role">Redacteur · mag publiceren</span></div>
   </div>
   <div class="shell">
     <aside class="side" id="side">
@@ -495,16 +472,10 @@
   function today() { return new Date().toISOString().slice(0, 10); }
   function upcoming() { var t = today(); return events().filter(function (e) { return e.d >= t; }).sort(function (a, b) { return a.d < b.d ? -1 : 1; }); }
 
-  // ---------- aanmelden (in de demo overgeslagen) ----------
-  var DEMO_USER = 'redactie@vooruitessen.be';
-  var user = sessionStorage.getItem('ve_admin') || DEMO_USER;
+  // ---------- demo-gebruiker (hoe aanmelden straks werkt, beslist de afdeling nog) ----------
+  var user = sessionStorage.getItem('ve_admin') || 'redactie@vooruitessen.be';
   function startView() { var h = (location.hash || '').replace('#', ''); return ['overzicht', 'artikelen', 'agenda', 'nieuwsbrief', 'cijfers', 'mensen'].indexOf(h) >= 0 ? h : 'overzicht'; }
-  function showApp() { $('#login').hidden = true; $('#app').hidden = false; $('#uEmail').textContent = user; go(startView()); }
-  $('#showLogin').addEventListener('click', function (e) { e.preventDefault(); $('#app').hidden = true; $('#login').hidden = false; $('#step2').hidden = true; $('#step1').hidden = false; $('#lcode').value = ''; window.scrollTo(0, 0); });
-  $('#lskip').addEventListener('click', function (e) { e.preventDefault(); showApp(); });
-  $('#step1').addEventListener('submit', function (e) { e.preventDefault(); var em = $('#lemail').value.trim(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { alert('Vul een geldig e-mailadres in.'); return; } $('#lto').textContent = em; $('#step1').hidden = true; $('#step2').hidden = false; $('#lcode').focus(); });
-  $('#step2').addEventListener('submit', function (e) { e.preventDefault(); if (!/^\d{6}$/.test($('#lcode').value.trim())) { alert('De code bestaat uit zes cijfers.'); return; } user = $('#lto').textContent; sessionStorage.setItem('ve_admin', user); showApp(); toast('Welkom! Je bent aangemeld als <b>' + esc(user) + '</b>'); });
-  $('#lback').addEventListener('click', function (e) { e.preventDefault(); $('#step2').hidden = true; $('#step1').hidden = false; });
+  function showApp() { $('#app').hidden = false; $('#uEmail').textContent = user; go(startView()); }
 
   // ---------- navigatie ----------
   var RENDER = {};
