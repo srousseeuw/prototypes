@@ -193,7 +193,13 @@
     section{padding:48px 0}.hero .wrap{padding:64px 24px 48px}
     .grid3,.grid4,.quick,.sponsors{grid-template-columns:1fr}.sponsors{grid-template-columns:1fr 1fr}
     .fgrid{grid-template-columns:1fr}.rep{grid-template-columns:1fr;gap:6px}.ev{grid-template-columns:1fr}.ev .d{text-align:left;display:flex;gap:10px;align-items:baseline}
-    .chips{top:70px}
+    .chips{top:70px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:10px 0;margin:0 -24px;padding-left:24px;padding-right:24px}
+    .chips::-webkit-scrollbar{display:none}
+    .chips a,.chips button{flex:none;min-height:40px;display:inline-flex;align-items:center}
+    .people{grid-template-columns:1fr!important}
+    .grid2>img{width:100%}
+    footer li{margin-bottom:10px}footer a{display:inline-block;padding:3px 0}
+    .hero .acts .cta{flex:1 1 40%;text-align:center}
   }
   a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--geel);outline-offset:2px}
 </style>

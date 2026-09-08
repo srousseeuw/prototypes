@@ -60,7 +60,18 @@
   .src{font-size:.85rem;color:var(--muted)}
   .src a{color:var(--muted)}
   footer{margin-top:56px;padding:20px 0 40px;border-top:3px solid var(--paars-d);font-size:.86rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-  @media(max-width:700px){.cols{grid-template-columns:1fr}}
+  @media(max-width:700px){
+    .cols{grid-template-columns:1fr}
+    .tablewrap{border:0;overflow:visible}
+    table,tbody,tr,td{display:block;width:100%}
+    thead{display:none}
+    tr{border:1px solid var(--line);border-radius:8px;padding:6px 14px 10px;margin-bottom:10px;background:#fff}
+    td{border:0;padding:6px 0}
+    td.num{text-align:left}
+    td::before{content:attr(data-label);display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:2px}
+    .toc{gap:4px 14px}
+    .steps>li{padding-left:48px}.steps>li::before{width:34px;height:34px}
+  }
 </style>
 </head>
 <body>
@@ -90,11 +101,11 @@
   <div class="tablewrap"><table>
     <thead><tr><th>Onderdeel</th><th>Vandaag</th><th>Wat we zagen</th></tr></thead>
     <tbody>
-      <tr><td><b>Website</b></td><td>Squarespace, gebouwd door Glorious Brands (sponsor), online sinds augustus 2024. 36 pagina's, 11 nieuwsberichten, 38 wedstrijdverslagen, 11 evenementen.</td><td>Veel dubbele pagina's (route staat twee keer, eerste elftal twee keer, U6 twee keer), lege contactvelden bij de meeste jeugdploegen, voorbije evenementen onder “aankomende”, vijf testevenementen (“Event One” tot “Five”) nog online, een dode link “services”, paginatitels als “About 5”. Overal staat “zie SportEasy” voor de kalender.</td></tr>
-      <tr><td><b>SportEasy</b></td><td>Per ploeg: kalender, aanwezigheden, opstelling, berichten. Ouders en spelers sluiten aan met een ploegcode of uitnodiging.</td><td>Onbekend of de club het gratis teamabonnement of het betalende clubabonnement gebruikt (Classic € 3,96 per lid per jaar bij jaarlijkse betaling; “Sponsors”-formule € 5,76). Na te kijken bij wie de ploegen aanmaakte.</td></tr>
-      <tr><td><b>E-Kickoff (KBVB)</b></td><td>Wedstrijdbladen, aansluitingen, aanwezigheidslijsten — verplicht vanuit de bond.</td><td>Blijft bestaan, ook met VoetbalAssist. VoetbalAssist leest de KBVB-data; het vervangt E-Kickoff niet.</td></tr>
-      <tr><td><b>Domein en e-mail</b></td><td>ksvwildert.be is sinds 2008 geregistreerd bij Level27 (Belgische hoster); DNS en de mailboxen (info@…) draaien bij Level27. De site zelf wijst naar Squarespace.</td><td>Drie leveranciers voor één adres. Bij een overstap moet Level27 de DNS aanpassen; de mail kan blijven of mee verhuizen.</td></tr>
-      <tr><td><b>Overige</b></td><td>Joma-clubwebshop, Trooper, Facebook, Squarespace-formulieren (inschrijven, Multimove), Squarespace-webshop (leeg).</td><td>Blijven grotendeels zoals ze zijn; formulieren worden opnieuw gemaakt in VoetbalAssist.</td></tr>
+      <tr><td data-label="Onderdeel"><b>Website</b></td><td data-label="Vandaag">Squarespace, gebouwd door Glorious Brands (sponsor), online sinds augustus 2024. 36 pagina's, 11 nieuwsberichten, 38 wedstrijdverslagen, 11 evenementen.</td><td data-label="Wat we zagen">Veel dubbele pagina's (route staat twee keer, eerste elftal twee keer, U6 twee keer), lege contactvelden bij de meeste jeugdploegen, voorbije evenementen onder “aankomende”, vijf testevenementen (“Event One” tot “Five”) nog online, een dode link “services”, paginatitels als “About 5”. Overal staat “zie SportEasy” voor de kalender.</td></tr>
+      <tr><td data-label="Onderdeel"><b>SportEasy</b></td><td data-label="Vandaag">Per ploeg: kalender, aanwezigheden, opstelling, berichten. Ouders en spelers sluiten aan met een ploegcode of uitnodiging.</td><td data-label="Wat we zagen">Onbekend of de club het gratis teamabonnement of het betalende clubabonnement gebruikt (Classic € 3,96 per lid per jaar bij jaarlijkse betaling; “Sponsors”-formule € 5,76). Na te kijken bij wie de ploegen aanmaakte.</td></tr>
+      <tr><td data-label="Onderdeel"><b>E-Kickoff (KBVB)</b></td><td data-label="Vandaag">Wedstrijdbladen, aansluitingen, aanwezigheidslijsten — verplicht vanuit de bond.</td><td data-label="Wat we zagen">Blijft bestaan, ook met VoetbalAssist. VoetbalAssist leest de KBVB-data; het vervangt E-Kickoff niet.</td></tr>
+      <tr><td data-label="Onderdeel"><b>Domein en e-mail</b></td><td data-label="Vandaag">ksvwildert.be is sinds 2008 geregistreerd bij Level27 (Belgische hoster); DNS en de mailboxen (info@…) draaien bij Level27. De site zelf wijst naar Squarespace.</td><td data-label="Wat we zagen">Drie leveranciers voor één adres. Bij een overstap moet Level27 de DNS aanpassen; de mail kan blijven of mee verhuizen.</td></tr>
+      <tr><td data-label="Onderdeel"><b>Overige</b></td><td data-label="Vandaag">Joma-clubwebshop, Trooper, Facebook, Squarespace-formulieren (inschrijven, Multimove), Squarespace-webshop (leeg).</td><td data-label="Wat we zagen">Blijven grotendeels zoals ze zijn; formulieren worden opnieuw gemaakt in VoetbalAssist.</td></tr>
     </tbody>
   </table></div>
   <p>Het prototype op <a href="../">prototype.ocior.be/ksv-wildert</a> toont dezelfde inhoud herordend in zes rubrieken; die structuur is meteen ook het spoorboekje voor de menu-indeling in VoetbalAssist.</p>
@@ -128,12 +139,12 @@
   <div class="tablewrap"><table>
     <thead><tr><th>Post</th><th class="num">Bedrag</th><th>Toelichting</th></tr></thead>
     <tbody>
-      <tr><td>Opstartkosten</td><td class="num">€ 100 eenmalig</td><td>—</td></tr>
-      <tr><td>Basispakket</td><td class="num">€ 2 per lid per jaar</td><td>Minimum € 455, maximum € 2.000 per jaar. Geteld worden spelende en niet-spelende leden en vrijwilligers. Met ongeveer 14 ploegen zit KSV Wildert vermoedelijk onder de 228 leden en dus op het <b>minimum van € 455</b>. Voor kleine clubs (&lt; 175 leden) “denkt VoetbalAssist mee” — te bespreken.</td></tr>
-      <tr><td>KBVB Dataservice</td><td class="num">€ 100 per jaar</td><td>Aparte factuur rond 1 september. De realtime koppeling met programma, uitslagen en standen.</td></tr>
-      <tr><td>ClubApp</td><td class="num">€ 150 eenmalig</td><td>Optioneel, maar zonder app vervangen we SportEasy niet.</td></tr>
-      <tr><td>Extra supportgebruiker</td><td class="num">€ 95 per jaar</td><td>Optioneel. Eén persoon mag standaard vragen stellen aan VoetbalAssist; een tweede (bv. secretaris naast webmaster) kost € 95.</td></tr>
-      <tr><td>E-mailpakket</td><td class="num">op aanvraag</td><td>Basis (5 adressen) of Plus (onbeperkt). Alleen nodig als we de mail van Level27 verhuizen.</td></tr>
+      <tr><td data-label="Post">Opstartkosten</td><td class="num" data-label="Bedrag">€ 100 eenmalig</td><td data-label="Toelichting">—</td></tr>
+      <tr><td data-label="Post">Basispakket</td><td class="num" data-label="Bedrag">€ 2 per lid per jaar</td><td data-label="Toelichting">Minimum € 455, maximum € 2.000 per jaar. Geteld worden spelende en niet-spelende leden en vrijwilligers. Met ongeveer 14 ploegen zit KSV Wildert vermoedelijk onder de 228 leden en dus op het <b>minimum van € 455</b>. Voor kleine clubs (&lt; 175 leden) “denkt VoetbalAssist mee” — te bespreken.</td></tr>
+      <tr><td data-label="Post">KBVB Dataservice</td><td class="num" data-label="Bedrag">€ 100 per jaar</td><td data-label="Toelichting">Aparte factuur rond 1 september. De realtime koppeling met programma, uitslagen en standen.</td></tr>
+      <tr><td data-label="Post">ClubApp</td><td class="num" data-label="Bedrag">€ 150 eenmalig</td><td data-label="Toelichting">Optioneel, maar zonder app vervangen we SportEasy niet.</td></tr>
+      <tr><td data-label="Post">Extra supportgebruiker</td><td class="num" data-label="Bedrag">€ 95 per jaar</td><td data-label="Toelichting">Optioneel. Eén persoon mag standaard vragen stellen aan VoetbalAssist; een tweede (bv. secretaris naast webmaster) kost € 95.</td></tr>
+      <tr><td data-label="Post">E-mailpakket</td><td class="num" data-label="Bedrag">op aanvraag</td><td data-label="Toelichting">Basis (5 adressen) of Plus (onbeperkt). Alleen nodig als we de mail van Level27 verhuizen.</td></tr>
     </tbody>
   </table></div>
   <div class="cols">
@@ -149,10 +160,10 @@
   <div class="tablewrap"><table>
     <thead><tr><th>Wie</th><th>Vandaag</th><th>Met VoetbalAssist</th></tr></thead>
     <tbody>
-      <tr><td><b>Ouders en spelers</b></td><td>SportEasy-app per ploeg (aparte code per ploeg), Facebook voor nieuws, de site voor praktische info.</td><td>Eén ClubApp met eigen login: kalender uit de KBVB, nieuws met push, ploegpagina, profiel met eigen privacy-instellingen. Eén keer aansluiten, alle ploegen van het gezin.</td></tr>
-      <tr><td><b>Trainers en afgevaardigden</b></td><td>Wedstrijden zelf aanmaken in SportEasy, aanwezigheden vragen, opstelling delen; E-Kickoff voor de wedstrijdbladen.</td><td>Wedstrijden komen automatisch uit de KBVB; aanwezigheid, speeltijd en opstelling in het spelervolgsysteem; push naar de ploeg bij afgelasting. E-Kickoff blijft voor de wedstrijdbladen.</td></tr>
-      <tr><td><b>Bestuur en secretaris</b></td><td>Site aanpassen via Squarespace (één persoon), ledenlijst in E-Kickoff en losse lijsten, sponsors handmatig.</td><td>Eén beheer met rollen; nieuwe leden via de site rechtstreeks in de administratie; sponsormodule; vrijwilligersplanning; lidgeld met automatische herinneringen; GDPR geregeld met verwerkersovereenkomst.</td></tr>
-      <tr><td><b>Sponsors</b></td><td>Logo op één pagina.</td><td>Sponsormodule op site, app en eventueel schermen in de kantine; meer bezoek omdat de kalender op de eigen site staat.</td></tr>
+      <tr><td data-label="Wie"><b>Ouders en spelers</b></td><td data-label="Vandaag">SportEasy-app per ploeg (aparte code per ploeg), Facebook voor nieuws, de site voor praktische info.</td><td data-label="Met VoetbalAssist">Eén ClubApp met eigen login: kalender uit de KBVB, nieuws met push, ploegpagina, profiel met eigen privacy-instellingen. Eén keer aansluiten, alle ploegen van het gezin.</td></tr>
+      <tr><td data-label="Wie"><b>Trainers en afgevaardigden</b></td><td data-label="Vandaag">Wedstrijden zelf aanmaken in SportEasy, aanwezigheden vragen, opstelling delen; E-Kickoff voor de wedstrijdbladen.</td><td data-label="Met VoetbalAssist">Wedstrijden komen automatisch uit de KBVB; aanwezigheid, speeltijd en opstelling in het spelervolgsysteem; push naar de ploeg bij afgelasting. E-Kickoff blijft voor de wedstrijdbladen.</td></tr>
+      <tr><td data-label="Wie"><b>Bestuur en secretaris</b></td><td data-label="Vandaag">Site aanpassen via Squarespace (één persoon), ledenlijst in E-Kickoff en losse lijsten, sponsors handmatig.</td><td data-label="Met VoetbalAssist">Eén beheer met rollen; nieuwe leden via de site rechtstreeks in de administratie; sponsormodule; vrijwilligersplanning; lidgeld met automatische herinneringen; GDPR geregeld met verwerkersovereenkomst.</td></tr>
+      <tr><td data-label="Wie"><b>Sponsors</b></td><td data-label="Vandaag">Logo op één pagina.</td><td data-label="Met VoetbalAssist">Sponsormodule op site, app en eventueel schermen in de kantine; meer bezoek omdat de kalender op de eigen site staat.</td></tr>
     </tbody>
   </table></div>
 </section>
