@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedstrijdverslagen — KSV Wildert</title>
+<meta name="description" content="Wedstrijdverslagen van de ploegen van KSV Wildert.">
+
+<link rel="icon" href="../img/logo-ksv-wildert.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--paars:#4B1F86;--paars-d:#33125F;--paars-l:#7A4FC0;--lila:#F4F0FA;--lila-2:#E6DDF4;--ink:#1B1723;--ink-2:#3D3749;--muted:#6D6680;--line:#E5E0EE;--wit:#fff;--geel:#F2B534;
+    --fd:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;--fb:'Barlow',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fb);background:var(--wit);color:var(--ink);line-height:1.55;-webkit-text-size-adjust:100%}
+  a{color:inherit}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  h1,h2,h3.d{font-family:var(--fd);text-transform:uppercase;letter-spacing:.01em;line-height:1}
+  h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;margin-bottom:8px}
+  .sub{color:var(--muted);max-width:66ch;margin-bottom:28px;font-size:1.02rem}
+  .kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--fd);text-transform:uppercase;letter-spacing:.12em;font-weight:700;font-size:.9rem;color:var(--paars);margin-bottom:10px}
+  .kicker::before{content:"";width:22px;height:4px;background:var(--geel)}
+  section{padding:64px 0}
+  section.tint{background:var(--lila)}
+  section.dark{background:var(--paars-d);color:#fff}
+  section.dark .sub{color:rgba(255,255,255,.72)}
+  section.dark .kicker{color:#fff}
+  /* header */
+  header.top{position:sticky;top:0;z-index:50;background:var(--wit);border-bottom:1px solid var(--line)}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand img{width:44px;height:44px;object-fit:contain}
+  .brand b{font-family:var(--fd);text-transform:uppercase;font-size:1.45rem;font-weight:800;letter-spacing:.02em;line-height:1}
+  .brand small{display:block;font-family:var(--fb);font-weight:600;font-size:.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+  nav.main{display:flex;gap:4px}
+  nav.main a{text-decoration:none;font-weight:600;font-size:.95rem;padding:8px 12px;border-radius:6px;color:var(--ink-2)}
+  nav.main a:hover{background:var(--lila);color:var(--paars)}
+  nav.main a[aria-current="page"]{color:var(--paars);background:var(--lila)}
+  .cta{background:var(--paars);color:#fff;text-decoration:none;font-weight:700;padding:11px 18px;border-radius:6px;font-size:.92rem;white-space:nowrap}
+  .cta:hover{background:var(--paars-d)}
+  .cta.ghost{background:transparent;border:2px solid var(--paars);color:var(--paars)}
+  .cta.ghost:hover{background:var(--lila)}
+  .cta.wit{background:#fff;color:var(--paars)}
+  .cta.wit:hover{background:var(--lila)}
+  .cta.outl{background:transparent;border:2px solid rgba(255,255,255,.55);color:#fff}
+  .cta.outl:hover{border-color:#fff}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
+  .nav-toggle span{display:block;width:24px;height:3px;background:var(--ink);margin:5px 0;border-radius:2px}
+  #nav-check{display:none}
+  .mobile-menu{display:none}
+  /* hero */
+  .hero{position:relative;background:var(--paars-d);color:#fff;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;background:url(../img/img-20240823-203610-2.jpg) center/cover;opacity:.32}
+  .hero .wrap{position:relative;padding:96px 24px 72px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}
+  .hero h1{font-size:clamp(3rem,8vw,6rem);font-weight:800;line-height:.92;margin-bottom:14px}
+  .hero h1 em{font-style:normal;color:var(--geel)}
+  .hero p{max-width:52ch;font-size:1.12rem;color:rgba(255,255,255,.88)}
+  .hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .facts{display:grid;gap:10px}
+  .fact{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px 16px;backdrop-filter:blur(4px)}
+  .fact b{display:block;font-family:var(--fd);text-transform:uppercase;font-size:1.05rem;letter-spacing:.02em}
+  .fact span{font-size:.9rem;color:rgba(255,255,255,.75)}
+  /* generic cards & grids */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+  a.card:hover{border-color:var(--paars-l);box-shadow:0 10px 26px rgba(75,31,134,.10);transform:translateY(-2px)}
+  .card{transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}
+  .card .thumb{aspect-ratio:16/10;background:var(--lila-2);overflow:hidden}
+  .card .thumb img{width:100%;height:100%;object-fit:cover}
+  .card .thumb.logo img{object-fit:contain;padding:18px;background:#fff}
+  .card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .card .meta{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+  .card h3{font-size:1.08rem;font-weight:700;line-height:1.3}
+  .card p{color:var(--ink-2);font-size:.95rem}
+  .card .more{margin-top:auto;padding-top:6px;color:var(--paars);font-weight:700;font-size:.9rem}
+  .tag{display:inline-block;font-family:var(--fd);text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;font-weight:700;padding:3px 9px;border-radius:4px;background:var(--lila-2);color:var(--paars)}
+  .tag.geel{background:var(--geel);color:var(--ink)}
+  .tag.grijs{background:var(--line);color:var(--muted)}
+  /* team tiles */
+  .teams{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .team{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 16px;text-decoration:none;display:flex;flex-direction:column;gap:4px}
+  .team:hover{border-color:var(--paars);background:var(--lila)}
+  .team b{font-family:var(--fd);text-transform:uppercase;font-size:1.6rem;font-weight:800;line-height:1;color:var(--paars)}
+  .team span{font-size:.85rem;color:var(--muted)}
+  /* quick tiles */
+  .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .q{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-decoration:none}
+  .q:hover{border-color:var(--paars)}
+  .q i{flex:none;width:40px;height:40px;border-radius:8px;background:var(--paars);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:1.1rem;text-transform:uppercase}
+  .q b{display:block;font-weight:700}
+  .q span{font-size:.9rem;color:var(--muted)}
+  /* sponsors */
+  .sponsors{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .sp{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;place-items:center;aspect-ratio:2/1;text-decoration:none}
+  .sp img{max-height:64px;width:auto;max-width:100%;object-fit:contain}
+  .sp:hover{border-color:var(--paars)}
+  /* people */
+  .people{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+  .person{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;gap:14px;align-items:center}
+  .person .av{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;background:var(--paars);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:1.15rem}
+  .person b{display:block;font-weight:700;line-height:1.2}
+  .person span{display:block;font-size:.85rem;color:var(--muted)}
+  .person a{color:var(--paars);text-decoration:none;font-size:.85rem;font-weight:600;word-break:break-all}
+  /* page head */
+  .phead{background:var(--paars-d);color:#fff;padding:60px 0 46px;position:relative;overflow:hidden}
+  .phead::after{content:"";position:absolute;right:-120px;top:-140px;width:420px;height:420px;border:52px solid var(--paars-l);border-radius:50%;opacity:.25}
+  .phead .wrap{position:relative}
+  .phead h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;margin-bottom:10px}
+  .phead p{max-width:60ch;color:rgba(255,255,255,.82);font-size:1.05rem}
+  .phead .kicker{color:var(--geel)}
+  .phead .kicker::before{background:#fff}
+  /* subnav chips */
+  .chips{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:70px;z-index:20;background:var(--wit);padding:12px 0;border-bottom:1px solid var(--line)}
+  .chips a,.chips button{text-decoration:none;font-weight:700;font-size:.88rem;padding:7px 12px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink-2);background:#fff;cursor:pointer;font-family:inherit}
+  .chips a:hover,.chips button:hover{border-color:var(--paars);color:var(--paars)}
+  .chips button[aria-pressed="true"]{background:var(--paars);border-color:var(--paars);color:#fff}
+  /* prose */
+  .prose{max-width:72ch}
+  .prose p{margin-bottom:14px;color:var(--ink-2);font-size:1.02rem}
+  .prose h3{font-family:var(--fd);text-transform:uppercase;font-size:1.35rem;font-weight:800;margin:26px 0 10px;color:var(--paars)}
+  .prose ul,.prose ol{margin:0 0 14px 22px;color:var(--ink-2)}
+  .prose li{margin-bottom:6px}
+  .prose a{color:var(--paars);font-weight:600}
+  .box{background:var(--lila);border-left:5px solid var(--paars);border-radius:8px;padding:18px 22px;margin:18px 0}
+  .box b{color:var(--paars)}
+  .steps{counter-reset:s;list-style:none;margin:0!important;padding:0}
+  .steps li{counter-increment:s;position:relative;padding:12px 0 12px 48px;border-top:1px solid var(--line)}
+  .steps li:first-child{border-top:0}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:11px;width:32px;height:32px;border-radius:50%;background:var(--paars);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:1.05rem}
+  .steps li b{display:block;color:var(--ink)}
+  /* forms (demo) */
+  .form{background:#fff;border:1px solid var(--line);border-radius:10px;padding:24px}
+  .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+  .f{display:flex;flex-direction:column;gap:6px}
+  .f.full{grid-column:1/-1}
+  label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+  input,select,textarea{font:inherit;padding:11px 13px;border:1.5px solid var(--line);border-radius:6px;background:#fff;width:100%;color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--paars)}
+  textarea{min-height:90px;resize:vertical}
+  .consent{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:var(--muted)}
+  .consent input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--paars)}
+  button.cta{border:0;cursor:pointer;font-family:inherit}
+  .done{display:none;background:var(--lila);border-left:5px solid var(--paars);padding:16px 18px;border-radius:8px}
+  /* agenda */
+  .ev{display:grid;grid-template-columns:110px 1fr 220px;gap:22px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+  .ev.past{opacity:.85}
+  .ev .d{font-family:var(--fd);text-transform:uppercase;text-align:center;line-height:1}
+  .ev .d b{display:block;font-size:2.6rem;font-weight:800;color:var(--paars)}
+  .ev.past .d b{color:var(--muted)}
+  .ev .d span{display:block;font-size:.95rem;font-weight:700;letter-spacing:.06em}
+  .ev .d small{display:block;font-family:var(--fb);font-weight:600;color:var(--muted);text-transform:none;font-size:.78rem;margin-top:6px}
+  .ev h3{font-size:1.15rem;font-weight:700;margin-bottom:4px}
+  .ev .when{color:var(--muted);font-size:.9rem;margin-bottom:8px}
+  .ev p{color:var(--ink-2);font-size:.95rem}
+  .ev .pic{aspect-ratio:16/10;border-radius:8px;overflow:hidden;background:var(--lila-2)}
+  .ev .pic img{width:100%;height:100%;object-fit:cover}
+  .ev a.more{color:var(--paars);font-weight:700;text-decoration:none;font-size:.9rem}
+  /* verslagen */
+  .reports{display:grid;gap:12px}
+  .rep{display:grid;grid-template-columns:120px 1fr;gap:18px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 20px;text-decoration:none}
+  .rep:hover{border-color:var(--paars)}
+  .rep .dt{font-weight:700;color:var(--muted);font-size:.9rem}
+  .rep h3{font-size:1.08rem;font-weight:700;margin:2px 0 4px}
+  .rep p{color:var(--ink-2);font-size:.93rem}
+  .rep .by{font-size:.8rem;color:var(--muted);margin-top:6px}
+  /* footer */
+  footer{background:var(--paars-d);color:#fff;padding:56px 0 30px}
+  .fgrid3{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;margin-bottom:36px}
+  footer h4{font-family:var(--fd);text-transform:uppercase;letter-spacing:.08em;font-size:1rem;color:var(--geel);margin-bottom:12px}
+  footer p,footer li{color:rgba(255,255,255,.8);font-size:.95rem}
+  footer ul{list-style:none}
+  footer li{margin-bottom:7px}
+  footer a{color:#fff;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .fbot{border-top:1px solid rgba(255,255,255,.14);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.82rem;color:rgba(255,255,255,.6)}
+  .proto{background:var(--geel);color:var(--ink);text-align:center;font-size:.82rem;font-weight:600;padding:8px 16px}
+  .proto a{color:var(--ink)}
+  @media(max-width:980px){.grid3,.grid4,.quick,.sponsors{grid-template-columns:1fr 1fr}.hero .wrap{grid-template-columns:1fr}.ev{grid-template-columns:90px 1fr}.ev .pic{grid-column:1/-1}.fgrid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+  @media(max-width:740px){
+    nav.main,.cta.desk{display:none}.nav-toggle{display:block}
+    #nav-check:checked~.mobile-menu{display:block}
+    .mobile-menu{position:absolute;top:70px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:6px 24px 18px}
+    .mobile-menu a{display:block;padding:13px 0;text-decoration:none;font-weight:700;border-bottom:1px solid var(--line)}
+    .mobile-menu a:last-child{border-bottom:0;color:var(--paars)}
+    #nav-check:checked~.wrap .nav-toggle span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+    #nav-check:checked~.wrap .nav-toggle span:nth-child(2){opacity:0}
+    #nav-check:checked~.wrap .nav-toggle span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+    section{padding:48px 0}.hero .wrap{padding:64px 24px 48px}
+    .grid3,.grid4,.quick,.sponsors{grid-template-columns:1fr}.sponsors{grid-template-columns:1fr 1fr}
+    .fgrid{grid-template-columns:1fr}.rep{grid-template-columns:1fr;gap:6px}.ev{grid-template-columns:1fr}.ev .d{text-align:left;display:flex;gap:10px;align-items:baseline}
+    .chips{top:70px}
+  }
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--geel);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="top">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../img/logo-ksv-wildert.png" alt=""><span><b>KSV Wildert</b><small>Essen-Wildert · stamnummer 05142</small></span></a>
+    <nav class="main" aria-label="Hoofdnavigatie"><a href="../nieuws/" aria-current="page">Nieuws</a><a href="../ploegen/">Ploegen</a><a href="../club/">Club</a><a href="../praktisch/">Praktisch</a><a href="../steun/">Steun ons</a></nav>
+    <a class="cta desk" href="../inschrijven/">Word lid</a>
+    <label for="nav-check" class="nav-toggle" role="button" aria-label="Menu" tabindex="0"><span></span><span></span><span></span></label>
+  </div>
+  <div class="mobile-menu"><a href="../nieuws/">Nieuws</a><a href="../ploegen/">Ploegen</a><a href="../club/">Club</a><a href="../praktisch/">Praktisch</a><a href="../steun/">Steun ons</a><a href="../inschrijven/">Word lid →</a></div>
+</header>
+
+<div class="phead"><div class="wrap"><div class="kicker">Verslagen</div><h1>Vers van het veld</h1><p>38 wedstrijdverslagen, geschreven door trainers en supporters. Filter per ploeg.</p></div></div>
+<section>
+  <div class="wrap">
+    <div class="chips" id="filter"><button aria-pressed="true" data-f="alle">Alle (38)</button><button data-f="U6">U6 (15)</button><button data-f="Jeugd">Jeugd (23)</button></div>
+    <div class="reports" id="reports" style="margin-top:20px"><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/u6-toffe-match-tegen-zandvliet" target="_blank" rel="noopener"><div class="dt">8 apr 2026<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>U6 toffe match tegen zandvliet</h3><p>Herman Van den Bergh U6 WILDERT VS ZANDVLIET Op 28 maart stond er voor de spelertjes van U6 Wildert een leuke en sportieve wedstrijd op het programma tegen Zandvliet. De sfeer zat er meteen goed in en iedereen…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/u6-champions-league" target="_blank" rel="noopener"><div class="dt">10 mrt 2026<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>u6 champions league</h3><p>Herman Van den Bergh ⚽ Wedstrijdverslag U6 - Wildert vs. Kalmthout (8 maart 2026) Zaterdagochtend stonden de jongens van U6 weer klaar met hun kenmerkende mix van energie, enthousiasme en een vleugje gezonde…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/u6jes-helemaal-klaar-om-de-wind-te-trotseren" target="_blank" rel="noopener"><div class="dt">5 mrt 2026<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>u6´jes helemaal klaar om de wind te trotseren</h3><p>Herman Van den Bergh Onze U6&#x27;jes werden vandaag verwacht op het veld van Kalmthout SK. Stevige opwarming onder leiding van Mick (papa van Noah) en trainer Dirk. Helemaal klaar om de wind te trotseren en aan…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/u6-helden-volle-goede-moed-naar-achterbroek" target="_blank" rel="noopener"><div class="dt">26 feb 2026<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>u6 helden volle goede moed naar achterbroek</h3><p>Herman Van den Bergh Wedstrijdverslag U6 – KSV Wildert vs. Achterbroek Zaterdagochtend stonden onze U6‑helden van KSV Wildert met volle moed klaar voor hun wedstrijden tegen Achterbroek. Ondanks het slechte…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/u6-heibos-vs-wildert" target="_blank" rel="noopener"><div class="dt">4 feb 2026<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>U6 Heibos vs Wildert</h3><p>Herman Van den Bergh U6 / Heibos vs. Wildert 31 januari gingen wij voor het eerst langs bij sv Heibos. De weergoden waren ons goed gezind met zelfs flink wat zon. We speelde op een groot veld met daarnaast nog…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/u6-wildert-achterbroek" target="_blank" rel="noopener"><div class="dt">27 jan 2026<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>U6 Wildert- Achterbroek</h3><p>Herman Van den Bergh U6 / Wildert vs. Achterbroek 24 januari 2026 | Tweede wedstrijd in Wildert De winterzon stond stralend boven het veld toen onze U6-ploeg zich voor de tweede keer verzamelde voor hun…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/een-dag-om-in-te-kaderen" target="_blank" rel="noopener"><div class="dt">27 jan 2026<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>u6 Een dag om in te kaderen</h3><p>Herman Van den Bergh U6 / Wildert vs. Horendonk 17 januari werd een dag om in te kaderen: de U6-spelertjes trokken voor het eerst hun wedstrijdshirt aan en stonden met twaalf enthousiaste gezichten klaar om…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/bankroet-na-remonte" target="_blank" rel="noopener"><div class="dt">14 sep 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Bankroet na remonte.</h3><p>Tim Van Tichelen In de (voorlopige enige) zondagmatch tegen Heibos kan coach Dirk rekenen op 14 manschappen. Enkel Bent moet ziek afmelden, al de andere jongens zijn beschikbaar voor de clash in Heide, waar we…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/knalprestatie-tegen-essen" target="_blank" rel="noopener"><div class="dt">13 sep 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Knalprestatie tegen Essen.</h3><p>Tim Van Tichelen Op zaterdag 13 september, een week voor de clash tussen de eerste ploegen, staan de U13-boys van Wildert tegenover de buren van Exc.Essen. In een nog niet zo’n recent verleden stond het…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/batterijen-opgeladen" target="_blank" rel="noopener"><div class="dt">6 sep 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Batterijen opgeladen?</h3><p>Tim Van Tichelen Coach Jan kan voor de uitwedstrijd aan de Rustoordlei beroep doen op 7 spelers (Warre, Mats, Litse, Matthias, Joppe, Lander en Gus) die gelukkig worden aangevuld met U12-toppers Lou en Corneel…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/de-code-gekraakt" target="_blank" rel="noopener"><div class="dt">12 apr 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>De code gekraakt…</h3><p>Tim Van Tichelen Onder een stralend lentezonnetje trekt coach Jan met een kleine selectie richting Wuustwezel. Mats en Stef draven op nadat hun wedstrijd op Ekeren vroegtijdig werd gestaakt, broer Finn houdt…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/gras-te-lang" target="_blank" rel="noopener"><div class="dt">5 apr 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Gras te lang?!</h3><p>Tim Van Tichelen De titel doet misschien vermoeden dat de wedstrijd tegen OSSMI wordt afgewerkt op een ‘gewoon’ veld, maar niets is minder waar. Veldverantwoordelijke D.B. woont echter onze match bij en een…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/in-de-schaduw-van-de-neus" target="_blank" rel="noopener"><div class="dt">29 mrt 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>In de schaduw van de neus.</h3><p>Tim Van Tichelen In de schaduw van Taverne De Neus liggen de ‘geweldige’ velden van Nieuw Stabroek, waar onze U12-jongens op zoek gaan naar een nieuwe overwinning. Aan de zijlijn is er een mooie bijrol voor…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/daarmee-is-de-kous-af" target="_blank" rel="noopener"><div class="dt">22 mrt 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Daarmee is de kous af.</h3><p>Tim Van Tichelen Voor de namiddagwedstrijd op Brasschaat kan Dirk beroep doen op 10 spelers: Wout, Ferre, Floris, Dex, Sen, Milan, Louis, Mil H, Pelle en Fille. Dex is na de opwarming al moe en wil aan de kant…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/even-de-sokken-erin-zetten" target="_blank" rel="noopener"><div class="dt">22 mrt 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Even de sokken erin zetten.</h3><p>Tim Van Tichelen De interimcoach (aka je vaste verslaggever) krijgt de ploegopstelling door van T1 Jan. Warre staat in de goal. Voor hem staat Matthias centraal achterin, met op de rechtsback Daan en linksbak…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/met-veel-enthousiasme-naar-nieuwmoer" target="_blank" rel="noopener"><div class="dt">20 mrt 2025<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>met veel enthousiasme naar nieuwmoer</h3><p>Herman Van den Bergh Vandaag was het te doen op Nieuwmoer. De thermometer gaf 3 graden aan, dus het beloofde een koude voormiddag te worden. We moesten het vandaag zonder onze trainer Herman doen, maar de…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/heerlijk-voetballen-onder-een-lentezonnetje" target="_blank" rel="noopener"><div class="dt">16 mrt 2025<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>heerlijk voetballen onder een lentezonnetje</h3><p>Herman Van den Bergh Wat hebben we weer een leuke wedstrijd voorgeschoteld gekregen, onder een lekker warm lentezonnetje hebben onze toppertjes het weer fantastisch gedaan. Het hoogtepunt was natuurlijk die…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/zakke-zakke-zakkeeeuuh" target="_blank" rel="noopener"><div class="dt">15 mrt 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Zakke, zakke, zakkeeeuuh!</h3><p>Tim Van Tichelen Vooreerst even vermelden dat de koffie niet blijkt te zijn wat het moet zijn in de kantine van Zandvliet, al zijn de meningen toch verdeeld. Onder een stralend zonnetje (niet zo goed als in…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/remontada" target="_blank" rel="noopener"><div class="dt">15 mrt 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>REMONTADA</h3><p>Tim Van Tichelen De eerste 50 minuten mist je vaste verslaggever wegens een dubbele boeking. Hij heeft er al een verplaatsing naar Zandvliet opzitten voor een andere wedstrijd. Volgens verschillende bronnen…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/voetjes-op-de-grond" target="_blank" rel="noopener"><div class="dt">13 mrt 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Voetjes op de grond.</h3><p>Tim Van Tichelen In de donderdagavondmatch op en tegen Kalmthout (11 tegen 11) komen we uit tegen de provinciale ploeg van de U13. We doen beroep op keeper Tibo van de U15 en we vermelden ook de terugkeer van…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/pinanti-is-pinanti" target="_blank" rel="noopener"><div class="dt">8 mrt 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Pinanti is pinanti.</h3><p>Tim Van Tichelen Zonder Stan, Mil H en Milan trekken we naar Heibos op zoek naar revanche voor de 11vs11-wedstrijd van in december. De heenwedstrijd van dit competitiedeel werd (algemeen) afgelast begin…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/het-uiltje-wakker-maken" target="_blank" rel="noopener"><div class="dt">8 mrt 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Het uiltje wakker maken.</h3><p>Tim Van Tichelen Met 9 spelers in zijn kern, posteert coach Ronny zijn pionnen voor aanvang van de wedstrijd tegen Horendonk. Daan is lichtgeblesseerd en moet oppassen vandaag om zijn blessure niet erger te…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/u6-spelen-leuke-wedstrijd-tegen-ex-essen" target="_blank" rel="noopener"><div class="dt">24 feb 2025<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>U6 spelen leuke wedstrijd tegen ex-Essen</h3><p>Herman Van den Bergh Onze U6 speelde vandaag een leuke en sportieve wedstrijd tegen Excelsior Essen. Ondanks de lichte regen lieten onze spelertjes zich niet ontmoedigen. Met volle inzet en veel enthousiasme…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/jolien-geeft-opwarming-met-verve" target="_blank" rel="noopener"><div class="dt">24 feb 2025<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>Jolien geeft opwarming met verve</h3><p>Herman Van den Bergh Wat een ochtend! Terwijl de zon nog aarzelend achter de wolken vandaan kwam stond stond mama Jolien al klaar om onze jongens en meisjes op te warmen. En dat deed ze met verve! Strakke…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/ghettovoetbal" target="_blank" rel="noopener"><div class="dt">22 feb 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Ghettovoetbal.</h3><p>Tim Van Tichelen (verslag van coach Ronny) Zware cijfers voor onze mannen, die voetballend de betere waren maar een lesje kregen in afwerken. Een vroege voorsprong via Mats werd door de uit te kluiten gewassen…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/duivelse-overwinning" target="_blank" rel="noopener"><div class="dt">15 feb 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Duivelse overwinning!</h3><p>Tim Van Tichelen 15/02/2025 U12 - Wuustwezel (Verslag van Ronny Kustermans) Vandaag stond de wedstrijd tegen Wuustwezel op het programma. Onze selectie bestond uit: Twan, Alexander, Lars, Jasper, Matthias,…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/amen" target="_blank" rel="noopener"><div class="dt">15 feb 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>AMEN.</h3><p>Tim Van Tichelen De wereldmeerdaagse in Brasschaat is door sommige jongens al bezocht, voor anderen staat dit nog op de planning. Onderweg maken ze een kruisweg richting Achterbroek, de ploeg waar ze enkele…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/met-de-u6-in-colonne-naar-loenhout" target="_blank" rel="noopener"><div class="dt">12 feb 2025<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>met de u6 in colonne naar loenhout</h3><p>Herman Van den Bergh Met de U6 naar Loenhout Vandaag stond onze verste uitwedstrijd op het programma. Hiervoor verzamelden we om 12u35 op het Dorpsplein in Wildert. De ene kwam al wat vroeger toe dan de…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/in-de-naam-van-de-vader" target="_blank" rel="noopener"><div class="dt">8 feb 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>In de naam van de Vader…</h3><p>Tim Van Tichelen 08/02/2025 OSSMI - U12 Met de wereldmeerdaagse in Brasschaat in het vooruitzicht voor sommige spelers maakt onze U12-selectie eerst nog een kruisweg richting OSSMI. De Vaders die mee mogen,…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/wedden-dat" target="_blank" rel="noopener"><div class="dt">8 feb 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>WEDDEN DAT?!</h3><p>Tim Van Tichelen 08/02/2025 U13 - OSSMI Dirk doet vandaag weer beroep op 11 spelers. Deze keer zijn het Dex, Ferre en Stan die rust verdienen. Ook Milan moet zaterdagochtend nog ziek afhaken, waardoor de kern…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/een-stralende-dag-voor-u6-wildert" target="_blank" rel="noopener"><div class="dt">3 feb 2025<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>een stralende dag voor u6 wildert</h3><p>Herman Van den Bergh Het was een prachtige dag voor de U6-voetbalploeg van Wildert. De zon straalde fel aan de blauwe hemel en de kinderen stonden te popelen om hun derde wedstrijd tegen Nieuwmoer te spelen.…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/hier-zijn-we-weer" target="_blank" rel="noopener"><div class="dt">2 feb 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>HIER ZIJN WE WEER…</h3><p>Tim Van Tichelen 02/02/2025 U13 - Achterbroek (oefenmatch 11 tegen 11) Zondag 2 februari verwachten we een lichte vorst. Er staat een U13 wedstrijd op de planning op een groot veld, waarbij de tactiek…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/nrichtingsvoetbal" target="_blank" rel="noopener"><div class="dt">1 feb 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>éénrichtingsvoetbal</h3><p>Tim Van Tichelen Onder een stralend winterzonnetje speelt onze U12-ploeg tegen Nieuw Stabroek. Het nog lichtjes bevroren kunstgras wordt al snel ontdooid door dat mooie zonnetje en onze jongens hebben er zin…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/veel-geleerd" target="_blank" rel="noopener"><div class="dt">1 feb 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Veel geleerd?</h3><p>Tim Van Tichelen Zonder coach Dirk trekken onze U13-boys vandaag richting Nieuw Stabroek. We weten uit het verleden al dat dit een stevige ploeg is, die de duels niet schuwen en waar we dus ons mannetje zullen…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/de-u6-trekken-met-veel-enthousiasme-naar-kalmthout" target="_blank" rel="noopener"><div class="dt">29 jan 2025<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>de u6 trekken met veel enthousiasme naar kalmthout</h3><p>Herman Van den Bergh De eerste uitwedstrijd is een feit voor onze U6! De wedstrijd van onze voetballertjes was in de buurgemeente Kalmthout. Het weer klaarde juist op voor de start. Interim-trainer Dieter deed…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/het-gala-van-de-u13" target="_blank" rel="noopener"><div class="dt">25 jan 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>HET GALA VAN DE U13.</h3><p>Tim Van Tichelen 25 januari 2025. Met het Gala van de Gouden K’s op het programma, zijn onze U13-jongens er ook klaar voor om een show te verzorgen tegen Brasschaat. De 11 boys worden door Gert en Tim…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="U6" href="https://www.ksvwildert.be/verslagen/het-startschot-is-gegeven-voor-de-u6" target="_blank" rel="noopener"><div class="dt">22 jan 2025<br><span class="tag" style="margin-top:6px">U6</span></div><div><h3>het startschot is gegeven voor de u6</h3><p>Herman Van den Bergh Eindelijk was het zover. Met een weekje vertraging begonnen onze jongens en meisjes van de U6 aan hun eerste wedstrijdjes. We speelden op onze eigen grasmat tegen zuiderburen Heibos. De…</p><div class="by">Herman Van den Bergh · lees verder op ksvwildert.be →</div></div></a><a class="rep" data-team="Jeugd" href="https://www.ksvwildert.be/verslagen/hwkynpim594rcmd5igaegwxxy1zq7r" target="_blank" rel="noopener"><div class="dt">18 jan 2025<br><span class="tag" style="margin-top:6px">Jeugd</span></div><div><h3>Naar de schoonheids-specialist.</h3><p>Tim Van Tichelen Coaches Jan én Ronny beschikken vandaag over 10 spelers voor de wedstrijd tegen Zandvliet. Vince staat in de goal. Litse, Lander en Alexander beginnen achteraan. Gus op links, Mats centraal en…</p><div class="by">Tim Van Tichelen · lees verder op ksvwildert.be →</div></div></a></div>
+    <p class="sub" style="margin-top:22px;font-size:.9rem">In de nieuwe site krijgt elk verslag zijn eigen pagina met foto's; hier linken we naar het oorspronkelijke bericht.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid3">
+      <div><h4>KSV Wildert</h4><p>Steenovenstraat 163<br>2910 Essen-Wildert<br><a href="tel:+3236770733">03 677 07 33</a> · <a href="mailto:info@ksvwildert.be">info@ksvwildert.be</a></p><p style="margin-top:10px">Aangesloten bij de KBVB sinds 23 maart 1949 · stamnummer 05142 · paars &amp; wit. Onze club draait op vrijwilligers; we antwoorden zo snel we kunnen.</p></div>
+      <div><h4>Snel naar</h4><ul><li><a href="../inschrijven/">Word lid</a></li><li><a href="../praktisch/#route">Route naar de club</a></li><li><a href="../praktisch/#sporteasy">SportEasy voor ouders en spelers</a></li><li><a href="../club/#verzekering">Blessure of ongeval</a></li><li><a href="../steun/#webshop">Joma-webshop</a></li><li><a href="../club/#ekickoff">E-Kickoff (trainers)</a></li></ul></div>
+      <div><h4>Volg ons</h4><ul><li><a href="https://www.facebook.com/ksv.wildert" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.trooper.be/nl/trooperverenigingen/KSVWildert/" target="_blank" rel="noopener">Steun via Trooper</a></li><li><a href="https://clubs.jomasport.shop/team/wildert" target="_blank" rel="noopener">Joma clubwebshop</a></li></ul></div>
+    </div>
+    <div class="fbot"><span>© 2026 KSV Wildert</span><span><a href="../club/#api">Aanspreekpersoon integriteit</a> · <a href="../club/#reglement">Clubreglement</a></span></div>
+  </div>
+</footer>
+<div class="proto">Ontwerpvoorstel door <a href="https://ocior.be">ocior.be</a> — inhoud overgenomen van <a href="https://www.ksvwildert.be" target="_blank" rel="noopener">ksvwildert.be</a> (september 2026). Formulieren en knoppen zijn demo.</div>
+<script>document.querySelectorAll('#filter button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#filter button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});var f=b.dataset.f;document.querySelectorAll('#reports .rep').forEach(function(r){r.style.display=(f==='alle'||r.dataset.team===f)?'':'none'})})});</script>
+</body>
+</html>

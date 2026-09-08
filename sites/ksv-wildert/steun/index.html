@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steun ons — KSV Wildert</title>
+<meta name="description" content="Sponsors van KSV Wildert, steunen via Trooper en de Joma-clubwebshop met 30 % korting.">
+
+<link rel="icon" href="../img/logo-ksv-wildert.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--paars:#4B1F86;--paars-d:#33125F;--paars-l:#7A4FC0;--lila:#F4F0FA;--lila-2:#E6DDF4;--ink:#1B1723;--ink-2:#3D3749;--muted:#6D6680;--line:#E5E0EE;--wit:#fff;--geel:#F2B534;
+    --fd:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;--fb:'Barlow',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fb);background:var(--wit);color:var(--ink);line-height:1.55;-webkit-text-size-adjust:100%}
+  a{color:inherit}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  h1,h2,h3.d{font-family:var(--fd);text-transform:uppercase;letter-spacing:.01em;line-height:1}
+  h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;margin-bottom:8px}
+  .sub{color:var(--muted);max-width:66ch;margin-bottom:28px;font-size:1.02rem}
+  .kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--fd);text-transform:uppercase;letter-spacing:.12em;font-weight:700;font-size:.9rem;color:var(--paars);margin-bottom:10px}
+  .kicker::before{content:"";width:22px;height:4px;background:var(--geel)}
+  section{padding:64px 0}
+  section.tint{background:var(--lila)}
+  section.dark{background:var(--paars-d);color:#fff}
+  section.dark .sub{color:rgba(255,255,255,.72)}
+  section.dark .kicker{color:#fff}
+  /* header */
+  header.top{position:sticky;top:0;z-index:50;background:var(--wit);border-bottom:1px solid var(--line)}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;height:70px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand img{width:44px;height:44px;object-fit:contain}
+  .brand b{font-family:var(--fd);text-transform:uppercase;font-size:1.45rem;font-weight:800;letter-spacing:.02em;line-height:1}
+  .brand small{display:block;font-family:var(--fb);font-weight:600;font-size:.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+  nav.main{display:flex;gap:4px}
+  nav.main a{text-decoration:none;font-weight:600;font-size:.95rem;padding:8px 12px;border-radius:6px;color:var(--ink-2)}
+  nav.main a:hover{background:var(--lila);color:var(--paars)}
+  nav.main a[aria-current="page"]{color:var(--paars);background:var(--lila)}
+  .cta{background:var(--paars);color:#fff;text-decoration:none;font-weight:700;padding:11px 18px;border-radius:6px;font-size:.92rem;white-space:nowrap}
+  .cta:hover{background:var(--paars-d)}
+  .cta.ghost{background:transparent;border:2px solid var(--paars);color:var(--paars)}
+  .cta.ghost:hover{background:var(--lila)}
+  .cta.wit{background:#fff;color:var(--paars)}
+  .cta.wit:hover{background:var(--lila)}
+  .cta.outl{background:transparent;border:2px solid rgba(255,255,255,.55);color:#fff}
+  .cta.outl:hover{border-color:#fff}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
+  .nav-toggle span{display:block;width:24px;height:3px;background:var(--ink);margin:5px 0;border-radius:2px}
+  #nav-check{display:none}
+  .mobile-menu{display:none}
+  /* hero */
+  .hero{position:relative;background:var(--paars-d);color:#fff;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;background:url(../img/img-20240823-203610-2.jpg) center/cover;opacity:.32}
+  .hero .wrap{position:relative;padding:96px 24px 72px;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end}
+  .hero h1{font-size:clamp(3rem,8vw,6rem);font-weight:800;line-height:.92;margin-bottom:14px}
+  .hero h1 em{font-style:normal;color:var(--geel)}
+  .hero p{max-width:52ch;font-size:1.12rem;color:rgba(255,255,255,.88)}
+  .hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .facts{display:grid;gap:10px}
+  .fact{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px 16px;backdrop-filter:blur(4px)}
+  .fact b{display:block;font-family:var(--fd);text-transform:uppercase;font-size:1.05rem;letter-spacing:.02em}
+  .fact span{font-size:.9rem;color:rgba(255,255,255,.75)}
+  /* generic cards & grids */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit}
+  a.card:hover{border-color:var(--paars-l);box-shadow:0 10px 26px rgba(75,31,134,.10);transform:translateY(-2px)}
+  .card{transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}
+  .card .thumb{aspect-ratio:16/10;background:var(--lila-2);overflow:hidden}
+  .card .thumb img{width:100%;height:100%;object-fit:cover}
+  .card .thumb.logo img{object-fit:contain;padding:18px;background:#fff}
+  .card .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .card .meta{font-size:.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+  .card h3{font-size:1.08rem;font-weight:700;line-height:1.3}
+  .card p{color:var(--ink-2);font-size:.95rem}
+  .card .more{margin-top:auto;padding-top:6px;color:var(--paars);font-weight:700;font-size:.9rem}
+  .tag{display:inline-block;font-family:var(--fd);text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;font-weight:700;padding:3px 9px;border-radius:4px;background:var(--lila-2);color:var(--paars)}
+  .tag.geel{background:var(--geel);color:var(--ink)}
+  .tag.grijs{background:var(--line);color:var(--muted)}
+  /* team tiles */
+  .teams{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .team{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 16px;text-decoration:none;display:flex;flex-direction:column;gap:4px}
+  .team:hover{border-color:var(--paars);background:var(--lila)}
+  .team b{font-family:var(--fd);text-transform:uppercase;font-size:1.6rem;font-weight:800;line-height:1;color:var(--paars)}
+  .team span{font-size:.85rem;color:var(--muted)}
+  /* quick tiles */
+  .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .q{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-decoration:none}
+  .q:hover{border-color:var(--paars)}
+  .q i{flex:none;width:40px;height:40px;border-radius:8px;background:var(--paars);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:1.1rem;text-transform:uppercase}
+  .q b{display:block;font-weight:700}
+  .q span{font-size:.9rem;color:var(--muted)}
+  /* sponsors */
+  .sponsors{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .sp{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;place-items:center;aspect-ratio:2/1;text-decoration:none}
+  .sp img{max-height:64px;width:auto;max-width:100%;object-fit:contain}
+  .sp:hover{border-color:var(--paars)}
+  /* people */
+  .people{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+  .person{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;gap:14px;align-items:center}
+  .person .av{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;background:var(--paars);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:1.15rem}
+  .person b{display:block;font-weight:700;line-height:1.2}
+  .person span{display:block;font-size:.85rem;color:var(--muted)}
+  .person a{color:var(--paars);text-decoration:none;font-size:.85rem;font-weight:600;word-break:break-all}
+  /* page head */
+  .phead{background:var(--paars-d);color:#fff;padding:60px 0 46px;position:relative;overflow:hidden}
+  .phead::after{content:"";position:absolute;right:-120px;top:-140px;width:420px;height:420px;border:52px solid var(--paars-l);border-radius:50%;opacity:.25}
+  .phead .wrap{position:relative}
+  .phead h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;margin-bottom:10px}
+  .phead p{max-width:60ch;color:rgba(255,255,255,.82);font-size:1.05rem}
+  .phead .kicker{color:var(--geel)}
+  .phead .kicker::before{background:#fff}
+  /* subnav chips */
+  .chips{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:70px;z-index:20;background:var(--wit);padding:12px 0;border-bottom:1px solid var(--line)}
+  .chips a,.chips button{text-decoration:none;font-weight:700;font-size:.88rem;padding:7px 12px;border-radius:999px;border:1.5px solid var(--line);color:var(--ink-2);background:#fff;cursor:pointer;font-family:inherit}
+  .chips a:hover,.chips button:hover{border-color:var(--paars);color:var(--paars)}
+  .chips button[aria-pressed="true"]{background:var(--paars);border-color:var(--paars);color:#fff}
+  /* prose */
+  .prose{max-width:72ch}
+  .prose p{margin-bottom:14px;color:var(--ink-2);font-size:1.02rem}
+  .prose h3{font-family:var(--fd);text-transform:uppercase;font-size:1.35rem;font-weight:800;margin:26px 0 10px;color:var(--paars)}
+  .prose ul,.prose ol{margin:0 0 14px 22px;color:var(--ink-2)}
+  .prose li{margin-bottom:6px}
+  .prose a{color:var(--paars);font-weight:600}
+  .box{background:var(--lila);border-left:5px solid var(--paars);border-radius:8px;padding:18px 22px;margin:18px 0}
+  .box b{color:var(--paars)}
+  .steps{counter-reset:s;list-style:none;margin:0!important;padding:0}
+  .steps li{counter-increment:s;position:relative;padding:12px 0 12px 48px;border-top:1px solid var(--line)}
+  .steps li:first-child{border-top:0}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:11px;width:32px;height:32px;border-radius:50%;background:var(--paars);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:1.05rem}
+  .steps li b{display:block;color:var(--ink)}
+  /* forms (demo) */
+  .form{background:#fff;border:1px solid var(--line);border-radius:10px;padding:24px}
+  .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+  .f{display:flex;flex-direction:column;gap:6px}
+  .f.full{grid-column:1/-1}
+  label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+  input,select,textarea{font:inherit;padding:11px 13px;border:1.5px solid var(--line);border-radius:6px;background:#fff;width:100%;color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--paars)}
+  textarea{min-height:90px;resize:vertical}
+  .consent{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:var(--muted)}
+  .consent input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--paars)}
+  button.cta{border:0;cursor:pointer;font-family:inherit}
+  .done{display:none;background:var(--lila);border-left:5px solid var(--paars);padding:16px 18px;border-radius:8px}
+  /* agenda */
+  .ev{display:grid;grid-template-columns:110px 1fr 220px;gap:22px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px 22px}
+  .ev.past{opacity:.85}
+  .ev .d{font-family:var(--fd);text-transform:uppercase;text-align:center;line-height:1}
+  .ev .d b{display:block;font-size:2.6rem;font-weight:800;color:var(--paars)}
+  .ev.past .d b{color:var(--muted)}
+  .ev .d span{display:block;font-size:.95rem;font-weight:700;letter-spacing:.06em}
+  .ev .d small{display:block;font-family:var(--fb);font-weight:600;color:var(--muted);text-transform:none;font-size:.78rem;margin-top:6px}
+  .ev h3{font-size:1.15rem;font-weight:700;margin-bottom:4px}
+  .ev .when{color:var(--muted);font-size:.9rem;margin-bottom:8px}
+  .ev p{color:var(--ink-2);font-size:.95rem}
+  .ev .pic{aspect-ratio:16/10;border-radius:8px;overflow:hidden;background:var(--lila-2)}
+  .ev .pic img{width:100%;height:100%;object-fit:cover}
+  .ev a.more{color:var(--paars);font-weight:700;text-decoration:none;font-size:.9rem}
+  /* verslagen */
+  .reports{display:grid;gap:12px}
+  .rep{display:grid;grid-template-columns:120px 1fr;gap:18px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 20px;text-decoration:none}
+  .rep:hover{border-color:var(--paars)}
+  .rep .dt{font-weight:700;color:var(--muted);font-size:.9rem}
+  .rep h3{font-size:1.08rem;font-weight:700;margin:2px 0 4px}
+  .rep p{color:var(--ink-2);font-size:.93rem}
+  .rep .by{font-size:.8rem;color:var(--muted);margin-top:6px}
+  /* footer */
+  footer{background:var(--paars-d);color:#fff;padding:56px 0 30px}
+  .fgrid3{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;margin-bottom:36px}
+  footer h4{font-family:var(--fd);text-transform:uppercase;letter-spacing:.08em;font-size:1rem;color:var(--geel);margin-bottom:12px}
+  footer p,footer li{color:rgba(255,255,255,.8);font-size:.95rem}
+  footer ul{list-style:none}
+  footer li{margin-bottom:7px}
+  footer a{color:#fff;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .fbot{border-top:1px solid rgba(255,255,255,.14);padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.82rem;color:rgba(255,255,255,.6)}
+  .proto{background:var(--geel);color:var(--ink);text-align:center;font-size:.82rem;font-weight:600;padding:8px 16px}
+  .proto a{color:var(--ink)}
+  @media(max-width:980px){.grid3,.grid4,.quick,.sponsors{grid-template-columns:1fr 1fr}.hero .wrap{grid-template-columns:1fr}.ev{grid-template-columns:90px 1fr}.ev .pic{grid-column:1/-1}.fgrid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+  @media(max-width:740px){
+    nav.main,.cta.desk{display:none}.nav-toggle{display:block}
+    #nav-check:checked~.mobile-menu{display:block}
+    .mobile-menu{position:absolute;top:70px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:6px 24px 18px}
+    .mobile-menu a{display:block;padding:13px 0;text-decoration:none;font-weight:700;border-bottom:1px solid var(--line)}
+    .mobile-menu a:last-child{border-bottom:0;color:var(--paars)}
+    #nav-check:checked~.wrap .nav-toggle span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+    #nav-check:checked~.wrap .nav-toggle span:nth-child(2){opacity:0}
+    #nav-check:checked~.wrap .nav-toggle span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+    section{padding:48px 0}.hero .wrap{padding:64px 24px 48px}
+    .grid3,.grid4,.quick,.sponsors{grid-template-columns:1fr}.sponsors{grid-template-columns:1fr 1fr}
+    .fgrid{grid-template-columns:1fr}.rep{grid-template-columns:1fr;gap:6px}.ev{grid-template-columns:1fr}.ev .d{text-align:left;display:flex;gap:10px;align-items:baseline}
+    .chips{top:70px}
+  }
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--geel);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="top">
+  <input type="checkbox" id="nav-check" aria-hidden="true">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../img/logo-ksv-wildert.png" alt=""><span><b>KSV Wildert</b><small>Essen-Wildert · stamnummer 05142</small></span></a>
+    <nav class="main" aria-label="Hoofdnavigatie"><a href="../nieuws/">Nieuws</a><a href="../ploegen/">Ploegen</a><a href="../club/">Club</a><a href="../praktisch/">Praktisch</a><a href="../steun/" aria-current="page">Steun ons</a></nav>
+    <a class="cta desk" href="../inschrijven/">Word lid</a>
+    <label for="nav-check" class="nav-toggle" role="button" aria-label="Menu" tabindex="0"><span></span><span></span><span></span></label>
+  </div>
+  <div class="mobile-menu"><a href="../nieuws/">Nieuws</a><a href="../ploegen/">Ploegen</a><a href="../club/">Club</a><a href="../praktisch/">Praktisch</a><a href="../steun/">Steun ons</a><a href="../inschrijven/">Word lid →</a></div>
+</header>
+
+<div class="phead"><div class="wrap"><div class="kicker">Steun ons</div><h1>Sponsors, Trooper en webshop</h1><p>Onze club draait op vrijwilligers en op de steun van sponsors, ouders en supporters. Dit zijn de manieren om mee te helpen.</p></div></div>
+<section id="sponsors">
+  <div class="wrap">
+    <div class="kicker">Sponsors</div><h2>Een welgemeende dank</h2>
+    <p class="sub">Aan onze trouwe sponsors met een sportief hart voor de lokale Wildertse jeugd.</p>
+    <div class="sponsors"><a class="sp" href="https://www.bodenenpartners.be/" target="_blank" rel="noopener" title="KBC Boden &amp; Partners verzekeringen"><img src="../img/boden-en-partners.png" alt="KBC Boden &amp; Partners verzekeringen" loading="lazy"></a><a class="sp" href="https://www.jescleaning.be/" target="_blank" rel="noopener" title="Jes Cleaning"><img src="../img/jes-cleaning.jpeg" alt="Jes Cleaning" loading="lazy"></a><a class="sp" href="https://www.tomnollekens.be/" target="_blank" rel="noopener" title="Tom Nollekens"><img src="../img/tom-nollekens.jpeg" alt="Tom Nollekens" loading="lazy"></a><a class="sp" href="https://www.autoscout24.be/nl/verkopers/dynamic-cars-bv" target="_blank" rel="noopener" title="Dynamic Cars Van Loon"><img src="../img/dynamic-cars-essen.png" alt="Dynamic Cars Van Loon" loading="lazy"></a><a class="sp" href="https://www.gloriousbrands.be" target="_blank" rel="noopener" title="Glorious Brands"><img src="../img/glorious-brands-logo-2024.png" alt="Glorious Brands" loading="lazy"></a><a class="sp" href="https://www.afsluitingenjochems.be/" target="_blank" rel="noopener" title="Jochems afsluitingen"><img src="../img/afsluitingen-jochems.png" alt="Jochems afsluitingen" loading="lazy"></a><a class="sp" href="https://vanoevelen.be/" target="_blank" rel="noopener" title="Drankenhandel Van Oevelen"><img src="../img/van-oevelen.png" alt="Drankenhandel Van Oevelen" loading="lazy"></a><a class="sp" href="https://www.schoorsteenveegservice.be/" target="_blank" rel="noopener" title="Marco Service"><img src="../img/marco-service.jpg" alt="Marco Service" loading="lazy"></a></div>
+    <div class="box" style="margin-top:22px"><b>Zelf sponsor worden?</b> Contacteer het bestuur via <a href="mailto:info@ksvwildert.be">info@ksvwildert.be</a>. We bekijken samen wat past: een bord langs het veld, een plek op de site, een actie.</div>
+  </div>
+</section>
+<section class="tint" id="trooper">
+  <div class="wrap grid2" style="align-items:start">
+    <div class="prose">
+      <div class="kicker">Trooper</div><h2>Steun KSV Wildert via Trooper</h2>
+      <p>Trooper maakt het mogelijk om je favoriete vereniging te steunen zonder dat het jou iets extra kost. Zo haalden we al meer dan € 10.000 op via Trooper, om de aanleg van een mindervalidetoegang te financieren.</p>
+      <ol class="steps">
+        <li><b>Kies de vereniging</b>Ga naar Trooper.be en kies KSV Wildert.</li>
+        <li><b>Winkel online</b>Zoek via Trooper de webshop waar je wilt kopen — Trooper werkt samen met bekende winkels zoals Bol.com en Coolblue. Klik door naar de winkel.</li>
+        <li><b>Doe je aankoop</b>Zoals altijd. Prijzen en aanbiedingen veranderen niet.</li>
+        <li><b>De club ontvangt een commissie</b>De winkel betaalt Trooper een percentage voor het doorverwijzen; 75 % daarvan gaat naar KSV Wildert, 25 % naar Trooper.</li>
+      </ol>
+      <p><a class="cta" href="https://www.trooper.be/nl/trooperverenigingen/KSVWildert/" target="_blank" rel="noopener">Naar KSV Wildert op Trooper</a></p>
+    </div>
+    <img src="../img/trooper.png" alt="Trooper" style="max-width:240px;justify-self:center" loading="lazy">
+  </div>
+</section>
+<section id="webshop">
+  <div class="wrap grid2" style="align-items:start">
+    <div class="prose">
+      <div class="kicker">Kledij</div><h2>De Joma-webshop van KSV Wildert</h2>
+      <p>Alle leden, medewerkers en supporters kunnen via het Joma-portaal 24 op 24 hun favoriete sportartikels kopen: clubtraining, clubshirt, sweater, tas en meer, in alle maten en voor alle leeftijden.</p>
+      <h3>Zo krijg je toegang tot “Mijn Club”</h3>
+      <ol class="steps">
+        <li><b>Maak een account</b> op de Joma-webshop en vul bij “Registratie Mijn Club (enkel voor klantaccounts)” onze clubcode in: <b>Wildert</b>. Heb je al een account? Voeg de code toe in je profiel onder “Registratie Mijn Club”.</li>
+        <li><b>Log in</b>: de clubpagina verschijnt automatisch bovenaan in de menubalk.</li>
+        <li><b>Bestel</b> met je kortingen — de gegevens zijn al bekend, dus minder stappen.</li>
+      </ol>
+      <h3>Je voordelen</h3>
+      <ul><li>30 % korting op alle clubkledij</li><li>30 % korting op de volledige teamwear-collectie</li><li>10 % korting op schoenen en rackets</li></ul>
+      <p><a class="cta" href="https://clubs.jomasport.shop/team/wildert" target="_blank" rel="noopener">KSV Wildert-webshop</a> &nbsp; <a href="https://jomasport.shop/Mijn-club/" target="_blank" rel="noopener">Mijn Club</a> · <a href="https://joma-sport.be/" target="_blank" rel="noopener">joma-sport.be</a></p>
+      <p style="color:var(--muted);font-size:.92rem">Vragen over de webshop of bestellingen? Contacteer Bert Theunis via <a href="mailto:info@ksvwildert.be">info@ksvwildert.be</a>.</p>
+    </div>
+    <img src="../img/schermafbeelding-2024-09-02-om-21.12.26.jpg" alt="Joma-webshop" style="border-radius:10px" loading="lazy">
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid3">
+      <div><h4>KSV Wildert</h4><p>Steenovenstraat 163<br>2910 Essen-Wildert<br><a href="tel:+3236770733">03 677 07 33</a> · <a href="mailto:info@ksvwildert.be">info@ksvwildert.be</a></p><p style="margin-top:10px">Aangesloten bij de KBVB sinds 23 maart 1949 · stamnummer 05142 · paars &amp; wit. Onze club draait op vrijwilligers; we antwoorden zo snel we kunnen.</p></div>
+      <div><h4>Snel naar</h4><ul><li><a href="../inschrijven/">Word lid</a></li><li><a href="../praktisch/#route">Route naar de club</a></li><li><a href="../praktisch/#sporteasy">SportEasy voor ouders en spelers</a></li><li><a href="../club/#verzekering">Blessure of ongeval</a></li><li><a href="../steun/#webshop">Joma-webshop</a></li><li><a href="../club/#ekickoff">E-Kickoff (trainers)</a></li></ul></div>
+      <div><h4>Volg ons</h4><ul><li><a href="https://www.facebook.com/ksv.wildert" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.trooper.be/nl/trooperverenigingen/KSVWildert/" target="_blank" rel="noopener">Steun via Trooper</a></li><li><a href="https://clubs.jomasport.shop/team/wildert" target="_blank" rel="noopener">Joma clubwebshop</a></li></ul></div>
+    </div>
+    <div class="fbot"><span>© 2026 KSV Wildert</span><span><a href="../club/#api">Aanspreekpersoon integriteit</a> · <a href="../club/#reglement">Clubreglement</a></span></div>
+  </div>
+</footer>
+<div class="proto">Ontwerpvoorstel door <a href="https://ocior.be">ocior.be</a> — inhoud overgenomen van <a href="https://www.ksvwildert.be" target="_blank" rel="noopener">ksvwildert.be</a> (september 2026). Formulieren en knoppen zijn demo.</div>
+
+</body>
+</html>

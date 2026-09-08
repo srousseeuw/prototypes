@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoetbalAssist voor KSV Wildert — analyse en migratiepad</title>
+<meta name="description" content="Analyse van VoetbalAssist voor KSV Wildert: wat het is, wat het kost, wat het vervangt (Squarespace-site en SportEasy) en een concreet stappenplan om over te stappen.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="../img/logo-ksv-wildert.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--paars:#4B1F86;--paars-d:#33125F;--lila:#F4F0FA;--lila-2:#E6DDF4;--ink:#1B1723;--ink-2:#3D3749;--muted:#6D6680;--line:#E5E0EE;--line-2:#D6CFE3;--geel:#F2B534;--ok:#1f7a3a;--warn:#b45309;--fd:'Barlow Condensed',Impact,sans-serif;--fb:'Barlow',system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--fb);background:#fff;color:var(--ink);line-height:1.58;font-size:16.5px}
+  a{color:var(--paars)}
+  .wrap{max-width:900px;margin:0 auto;padding:0 24px}
+  .mast{background:var(--paars-d);color:#fff;padding:52px 0 40px}
+  .kicker{font-family:var(--fd);text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--geel);font-size:.9rem;margin-bottom:10px}
+  h1{font-family:var(--fd);text-transform:uppercase;font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;line-height:.98;margin-bottom:14px}
+  .mast p{max-width:64ch;color:rgba(255,255,255,.85);font-size:1.08rem}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:18px;font-size:.88rem;color:rgba(255,255,255,.65)}
+  .meta b{color:#fff;font-weight:600}
+  .toc{display:flex;flex-wrap:wrap;gap:6px 18px;padding:14px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+  .toc a{text-decoration:none;font-weight:600;color:var(--ink-2)}
+  .toc a:hover{color:var(--paars)}
+  section{padding:40px 0 0}
+  h2{font-family:var(--fd);text-transform:uppercase;font-size:1.7rem;font-weight:800;line-height:1.05;margin-bottom:12px;color:var(--paars)}
+  h3{font-size:1.05rem;font-weight:700;margin:22px 0 8px}
+  p{margin-bottom:12px;color:var(--ink-2)}
+  p b,li b{color:var(--ink)}
+  ul,ol{margin:0 0 14px 22px;color:var(--ink-2)}
+  li{margin-bottom:6px}
+  .lead{font-size:1.1rem;color:var(--ink)}
+  .verdict{background:var(--lila);border-left:5px solid var(--paars);border-radius:8px;padding:18px 22px;margin:16px 0 8px}
+  .verdict b{color:var(--paars)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:14px 0 18px}
+  table{width:100%;border-collapse:collapse;font-size:.93rem}
+  th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+  thead th{background:var(--lila);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em}
+  .pill.ok{background:#e6f4ea;color:var(--ok)}.pill.warn{background:#fff4e5;color:var(--warn)}.pill.grijs{background:var(--line);color:var(--muted)}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+  .box h3{margin-top:0;font-family:var(--fd);text-transform:uppercase;font-size:1.15rem;color:var(--paars)}
+  .box.warn{border-color:#f5c98a;background:#fffaf2}
+  .steps{list-style:none;margin:0;counter-reset:s}
+  .steps>li{counter-increment:s;position:relative;padding:16px 0 16px 56px;border-top:1px solid var(--line)}
+  .steps>li:first-child{border-top:0}
+  .steps>li::before{content:counter(s);position:absolute;left:0;top:16px;width:38px;height:38px;border-radius:50%;background:var(--paars);color:#fff;display:grid;place-items:center;font-family:var(--fd);font-weight:800;font-size:1.2rem}
+  .steps h3{margin:0 0 4px;font-family:var(--fd);text-transform:uppercase;font-size:1.25rem}
+  .steps .when{font-size:.82rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+  .steps ul{margin-bottom:6px}
+  .check{list-style:none;margin:0}
+  .check li{position:relative;padding:8px 0 8px 30px;border-top:1px solid var(--line)}
+  .check li:first-child{border-top:0}
+  .check li::before{content:"";position:absolute;left:0;top:13px;width:15px;height:15px;border:2px solid var(--paars);border-radius:3px}
+  .src{font-size:.85rem;color:var(--muted)}
+  .src a{color:var(--muted)}
+  footer{margin-top:56px;padding:20px 0 40px;border-top:3px solid var(--paars-d);font-size:.86rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+  @media(max-width:700px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="mast"><div class="wrap">
+  <div class="kicker">Voor het bestuur van KSV Wildert</div>
+  <h1>VoetbalAssist: wat het is, wat het kost en hoe we overstappen</h1>
+  <p>Een nuchtere doorlichting van VoetbalAssist als vervanger van de huidige website (Squarespace) en van SportEasy — met een concreet stappenplan, de kosten voor een club van onze grootte en de valkuilen die we vooraf moeten afdekken.</p>
+  <div class="meta"><span>Opgesteld <b>september 2026</b></span><span>Bronnen: voetbalassist.be, voetbalassist.nl, sporteasy.net, ksvwildert.be, DNS-gegevens ksvwildert.be</span></div>
+</div></div>
+
+<div class="wrap">
+<nav class="toc" aria-label="Inhoud">
+  <a href="#kort">In het kort</a><a href="#vandaag">Wat we vandaag gebruiken</a><a href="#wat">Wat VoetbalAssist is</a><a href="#kosten">Kosten</a><a href="#verandert">Wat verandert</a><a href="#risico">Aandachtspunten</a><a href="#plan">Stappenplan</a><a href="#test">Testlijst proefperiode</a><a href="#beslissen">Te beslissen</a>
+</nav>
+
+<section id="kort">
+  <h2>In het kort</h2>
+  <p class="lead">VoetbalAssist is een alles-in-één platform voor amateurvoetbalclubs: clubwebsite, mobiele ClubApp, ledenadministratie, communicatie en een reeks modules (sponsors, vrijwilligers, lidgeld, formulieren, webshop). Het is een Nederlands bedrijf uit Leerdam met een Belgische tak en een officiële datalicentie van de KBVB, zodat programma, uitslagen, standen en afgelastingen automatisch op site en app verschijnen. Het telt 1.203 clubs in Nederland en België.</p>
+  <div class="verdict">
+    <p><b>Wat het voor KSV Wildert betekent.</b> Eén systeem in plaats van drie losse stukken (Squarespace-site, SportEasy per ploeg, handmatig kalenderwerk). Kostprijs bij onze grootte: ongeveer <b>€ 555 tot € 600 per jaar</b> plus <b>€ 250 eenmalig</b> — zie de berekening. De overstap zelf is haalbaar in <b>8 tot 12 weken</b>, met een gratis overstapservice van VoetbalAssist die de opzegging en het domein regelt.</p>
+    <p style="margin-bottom:0"><b>De twee dingen die we vóór de beslissing moeten uitklaren:</b> of de ClubApp voor trainers en ouders doet wat SportEasy nu doet (beschikbaarheid doorgeven, opstelling, teamberichten) — dat testen we in de gratis proefperiode met één ploeg — en wat we doen met het domein en de e-mail, die vandaag bij Level27 staan en niet bij Squarespace.</p>
+  </div>
+</section>
+
+<section id="vandaag">
+  <h2>Wat de club vandaag gebruikt</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Onderdeel</th><th>Vandaag</th><th>Wat we zagen</th></tr></thead>
+    <tbody>
+      <tr><td><b>Website</b></td><td>Squarespace, gebouwd door Glorious Brands (sponsor), online sinds augustus 2024. 36 pagina's, 11 nieuwsberichten, 38 wedstrijdverslagen, 11 evenementen.</td><td>Veel dubbele pagina's (route staat twee keer, eerste elftal twee keer, U6 twee keer), lege contactvelden bij de meeste jeugdploegen, voorbije evenementen onder “aankomende”, vijf testevenementen (“Event One” tot “Five”) nog online, een dode link “services”, paginatitels als “About 5”. Overal staat “zie SportEasy” voor de kalender.</td></tr>
+      <tr><td><b>SportEasy</b></td><td>Per ploeg: kalender, aanwezigheden, opstelling, berichten. Ouders en spelers sluiten aan met een ploegcode of uitnodiging.</td><td>Onbekend of de club het gratis teamabonnement of het betalende clubabonnement gebruikt (Classic € 3,96 per lid per jaar bij jaarlijkse betaling; “Sponsors”-formule € 5,76). Na te kijken bij wie de ploegen aanmaakte.</td></tr>
+      <tr><td><b>E-Kickoff (KBVB)</b></td><td>Wedstrijdbladen, aansluitingen, aanwezigheidslijsten — verplicht vanuit de bond.</td><td>Blijft bestaan, ook met VoetbalAssist. VoetbalAssist leest de KBVB-data; het vervangt E-Kickoff niet.</td></tr>
+      <tr><td><b>Domein en e-mail</b></td><td>ksvwildert.be is sinds 2008 geregistreerd bij Level27 (Belgische hoster); DNS en de mailboxen (info@…) draaien bij Level27. De site zelf wijst naar Squarespace.</td><td>Drie leveranciers voor één adres. Bij een overstap moet Level27 de DNS aanpassen; de mail kan blijven of mee verhuizen.</td></tr>
+      <tr><td><b>Overige</b></td><td>Joma-clubwebshop, Trooper, Facebook, Squarespace-formulieren (inschrijven, Multimove), Squarespace-webshop (leeg).</td><td>Blijven grotendeels zoals ze zijn; formulieren worden opnieuw gemaakt in VoetbalAssist.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Het prototype op <a href="../">prototype.ocior.be/ksv-wildert</a> toont dezelfde inhoud herordend in zes rubrieken; die structuur is meteen ook het spoorboekje voor de menu-indeling in VoetbalAssist.</p>
+</section>
+
+<section id="wat">
+  <h2>Wat VoetbalAssist is en doet</h2>
+  <div class="cols">
+    <div class="box"><h3>Voor iedereen zichtbaar</h3><ul>
+      <li><b>ClubWebsite</b> met 35 widgets, keuze uit vier tot vijf templates in de clubkleuren, of een eigen ontwerp tegen meerprijs.</li>
+      <li><b>KBVB Dataservice</b>: programma (competitie, beker, oefenwedstrijden), uitslagen en standen, afgelastingen en wedstrijdwijzigingen in realtime, veld- en kleedkamerindeling, verzameltijden, rijders voor uitwedstrijden.</li>
+      <li><b>ClubApp</b> (Android en iOS) in de huisstijl: push bij afgelastingen en nieuws, liveblog per wedstrijd met foto's, doelpunten en kaarten, opstellingen, profiel per lid.</li>
+      <li><b>Sponsormodule</b>, webshop, tickets, crowdfunding, formulieren.</li>
+      <li><b>ClubTV en VeldTV</b> (schermen in de kantine, livestream) — optioneel, met eigen hardware.</li>
+    </ul></div>
+    <div class="box"><h3>Achter de schermen</h3><ul>
+      <li><b>Ledenadministratie</b>: nieuwe leden via site of app komen meteen in de administratie; elk lid krijgt een account met eigen GDPR-instellingen (foto ja/nee, contactgegevens zichtbaar voor de ploeg ja/nee).</li>
+      <li><b>Spelervolgsysteem</b>: aanwezigheid, speeltijd, acties per speler, communicatie trainer–spelers.</li>
+      <li><b>Vrijwilligersmodule</b>: taken plannen en herinneren.</li>
+      <li><b>Lidgeldmodule</b>: facturen, herinneringen, automatische opvolging van mislukte betalingen.</li>
+      <li><b>Rechten en rollen</b> voor bestuur, webmaster, trainers, afgevaardigden.</li>
+      <li><b>Diensten</b>: hosting, back-ups, beveiliging (https, anti-DDoS), e-mailpakket op het clubdomein, verwerkersovereenkomst, supportportaal met handleidingen en tickets. Eén supportgebruiker inbegrepen.</li>
+    </ul></div>
+  </div>
+  <p class="src" style="margin-top:12px">Belgische referenties op de site: SK Rapid Leest (“een van de eerste Belgische gebruikers”) en FC Alberta Schilde. Proefperiode: 30 dagen gratis, alle functies, toegang binnen 15 minuten.</p>
+</section>
+
+<section id="kosten">
+  <h2>Kosten voor een club van onze grootte</h2>
+  <p>De officiële tarieven voor België (voetbalassist.be/kosten). Alles is inbegrepen in de basisprijs: functies, KBVB-koppeling, onderhoud, hosting, back-ups, domeinregistratie, één supportgebruiker.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Post</th><th class="num">Bedrag</th><th>Toelichting</th></tr></thead>
+    <tbody>
+      <tr><td>Opstartkosten</td><td class="num">€ 100 eenmalig</td><td>—</td></tr>
+      <tr><td>Basispakket</td><td class="num">€ 2 per lid per jaar</td><td>Minimum € 455, maximum € 2.000 per jaar. Geteld worden spelende en niet-spelende leden en vrijwilligers. Met ongeveer 14 ploegen zit KSV Wildert vermoedelijk onder de 228 leden en dus op het <b>minimum van € 455</b>. Voor kleine clubs (&lt; 175 leden) “denkt VoetbalAssist mee” — te bespreken.</td></tr>
+      <tr><td>KBVB Dataservice</td><td class="num">€ 100 per jaar</td><td>Aparte factuur rond 1 september. De realtime koppeling met programma, uitslagen en standen.</td></tr>
+      <tr><td>ClubApp</td><td class="num">€ 150 eenmalig</td><td>Optioneel, maar zonder app vervangen we SportEasy niet.</td></tr>
+      <tr><td>Extra supportgebruiker</td><td class="num">€ 95 per jaar</td><td>Optioneel. Eén persoon mag standaard vragen stellen aan VoetbalAssist; een tweede (bv. secretaris naast webmaster) kost € 95.</td></tr>
+      <tr><td>E-mailpakket</td><td class="num">op aanvraag</td><td>Basis (5 adressen) of Plus (onbeperkt). Alleen nodig als we de mail van Level27 verhuizen.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="cols">
+    <div class="box"><h3>Jaar 1</h3><p style="font-family:var(--fd);font-size:2rem;font-weight:800;color:var(--paars);margin:0">≈ € 805</p><p>€ 100 opstart + € 455 basis + € 100 KBVB + € 150 app. Met een tweede supportgebruiker € 900.</p></div>
+    <div class="box"><h3>Vanaf jaar 2</h3><p style="font-family:var(--fd);font-size:2rem;font-weight:800;color:var(--paars);margin:0">≈ € 555 per jaar</p><p>€ 455 basis + € 100 KBVB. Groeit de club boven 228 leden, dan € 2 per lid extra.</p></div>
+  </div>
+  <h3>Tegenover vandaag</h3>
+  <p>Het nettoverschil is pas te berekenen met de facturen in de hand. Wat we weten: Squarespace-abonnementen lopen, afhankelijk van het plan, van ongeveer € 190 tot € 590 per jaar; SportEasy kost niets in de teamversie en € 3,96 tot € 5,76 per lid per jaar in de clubversie; het domein en de mail bij Level27 lopen apart. <b>Actie:</b> de drie facturen opvragen bij wie ze betaalt.</p>
+</section>
+
+<section id="verandert">
+  <h2>Wat verandert er, per groep</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Wie</th><th>Vandaag</th><th>Met VoetbalAssist</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ouders en spelers</b></td><td>SportEasy-app per ploeg (aparte code per ploeg), Facebook voor nieuws, de site voor praktische info.</td><td>Eén ClubApp met eigen login: kalender uit de KBVB, nieuws met push, ploegpagina, profiel met eigen privacy-instellingen. Eén keer aansluiten, alle ploegen van het gezin.</td></tr>
+      <tr><td><b>Trainers en afgevaardigden</b></td><td>Wedstrijden zelf aanmaken in SportEasy, aanwezigheden vragen, opstelling delen; E-Kickoff voor de wedstrijdbladen.</td><td>Wedstrijden komen automatisch uit de KBVB; aanwezigheid, speeltijd en opstelling in het spelervolgsysteem; push naar de ploeg bij afgelasting. E-Kickoff blijft voor de wedstrijdbladen.</td></tr>
+      <tr><td><b>Bestuur en secretaris</b></td><td>Site aanpassen via Squarespace (één persoon), ledenlijst in E-Kickoff en losse lijsten, sponsors handmatig.</td><td>Eén beheer met rollen; nieuwe leden via de site rechtstreeks in de administratie; sponsormodule; vrijwilligersplanning; lidgeld met automatische herinneringen; GDPR geregeld met verwerkersovereenkomst.</td></tr>
+      <tr><td><b>Sponsors</b></td><td>Logo op één pagina.</td><td>Sponsormodule op site, app en eventueel schermen in de kantine; meer bezoek omdat de kalender op de eigen site staat.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="risico">
+  <h2>Aandachtspunten — eerlijk op een rij</h2>
+  <div class="cols">
+    <div class="box warn"><h3>Vóór de beslissing uitklaren</h3><ul>
+      <li><b>Dekt de ClubApp SportEasy?</b> Beschikbaarheid per wedstrijd door ouders, opstelling delen, teamberichten, taken zoals rijden en wassen. VoetbalAssist noemt rijders, opstellingen, aanwezigheid en liveblog — maar of trainers er even vlot mee werken als met SportEasy, blijkt alleen uit een test met een echte ploeg.</li>
+      <li><b>E-Kickoff verdwijnt niet.</b> Wedstrijdbladen en aansluitingen blijven bij de bond. Winst zit in het niet meer dubbel invoeren van de kalender, niet in minder E-Kickoff.</li>
+      <li><b>Domein en mail bij Level27.</b> De DNS moet daar aangepast worden; kiezen of info@ksvwildert.be daar blijft of naar het e-mailpakket van VoetbalAssist gaat (dan verhuizen mailboxen mee).</li>
+      <li><b>Timing.</b> Niet midden in de competitie van SportEasy naar de ClubApp: het beste moment is de winterstop of tussen twee seizoenen.</li>
+    </ul></div>
+    <div class="box"><h3>Goed om te weten</h3><ul>
+      <li><b>Minimum € 455</b> ook als we minder leden tellen; vraag de regeling voor kleine clubs.</li>
+      <li><b>Herkenbare templates.</b> Veel VoetbalAssist-sites lijken op elkaar; een eigen ontwerp kan, tegen meerprijs (offerte).</li>
+      <li><b>Nederlands bedrijf.</b> Support in het Nederlands tijdens kantooruren, via een portaal met tickets. Vraag Belgische referenties (SK Rapid Leest, FC Alberta Schilde) hoe zij de KBVB-koppeling ervaren.</li>
+      <li><b>Dubbele kosten</b> tijdens de uitfasering: maximaal drie maanden volgens VoetbalAssist; Squarespace-jaarabonnementen worden niet terugbetaald, dus plan de overstap richting de vervaldatum.</li>
+      <li><b>Afhankelijkheid van één leverancier.</b> Vraag vooraf hoe leden, nieuws en foto's exporteerbaar zijn en wat de opzegtermijn is (algemene voorwaarden downloaden).</li>
+      <li><b>Privacy.</b> Verwerkersovereenkomst tekenen, privacyverklaring op de site aanpassen, per lid instellen of pasfoto en contactgegevens getoond mogen worden.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="plan">
+  <h2>Stappenplan: van vandaag naar VoetbalAssist</h2>
+  <p>Zeven stappen, samen 8 tot 12 weken. De weken zijn een richtlijn; het echte tempo hangt af van de vervaldatum van Squarespace en het moment in het seizoen.</p>
+  <ol class="steps">
+    <li><h3>Inventaris en beslissing</h3><div class="when">Week 0 – 1 · bestuur</div><ul>
+      <li>Leden tellen zoals VoetbalAssist telt: spelers, niet-spelende leden, vrijwilligers. Dat bepaalt of we op het minimum van € 455 zitten.</li>
+      <li>Drie facturen opvragen: Squarespace (plan en vervaldatum), SportEasy (team- of clubabonnement), Level27 (domein, hosting, mail).</li>
+      <li>Eén webmaster aanduiden (de supportgebruiker) en een back-up; beslissen of een tweede supportgebruiker (€ 95) nodig is.</li>
+      <li>Twee trainers vragen om de proef mee te doen met hun ploeg.</li>
+    </ul></li>
+    <li><h3>Gratis proefperiode van 30 dagen</h3><div class="when">Week 1 – 5 · webmaster + 2 trainers</div><ul>
+      <li>Proefomgeving aanvragen op voetbalassist.be (toegang binnen 15 minuten, tijdelijke URL ksvwildert.voetbalassist.nl).</li>
+      <li>KBVB-koppeling laten leggen op stamnummer 05142 en controleren of de kalender van de U7 en het eerste elftal juist verschijnt.</li>
+      <li>De testlijst hieronder afwerken met de twee ploegen. Pas bij een positieve uitkomst verder.</li>
+    </ul></li>
+    <li><h3>Contract en Overstap Service</h3><div class="when">Week 5 – 6 · secretaris</div><ul>
+      <li>Inschrijfformulier tekenen; de Overstap Service aanvragen: VoetbalAssist zet de omgeving op in paars en wit, regelt de opzegging bij de huidige provider en het domein.</li>
+      <li>ClubApp bestellen (€ 150); publicatie in de app-stores regelt VoetbalAssist.</li>
+      <li>Verwerkersovereenkomst ondertekenen.</li>
+    </ul></li>
+    <li><h3>Inhoud overzetten</h3><div class="when">Week 6 – 9 · webmaster (+ begeleiding)</div><ul>
+      <li>Menu volgens de nieuwe indeling: Nieuws, Ploegen, Club, Praktisch, Steun ons, Word lid — zoals in het prototype.</li>
+      <li>Teksten en foto's van de 36 pagina's overzetten; dubbele pagina's samenvoegen; lege contactvelden invullen of weglaten; testevenementen weglaten.</li>
+      <li>Nieuwsarchief (11), verslagen (38) en evenementen (11) overzetten of als archief linken.</li>
+      <li>Documenten opladen: clubreglement en brochure, charters, E-Kickoff-handleidingen, ongevalformulier.</li>
+      <li>Sponsors in de sponsormodule; inschrijf- en Multimove-formulier in de formulierenmodule; Joma- en Trooper-links.</li>
+      <li>Lijst met oude adressen (ksvwildert.be/u07-ksv-wildert-duiveltjes enz.) voor doorverwijzingen, zodat Google en Facebook-links blijven werken.</li>
+    </ul></li>
+    <li><h3>Leden en app</h3><div class="when">Week 7 – 10 · secretaris + trainers</div><ul>
+      <li>Ledenlijst importeren (export uit E-Kickoff) zodat elk lid een account krijgt; rollen toekennen aan bestuur, trainers en afgevaardigden.</li>
+      <li>Ploegen samenstellen in het spelervolgsysteem.</li>
+      <li>Ouders informeren: één bericht via SportEasy en de site met de uitleg “download de ClubApp, log in met je e-mailadres”.</li>
+      <li>Ploeg per ploeg overschakelen; SportEasy pas afsluiten als elke ploeg over is.</li>
+    </ul></li>
+    <li><h3>Livegang</h3><div class="when">Week 9 – 10 · webmaster + Level27</div><ul>
+      <li>DNS bij Level27 laten wijzen naar VoetbalAssist (A-record en www); certificaat wordt automatisch gezet.</li>
+      <li>Mail: blijven bij Level27 (niets doen) of MX-records naar het e-mailpakket van VoetbalAssist en de mailboxen overzetten.</li>
+      <li>Facebook-links en Google-bedrijfsprofiel bijwerken; doorverwijzingen controleren.</li>
+      <li>Squarespace na de uitfasering (maximaal drie maanden) definitief opzeggen.</li>
+    </ul></li>
+    <li><h3>Nazorg</h3><div class="when">Week 10 – 14 · bestuur</div><ul>
+      <li>Korte opleiding voor wie publiceert; handleiding uit het supportportaal.</li>
+      <li>Privacyverklaring aanpassen; GDPR-instellingen per lid nakijken (foto's van minderjarigen).</li>
+      <li>Evaluatie na drie maanden: gebruik van de app, bezoek aan de site, tijd die bestuur en trainers besparen.</li>
+    </ul></li>
+  </ol>
+</section>
+
+<section id="test">
+  <h2>Testlijst voor de proefperiode</h2>
+  <p>Met de U7 en het eerste elftal, gedurende twee wedstrijdweken. Elke regel moet een ja zijn — of een bewuste “kunnen we missen”.</p>
+  <ul class="check">
+    <li>De KBVB-kalender van beide ploegen staat juist op site en app, inclusief een wijziging of afgelasting die de bond doorvoert.</li>
+    <li>Een ouder kan met één account de wedstrijden van twee kinderen in verschillende ploegen volgen.</li>
+    <li>Ouders kunnen per wedstrijd aan- of afmelden en de trainer ziet dat overzicht op zijn telefoon.</li>
+    <li>De trainer kan een opstelling maken en delen met de ploeg.</li>
+    <li>Een bericht van de trainer naar de ploeg komt als push aan bij de ouders.</li>
+    <li>Rijders voor een uitwedstrijd kunnen ingepland worden.</li>
+    <li>Een nieuwsbericht met foto plaatsen kost de webmaster minder dan tien minuten.</li>
+    <li>Een nieuw lid dat zich via de site aanmeldt, staat meteen in de ledenadministratie.</li>
+    <li>Het inschrijfformulier en het Multimove-formulier zijn na te bouwen met de formulierenmodule.</li>
+    <li>De sponsorlogo's staan netjes op site en app.</li>
+    <li>De site ziet er in paars en wit uit zoals de club het wil (template of eigen ontwerp).</li>
+    <li>Leden, nieuws en foto's zijn exporteerbaar; de opzegtermijn is duidelijk.</li>
+  </ul>
+</section>
+
+<section id="beslissen">
+  <h2>Wat het bestuur moet beslissen</h2>
+  <ul class="check">
+    <li>Gaan we de proefperiode doen, en wanneer (voorstel: rond de winterstop, zodat de overschakeling van SportEasy tussen twee competitiehelften valt)?</li>
+    <li>Wie wordt webmaster en supportgebruiker; komt er een tweede?</li>
+    <li>Nemen we de ClubApp (€ 150) erbij — zonder app blijft SportEasy nodig?</li>
+    <li>Blijft de e-mail bij Level27, of gaat ze mee naar VoetbalAssist?</li>
+    <li>Kiezen we een standaardtemplate in paars en wit, of een eigen ontwerp op basis van het prototype?</li>
+    <li>Wie begeleidt de inhoudsmigratie: iemand van de club, of ocior.be dat de inhoud al heeft geïnventariseerd?</li>
+  </ul>
+  <p class="src" style="margin-top:20px">Bronnen: <a href="https://www.voetbalassist.be/kosten/" target="_blank" rel="noopener">tarieven België</a> · <a href="https://www.voetbalassist.be/overstap-service/" target="_blank" rel="noopener">Overstap Service</a> · <a href="https://www.voetbalassist.be/kbvb-wedstrijden-leden/" target="_blank" rel="noopener">KBVB Dataservice</a> · <a href="https://www.voetbalassist.be/faq/" target="_blank" rel="noopener">FAQ</a> · <a href="https://www.voetbalassist.be/gdpr/" target="_blank" rel="noopener">GDPR</a> · <a href="https://www.voetbalassist.be/clubwebsite/" target="_blank" rel="noopener">ClubWebsite</a> · <a href="https://www.sporteasy.net/nl/clubs/plans/" target="_blank" rel="noopener">SportEasy-abonnementen</a> · <a href="https://www.ksvwildert.be" target="_blank" rel="noopener">ksvwildert.be</a>. Cijfers geraadpleegd op 6 september 2026; tarieven kunnen wijzigen.</p>
+</section>
+
+<footer><span>Analyse door Sebastiaan Rousseeuw · ocior.be</span><span>september 2026 · ter bespreking, geen offerte</span></footer>
+</div>
+</body>
+</html>

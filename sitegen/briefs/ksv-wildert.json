@@ -1,0 +1,14 @@
+{
+  "slug": "ksv-wildert",
+  "sector": "sportclub",
+  "business_name": "KSV Wildert",
+  "category": "Voetbalclub in Essen-Wildert",
+  "generated": false,
+  "note": "Handgemaakt prototype na een doorloop van alle pagina's van www.ksvwildert.be (Squarespace). Zelfde inhoud, herordend in zes rubrieken; subpagina's nieuws/, verslagen/, ploegen/, multimove/, inschrijven/, praktisch/, club/, steun/. Analysepagina VoetbalAssist + migratiepad op voetbalassist/ (noindex). generate.py weigert dit bestand te overschrijven; bewerk sites/ksv-wildert/ rechtstreeks.",
+  "address": "Steenovenstraat 163, 2910 Essen-Wildert",
+  "phone": "+32 3 677 07 33",
+  "email": "info@ksvwildert.be",
+  "website": "https://www.ksvwildert.be",
+  "stamnummer": "05142",
+  "gemeente": "Essen"
+}
