@@ -1,0 +1,40 @@
+{
+  "slug": "fietsen-van-der-veeken",
+  "sector": "fietsenwinkel",
+  "business_name": "Van der Veeken Tweewielers",
+  "category": "Fietsenwinkel & tweewielerspecialist",
+  "tagline": "Al jarenlang hét vertrouwde adres in Sint-Willebrord voor fietsen, bromfietsen en herstellingen",
+  "address": "Dorpsstraat 111, 4711 EG Sint-Willebrord",
+  "phone": "0165 38 22 62",
+  "hours": [
+    ["Maandag", "9:00 – 17:30"],
+    ["Dinsdag", "9:00 – 17:30"],
+    ["Woensdag", "9:00 – 17:30"],
+    ["Donderdag", "9:00 – 17:30"],
+    ["Vrijdag", "9:00 – 17:30"],
+    ["Zaterdag", "9:00 – 17:30"],
+    ["Zondag", "Gesloten"]
+  ],
+  "highlights": [
+    "Onafhankelijke buurtwinkel middenin het dorp, aan de Dorpsstraat",
+    "Ruim assortiment fietsen en bromfietsen voor jong en oud",
+    "Ook terecht voor sport- en kampeerartikelen",
+    "Persoonlijk advies aan de toonbank, geen webshop-anonimiteit"
+  ],
+  "services": [
+    "Verkoop fietsen",
+    "Verkoop bromfietsen",
+    "Onderhoud & herstellingen",
+    "Sport- en kampeerartikelen",
+    "Advies op maat"
+  ],
+  "about": "Van der Veeken Tweewielers is een kleine, onafhankelijke fietsenwinkel middenin Sint-Willebrord. Naast een assortiment fietsen en bromfietsen kun je er ook terecht voor onderhoud en herstellingen, en voor een aanvullend aanbod sport- en kampeerartikelen. Een echte dorpswinkel waar je nog persoonlijk geholpen wordt, zonder de anonimiteit van een grote keten of webshop.",
+  "cta_text": "Bel de winkel",
+  "accent": "#e0a52c",
+  "email_note": "Geen e-mailadres teruggevonden — geen eigen website of KVK-vermelding met e-mailadres gevonden. vanderveekenfietsen.nl bleek een ander bedrijf (Van der Veeken de Fietsspecialist, Etten-Leur, geen relatie). Enkel telefonisch bereikbaar.",
+  "note": "Adres (Dorpsstraat 111, 4711 EG Sint-Willebrord) en telefoonnummer (0165 38 22 62) bevestigd via meerdere onafhankelijke bronnen (fietsenwinkels.org, fiets-zaken.nl, telefoonboek.nl). Geen actieve eigen website gevonden. Openingstijden komen enkel van de directory fiets-zaken.nl (niet van een eigen bron) — dus met enig voorbehoud. Eén bron (nederlandinbedrijf.nl) claimt dat de zaak al sinds 1930 bestaat, maar die pagina gaf bij rechtstreeks bezoek een 403-foutmelding, dus die datum kon niet zelf geverifieerd worden en is niet gebruikt in de site-tekst. KVK-nummer 20071640 vermeldt als SBI-omschrijving ook 'boten', maar dat is niet meegenomen in de copy omdat dit niet apart bevestigd kon worden als actief onderdeel van de winkel.",
+  "outreach": {
+    "status": "nieuw",
+    "only_phone": true
+  }
+}
