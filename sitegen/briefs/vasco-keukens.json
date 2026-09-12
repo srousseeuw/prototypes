@@ -1,0 +1,31 @@
+{
+  "slug": "vasco-keukens",
+  "sector": "keukenstudio",
+  "business_name": "Vasco Keukens & Interieur",
+  "category": "Keukens en interieur op maat, Kalmthout en Wilrijk",
+  "generated": false,
+  "note": "Handgemaakt prototype (111 pagina's) na een doorloop van alle 172 pagina's van www.keukensvasco.be: alle inhoud herbouwd (39 realisaties, 50 artikels, 61 klantenkeukens, materialen, merken, vacatures) plus nieuwe functionaliteit: afspraak boeken met voorkeursadviseur (/afspraak/), keukenwijzer (/keukenwijzer/), service-aanvraag (/service/), realisatiefilter, mobiele balk. Analyse van huidige site + DSM/Dovy voor de zaakvoerder op /analyse/ (noindex). Adviseursnamen komen uit reviews op hun site; enkel Xander heeft een foto (van hun vacaturepagina). Uren Wilrijk, tel. 03 877 09 70 en levertijd (10-14 weken vs 22 werkweken op hun site) nog te bevestigen. Generator staat in de scratchpad, niet in de repo.",
+  "tagline": "Keukens en interieur op maat, gemaakt in Kalmthout",
+  "address": "Brasschaatsteenweg 290, 2920 Kalmthout (2e showroom: Boomsesteenweg 892, 2610 Wilrijk)",
+  "phone": "+32 3 666 63 96",
+  "email": "info@keukensvasco.be",
+  "website": "https://www.keukensvasco.be",
+  "hours": [
+    ["Maandag", "9:00 – 18:00"],
+    ["Dinsdag", "9:00 – 18:00"],
+    ["Woensdag", "9:00 – 18:00"],
+    ["Donderdag", "9:00 – 18:00"],
+    ["Vrijdag", "9:00 – 18:00"],
+    ["Zaterdag", "10:00 – 17:00"],
+    ["Zondag", "10:00 – 17:00 (Kalmthout); Wilrijk gesloten"]
+  ],
+  "highlights": [
+    "Vlaams familiebedrijf sinds 1975 (Marc, nu Wim Herrijgers)",
+    "Eigen atelier, zagerij en poederlakkerij in Kalmthout",
+    "Showrooms in Kalmthout (ook zondag) en Wilrijk",
+    "Ook volledig interieur op maat en projecten voor bedrijven"
+  ],
+  "services": ["Keukens op maat", "Interieur op maat", "Keukenrenovatie", "Bedrijfsinterieur en vastgoedprojecten", "Service & nazorg"],
+  "about": "Vasco Keukens & Interieur ontwerpt, maakt en plaatst keukens en interieurs op maat vanuit het eigen atelier in Kalmthout.",
+  "cta_text": "Maak een afspraak"
+}
